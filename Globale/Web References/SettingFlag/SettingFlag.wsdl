@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="CreaFlag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Descrizone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaFlagResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EliminaFlag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminaFlagResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="EsisteFlag">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteFlagResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EsisteFlagResult" type="tns:Dati" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Dati">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Esiste" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Creazione" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descrizione" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InizializzaInterop">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InizializzaInteropResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InizializzaInteropResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValoreChiaveInterop">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Chiave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValoreChiaveInteropResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValoreChiaveInteropResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalvaChiaveInterop">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Chiave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Valore" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalvaChiaveInteropResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SalvaChiaveInteropResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Enumerazioni">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="tns:TipoFlag" />
+            <s:element minOccurs="1" maxOccurs="1" name="Chiave" type="tns:ChiaviInterop" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoFlag">
+        <s:restriction base="s:string">
+          <s:enumeration value="IMPORTAZIONE_MA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="ChiaviInterop">
+        <s:restriction base="s:string">
+          <s:enumeration value="AUTO_IMPORT_MA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="EnumerazioniResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreaFlagSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaFlag" />
+  </wsdl:message>
+  <wsdl:message name="CreaFlagSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaFlagResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminaFlagSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminaFlag" />
+  </wsdl:message>
+  <wsdl:message name="EliminaFlagSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminaFlagResponse" />
+  </wsdl:message>
+  <wsdl:message name="EsisteFlagSoapIn">
+    <wsdl:part name="parameters" element="tns:EsisteFlag" />
+  </wsdl:message>
+  <wsdl:message name="EsisteFlagSoapOut">
+    <wsdl:part name="parameters" element="tns:EsisteFlagResponse" />
+  </wsdl:message>
+  <wsdl:message name="InizializzaInteropSoapIn">
+    <wsdl:part name="parameters" element="tns:InizializzaInterop" />
+  </wsdl:message>
+  <wsdl:message name="InizializzaInteropSoapOut">
+    <wsdl:part name="parameters" element="tns:InizializzaInteropResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValoreChiaveInteropSoapIn">
+    <wsdl:part name="parameters" element="tns:ValoreChiaveInterop" />
+  </wsdl:message>
+  <wsdl:message name="ValoreChiaveInteropSoapOut">
+    <wsdl:part name="parameters" element="tns:ValoreChiaveInteropResponse" />
+  </wsdl:message>
+  <wsdl:message name="SalvaChiaveInteropSoapIn">
+    <wsdl:part name="parameters" element="tns:SalvaChiaveInterop" />
+  </wsdl:message>
+  <wsdl:message name="SalvaChiaveInteropSoapOut">
+    <wsdl:part name="parameters" element="tns:SalvaChiaveInteropResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnumerazioniSoapIn">
+    <wsdl:part name="parameters" element="tns:Enumerazioni" />
+  </wsdl:message>
+  <wsdl:message name="EnumerazioniSoapOut">
+    <wsdl:part name="parameters" element="tns:EnumerazioniResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SettingFlagSoap">
+    <wsdl:operation name="CreaFlag">
+      <wsdl:input message="tns:CreaFlagSoapIn" />
+      <wsdl:output message="tns:CreaFlagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaFlag">
+      <wsdl:input message="tns:EliminaFlagSoapIn" />
+      <wsdl:output message="tns:EliminaFlagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EsisteFlag">
+      <wsdl:input message="tns:EsisteFlagSoapIn" />
+      <wsdl:output message="tns:EsisteFlagSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InizializzaInterop">
+      <wsdl:input message="tns:InizializzaInteropSoapIn" />
+      <wsdl:output message="tns:InizializzaInteropSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValoreChiaveInterop">
+      <wsdl:input message="tns:ValoreChiaveInteropSoapIn" />
+      <wsdl:output message="tns:ValoreChiaveInteropSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SalvaChiaveInterop">
+      <wsdl:input message="tns:SalvaChiaveInteropSoapIn" />
+      <wsdl:output message="tns:SalvaChiaveInteropSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Enumerazioni">
+      <wsdl:input message="tns:EnumerazioniSoapIn" />
+      <wsdl:output message="tns:EnumerazioniSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SettingFlagSoap" type="tns:SettingFlagSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreaFlag">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaFlag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaFlag">
+      <soap:operation soapAction="http://utools.auaonline.it/EliminaFlag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteFlag">
+      <soap:operation soapAction="http://utools.auaonline.it/EsisteFlag" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InizializzaInterop">
+      <soap:operation soapAction="http://utools.auaonline.it/InizializzaInterop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValoreChiaveInterop">
+      <soap:operation soapAction="http://utools.auaonline.it/ValoreChiaveInterop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaChiaveInterop">
+      <soap:operation soapAction="http://utools.auaonline.it/SalvaChiaveInterop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enumerazioni">
+      <soap:operation soapAction="http://utools.auaonline.it/Enumerazioni" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SettingFlagSoap12" type="tns:SettingFlagSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreaFlag">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaFlag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaFlag">
+      <soap12:operation soapAction="http://utools.auaonline.it/EliminaFlag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteFlag">
+      <soap12:operation soapAction="http://utools.auaonline.it/EsisteFlag" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InizializzaInterop">
+      <soap12:operation soapAction="http://utools.auaonline.it/InizializzaInterop" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValoreChiaveInterop">
+      <soap12:operation soapAction="http://utools.auaonline.it/ValoreChiaveInterop" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaChiaveInterop">
+      <soap12:operation soapAction="http://utools.auaonline.it/SalvaChiaveInterop" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enumerazioni">
+      <soap12:operation soapAction="http://utools.auaonline.it/Enumerazioni" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SettingFlag">
+    <wsdl:port name="SettingFlagSoap" binding="tns:SettingFlagSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/SettingFlag.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SettingFlagSoap12" binding="tns:SettingFlagSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/SettingFlag.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

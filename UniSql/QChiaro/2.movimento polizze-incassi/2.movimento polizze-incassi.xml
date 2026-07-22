@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Incassi</pacchetto>
+        <nome>2.movimento polizze-incassi</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae i movimenti delle polizza con l'ultimo incassi.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Nessuno
+]]></note>
+        <ultagg>25/07/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="string" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT format(Convenzione,'00000'), format(Convenzione,'00000')
+	    		           FROM Incassi
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+
+        <parametro nome="@segmentazione" etichetta="Segmento" tipo="integer" obbligatorio="true" valore="-1" larghezza="42" sinistra="84">
+	    <elencovalori>
+	    -1;TUTTI;
+	    	-2;  DANNI;
+	    		-4;    AUTO;
+					 1;        RESPONSABILITA' CIVILE AUTO;
+					 2;        AUTO RISCHI DIVERSI;
+	    		-5;    RAMI ELEMENTARI;
+	    			-6;      PERSONE;
+					 3;        INFORTUNI;
+					 4;        MALATTIE;
+					 5;        RISCHI DIVERSI PERSONE;
+	    			-7;      AZIENDE;
+					 6;        INCENDIO RISCHI ORDINARI;
+					 7;        INCENDIO RISCHI INDUSTRIALI;
+					 8;        RISCHI TECNOLOGICI;
+					 9;        FURTO;
+					10;        RESPONSABILITA' CIVILE GENERALE;
+	    			-8;      ALTRI RAMI;
+					11;        TRASPORTI;
+					12;        AERONAUTICA;
+					13;        CAUZIONI;
+					14;        CREDITO;
+					15;        RISCHIO IMPIEGO;
+					16;        GRANDINE;
+					17;        BESTIAME;
+	    	-3;  VITA;
+                                        18;        VITA INDIVIDUALI;
+					19;        VITA COLLETTIVE;
+					20;        VITA FONDI PENSIONE
+	    </elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		 MP.CodiceFiscale AS [CodiceFiscale (MP)]
+		,IC.Contraente AS [Contraente (IC)]
+		,MP.Agenzia AS [Agenzia (MP)]
+		,MP.CodiceProdotto AS [CodiceProdotto (MP)]
+		,MP.Ramo AS [Ramo (MP)]
+		,TR.Ramo AS [Ramo Des]
+		,MP.Polizza AS [Polizza (MP)]
+		,IC.Polizza AS [Polizza (IC)]
+		,MP.DataEffetto AS [DataEffetto (MP)]
+		,IC.DataEffettoAppendice AS [DataEffettoAppendice (IC)]
+		,IC.DataEffettoTitolo AS [DataEffettoTitolo (IC)]
+		,MP.DataScadenza AS [DataScadenza (MP)]
+		,IC.DataScadenzaTitolo AS [DataScadenzaTitolo (IC)]
+		,MP.DataPrimaQuietanza AS [DataPrimaQuietanza (MP)]
+		,IC.DataFoglioCassa AS [DataFoglioCassa (IC)]
+		,MP.DataStorno AS [DataStorno (MP)]
+		,MP.IDStorno AS [IDStorno (MP)]
+		,TS.Storno   AS [Storno]
+		,MP.Frazionamento AS [Frazionamento (MP)]
+		,MP.Canale AS [Canale (MP)]
+		,MP.CodiceSubAgente AS [CodiceSubAgente (MP)]
+		,MP.CodiceProduttore AS [CodiceProduttore (MP)]
+		,MP.TotalePremioAnnuo AS [TotalePremioAnnuo (MP)]
+		,MP.Targa AS [Targa (MP)]
+		,MP.CavalliFiscali AS [CavalliFiscali (MP)]
+		,MP.Convenzione AS [Convenzione (MP)]
+		,MP.TipoCarico AS [TipoCarico (MP)]
+		,IC.TipoCarico AS [TipoCarico (IC)]
+		,MP.Delegataria AS [Delegataria (MP)]
+		,MP.Quota AS [Quota (MP)]
+		,MP.RamoGestione AS [RamoGestione (MP)]
+		,MP.TipoPolProd AS [TipoPolProd (MP)]
+		,MP.CompagniaSost AS [CompagniaSost (MP)]
+		,MP.AgenziaSost AS [AgenziaSost (MP)]
+		,MP.RamoSost AS [RamoSost (MP)]
+		,MP.PolizzaSost AS [PolizzaSost (MP)]
+		  FROM ((([MovPolizze] MP 
+		  LEFT JOIN (
+		    SELECT I1.* 
+		      FROM Incassi I1  
+		     INNER JOIN (
+		    SELECT Agenzia
+			 , Ramo
+			 , Polizza
+			 , MAX(DataEffettoTitolo) AS MaxDataEffettoTitolo
+		      FROM [Incassi]
+		     GROUP BY Agenzia, Ramo, Polizza) I2
+			ON I1.Agenzia = I2.Agenzia
+		       AND I1.Ramo    = I2.Ramo
+		       AND I1.Polizza = I2.Polizza
+		       AND I1.DataEffettoTitolo = I2.MaxDataEffettoTitolo) IC
+		    ON IC.Agenzia = MP.Agenzia
+		   AND IC.Polizza = MP.Polizza
+		   AND IC.Ramo    = MP.Ramo)
+		 LEFT JOIN [TipoStorni] AS TS
+		   ON (MP.IDStorno = TS.IDStorno AND IIF(MP.RamoGestione >=18 AND MP.RamoGestione <=20, 'V', 'D')= TS.Settore))
+		 LEFT JOIN [TipoRami] AS TR
+		   ON MP.Ramo = TR.CodiceRamo)
+		WHERE @subagenzia    IN (-1, MP.CodiceSubAgente)
+		  AND @produttore    IN (-1, MP.CodiceProduttore)
+		  AND @convenzione   IN ('#', format(MP.Convenzione,'00000'))
+		  AND @prodotto      IN ('#', format(MP.CodiceProdotto,'00000'))
+		  AND @segmentazione IN (-1,
+		  	iif(MP.RamoGestione >=  1 and MP.RamoGestione <= 17, -2, 0),
+		  	iif(MP.RamoGestione >= 18 and MP.RamoGestione <= 20, -3, 0),
+		  	iif(MP.RamoGestione >=  1 and MP.RamoGestione <=  2, -4, 0),
+		  	iif(MP.RamoGestione >=  3 and MP.RamoGestione <= 17, -5, 0),
+		  	iif(MP.RamoGestione >=  3 and MP.RamoGestione <=  5, -6, 0),
+		  	iif(MP.RamoGestione >=  6 and MP.RamoGestione <= 10, -7, 0),
+		  	iif(MP.RamoGestione >= 11 and MP.RamoGestione <= 17, -8, 0),
+		  	MP.RamoGestione)
+			]]></sql>
+    </estrazione>
+</oggetto>

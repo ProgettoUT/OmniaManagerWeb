@@ -1,0 +1,153 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+GestioneDocumenti
+</name>
+</assembly>
+<members>
+<member name="T:UnitoolsDocumenti.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:UnitoolsDocumenti.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:UnitoolsDocumenti.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="M:UnitoolsDocumenti.Documenti.Protocollo">
+ <summary>
+ restituisce il protocollo del doc se esiste
+ </summary>
+ <returns></returns>
+ <remarks>Il protocollo viene restituito come stringa per evitare errore nei formati ora con punto</remarks>
+</member>
+<member name="T:UnitoolsDocumenti.test.UploaderUnitools">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.#ctor">
+<remarks/>
+</member>
+<member name="E:UnitoolsDocumenti.test.UploaderUnitools.uniUploadToLiquidoCompleted">
+<remarks/>
+</member>
+<member name="E:UnitoolsDocumenti.test.UploaderUnitools.uniDownloadFromLiquidoCompleted">
+<remarks/>
+</member>
+<member name="E:UnitoolsDocumenti.test.UploaderUnitools.docINListCompleted">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.uniUploadToLiquido(System.String,System.String,System.String,System.String,System.String,System.DateTime,System.Boolean,System.Byte[],System.String[],System.String)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.uniUploadToLiquidoAsync(System.String,System.String,System.String,System.String,System.String,System.DateTime,System.Boolean,System.Byte[],System.String[],System.String)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.uniUploadToLiquidoAsync(System.String,System.String,System.String,System.String,System.String,System.DateTime,System.Boolean,System.Byte[],System.String[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.uniDownloadFromLiquido(System.String)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.uniDownloadFromLiquidoAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.uniDownloadFromLiquidoAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.docINList">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.docINListAsync">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.docINListAsync(System.Object)">
+<remarks/>
+</member>
+<member name="M:UnitoolsDocumenti.test.UploaderUnitools.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.gw_locale">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.gw_locale.AnyAttr">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.gw_locale.Value">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.UploaderUnitoolsBean">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.UploaderUnitoolsBean.errorDescription">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.UploaderUnitoolsBean.esito">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.traceability_id">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.traceability_id.AnyAttr">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.traceability_id.Value">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.authentication">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.authentication.username">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.authentication.password">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.authentication.AnyAttr">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.gw_language">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.gw_language.AnyAttr">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.gw_language.Value">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.uniUploadToLiquidoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.uniUploadToLiquidoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.uniUploadToLiquidoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.uniDownloadFromLiquidoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.uniDownloadFromLiquidoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.uniDownloadFromLiquidoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.docINListCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnitoolsDocumenti.test.docINListCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnitoolsDocumenti.test.docINListCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

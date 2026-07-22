@@ -1,0 +1,12 @@
+C:\ApplicazioniDirezione\UTW\SETUP\ScannerRDP.exe.config
+C:\ApplicazioniDirezione\UTW\SETUP\ScannerRDP.exe
+C:\ApplicazioniDirezione\UTW\SETUP\ScannerRDP.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\ScannerRDP.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.ScannerRDP.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ScannerRDP\SessioneRDP\obj\x86\Release\ScannerRDP.pdb

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Contatti</pacchetto>
+        <nome>Indirizzo clienti</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Estrae gli indirizzi postali dei clienti</descrizione>
+        <note></note>
+        <ultagg>15/02/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Sub agenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT SubAgenzia, format(SubAgenzia,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Clienti C left join FigureProduttive as FP on (C.SubAgenzia=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@Cognome" etichetta="Il nominativo contiene la stringa" tipo="string" valore="" obbligatorio="false"/>
+    </parametri>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    (Switch([Sesso]="N","Spettabile",[Sesso]="F","Gentile Signora",[Sesso]="M","Egregio Signor")) AS [Titolo], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia]
+		    ,C.SubAgenzia AS [Sub Agenzia]
+		FROM 
+		    Clienti C
+		WHERE 
+			 C.Cognome like '%' & @Cognome & '%'
+		  AND @subagenzia in (-1,C.SubAgenzia)
+		ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

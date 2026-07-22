@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Lettere</pacchetto>
+        <nome>Comunicazioni Indirizzo di Spedizione</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniare</proprietario>
+        <!--stato>temporaneo</stato-->
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco arretrati per stampare lettere</descrizione>
+        <note></note>
+        <ultagg>20/02/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="-1" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@datamin" etichetta="Effetto dal" tipo="date" larghezza="12" sinistra="90" valore="=format(DateSerial(year(Date()), month(Date()), 1), 'dd/mm/yyyy')" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al"          tipo="date" larghezza="12" sinistra="105" valore="=format(DateAdd('d', -1, DateSerial(year(Date()), 1 + month(Date()), 1)), 'dd/mm/yyyy')" obbligatorio="true"/>
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga2" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga3" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		     TRIM(C.Cognome & " " & C.Nome) AS CONTRAENTE_NOME
+		    ,A.TipoCarico                   AS CODICE_TIPO_CARICO
+		    ,TC.Descrizione                 AS TIPO_CARICO
+		    ,TRIM(D.DestinatarioNominativo) AS DESTINATARIO_NOME
+		    ,Format(A.Ramo,'000') & '/' & Format(A.Polizza,'000000000') AS POLIZZA_NUMERO
+		    ,A.EffettoTitolo                AS POLIZZA_SCADENZA
+		    ,A.TotaleTitolo                 AS POLIZZA_PREMIO
+		    ,TRIM(IIF(P.Targa > '', P.MarcaVeicolo & ' - ' & P.Targa, lcase(TR.Ramo))) AS POLIZZA_TIPO
+		    ,A.SubAgenzia                   AS SUB_AGENZIA
+		    ,TRIM(D.DestinatarioPresso)     AS DESTINATARIO_PRESSO
+		    ,TRIM(D.DestinatarioIndirizzo)  AS DESTINATARIO_INDIRIZZO
+		    ,TRIM(D.DestinatarioLocalita)   AS DESTINATARIO_LOCALITA
+		    ,TRIM(D.DestinatarioQualifica)  AS DESTINATARIO_QUALIFICA
+		    ,C.Indirizzo                    AS CONTRAENTE_INDIRIZZO
+		    ,C.Localita                     AS CONTRAENTE_LOCALITA
+		    ,C.Cap                          AS CONTRAENTE_CAP
+		    ,C.Provincia                    AS CONTRAENTE_PROVINCIA
+		    ,C.Telefono1                    AS CONTRAENTE_TELEFONO
+		    ,C.Fax                          AS CONTRAENTE_FAX
+		    ,C.Cellulare                    AS CONTRAENTE_CELLULARE
+		    ,C.Email                        AS CONTRAENTE_EMAIL
+		    ,TRIM(D.DestinatarioProvincia)  AS DESTINATARIO_PROVINCIA
+		    ,TRIM(D.DestinatarioCap)        AS DESTINATARIO_CAP
+		    ,P.CodiceFiscale                AS DESTINATARIO_CODICEFISCALE
+		    ,C.ConsensoPrivacy AS [Privacy]
+		 FROM ((((([Arretrati] AS A
+		 LEFT JOIN Polizze P ON a.agenzia=p.agenzia and a.ramo = p.ramo and a.Polizza = p.Polizza)
+		 LEFT JOIN CLIENTI C ON P.CodiceFiscale = C.CodiceFiscale)
+		 LEFT JOIN ANA_SOGGETTO D ON P.CodiceFiscale = D.CodiceFiscale)
+		 LEFT JOIN [TipoRami] AS TR ON TR.CodiceRamo = A.Ramo)
+		 LEFT JOIN [TipoCarico] AS TC ON TC.Codice = A.TipoCarico)
+		WHERE C.CodiceFiscale is not null
+		  AND D.DestinatarioNominativo is not null
+		  AND A.EffettoTitolo >= @datamin
+		  AND A.EffettoTitolo <= @datamax
+		  AND (A.SubAgenzia IN (@subagenzia) OR -1 IN (@subagenzia))
+		ORDER BY 1
+	]]></sql>
+    </estrazione>
+</oggetto>

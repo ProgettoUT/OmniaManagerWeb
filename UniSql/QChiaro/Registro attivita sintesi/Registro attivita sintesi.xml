@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Utilita</pacchetto>
+        <nome>Sintesi registro attività</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Estrazione del registro delle attività</descrizione>
+        <note></note>
+        <ultagg>10/02/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <parametri>
+        <parametro nome="@utente" etichetta="Utente" tipo="string" valore="#" obbligatorio="true" larghezza="30" sinistra="30">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT Utente, Utente
+	    		           FROM RegistroAttivita
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@TipoAttivita" etichetta="Attivita" tipo="integer" valore="-1" obbligatorio="true" larghezza="30" sinistra="70" multivalore="true" altezza="6">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT CodTipoAttivita, format(CodTipoAttivita,'00') & '-' & DesTipoAttivita
+	    		           FROM TipoAttivita
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@datamin" etichetta="dal" tipo="date" larghezza="13" nuovariga="false" sinistra="106" valore="=format(DateSerial(year(Date()), 1, 1), 'dd/mm/yyyy')"   obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al"  tipo="date" larghezza="13" nuovariga="false" sinistra="122" valore="=format(DateSerial(year(Date()), 12, 31), 'dd/mm/yyyy')" obbligatorio="true"/>
+        
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga2" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+    </parametri>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		TRANSFORM
+		       COUNT(*)          AS Numero
+		SELECT R.Utente
+		  FROM RegistroAttivita R
+		  LEFT JOIN TipoAttivita T
+		    ON R.TipoAttivita = T.CodTipoAttivita
+		 WHERE R.Data >= @datamin
+		   AND R.Data <= @datamax
+                   AND (R.TipoAttivita IN (@TipoAttivita) OR -1 IN (@TipoAttivita))
+		   AND @utente IN ('#', R.Utente)
+		 GROUP BY R.Utente
+		 PIVOT T.DesTipoAttivita
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="VisuraPra">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgenziaMadre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Targa" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceSerieTarga" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VisuraPraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VisuraPraResult" type="tns:Visura" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Visura">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceEsito" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VisuraRichiesta" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ElencoVisure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoVisureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoVisureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportVisure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportVisureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReportVisureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLottoAvvisi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Localita" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MeseAvvisi" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AnnoAvvisi" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeLotto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdCampagna" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Destinatari" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Titoli" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Comunicazioni" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLottoAvvisiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraLottoAvvisiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="VisuraPraSoapIn">
+    <wsdl:part name="parameters" element="tns:VisuraPra" />
+  </wsdl:message>
+  <wsdl:message name="VisuraPraSoapOut">
+    <wsdl:part name="parameters" element="tns:VisuraPraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoVisure" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoVisureResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReportVisureSoapIn">
+    <wsdl:part name="parameters" element="tns:ReportVisure" />
+  </wsdl:message>
+  <wsdl:message name="ReportVisureSoapOut">
+    <wsdl:part name="parameters" element="tns:ReportVisureResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLottoAvvisiSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraLottoAvvisi" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLottoAvvisiSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraLottoAvvisiResponse" />
+  </wsdl:message>
+  <wsdl:portType name="VisureSoap">
+    <wsdl:operation name="VisuraPra">
+      <wsdl:input message="tns:VisuraPraSoapIn" />
+      <wsdl:output message="tns:VisuraPraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <wsdl:input message="tns:ElencoVisureSoapIn" />
+      <wsdl:output message="tns:ElencoVisureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportVisure">
+      <wsdl:input message="tns:ReportVisureSoapIn" />
+      <wsdl:output message="tns:ReportVisureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLottoAvvisi">
+      <wsdl:input message="tns:RegistraLottoAvvisiSoapIn" />
+      <wsdl:output message="tns:RegistraLottoAvvisiSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VisureSoap" type="tns:VisureSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VisuraPra">
+      <soap:operation soapAction="http://utools.auaonline.it/VisuraPra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoVisure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportVisure">
+      <soap:operation soapAction="http://utools.auaonline.it/ReportVisure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLottoAvvisi">
+      <soap:operation soapAction="http://utools.auaonline.it/RegistraLottoAvvisi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="VisureSoap12" type="tns:VisureSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VisuraPra">
+      <soap12:operation soapAction="http://utools.auaonline.it/VisuraPra" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoVisure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportVisure">
+      <soap12:operation soapAction="http://utools.auaonline.it/ReportVisure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLottoAvvisi">
+      <soap12:operation soapAction="http://utools.auaonline.it/RegistraLottoAvvisi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Visure">
+    <wsdl:port name="VisureSoap" binding="tns:VisureSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Visure.asmx" />
+    </wsdl:port>
+    <wsdl:port name="VisureSoap12" binding="tns:VisureSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Visure.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

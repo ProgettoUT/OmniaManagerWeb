@@ -1,0 +1,13 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\BridgeCom2.exe.config
+C:\ApplicazioniDirezione\UTW\BridgeCom2.exe
+C:\ApplicazioniDirezione\UTW\BridgeCom2.pdb
+C:\ApplicazioniDirezione\UTW\BridgeCom2.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom2.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom2.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom2.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BridgeCom\obj\x86\Debug\BridgeCom2.pdb

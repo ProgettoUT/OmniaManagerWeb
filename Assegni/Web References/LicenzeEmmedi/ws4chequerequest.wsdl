@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Emmedi Ws4ChequeRequest Web Service" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="Emmedi Ws4ChequeRequest Web Service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ws4ChequeRequest Web Service Developed By Emmedi Ver. 1.3</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Emmedi Ws4ChequeRequest Web Service">
+      <s:element name="TestLogOpen">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestLogOpenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestLogOpenResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestLastError">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestLastErrorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestLastErrorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestLogFilter">
+        <s:complexType />
+      </s:element>
+      <s:element name="TestLogFilterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TestLogFilterResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestLicense">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Module" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReqMode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestData1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestData2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestData3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Model" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SerialNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Aux" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Aux2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestLicenseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RequestLicenseResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TestLogOpenSoapIn">
+    <wsdl:part name="parameters" element="tns:TestLogOpen" />
+  </wsdl:message>
+  <wsdl:message name="TestLogOpenSoapOut">
+    <wsdl:part name="parameters" element="tns:TestLogOpenResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestLastErrorSoapIn">
+    <wsdl:part name="parameters" element="tns:TestLastError" />
+  </wsdl:message>
+  <wsdl:message name="TestLastErrorSoapOut">
+    <wsdl:part name="parameters" element="tns:TestLastErrorResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestLogFilterSoapIn">
+    <wsdl:part name="parameters" element="tns:TestLogFilter" />
+  </wsdl:message>
+  <wsdl:message name="TestLogFilterSoapOut">
+    <wsdl:part name="parameters" element="tns:TestLogFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestLicenseSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestLicense" />
+  </wsdl:message>
+  <wsdl:message name="RequestLicenseSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestLicenseResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap">
+    <wsdl:operation name="TestLogOpen">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Test Log</wsdl:documentation>
+      <wsdl:input message="tns:TestLogOpenSoapIn" />
+      <wsdl:output message="tns:TestLogOpenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestLastError">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Test Last Log Error</wsdl:documentation>
+      <wsdl:input message="tns:TestLastErrorSoapIn" />
+      <wsdl:output message="tns:TestLastErrorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TestLogFilter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Test Log Filter</wsdl:documentation>
+      <wsdl:input message="tns:TestLogFilterSoapIn" />
+      <wsdl:output message="tns:TestLogFilterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestLicense">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Request a license</wsdl:documentation>
+      <wsdl:input message="tns:RequestLicenseSoapIn" />
+      <wsdl:output message="tns:RequestLicenseSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap" type="tns:Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestLogOpen">
+      <soap:operation soapAction="Emmedi Ws4ChequeRequest Web Service/TestLogOpen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestLastError">
+      <soap:operation soapAction="Emmedi Ws4ChequeRequest Web Service/TestLastError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestLogFilter">
+      <soap:operation soapAction="Emmedi Ws4ChequeRequest Web Service/TestLogFilter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestLicense">
+      <soap:operation soapAction="Emmedi Ws4ChequeRequest Web Service/RequestLicense" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap12" type="tns:Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TestLogOpen">
+      <soap12:operation soapAction="Emmedi Ws4ChequeRequest Web Service/TestLogOpen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestLastError">
+      <soap12:operation soapAction="Emmedi Ws4ChequeRequest Web Service/TestLastError" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestLogFilter">
+      <soap12:operation soapAction="Emmedi Ws4ChequeRequest Web Service/TestLogFilter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestLicense">
+      <soap12:operation soapAction="Emmedi Ws4ChequeRequest Web Service/RequestLicense" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Ws4ChequeRequest_x0020_Web_x0020_Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ws4ChequeRequest Web Service Developed By Emmedi Ver. 1.3</wsdl:documentation>
+    <wsdl:port name="Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap" binding="tns:Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap">
+      <soap:address location="http://www.emmedilicense.com/ws4chequerequest/ws4chequerequest.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap12" binding="tns:Ws4ChequeRequest_x0020_Web_x0020_ServiceSoap12">
+      <soap12:address location="http://www.emmedilicense.com/ws4chequerequest/ws4chequerequest.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

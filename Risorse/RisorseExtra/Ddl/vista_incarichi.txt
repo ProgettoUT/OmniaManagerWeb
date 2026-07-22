@@ -1,0 +1,24 @@
+SELECT
+datacompetenzaelaborazione AS DataCompetenza,
+AgenziaSinistro,
+EsercizioSinistro,
+NumeroSinistro,
+numeroposizione AS Posizione,
+codicefiscaledanneggiato AS CFDanneggiato,
+Trim(cognomedanneggiato) AS Cognome,
+Trim(nomedanneggiato) AS Nome,
+codiceperitoincaricato AS CodicePerito,
+codiceprofessione AS ProfessionePerito,
+DataIncarico,
+Trim(TipoIncarico) AS TipoIncarico,
+datarestituzioneincarico AS DataRestituzione,
+Trim(tipoincaricorestituito) AS TipoRestituzione,
+CodicePeritoSAP,
+TipoIncaricoCC,
+tipospecializzazionefiduciario AS TipoSpecializzazione,
+Trim(TipoFiduciario) AS TipoFiduciario,
+StatoIncarico,
+StatoIncaricoCarrozzeria,
+EsitoPerizia
+FROM incarichi
+WHERE (((dataelaborazione)>=[DataUltimaElaborazione]));

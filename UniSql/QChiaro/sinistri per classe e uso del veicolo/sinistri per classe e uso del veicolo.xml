@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Sinistri</pacchetto>
+        <nome>Sinistri per classe e uso del veicolo</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae il dettaglio dei sinistri.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Nessuno
+]]></note>
+        <ultagg>01/03/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@anno" etichetta="Anno apertura" tipo="integer" obbligatorio="true" larghezza="8" nuovariga="false">
+	    <elencovalori>SELECT DISTINCT Year(DataDenuncia) AS A, A AS B FROM Sinistri ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@ClasseRca" etichetta="Classe veicolo" tipo="string" valore="" obbligatorio="true" larghezza="9">
+	    <elencovalori>SELECT '*', 'TUTTI', '*' FROM (SELECT MAX(1) FROM UTENTI) UNION SELECT DISTINCT ClasseRca, ClasseRca, '+' &amp; ClasseRca FROM Polizze ORDER BY 3</elencovalori>
+        </parametro>
+        <parametro nome="@UsoRca" etichetta="Uso veicolo" tipo="string" valore="" obbligatorio="true" larghezza="9">
+	    <elencovalori>SELECT '*', 'TUTTI', '*' FROM (SELECT MAX(1) FROM UTENTI) UNION SELECT DISTINCT UsoRca, UsoRca, '+' &amp; UsoRca FROM Polizze where not UsoRca = '' ORDER BY 3</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+	SELECT
+	    SI.EsercizioSinistro          AS [Esercizio sinistro],
+	    format(SI.AgenziaSinistro,'00000') & '-' & SI.EsercizioSinistro & '-' & format(SI.NumeroSinistro,'000000') 
+	                                  AS [Numero Sinistro],
+	    format(SI.RamoSinistro,'000') AS [Ramo sinistro codice],
+	    TRS.DesRamoSinistro           AS [Ramo sinistro descrizione],
+	    format(SI.RamoPolizza,'000')  AS [Ramo Polizza codice],
+	    TR1.Ramo                      AS [Ramo Polizza descrizione],
+	    SI.Polizza                    AS [polizza Sinistro],
+	    SI.CodiceSubAgenteSima        AS [Codice sub agente sinistro],
+	    SI.Datasinistro               AS [Data accadimento sinistro],
+	    SI.DataDenuncia               AS [Data denuncia],
+	    SI.tipocid                    AS [Tipologia Cid codice],
+	    (Switch([tipocid]="1", "Gestione CID - Attiva"
+	          , [tipocid]="2", "Gestione CID - Parziale"
+	          , [tipocid]="4", "Gestione CID - Passiva"
+	          , [tipocid]="5", "Gestione CARD Gestionaria - Attivi"
+	          , [tipocid]="6", "Gestione CARD Mista - 50%"
+	          , [tipocid]="7", "Gestione CARD Debitrice - Passivi a forfait"
+	          , [tipocid]="8", "RCA attiva assistenza ai clienti"))
+	                                  AS [Tipologia Cid descrizione],
+	    SI.Tipochiusura               AS [Tipologia chiusura codice],
+	    (Switch([Tipochiusura]="..", "aperto"
+	          , [Tipochiusura]="LT", "liquidato"
+	          , [Tipochiusura]="SS", "senza seguito"))
+	                                  AS [Tipologia chiusura descrizione],
+	    SI.TipoSinistro               AS [Tipologia sinistro codice],
+	    TSI.DescTipoSin               AS [Tipologia sinistro descrizione],
+	    SI.Pagatodel                  AS [Pagato del],
+	    SI.Pagatoal                   AS [Pagato al],
+	    SI.RecuperoDel                AS [Recupero del],
+	    SI.RecuperoAl                 AS [Recupero al],
+	    SI.CodiceProdotto             AS [Prodotto sinistro],
+	    C.Cognome                     AS [Cognome assicurato],
+	    C.Nome                        AS [Nome assicurato],
+	    SI.DataUltPagam               AS [Ultimo Pagamento],
+        SI.Riserva                    AS [Riserva],
+        SI.DataApertura               AS [Data Apertura],
+        SI.RamoGestione               AS [Ramo gestione codice],
+        TRG.DescRamoGest              AS [Ramo gestione descrizione],
+        SI.IdStatoCliente             AS [Stato cliente codice],
+        TSC.StatoCliente              AS [Stato cliente descrizione],
+        SI.IdGestione                 AS [Gestione],
+	    SI.Ispettorato                AS [Ispettorato codice],
+	    TSI.DescTipoSin               AS [Ispettorato descrizione],
+	    IIF(IsNull(P.ClasseRCA), MP.ClasseRca, P.ClasseRCA)
+	                                  AS [Classe Veicolo],
+	    IIF(IsNull(P.UsoRca), MP.UsoRca, P.UsoRca)
+	                                  AS [Uso Veicolo]
+	FROM ((((((((([Sinistri]  AS SI
+	LEFT JOIN [CLIENTI] AS C
+  	  ON (C.CODICEFISCALE = SI.CODICEFISCCONTRPOL))
+	LEFT JOIN [POLIZZE] AS P
+  	  ON (P.Agenzia = SI.AgenziaPolizza AND P.Ramo = SI.RamoPolizza AND P.polizza = SI.Polizza))
+	LEFT JOIN [MOVPOLIZZE] AS MP
+  	  ON (MP.Agenzia = SI.AgenziaPolizza AND MP.Ramo = SI.RamoPolizza AND MP.polizza = SI.Polizza))
+	LEFT JOIN [TipoRamiSinistro] AS TRS
+  	  ON (TRS.RamoSinistro = SI.RamoSinistro))
+	LEFT JOIN [TipoRami] AS TR1
+	  ON (TR1.CodiceRamo = SI.RamoPolizza))
+	LEFT JOIN [TipoSinistro] AS TSI
+ 	  ON (TSI.RamoSinistro = SI.RamoSinistro AND TSI.TipoSinistro = SI.TipoSinistro))
+	LEFT JOIN [RamoGest] AS TRG
+ 	  ON (TRG.RamoGestione = SI.RamoGestione ))
+	LEFT JOIN [TipoStatiCliente] AS TSC
+ 	  ON (TSC.IDStatoCliente = SI.IdStatoCliente))
+	LEFT JOIN [Ispettorato] AS TIS
+ 	  ON (TIS.Ispettorato = SI.Ispettorato))
+   WHERE Year(SI.DataDenuncia) = @anno
+	 AND @ClasseRca IN (IIF(IsNull(P.ClasseRCA), MP.ClasseRca, P.ClasseRCA), '*')
+	 AND @UsoRca    IN (IIF(IsNull(P.UsoRca), MP.UsoRca, P.UsoRca), '*')
+			]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,69 @@
+<grid name="COMPLETO">
+  <font name="Tahoma" size="9" />
+  <column name="BloccoTarga" text="Non interrogare BDA" hide="False" visible="True" width="93" argbforecolor="0" argbbackcolor="0" displayindex="0" alignment="1" format="" />
+  <column name="Aggiornato" text="Aggiornato" hide="False" visible="True" width="92" argbforecolor="0" argbbackcolor="0" displayindex="1" alignment="1" format="" />
+  <column name="ProvenienzaTarga" text="Provenienza targa" hide="False" visible="True" width="118" argbforecolor="0" argbbackcolor="0" displayindex="2" alignment="1" format="" />
+  <column name="CodiceFiscaleStorno" text="CF Stornata" hide="False" visible="True" width="127" argbforecolor="0" argbbackcolor="0" displayindex="3" alignment="1" format="" />
+  <column name="Cliente" text="Cliente" hide="False" visible="True" width="192" argbforecolor="0" argbbackcolor="0" displayindex="4" alignment="1" format="" />
+  <column name="cl.IDStatoCliente" text="Stato cliente" hide="False" visible="True" width="94" argbforecolor="0" argbbackcolor="0" displayindex="5" alignment="1" format="" />
+  <column name="CambioCF" text="CF cambiato" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="6" alignment="1" format="" />
+  <column name="Targa" text="Targa" hide="False" visible="True" width="64" argbforecolor="0" argbbackcolor="0" displayindex="7" alignment="1" format="" />
+  <column name="ClasseRca" text="Classe RCA (BDA)" hide="False" visible="True" width="87" argbforecolor="0" argbbackcolor="0" displayindex="8" alignment="1" format="" />
+  <column name="CartaCircolazione" text="Carta di circolazione (BDA)" hide="False" visible="True" width="119" argbforecolor="0" argbbackcolor="0" displayindex="9" alignment="1" format="" />
+  <column name="MotivoEmissioneCarta" text="Motivo emissione carta (BDA)" hide="False" visible="True" width="161" argbforecolor="0" argbbackcolor="0" displayindex="10" alignment="1" format="" />
+  <column name="Immatricolazione" text="Immatricolazione (BDA)" hide="False" visible="True" width="145" argbforecolor="0" argbbackcolor="0" displayindex="11" alignment="1" format="" />
+  <column name="Modello" text="Modello" hide="False" visible="True" width="285" argbforecolor="0" argbbackcolor="0" displayindex="12" alignment="1" format="" />
+  <column name="Cilindrata" text="Cilindrata (BDA)" hide="False" visible="True" width="107" argbforecolor="0" argbbackcolor="0" displayindex="13" alignment="1" format="" />
+  <column name="HP" text="Hp (BDA)" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="14" alignment="1" format="" />
+  <column name="KW" text="Kw (BDA)" hide="False" visible="True" width="79" argbforecolor="0" argbbackcolor="0" displayindex="15" alignment="1" format="" />
+  <column name="Alimentazione" text="Alim. (BDA)" hide="False" visible="True" width="88" argbforecolor="0" argbbackcolor="0" displayindex="16" alignment="1" format="" />
+  <column name="Compagnia" text="Compagnia" hide="False" visible="True" width="221" argbforecolor="0" argbbackcolor="0" displayindex="17" alignment="1" format="" />
+  <column name="Effetto" text="Effetto (BDA)" hide="False" visible="True" width="99" argbforecolor="0" argbbackcolor="0" displayindex="18" alignment="1" format="" />
+  <column name="ScadenzaCopertura" text="Scadenza copertura (BDA)" hide="False" visible="True" width="112" argbforecolor="0" argbbackcolor="0" displayindex="19" alignment="1" format="" />
+  <column name="ScadenzaContratto" text="Scadenza contratto (BDA)" hide="False" visible="True" width="111" argbforecolor="0" argbbackcolor="0" displayindex="20" alignment="1" format="" />
+  <column name="Tariffa" text="Tariffa" hide="False" visible="True" width="89" argbforecolor="0" argbbackcolor="0" displayindex="21" alignment="1" format="" />
+  <column name="ClasseTariffa" text="ClasseTariffa" hide="False" visible="True" width="98" argbforecolor="0" argbbackcolor="0" displayindex="22" alignment="1" format="" />
+  <column name="DataSinistro" text="DataSinistro" hide="False" visible="True" width="96" argbforecolor="0" argbbackcolor="0" displayindex="23" alignment="1" format="" />
+  <column name="Prodotto" text="Prodotto" hide="False" visible="True" width="81" argbforecolor="0" argbbackcolor="0" displayindex="24" alignment="1" format="" />
+  <column name="Ramo" text="Ramo" hide="False" visible="True" width="62" argbforecolor="0" argbbackcolor="0" displayindex="25" alignment="1" format="" />
+  <column name="Polizza" text="Polizza" hide="False" visible="True" width="66" argbforecolor="0" argbbackcolor="0" displayindex="26" alignment="1" format="" />
+  <column name="DataEffetto" text="Effetto stornata" hide="False" visible="True" width="110" argbforecolor="0" argbbackcolor="0" displayindex="27" alignment="1" format="" />
+  <column name="DataScadenza" text="Scadenza stornata" hide="False" visible="True" width="121" argbforecolor="0" argbbackcolor="0" displayindex="28" alignment="1" format="" />
+  <column name="Frazionamento" text="Fraz" hide="False" visible="True" width="53" argbforecolor="0" argbbackcolor="0" displayindex="29" alignment="1" format="" />
+  <column name="Convenzione" text="Convenzione" hide="False" visible="True" width="101" argbforecolor="0" argbbackcolor="0" displayindex="30" alignment="1" format="" />
+  <column name="Storno" text="Storno" hide="False" visible="True" width="69" argbforecolor="0" argbbackcolor="0" displayindex="31" alignment="1" format="" />
+  <column name="DataStorno" text="Data storno" hide="False" visible="True" width="88" argbforecolor="0" argbbackcolor="0" displayindex="32" alignment="1" format="" />
+  <column name="UltimoPremio" text="Ultimo premio" hide="False" visible="True" width="98" argbforecolor="0" argbbackcolor="0" displayindex="33" alignment="1" format="" />
+  <column name="IncendioFurto" text="Incendio e furto" hide="False" visible="True" width="87" argbforecolor="0" argbbackcolor="0" displayindex="34" alignment="1" format="" />
+  <column name="CodiceFiscale" text="CF attuale del veicolo (BDA)" hide="False" visible="True" width="127" argbforecolor="0" argbbackcolor="0" displayindex="35" alignment="1" format="" />
+  <column name="Eta" text="Età" hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="36" alignment="1" format="" />
+  <column name="Assicurato" text="Assicurato" hide="False" visible="True" width="192" argbforecolor="0" argbbackcolor="0" displayindex="37" alignment="1" format="" />
+  <column name="c.IDStatoCliente" text="Stato cliente" hide="False" visible="True" width="94" argbforecolor="0" argbbackcolor="0" displayindex="38" alignment="1" format="" />
+  <column name="Sesso" text="Sesso" hide="False" visible="True" width="63" argbforecolor="0" argbbackcolor="0" displayindex="39" alignment="1" format="" />
+  <column name="DataNascita" text="Data di nascita" hide="False" visible="True" width="74" argbforecolor="0" argbbackcolor="0" displayindex="40" alignment="1" format="" />
+  <column name="Sub" text="Sub" hide="False" visible="True" width="173" argbforecolor="0" argbbackcolor="0" displayindex="41" alignment="1" format="" />
+  <column name="Localita" text="Localita" hide="False" visible="True" width="187" argbforecolor="0" argbbackcolor="0" displayindex="42" alignment="1" format="" />
+  <column name="Sindacati" text="Sindacati" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="43" alignment="1" format="" />
+  <column name="TipoCliente" text="Tipo cliente" hide="False" visible="True" width="88" argbforecolor="0" argbbackcolor="0" displayindex="44" alignment="1" format="" />
+  <column name="DataInserimento" text="Data inserimento" hide="False" visible="True" width="114" argbforecolor="0" argbbackcolor="0" displayindex="45" alignment="1" format="" />
+  <column name="DataCessazione" text="Data cessazione" hide="False" visible="True" width="108" argbforecolor="0" argbbackcolor="0" displayindex="46" alignment="1" format="" />
+  <column name="PolizzeVigore" text="Polizze vigore" hide="False" visible="True" width="96" argbforecolor="0" argbbackcolor="0" displayindex="47" alignment="1" format="" />
+  <column name="PolizzeStoriche" text="Polizze storiche" hide="False" visible="True" width="105" argbforecolor="0" argbbackcolor="0" displayindex="48" alignment="1" format="" />
+  <column name="PremiCorrente" text="Premi correnti" hide="False" visible="True" width="99" argbforecolor="0" argbbackcolor="0" displayindex="49" alignment="1" format="" />
+  <column name="PremiPrecedente" text="Premi precedenti" hide="False" visible="True" width="115" argbforecolor="0" argbbackcolor="0" displayindex="50" alignment="1" format="" />
+  <column name="PremiTotale" text="Totale premi" hide="False" visible="True" width="93" argbforecolor="0" argbbackcolor="0" displayindex="51" alignment="1" format="" />
+  <column name="SinistriCorrente" text="Sinistri correnti" hide="False" visible="True" width="103" argbforecolor="0" argbbackcolor="0" displayindex="52" alignment="1" format="" />
+  <column name="SinistriPrecedente" text="Sinistri precedente" hide="False" visible="True" width="123" argbforecolor="0" argbbackcolor="0" displayindex="53" alignment="1" format="" />
+  <column name="LiquidatoCorrente" text="Liquidato corrente" hide="False" visible="True" width="121" argbforecolor="0" argbbackcolor="0" displayindex="54" alignment="1" format="" />
+  <column name="LiquidatoPrecedente" text="Liquidato precedente" hide="False" visible="True" width="136" argbforecolor="0" argbbackcolor="0" displayindex="55" alignment="1" format="" />
+  <column name="SinistriTotale" text="Sinistri totali" hide="False" visible="True" width="89" argbforecolor="0" argbbackcolor="0" displayindex="56" alignment="1" format="" />
+  <column name="LiquidatoTotale" text="Liquidato totale" hide="False" visible="True" width="107" argbforecolor="0" argbbackcolor="0" displayindex="57" alignment="1" format="" />
+  <column name="ConsensoPrivacy" text="Privacy" hide="False" visible="True" width="69" argbforecolor="0" argbbackcolor="0" displayindex="58" alignment="1" format="" />
+  <column name="Indirizzo" text="Indirizzo" hide="False" visible="True" width="200" argbforecolor="0" argbbackcolor="0" displayindex="59" alignment="1" format="" />
+  <column name="Cap" text="Cap" hide="False" visible="True" width="52" argbforecolor="0" argbbackcolor="0" displayindex="60" alignment="1" format="" />
+  <column name="Provincia" text="Provincia" hide="False" visible="True" width="79" argbforecolor="0" argbbackcolor="0" displayindex="61" alignment="1" format="" />
+  <column name="Telefono1" text="Telefono1" hide="False" visible="True" width="88" argbforecolor="0" argbbackcolor="0" displayindex="62" alignment="1" format="" />
+  <column name="Telefono2" text="Telefono2" hide="False" visible="True" width="88" argbforecolor="0" argbbackcolor="0" displayindex="63" alignment="1" format="" />
+  <column name="Cellulare" text="Cellulare" hide="False" visible="True" width="94" argbforecolor="0" argbbackcolor="0" displayindex="64" alignment="1" format="" />
+  <column name="Email" text="Email" hide="False" visible="True" width="268" argbforecolor="0" argbbackcolor="0" displayindex="65" alignment="1" format="" />
+</grid>

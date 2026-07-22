@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:ax243="http://beans.webservice.koine.org/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://webservice.koine.org" xmlns:ns1="http://org.apache.axis2/xsd" targetNamespace="http://webservice.koine.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>KoineWebService</wsdl:documentation>
+  <wsp:Policy xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UTOverTransport">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy />
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:SignedSupportingTokens>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema xmlns:ax244="http://beans.webservice.koine.org/xsd" attributeFormDefault="qualified" elementFormDefault="unqualified" targetNamespace="http://webservice.koine.org">
+      <xs:import namespace="http://beans.webservice.koine.org/xsd" />
+      <xs:element name="Tracking">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Identity" nillable="true" type="ax244:Identity" />
+            <xs:element minOccurs="0" name="Navigation" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TrackingResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="ax244:Tracking" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Newlot">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Identity" nillable="true" type="ax244:Identity" />
+            <xs:element minOccurs="0" name="JobCode" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="LotName" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="PostService" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="FileContent" nillable="true" type="xs:base64Binary" />
+            <xs:element minOccurs="0" name="FileMD5" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="NewlotResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="ax244:Newlot" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfigUni">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Identity" nillable="true" type="ax244:Identity" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfigUniResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="ax244:ConfigUni" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="unqualified" targetNamespace="http://beans.webservice.koine.org/xsd">
+      <xs:complexType name="Identity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="clientSystem" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="user" nillable="true" type="ax243:User" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="User">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="userData" nillable="true" type="ax243:UserData" />
+          <xs:element minOccurs="0" name="userKeys" nillable="true" type="ax243:UserKeys" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="UserData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="cell" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="city" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="country" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="phone" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="provinceState" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="zip" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="UserKeys">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="clientUserId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="role" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="roleTimestamp" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="userFilter" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Tracking">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="errors" nillable="true" type="ax243:Message" />
+          <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="trackingLink" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="warnings" nillable="true" type="ax243:Message" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Message">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:int" />
+          <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Newlot">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="errors" nillable="true" type="ax243:Message" />
+          <xs:element minOccurs="0" name="idcampagna" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="warnings" nillable="true" type="ax243:Message" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ConfigUni">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="configUniLink" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="errors" nillable="true" type="ax243:Message" />
+          <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="warnings" nillable="true" type="ax243:Message" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="NewlotRequest">
+    <wsdl:part name="parameters" element="ns:Newlot" />
+  </wsdl:message>
+  <wsdl:message name="NewlotResponse">
+    <wsdl:part name="parameters" element="ns:NewlotResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfigUniRequest">
+    <wsdl:part name="parameters" element="ns:ConfigUni" />
+  </wsdl:message>
+  <wsdl:message name="ConfigUniResponse">
+    <wsdl:part name="parameters" element="ns:ConfigUniResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrackingRequest">
+    <wsdl:part name="parameters" element="ns:Tracking" />
+  </wsdl:message>
+  <wsdl:message name="TrackingResponse">
+    <wsdl:part name="parameters" element="ns:TrackingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="KoineWebServicePortType">
+    <wsdl:operation name="Newlot">
+      <wsdl:input wsaw:Action="urn:Newlot" message="ns:NewlotRequest" />
+      <wsdl:output wsaw:Action="urn:NewlotResponse" message="ns:NewlotResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfigUni">
+      <wsdl:input wsaw:Action="urn:ConfigUni" message="ns:ConfigUniRequest" />
+      <wsdl:output wsaw:Action="urn:ConfigUniResponse" message="ns:ConfigUniResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Tracking">
+      <wsdl:input wsaw:Action="urn:Tracking" message="ns:TrackingRequest" />
+      <wsdl:output wsaw:Action="urn:TrackingResponse" message="ns:TrackingResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="KoineWebServiceSoap11Binding" type="ns:KoineWebServicePortType">
+    <wsp:PolicyReference xmlns:wsp="http://www.w3.org/ns/ws-policy" URI="#UTOverTransport" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Newlot">
+      <soap:operation soapAction="urn:Newlot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfigUni">
+      <soap:operation soapAction="urn:ConfigUni" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Tracking">
+      <soap:operation soapAction="urn:Tracking" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="KoineWebServiceHttpBinding" type="ns:KoineWebServicePortType">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Newlot">
+      <http:operation location="Newlot" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfigUni">
+      <http:operation location="ConfigUni" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Tracking">
+      <http:operation location="Tracking" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="KoineWebService">
+    <wsdl:port name="KoineWebServiceHttpsSoap11Endpoint" binding="ns:KoineWebServiceSoap11Binding">
+      <soap:address location="https://ws.sicomunica.it:8443/axis2/services/KoineWebService.KoineWebServiceHttpsSoap11Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="KoineWebServiceHttpSoap11Endpoint" binding="ns:KoineWebServiceSoap11Binding">
+      <soap:address location="http://ws.sicomunica.it:8080/axis2/services/KoineWebService.KoineWebServiceHttpSoap11Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="KoineWebServiceHttpEndpoint" binding="ns:KoineWebServiceHttpBinding">
+      <http:address location="http://ws.sicomunica.it:8080/axis2/services/KoineWebService.KoineWebServiceHttpEndpoint/" />
+    </wsdl:port>
+    <wsdl:port name="KoineWebServiceHttpsEndpoint" binding="ns:KoineWebServiceHttpBinding">
+      <http:address location="https://ws.sicomunica.it:8443/axis2/services/KoineWebService.KoineWebServiceHttpsEndpoint/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

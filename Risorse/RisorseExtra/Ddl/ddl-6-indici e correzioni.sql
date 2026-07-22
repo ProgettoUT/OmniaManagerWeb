@@ -1,0 +1,10 @@
+CREATE INDEX IndiceTitoli              ON Titoli              (Ramo, Polizza, EffettoAppendice, NumeroAppendice, DataEffetto, DataEmissione);
+CREATE INDEX IndiceTitoliRipartizione  ON TitoliRipartizione  (Ramo, Polizza, EffettoAppendice, NumeroAppendice, DataEffetto);
+CREATE INDEX IndiceTitoliScopertiCassa ON TitoliScopertiCassa (Ramo, Polizza, EffettoAppendice, NumeroAppendice, DataEffetto);
+CREATE INDEX IndiceSinistri            ON Sinistri            (AgenziaSinistro, RamoSinistro, NumeroSinistro);
+CREATE INDEX IndiceIncarichi           ON Incarichi           (AgenziaSinistro, NumeroSinistro);
+ALTER TABLE Polizze1 ALTER COLUMN CodiceSubAgenzia INTEGER;
+ALTER TABLE Polizze1 ALTER COLUMN CodiceProduttore INTEGER;
+ALTER TABLE Sinistri ALTER COLUMN CodiceSubAgenzia INTEGER;
+ALTER TABLE Sinistri ALTER COLUMN CodiceProduttore INTEGER;
+ALTER TABLE Clienti ALTER COLUMN SubAgenzia INTEGER;

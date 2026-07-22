@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="LetturaNorme" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Visure_VisureOMW_Sinistri" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Visure.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Lettere</pacchetto>
+        <nome>Comunicazioni documenti mancanti 1</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniare</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco arretrati per stampare lettere</descrizione>
+        <note></note>
+        <ultagg>01/10/2018</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <!-- alter table Unidocs_Promemoria ADD FlagInvioPosta yesno -->
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="-1" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@ggmin" etichetta="giorni ultimo invio da" tipo="integer" larghezza="4" sinistra="95" valore="0" obbligatorio="true"/>        
+        <parametro nome="@tipodocumenti" etichetta="tipo documenti" tipo="string" valore="#" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="115">
+	    <elencovalori><![CDATA[#;TUTTI;CF;Codice Fiscale;DI;Documento Identita (CI, Patente, Passaporto);PR;Privacy;7X;7A e 7B;7A;7A (per compatibilita');CN;Contratto;AP;Appendice;CO;Coobbligazioni;7B;7B (per compatibilita');AD;Adeguatezza;TC;Tessera convenzione;Q1;Questionario (solo per alcuni rischi);D1;Dichiarazioni (solo per alcuni rischi);Q2;Questionario;D2;Dichiarazioni;LA;Libretto autoveicolo;LR;Libretto per cambio residenza;AR;Attestato di rischio;AC;Autocertificazione;CV;Contrassegno certificato vecchio;AL;Altro;PM;Pattuizione massimali;RP;Regolazione premio;MI;Migrazione;SF;Stato di famiglia;AV;Atto di vendita vecchio autoveicolo;PP;Passaggio di proprieta;CP;Copia polizza firmata;PC;certificato di proprieta]]></elencovalori>
+        </parametro>
+        <parametro nome="@ggmax" etichetta="a"         tipo="integer" larghezza="4" sinistra="95" valore="0" obbligatorio="true" nuovariga="true"/>
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga2" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		     TRIM(C.Cognome & " " & C.Nome)                                                      AS CONTRAENTE_NOME
+		    ,T.DesTipoDocumento                                                                  AS TIPO_DOCUMENTO
+		    ,E.DataApertura                                                                      AS DATA_APERTUTA
+		    ,DateDiff('d', IIF(M.Data2InvioEffettivo < #9999/12/31#, M.Data2InvioEffettivo, M.Data1InvioEffettivo), Date()) 
+		                                                                                         AS GIORNI_DA_INVIO
+		    ,TRIM(IIF(S.Cognome, S.Cognome & " " & S.Nome, C.Cognome & " " & C.Nome))            AS DESTINATARIO_NOME
+		    ,Format(P.Ramo,'000') & '/' & Format(P.Polizza,'000000000')                          AS POLIZZA_NUMERO
+		    ,format(IIF(UltimoFoglioCassa,UltimoFoglioCassa,P.DataEffetto), 'dd MMMM yyyy')      AS POLIZZA_EFFETTO
+		    ,P.DataScadenza                                                                      AS POLIZZA_SCADENZA
+		    ,P.TotalePremioAnnuo                                                                 AS POLIZZA_PREMIO
+		    ,TRIM(IIF(P.Targa > '', P.MarcaVeicolo & ' - ' & P.Targa, lcase(TR.Ramo)))           AS POLIZZA_TIPO
+		    ,P.CodiceSubAgente                                                                   AS SUB_AGENZIA
+		    ,TRIM(IIF(S.NominativoReferente, S.NominativoReferente, ''))                         AS DESTINATARIO_PRESSO
+		    ,TRIM(IIF(S.IndirizzoDomicilio, Trim(S.ToponimoDomicilio & ' ' 
+		                                       & S.IndirizzoDomicilio & ' '
+		                                       & S.NumCivicoDomicilio) 
+		                                       , C.Indirizzo))                                   AS DESTINATARIO_INDIRIZZO
+		    ,TRIM(IIF(S.LocalitaDomicilio, S.LocalitaDomicilio, C.Localita))                     AS DESTINATARIO_LOCALITA
+		    ,''                                                                                  AS DESTINATARIO_QUALIFICA
+		    ,C.Indirizzo                                                                         AS CONTRAENTE_INDIRIZZO
+		    ,C.Localita                                                                          AS CONTRAENTE_LOCALITA
+		    ,C.Cap                                                                               AS CONTRAENTE_CAP
+		    ,C.Provincia                                                                         AS CONTRAENTE_PROVINCIA
+		    ,C.Telefono1                                                                         AS CONTRAENTE_TELEFONO
+		    ,C.Fax                                                                               AS CONTRAENTE_FAX    
+		    ,C.Cellulare                                                                         AS CONTRAENTE_CELLULARE
+		    ,C.Email                                                                             AS CONTRAENTE_EMAIL
+		    ,TRIM(IIF(S.ProvinciaDomicilio, S.ProvinciaDomicilio, C.Provincia))                  AS DESTINATARIO_PROVINCIA
+		    ,TRIM(IIF(S.CapDomicilio, S.CapDomicilio, C.Cap))                                    AS DESTINATARIO_CAP
+		    ,E.CodiceFiscale                                                                     AS DESTINATARIO_CODICEFISCALE
+		    ,C.ConsensoPrivacy                                                                   AS PRIVACY
+		 FROM ((((((((UNIDOCS_EVIDENZA E
+		INNER JOIN CLIENTI C ON C.CodiceFiscale = E.CodiceFiscale)
+		INNER JOIN POLIZZE P ON P.Polizza = clng(mid(E.IdOggetto, 2)))
+		INNER JOIN UNIDOCS_DOCUMENTO D ON E.IdEvidenza = D.IdEvidenza)
+		INNER JOIN UNIDOCS_PROMEMORIA M ON E.IdEvidenza = M.IdEvidenza)
+		 LEFT JOIN (SELECT Agenzia, Ramo, Polizza, MAX(DataFoglioCassa) as UltimoFoglioCassa
+		              FROM Incassi
+		             GROUP BY Agenzia, Ramo, Polizza) I
+		                ON P.Agenzia = I.Agenzia AND P.Ramo = I.Ramo AND P.Polizza = I.Polizza)
+		 LEFT JOIN UNIDOCS_TIPODOCUMENTO T ON T.CodTipoDocumento = D.CodTipoDocumento)
+		 LEFT JOIN CLIENTI1 S ON S.CodiceFiscale = E.CodiceFiscale)
+		 LEFT JOIN [TipoRami] AS TR ON TR.CodiceRamo = P.Ramo)
+		WHERE E.IdOggetto IS NOT NULL
+		  AND M.FlagInvioPosta = true
+		  AND (DateDiff('d', M.Data1InvioEffettivo, Date()) BETWEEN @ggmin AND @ggmax OR 
+		       DateDiff('d', M.Data2InvioEffettivo, Date()) BETWEEN @ggmin AND @ggmax)
+		  AND (P.CodiceSubAgente IN (@subagenzia) OR -1 IN (@subagenzia))
+		  AND (D.CodTipoDocumento IN (@tipodocumenti) OR '#' IN (@tipodocumenti))
+		  AND D.DataRicevuta = #9999/12/31#
+		ORDER BY 1
+	]]></sql>
+    </estrazione>
+</oggetto>
+

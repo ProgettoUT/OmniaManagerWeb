@@ -1,0 +1,13 @@
+C:\ApplicazioniDirezione\UTW\SETUP\NuovaProduzione.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\NuovaProduzione.dll
+C:\ApplicazioniDirezione\UTW\SETUP\NuovaProduzione.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\NuovaProduzione.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.frmParametri.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\NuovaProduzione\obj\x86\Release\NuovaProduzione.pdb

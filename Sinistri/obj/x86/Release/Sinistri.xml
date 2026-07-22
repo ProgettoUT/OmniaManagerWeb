@@ -1,0 +1,251 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Sinistri
+</name>
+</assembly>
+<members>
+<member name="T:Sinistri.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:Sinistri.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:Sinistri.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="T:Sinistri.test.SinistriServiceForAgenzieService">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.#ctor">
+<remarks/>
+</member>
+<member name="E:Sinistri.test.SinistriServiceForAgenzieService.getListaSinistriDelGiornoPerUtenteCompleted">
+<remarks/>
+</member>
+<member name="E:Sinistri.test.SinistriServiceForAgenzieService.getSinistroDettaglioCompleted">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.getListaSinistriDelGiornoPerUtente(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.getListaSinistriDelGiornoPerUtenteAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.getListaSinistriDelGiornoPerUtenteAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.getSinistroDettaglio(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.getSinistroDettaglioAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.getSinistroDettaglioAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Sinistri.test.SinistriServiceForAgenzieService.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.gw_locale">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.gw_locale.AnyAttr">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.gw_locale.Value">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.InfoSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.InfoSinistro.DataApertura">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.InfoSinistro.DataAperturaSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.InfoSinistro.NomeCognomeAssicurato">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.InfoSinistro.Numero">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.DettaglioSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.CodiceAgenzia">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.CodiceClg">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.CodiceFiscaleContraente">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.CodicePerito">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.CodiceSubAgenzia">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.Convenzione">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataAccadimento">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataAccadimentoSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataAperturaSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataAperturaSinistroSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataDenuncia">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataDenunciaSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataInterventoLegale">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.DataInterventoLegaleSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.FlagLegale">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.LiquidatoreAssegnatario">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NomeContraente">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NomeControparte">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NostraQuota">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NostraQuotaSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NumeroPolizza">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NumeroPosizioni">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NumeroPosizioniSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.NumeroSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.PresenzaCoseLesioni">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.Prodotto">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.ProfiloSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.RamoPolizza">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.RamoSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.RiservaTecnica">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.RiservaTecnicaSpecified">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.StatoTecnico">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.TargaAssicurato">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.DettaglioSinistro.TargaControparte">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.Result">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.Result.DettaglioSinistro">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.Result.ErrorCode">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.Result.ErrorDescription">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.Result.SinistroInfo">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.traceability_id">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.traceability_id.AnyAttr">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.traceability_id.Value">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.authentication">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.authentication.username">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.authentication.password">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.authentication.AnyAttr">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.gw_language">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.gw_language.AnyAttr">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.gw_language.Value">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.getListaSinistriDelGiornoPerUtenteCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.getListaSinistriDelGiornoPerUtenteCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.getListaSinistriDelGiornoPerUtenteCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.getSinistroDettaglioCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Sinistri.test.getSinistroDettaglioCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Sinistri.test.getSinistroDettaglioCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

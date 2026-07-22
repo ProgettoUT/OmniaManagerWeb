@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="CreaTabella">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tabella" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaTabellaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreaTabellaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetCalendarioOmnia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetCalendarioOmniaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResetCalendarioOmniaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreaTabellaSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaTabella" />
+  </wsdl:message>
+  <wsdl:message name="CreaTabellaSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaTabellaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetCalendarioOmniaSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetCalendarioOmnia" />
+  </wsdl:message>
+  <wsdl:message name="ResetCalendarioOmniaSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetCalendarioOmniaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DatabaseSoap">
+    <wsdl:operation name="CreaTabella">
+      <wsdl:input message="tns:CreaTabellaSoapIn" />
+      <wsdl:output message="tns:CreaTabellaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetCalendarioOmnia">
+      <wsdl:input message="tns:ResetCalendarioOmniaSoapIn" />
+      <wsdl:output message="tns:ResetCalendarioOmniaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DatabaseSoap" type="tns:DatabaseSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreaTabella">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaTabella" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetCalendarioOmnia">
+      <soap:operation soapAction="http://utools.auaonline.it/ResetCalendarioOmnia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DatabaseSoap12" type="tns:DatabaseSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreaTabella">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaTabella" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetCalendarioOmnia">
+      <soap12:operation soapAction="http://utools.auaonline.it/ResetCalendarioOmnia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Database">
+    <wsdl:port name="DatabaseSoap" binding="tns:DatabaseSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Database.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DatabaseSoap12" binding="tns:DatabaseSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Database.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

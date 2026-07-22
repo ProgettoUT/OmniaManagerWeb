@@ -1,0 +1,13 @@
+C:\ApplicazioniDirezione\UTW\BackupArchivi.exe.config
+C:\ApplicazioniDirezione\UTW\BackupArchivi.exe
+C:\ApplicazioniDirezione\UTW\BackupArchivi.pdb
+C:\ApplicazioniDirezione\UTW\BackupArchivi.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.frmRipristina.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.frmRecuperoAutomatico.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BackupArchivi\BackupArchivi\obj\x86\Debug\BackupArchivi.pdb

@@ -1,0 +1,7 @@
+C:\ApplicazioniDirezione\UTW\SETUP\Regista.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Regista\obj\x86\Release\Regista.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Regista\obj\x86\Release\Regista.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Regista\obj\x86\Release\Regista.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Regista\obj\x86\Release\Regista.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Regista\obj\x86\Release\Regista.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Regista\obj\x86\Release\Regista.vbproj.AssemblyReference.cache

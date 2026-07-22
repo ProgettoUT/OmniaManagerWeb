@@ -1,0 +1,14 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UniCai.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\UniCai.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UniCai.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\UniCai.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.FormTargaPolizza.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCai\obj\x86\Release\UniCai.pdb

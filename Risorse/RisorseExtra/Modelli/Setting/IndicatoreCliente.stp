@@ -1,0 +1,52 @@
+SELECT X.CodiceFiscContrPol
+     , Trim(X.Cognome) + Trim(X.Nome) AS Cliente
+	 , Max(X.SubAgenzia) AS SubAgenzia
+	 , X.StatoCliente
+     , Sum(I1.PremiAuto) AS PremiStoriciAuto
+     , Sum(iif(X.Settore=1,X.SinistriStorici,0)) AS SinistriStoriciAuto
+     , Sum(iif(X.Settore=1,X.NumeroSinistri,0)) AS NumeroSinistriAuto
+     , 0.001 AS PercAuto
+     , Sum(I1.PremiRE) AS PremiStoriciRe
+     , Sum(iif(X.Settore=2,X.SinistriStorici,0)) AS SinistriStoriciRe
+     , Sum(iif(X.Settore=2,X.NumeroSinistri,0)) AS NumeroSinistriRe
+     , 0.001 AS PercRE
+     , Sum(I1.PremiTotali) AS PremiStoriciTotali
+     , Sum(X.SinistriStorici) AS SinistriStoriciTotali
+     , Sum(X.NumeroSinistri) AS NumeroSinistriTotale
+     , 0.001 AS PercTotale
+FROM
+    (SELECT S1.CodiceFiscContrPol, S1.Cognome, S1.Nome, S1.SubAgenzia, S1.StatoCliente, S1.Settore, S1.SinistriStorici, S2.NumeroSinistri
+     FROM (
+		(SELECT S.CodiceFiscContrPol                                                            
+		, C.Settore
+		, Last(CognomeAssicurato) AS Cognome
+		, Last(NomeAssicurato) AS Nome
+		, Last(CodiceSubagenteSima) AS SubAgenzia
+		, Last(IdStatoCliente) AS StatoCliente
+		, Sum(iif(PagatoAl,PagatoAl,0)) AS SinistriStorici                             
+		FROM (Sinistri S
+		INNER JOIN RgToComparto C ON S.RamoGestione = C.RamoGestione)
+		WHERE C.Settore IN (1, 2) AND S.EsercizioSinistro >= ?
+		GROUP BY S.CodiceFiscContrPol, C.Settore) S1
+	INNER JOIN
+		(SELECT S.CodiceFiscContrPol
+		, C.Settore
+		, Count(*) AS NumeroSinistri
+		FROM (Sinistri S
+		INNER JOIN RgToComparto C ON S.RamoGestione = C.RamoGestione)
+		WHERE C.Settore IN (1, 2) AND EsercizioSinistro >= ?
+		GROUP BY S.CodiceFiscContrPol, C.Settore) S2
+	ON S1.CodiceFiscContrPol = S2.CodiceFiscContrPol AND S1.Settore = S2.Settore)
+    GROUP BY S1.CodiceFiscContrPol, S1.Cognome, S1.Nome, S1.StatoCliente, S1.SubAgenzia, S1.Settore, S1.SinistriStorici, S2.NumeroSinistri) X
+INNER JOIN                        
+	(SELECT CodiceFiscInc
+	, Sum(iif(C.Settore=1,I.TotaleTitolo,0)) AS PremiAuto
+	, Sum(iif(C.Settore=2,I.TotaleTitolo,0)) AS PremiRE
+	, Sum(iif(C.Settore<=2,I.TotaleTitolo,0)) AS PremiTotali
+	FROM (Incassi I
+	INNER JOIN RgToComparto C ON I.RamoGestione = C.RamoGestione)
+	WHERE C.Settore IN (1, 2) AND Year(I.DataFoglioCassa) >= ?
+	GROUP BY CodiceFiscInc) I1
+ON X.CodiceFiscContrPol = I1.CodiceFiscInc
+GROUP BY X.CodiceFiscContrPol, Trim(X.Cognome) + Trim(X.Nome), X.StatoCliente
+ORDER BY Trim(X.Cognome) + Trim(X.Nome)

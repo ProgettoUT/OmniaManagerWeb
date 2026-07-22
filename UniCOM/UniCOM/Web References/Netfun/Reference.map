@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap?wsdl" filename="sms.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

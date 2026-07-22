@@ -1,0 +1,637 @@
+﻿Public Class IncassiGiornalieri
+
+    Private Shared _Premio As String
+    Private Shared _Clausola As String
+
+    Private Structure Col
+        Const Data = 0
+        Const CorrenteDel = 1
+        Const CorrenteAl = 2
+        Const CorrenteAnnoAl = 3
+        Const PrecDel = 4
+        Const PrecAl = 5
+        Const PrecAnnoAl = 6
+        Const Var = 7
+    End Structure
+
+    Public Shared Sub Init()
+        Try
+            With _ComboAnno
+                .DropDownStyle = ComboBoxStyle.DropDownList
+                .Items.Clear()
+                For k As Integer = Today.Year To AnnoInizio() Step -1
+                    .Items.Add(k)
+                Next
+                .SelectedIndex = 0 'qui si riempie il combo mese
+            End With
+            With _ComboRg
+                .DropDownStyle = ComboBoxStyle.DropDownList
+                .Items.Clear()
+                .Items.Add("TUTTI")
+                For Each row As DataRow In Rami.Rows
+                    .Items.Add(String.Format("{0:00}. {1}", row("Codice"), row("Descrizione")))
+                Next
+                .SelectedIndex = 0
+            End With
+            With _ComboComparto
+                .DropDownStyle = ComboBoxStyle.DropDownList
+                .Items.Clear()
+                .Items.Add("TUTTI")
+                For Each row As DataRow In Comparti.Rows
+                    .Items.Add(String.Format("{0}. {1}", row("Codice"), row("Descrizione")))
+                Next
+                .SelectedIndex = 0
+            End With
+            With _ComboAggregato
+                .DropDownStyle = ComboBoxStyle.DropDownList
+                .Items.Clear()
+                .Items.Add("TUTTI")
+                For Each row As DataRow In Aggregati.Rows
+                    .Items.Add(String.Format("{0}. {1}", row("Codice"), row("Descrizione")))
+                Next
+                .SelectedIndex = 0
+            End With
+            'griglia
+            With _dgv
+                .EditMode = DataGridViewEditMode.EditProgrammatically
+                .AllowUserToAddRows = False
+                .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            End With
+            Utx.NetFunc.DoppioBuffer(_dgv)
+            _Inizializzato = True
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+#Region "controlli"
+    Private Shared _Inizializzato As Boolean
+    Public Shared Property Inizializzato() As Boolean
+        Get
+            Return _Inizializzato
+        End Get
+        Set(value As Boolean)
+            _Inizializzato = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ComboAnno As ComboBox
+    Public Shared WriteOnly Property ComboAnno() As ComboBox
+        Set(value As ComboBox)
+            _ComboAnno = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ComboMese As ComboBox
+    Public Shared WriteOnly Property ComboMese() As ComboBox
+        Set(value As ComboBox)
+            _ComboMese = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ComboAggregato As ComboBox
+    Public Shared WriteOnly Property ComboAggregato() As ComboBox
+        Set(value As ComboBox)
+            _ComboAggregato = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ComboComparto As ComboBox
+    Public Shared WriteOnly Property ComboComparto() As ComboBox
+        Set(value As ComboBox)
+            _ComboComparto = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ComboRg As ComboBox
+    Public Shared WriteOnly Property ComboRg() As ComboBox
+        Set(value As ComboBox)
+            _ComboRg = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _dgv As DataGridView
+    Public Shared WriteOnly Property dgv() As DataGridView
+        Set(value As DataGridView)
+            _dgv = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ButtonVisualizza As Button
+    Public Shared WriteOnly Property ButtonVisualizza() As Button
+        Set(value As Button)
+            _ButtonVisualizza = value
+        End Set
+    End Property
+
+    Private Shared WithEvents _ButtonVariazioni As Button
+    Public Shared WriteOnly Property ButtonVariazioni() As Button
+        Set(value As Button)
+            _ButtonVariazioni = value
+        End Set
+    End Property
+#End Region
+    Private Shared Function AnnoInizio() As Integer
+        Try
+            Dim Query As String = "SELECT MIN(YEAR(DataFoglioCassa)) FROM Incassi"
+            Return Utx.WsCommand.ExecuteScalar(Query).Valore + 1
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return Today.Year
+        End Try
+    End Function
+
+    Private Shared Function Rami() As DataTable
+        Try
+            Dim Query As String = "SELECT Codice, Descrizione FROM Codici WHERE Tipo = 'RamoGestione' ORDER BY Codice"
+            Return Utx.WsCommand.ExecuteNonQuery(Query).DataTable
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return New DataTable
+        End Try
+    End Function
+
+    Private Shared Function Comparti() As DataTable
+        Try
+            Dim Query As String = "SELECT Codice, Descrizione FROM Codici WHERE Tipo = 'Comparto' ORDER BY Codice"
+            Return Utx.WsCommand.ExecuteNonQuery(Query).DataTable
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return New DataTable
+        End Try
+    End Function
+
+    Private Shared Function Aggregati() As DataTable
+        Try
+            Dim Query As String = "SELECT Codice, Descrizione FROM Codici WHERE Tipo = 'Aggregato' ORDER BY Codice"
+            Return Utx.WsCommand.ExecuteNonQuery(Query).DataTable
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return New DataTable
+        End Try
+    End Function
+
+    Public Shared Function RgToComparto() As DataTable
+        Try
+            Dim Query As String = String.Format("SELECT RamoGestione 
+                FROM DB00000.dbo.RgToComparto WHERE Comparto = {0} ORDER BY RamoGestione", _ComboComparto.Text.Split(".")(0))
+            Return Utx.WsCommand.ExecuteNonQuery(Query).DataTable
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return New DataTable
+        End Try
+    End Function
+
+    Private Shared Sub ComboAnno_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _ComboAnno.SelectedIndexChanged
+        Dim Info As Globalization.TextInfo = Globalization.CultureInfo.InvariantCulture.TextInfo
+        With _ComboMese
+            .DropDownStyle = ComboBoxStyle.DropDownList
+            .Items.Clear()
+            .Items.Add("TUTTI")
+            If _ComboAnno.Text = Today.Year Then
+                'per l'anno corrente mi fermo al mese corrente
+                For k As Integer = 1 To Today.Month
+                    .Items.Add(String.Format("{0:00}. {1}", k, Info.ToTitleCase(DateAndTime.MonthName(k))))
+                Next
+            Else
+                'per anni precedenti prendo tutti i mesi
+                For k As Integer = 1 To 12
+                    .Items.Add(String.Format("{0:00}. {1}", k, Info.ToTitleCase(DateAndTime.MonthName(k))))
+                Next
+            End If
+            .SelectedIndex = 0
+        End With
+    End Sub
+
+    Private Shared Sub ComboAggregato_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _ComboAggregato.SelectedIndexChanged
+        If _ComboAggregato.SelectedIndex = 0 Then
+            _ComboComparto.Enabled = True
+            _ComboRg.Enabled = True
+        Else
+            _ComboComparto.Enabled = False
+            _ComboComparto.SelectedIndex = 0
+            _ComboRg.Enabled = False
+            _ComboRg.SelectedIndex = 0
+        End If
+    End Sub
+
+    Private Shared Sub ComboComparto_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _ComboComparto.SelectedIndexChanged
+        If _ComboComparto.SelectedIndex = 0 Then
+            _ComboRg.Enabled = True
+        Else
+            _ComboRg.Enabled = False
+            _ComboRg.SelectedIndex = 0
+        End If
+    End Sub
+
+    Private Shared Sub dgv_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles _dgv.CellFormatting
+        If e.ColumnIndex = Col.Var Then
+            If e.Value Is DBNull.Value Then
+                e.CellStyle.BackColor = Color.Silver
+            Else
+                If e.Value >= 0 Then
+                    e.CellStyle.BackColor = Color.PaleGreen
+                Else
+                    e.CellStyle.BackColor = Color.Pink
+                End If
+            End If
+        End If
+    End Sub
+
+#Region "calcoli"
+    Public Shared Sub LeggiMensili()
+        Try
+            _dgv.DataSource = Nothing
+
+            Dim Anno As Integer = _ComboAnno.Text
+            Dim DataFine As Date = DataFineMese()
+
+            Dim dt As DataTable = Utx.WsCommand.ExecuteNonQuery(QueryMensili(DataFine)).DataTable
+
+            dt.Columns.Add(String.Format("Totale al {0:dd-MM-yyyy}", DataFine), Type.GetType("System.Double")).SetOrdinal(Col.CorrenteAl)
+            dt.Columns.Add(String.Format("Totale anno al {0:dd-MM-yyyy}", DataFine), Type.GetType("System.Double")).SetOrdinal(Col.CorrenteAnnoAl)
+            dt.Columns.Add(String.Format("Totale al {0:dd-MM-yyyy}", DataFine.AddYears(-1)), Type.GetType("System.Double")).SetOrdinal(Col.PrecAl)
+            dt.Columns.Add(String.Format("Totale anno al {0:dd-MM-yyyy}", DataFine.AddYears(-1)), Type.GetType("System.Double")).SetOrdinal(Col.PrecAnnoAl)
+            dt.Columns.Add("Variazione %", Type.GetType("System.Double")).SetOrdinal(Col.Var)
+
+            Dim Ok As Boolean = False
+            Do While Ok = False
+                Ok = True
+                For k As Integer = 0 To 11
+                    If (k + 1 > dt.Rows.Count) OrElse k + 1 <> dt.Rows(k)(0) Then
+                        Dim row As DataRow = dt.NewRow
+                        row(0) = String.Format("{0:00}", k + 1) : row(Col.CorrenteDel) = 0 : row(Col.PrecDel) = 0
+                        dt.Rows.InsertAt(row, k)
+                        Ok = False
+                        Exit For
+                    End If
+                Next
+            Loop
+
+            'controllo dei null
+            For Each row As DataRow In dt.Rows
+                If row(Col.CorrenteDel) Is DBNull.Value Then row(Col.CorrenteDel) = 0
+                If row(Col.PrecDel) Is DBNull.Value Then row(Col.PrecDel) = 0
+            Next
+
+            'Totali - prima riga
+            dt.Rows(0)(Col.CorrenteAl) = dt.Rows(0)(Col.CorrenteDel)
+            dt.Rows(0)(Col.PrecAl) = dt.Rows(0)(Col.PrecDel)
+            dt.Rows(0)(Col.Var) = (dt.Rows(0)(Col.CorrenteAl) / dt.Rows(0)(Col.PrecAl) - 1) * 100
+
+            For k As Integer = 1 To 11
+                dt.Rows(k)(Col.CorrenteAl) = dt.Rows(k - 1)(Col.CorrenteAl) + dt.Rows(k)(Col.CorrenteDel)
+                dt.Rows(k)(Col.PrecAl) = dt.Rows(k - 1)(Col.PrecAl) + dt.Rows(k)(Col.PrecDel)
+
+                If dt.Rows(k)(Col.PrecDel) > 0 Then
+                    dt.Rows(k)(Col.Var) = (dt.Rows(k)(Col.CorrenteAl) / dt.Rows(k)(Col.PrecAl) - 1) * 100
+                End If
+            Next
+
+            With _dgv
+                .DataSource = dt
+                .Columns(Col.Data).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                With .Columns(Col.CorrenteDel).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                End With
+                With .Columns(Col.CorrenteAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.LightYellow
+                End With
+                With .Columns(Col.CorrenteAnnoAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.Lavender
+                End With
+                .Columns(Col.CorrenteAnnoAl).Visible = False
+                With .Columns(Col.PrecDel).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                End With
+                With .Columns(Col.PrecAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.LightYellow
+                End With
+                With .Columns(Col.PrecAnnoAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.Lavender
+                End With
+                .Columns(Col.PrecAnnoAl).Visible = False
+                With .Columns(Col.Var).DefaultCellStyle
+                    .Format = "##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                .AutoResizeColumns()
+            End With
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Public Shared Sub LeggiGiornalieri()
+        Try
+            _dgv.DataSource = Nothing
+
+            Dim Anno As Integer = _ComboAnno.Text
+            Dim Mese As Integer = _ComboMese.Text.Split(".")(0)
+
+            Dim dt As DataTable = Utx.WsCommand.ExecuteNonQuery(QueryGiornalieri).DataTable
+
+            'controllo che esistano le colonne degli anni
+            If dt.Columns.Contains(Anno.ToString) = False Then
+                dt.Columns.Add(String.Format("{0}", Anno), Type.GetType("System.Double")).SetOrdinal(Col.CorrenteDel)
+            End If
+            dt.Columns.Add(String.Format("Totale mese {0} al", Anno), Type.GetType("System.Double")).SetOrdinal(Col.CorrenteAl)
+            dt.Columns.Add(String.Format("Totale anno {0} al (A)", Anno), Type.GetType("System.Double")).SetOrdinal(Col.CorrenteAnnoAl)
+            If dt.Columns.Contains((Anno - 1).ToString) = False Then
+                dt.Columns.Add(String.Format("{0}", Anno - 1), Type.GetType("System.Double")).SetOrdinal(Col.PrecDel)
+            End If
+            'aggiungo le colonne dei totali
+            dt.Columns.Add(String.Format("Totale mese {0} al", Anno - 1), Type.GetType("System.Double")).SetOrdinal(Col.PrecAl)
+            dt.Columns.Add(String.Format("Totale anno {0} al (B)", Anno - 1), Type.GetType("System.Double")).SetOrdinal(Col.PrecAnnoAl)
+            dt.Columns.Add("Variazione % A-B al", Type.GetType("System.Double")).SetOrdinal(Col.Var)
+
+            Dim Ok As Boolean = False
+            Do While Ok = False
+                Ok = True
+                For k As Integer = 0 To DateTime.DaysInMonth(_ComboAnno.Text, Mese) - 1
+                    If (k + 1 > dt.Rows.Count) OrElse k + 1 <> dt.Rows(k)(0).ToString.Split("-")(0) Then
+                        Dim row As DataRow = dt.NewRow
+                        row(Col.Data) = String.Format("{0:00}-{1:00}", k + 1, Val(_ComboMese.Text)) : row(Col.CorrenteDel) = 0 : row(Col.PrecDel) = 0
+                        dt.Rows.InsertAt(row, k)
+                        Ok = False
+                        Exit For
+                    End If
+                Next
+            Loop
+
+            'controllo dei null
+            For Each row As DataRow In dt.Rows
+                If row(Col.CorrenteDel) Is DBNull.Value Then row(Col.CorrenteDel) = 0
+                If row(Col.PrecDel) Is DBNull.Value Then row(Col.PrecDel) = 0
+            Next
+
+            'riporto
+            Dim Riporto As DataRow = dt.NewRow
+            Riporto(Col.Data) = "Riporto"
+            Riporto(Col.CorrenteDel) = 0
+            Riporto(Col.CorrenteAl) = 0
+            Riporto(Col.PrecDel) = 0
+            Riporto(Col.PrecAl) = 0
+            Riporto(Col.CorrenteAnnoAl) = QueryRiporto(_ComboAnno.Text)
+            Riporto(Col.PrecAnnoAl) = QueryRiporto(_ComboAnno.Text - 1)
+            dt.Rows.InsertAt(Riporto, 0)
+
+            'Totali - prima riga
+            dt.Rows(0)(Col.CorrenteAl) = dt.Rows(0)(Col.CorrenteDel)
+            dt.Rows(0)(Col.PrecAl) = dt.Rows(0)(Col.PrecDel)
+            If dt.Rows(0)(Col.PrecAl) <> 0 Then
+                dt.Rows(0)(Col.Var) = (dt.Rows(0)(Col.CorrenteAnnoAl) / dt.Rows(0)(Col.PrecAnnoAl) - 1) * 100
+            End If
+
+            For k As Integer = 1 To DateTime.DaysInMonth(_ComboAnno.Text, Mese) - 1
+                dt.Rows(k)(Col.CorrenteAl) = dt.Rows(k - 1)(Col.CorrenteAl) + dt.Rows(k)(Col.CorrenteDel)
+                dt.Rows(k)(Col.PrecAl) = dt.Rows(k - 1)(Col.PrecAl) + dt.Rows(k)(Col.PrecDel)
+                dt.Rows(k)(Col.CorrenteAnnoAl) = dt.Rows(k - 1)(Col.CorrenteAnnoAl) + dt.Rows(k)(Col.CorrenteDel)
+                dt.Rows(k)(Col.PrecAnnoAl) = dt.Rows(k - 1)(Col.PrecAnnoAl) + dt.Rows(k)(Col.PrecDel)
+
+                If dt.Rows(k)(Col.PrecAl) <> 0 Then
+                    dt.Rows(k)(Col.Var) = (dt.Rows(k)(Col.CorrenteAnnoAl) / dt.Rows(k)(Col.PrecAnnoAl) - 1) * 100
+                End If
+            Next
+
+            With _dgv
+                .DataSource = dt
+                .Columns(Col.Data).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                With .Columns(Col.CorrenteDel).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                End With
+                With .Columns(Col.CorrenteAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.LightYellow
+                End With
+                With .Columns(Col.CorrenteAnnoAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.Lavender
+                End With
+                With .Columns(Col.PrecDel).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                End With
+                With .Columns(Col.PrecAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.LightYellow
+                End With
+                With .Columns(Col.PrecAnnoAl).DefaultCellStyle
+                    .Format = "##,###,##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleRight
+                    .BackColor = Color.Lavender
+                End With
+                With .Columns(Col.Var).DefaultCellStyle
+                    .Format = "##0.00"
+                    .Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                .AutoResizeColumns()
+            End With
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+#End Region
+
+#Region "query"
+    Private Shared Sub AnalisiRamiGestione()
+        Dim Aggregato As Integer = _ComboAggregato.Text.Split(".")(0)
+        Dim Comparto As Integer = _ComboComparto.Text.Split(".")(0)
+        Dim Ramogestione As Integer = _ComboRg.Text.Split(".")(0)
+
+        'CONTROLLO AGGREGATO
+        Select Case Aggregato
+            Case 0 'TUTTI
+                'CONTROLLO IL COMPARTO
+                Select Case Comparto
+                    Case 0 'TUTTI
+                        'CONTROLLO PER RG
+                        Select Case Ramogestione
+                            Case 0 'TUTTI
+                                _Premio = "Tassabile"
+                                _Clausola = "1=1"
+                            Case 1 'rca
+                                _Premio = "PremioRC"
+                                _Clausola = "RamoGestione = 1"
+                            Case 2 'ard
+                                _Premio = "PremioARD"
+                                _Clausola = "RamoGestione IN (1,2)"
+                            Case 3 'inf
+                                _Premio = "Iif(RamoGestione = 3,Tassabile,PrINF)"
+                                _Clausola = "RamoGestione IN (1,2,3)"
+                            Case 4 'mal
+                                _Premio = "Tassabile"
+                                _Clausola = "RamoGestione = 4"
+                            Case 30 'ard
+                                _Premio = "PremioARD"
+                                _Clausola = "RamoGestione IN (1,2)"
+                            Case 31 'infortuni del conducente
+                                _Premio = "PrINF"
+                                _Clausola = "RamoGestione = 1"
+                            Case Else 'altri rg
+                                _Premio = "Tassabile"
+                                _Clausola = String.Format("RamoGestione = {0}", _ComboRg.Text.Split(".")(0))
+                        End Select
+                    Case Utx.Enumerazioni.Comparti.AUTO 'auto
+                        _Premio = "PremioRC + PrIF + PrKasko + PrAssistenza"
+                        _Clausola = "RamoGestione IN (1,2)"
+                    Case Utx.Enumerazioni.Comparti.RP 'rp
+                        _Premio = "Iif(RamoGestione > 2,Tassabile,PrINF)"
+                        _Clausola = "RamoGestione IN (1,2,3,5)"
+                    Case Utx.Enumerazioni.Comparti.SALUTE
+                        _Premio = "Tassabile"
+                        _Clausola = "RamoGestione = 4"
+                    Case Else 'altri comparti
+                        _Premio = "Tassabile"
+                        _Clausola = ""
+                        For Each row As DataRow In RgToComparto.Rows
+                            _Clausola &= String.Format("{0},", row("RamoGestione"))
+                        Next
+                        _Clausola = String.Format(" RamoGestione IN ({0}) ", _Clausola.Substring(0, _Clausola.Length - 1))
+                End Select
+            Case 1
+                'danni
+                _Premio = "Tassabile"
+                _Clausola = "RamoGestione NOT IN (18,19,20)"
+            Case 2
+                'vita
+                _Premio = "Tassabile"
+                _Clausola = "RamoGestione IN (18,19,20)"
+        End Select
+    End Sub
+
+    Private Shared Function DataFineMese() As Date
+        Try
+            If _ComboAnno.Text = Today.Year Then 'anno corrente
+                Return Utx.WsCommand.ExecuteScalar("SELECT MAX(DataFoglioCassa) FROM Incassi").Valore
+            Else
+                Return New Date(_ComboAnno.Text, 12, 31)
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return Today
+        End Try
+    End Function
+
+    Private Shared Function QueryMensili(DataFineMese As Date) As String
+        Try
+            Dim Inizio1 As New Date(_ComboAnno.Text - 1, 1, 1)
+            Dim Inizio2 As New Date(_ComboAnno.Text, 1, 1)
+            Dim Fine1 As New Date(_ComboAnno.Text - 1, DataFineMese.Month, DataFineMese.Day)
+
+            Dim sql As String = "DECLARE
+                @cols nvarchar(max),
+                @sql nvarchar(max)
+
+                SELECT @cols = ISNULL(@cols + ', ', '') + '[' + TRIM(STR(T.Anno)) + ']' FROM 
+                    (SELECT DISTINCT TOP 2 YEAR(DataFoglioCassa) AS Anno 
+                        FROM Incassi 
+                        WHERE YEAR(DataFoglioCassa) <= {4:yyyy}
+                        ORDER BY YEAR(DataFoglioCassa) DESC) AS T
+
+                SET @sql = '
+                SELECT * FROM 
+                (
+                SELECT Iif(SUM({0}) > 0, SUM({0}), 0) AS Totale,MONTH(DataFoglioCassa) AS Mese,YEAR(DataFoglioCassa) AS ANNO
+                FROM Incassi
+                WHERE ((DataFoglioCassa BETWEEN ''{1:dd/MM/yyyy}'' AND ''{2:dd/MM/yyyy}'') OR 
+                        (DataFoglioCassa BETWEEN ''{3:dd/MM/yyyy}'' AND ''{4:dd/MM/yyyy}'')) AND ({5})
+                GROUP BY MONTH(DataFoglioCassa),YEAR(DataFoglioCassa)
+                ) AS A
+                PIVOT (
+                SUM(A.Totale)
+                FOR ANNO IN (' + @cols + ')
+                ) AS B'
+
+                EXECUTE sp_executesql @sql"
+
+            AnalisiRamiGestione() 'per impostare le variabili
+
+            Return String.Format(sql, _Premio, Inizio1, Fine1, Inizio2, DataFineMese, _Clausola)
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return ""
+        End Try
+    End Function
+
+    Private Shared Function QueryGiornalieri() As String
+        Dim sql As String = "DECLARE
+            @cols nvarchar(max),
+            @sql nvarchar(max)
+
+            SELECT @cols = ISNULL(@cols + ', ', '') + '[' + TRIM(STR(T.Anno)) + ']' FROM 
+                (SELECT DISTINCT TOP 2 YEAR(DataFoglioCassa) AS Anno 
+                FROM Incassi 
+                WHERE YEAR(DataFoglioCassa) <= {3}
+                ORDER BY YEAR(DataFoglioCassa) DESC) AS T
+
+            SET @sql = '
+            SELECT * FROM 
+            (
+            SELECT Iif(SUM({0}) > 0, SUM({0}), 0) AS Totale,FORMAT(DataFoglioCassa,''dd-MM'') AS Giorno,YEAR(DataFoglioCassa) AS ANNO
+            FROM Incassi
+            WHERE MONTH(DataFoglioCassa) = {1} AND (YEAR(DataFoglioCassa) BETWEEN {2} AND {3}) AND ({4})
+            GROUP BY FORMAT(DataFoglioCassa,''dd-MM''),YEAR(DataFoglioCassa)
+            ) AS A
+            PIVOT (
+            SUM(A.Totale)
+            FOR ANNO IN (' + @cols + ')
+            ) AS B'
+
+            EXECUTE sp_executesql @sql"
+
+        AnalisiRamiGestione()
+
+        Return String.Format(sql, _Premio, _ComboMese.Text.Split(".")(0), _ComboAnno.Text - 1, _ComboAnno.Text, _Clausola)
+    End Function
+
+    Private Shared Function QueryRiporto(Anno As Integer) As Double
+        Try
+            Dim sql As String = "SELECT Iif(SUM({0}) > 0, SUM({0}), 0) FROM Incassi 
+                WHERE (MONTH(DataFoglioCassa) < {1}) AND (YEAR(DataFoglioCassa) = {2}) AND ({3})"
+
+            AnalisiRamiGestione()
+            sql = String.Format(sql, _Premio, _ComboMese.Text.Split(".")(0), Anno, _Clausola)
+
+            Return Utx.WsCommand.ExecuteScalar(sql).Valore
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Return 0
+        End Try
+    End Function
+
+    Private Shared Sub _ComboMese_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _ComboMese.SelectedIndexChanged
+        _ButtonVariazioni.Enabled = _ComboMese.SelectedIndex > 0 AndAlso _ComboAggregato.SelectedIndex < 2
+        If _ButtonVariazioni.Enabled Then
+            _ButtonVariazioni.BackColor = Color.Orange
+        Else
+            _ButtonVariazioni.BackColor = SystemColors.Control
+        End If
+    End Sub
+
+    Private Shared Sub _ComboAggregato_SelectedIndexChanged(sender As Object, e As EventArgs) Handles _ComboAggregato.SelectedIndexChanged
+        _ButtonVariazioni.Enabled = _ComboMese.SelectedIndex > 0 AndAlso _ComboAggregato.SelectedIndex < 2
+        If _ButtonVariazioni.Enabled Then
+            _ButtonVariazioni.BackColor = Color.Orange
+        Else
+            _ButtonVariazioni.BackColor = SystemColors.Control
+        End If
+    End Sub
+#End Region
+End Class

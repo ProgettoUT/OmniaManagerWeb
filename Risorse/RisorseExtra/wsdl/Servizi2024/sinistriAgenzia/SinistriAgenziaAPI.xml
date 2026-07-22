@@ -1,0 +1,226 @@
+<!--  Generated WSDL for it.unipol.sx.webservice.unitools.SinistriAgenziaAPI web service  -->
+<wsdl:definitions xmlns:gwsoap="http://guidewire.com/ws/soapheaders" xmlns:gwwsdl="http://guidewire.com/pl/wsdl" xmlns:pogo="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult" xmlns:pogo2="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio" xmlns:pogo3="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro" xmlns:pogo4="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://guidewire.com/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI" name="SinistriAgenziaAPI">
+	<wsdl:types>
+		<xs:schema xmlns:gw="http://guidewire.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/ws/soapheaders" schemaLocation="soapheaders.xsd.xml"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult"/>
+			<!--  getSinistroInfoList(Date, Date, String) : SinistriAgenziaResult  -->
+			<xs:element name="getSinistroInfoList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="aDataCreazioneInizio" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+						<xs:element name="aDataCreazioneFine" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+						<xs:element name="aCodiceAgenzia" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getSinistroInfoListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="pogo:SinistriAgenziaResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WsiAuthenticationException">
+				<xs:complexType/>
+			</xs:element>
+			<!--  getSinistroDettaglio(String) : SinistriAgenziaResult  -->
+			<xs:element name="getSinistroDettaglio">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="aNumeroSinistro" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getSinistroDettaglioResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="pogo:SinistriAgenziaResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio"/>
+			<xs:complexType name="SinistriAgenziaResult">
+				<xs:sequence>
+					<xs:element name="ErrorDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="SinistroDettaglio" type="pogo2:SinistroDettaglio" minOccurs="0"/>
+					<xs:element xmlns:gw="http://guidewire.com/xsd" name="SinistroInfoList" minOccurs="0" gw:viewas="list">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Entry" type="pogo4:SinistroInfo" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="errorCode" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult"/>
+			<xs:complexType name="SinistroDettaglio">
+				<xs:sequence>
+					<xs:element xmlns:gw="http://guidewire.com/xsd" name="ElencoPosizioni" minOccurs="0" gw:viewas="list">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Entry" type="pogo3:PosizioneSinistro" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult"/>
+			<xs:complexType name="PosizioneSinistro">
+				<xs:sequence>
+					<xs:element name="nomePosizione" type="xs:string" minOccurs="0"/>
+					<xs:element name="progrPosizione" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:gw="http://guidewire.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult"/>
+			<xs:complexType name="SinistroInfo">
+				<xs:sequence>
+					<xs:element name="DataAccadimento" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+					<xs:element name="Numero" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:portType name="SinistriAgenziaAPIPortType">
+		<wsdl:operation name="getSinistroInfoList">
+			<wsdl:input name="getSinistroInfoList" message="tns:getSinistroInfoList"/>
+			<wsdl:output name="getSinistroInfoListResponse" message="tns:getSinistroInfoListResponse"/>
+			<wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+		</wsdl:operation>
+		<wsdl:operation name="getSinistroDettaglio">
+			<wsdl:input name="getSinistroDettaglio" message="tns:getSinistroDettaglio"/>
+			<wsdl:output name="getSinistroDettaglioResponse" message="tns:getSinistroDettaglioResponse"/>
+			<wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SinistriAgenziaAPISoap12Binding" type="tns:SinistriAgenziaAPIPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="getSinistroInfoList">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<wsdl:input name="getSinistroInfoList">
+				<soap12:body use="literal"/>
+				<soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSinistroInfoListResponse">
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap12:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getSinistroDettaglio">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<wsdl:input name="getSinistroDettaglio">
+				<soap12:body use="literal"/>
+				<soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSinistroDettaglioResponse">
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap12:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="SinistriAgenziaAPISoap11Binding" type="tns:SinistriAgenziaAPIPortType">
+		<soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="getSinistroInfoList">
+			<soap11:operation style="document"/>
+			<wsdl:input name="getSinistroInfoList">
+				<soap11:body use="literal"/>
+				<soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSinistroInfoListResponse">
+				<soap11:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap11:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="getSinistroDettaglio">
+			<soap11:operation style="document"/>
+			<wsdl:input name="getSinistroDettaglio">
+				<soap11:body use="literal"/>
+				<soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSinistroDettaglioResponse">
+				<soap11:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap11:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SinistriAgenziaAPI">
+		<wsdl:port name="SinistriAgenziaAPISoap12Port" binding="tns:SinistriAgenziaAPISoap12Binding">
+			<soap12:address location="http://lxfmjbliqcc.servizi.gr-u.it/essigSXCC/ws/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI"/>
+			<gwwsdl:address location="${cc}/ws/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI"/>
+		</wsdl:port>
+		<wsdl:port name="SinistriAgenziaAPISoap11Port" binding="tns:SinistriAgenziaAPISoap11Binding">
+			<soap11:address location="http://lxfmjbliqcc.servizi.gr-u.it/essigSXCC/ws/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI/soap11"/>
+			<gwwsdl:address location="${cc}/ws/it/unipol/sx/webservice/unitools/SinistriAgenziaAPI/soap11"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:message name="getSinistroInfoList">
+		<wsdl:part name="parameters" element="tns:getSinistroInfoList"/>
+	</wsdl:message>
+	<wsdl:message name="getSinistroInfoListResponse">
+		<wsdl:part name="parameters" element="tns:getSinistroInfoListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="WsiAuthenticationException">
+		<wsdl:part name="WsiAuthenticationException" element="tns:WsiAuthenticationException"/>
+	</wsdl:message>
+	<wsdl:message name="getSinistroDettaglio">
+		<wsdl:part name="parameters" element="tns:getSinistroDettaglio"/>
+	</wsdl:message>
+	<wsdl:message name="getSinistroDettaglioResponse">
+		<wsdl:part name="parameters" element="tns:getSinistroDettaglioResponse"/>
+	</wsdl:message>
+	<wsdl:message name="gw-authentication">
+		<wsdl:part name="gw-authentication" element="gwsoap:authentication"/>
+	</wsdl:message>
+	<wsdl:message name="gw-locale-only">
+		<wsdl:part name="gw-locale-only" element="gwsoap:gw_locale"/>
+	</wsdl:message>
+	<wsdl:message name="gw-language-only">
+		<wsdl:part name="gw-language-only" element="gwsoap:gw_language"/>
+	</wsdl:message>
+	<wsdl:message name="gw-transaction-id">
+		<wsdl:part name="gw-transaction-id" element="gwsoap:transaction_id"/>
+	</wsdl:message>
+	<wsdl:message name="gw-traceability-id">
+		<wsdl:part name="gw-traceability-id" element="gwsoap:traceability_id"/>
+	</wsdl:message>
+</wsdl:definitions>

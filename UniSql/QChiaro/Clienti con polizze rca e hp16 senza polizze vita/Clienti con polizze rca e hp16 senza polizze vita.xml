@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Copertura</pacchetto>
+        <nome>Clienti con polizze rca e hp16 senza polizze vita</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono estratti tutti i clienti che hanno polizze auto con hp > 16 e non hanno polizze vita:
+Sono riportati i dati anagrafici.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Polizze attive (Data Storno non valorizzato)
+ - Ramo Gestione 1
+ - Nessuna polizza ramo vita (ramo diverso da 89, 110, 111, 114, 189, 310, 54, 57, 155, 156)
+]]></note>
+        <ultagg>16/06/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@mese" etichetta="Scadenza rata in" tipo="integer" valore="1" larghezza="20" sinistra="125">
+            <elencovalori>1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.Email AS EMail,
+		    C.IDZona AS [Identificativo zona],
+		    C.TipoCliente AS [Tipo Cliente], 
+		    (right(str(TipoCliente),2)) AS Mercato, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione
+		 FROM ((
+		    [Clienti] AS C 
+		INNER JOIN [Polizze] AS P ON C.CodiceFiscale = P.CodiceFiscale)
+		 LEFT JOIN Professioni      AS PR  ON PR.IDProfessione = C.TipoCliente\100)
+		WHERE 
+			 C.PolizzeVigore >= 1
+		     AND @subagenzia  IN (-1, P.CodiceSubAgente)
+		     AND @produttore  IN (-1, P.CodiceProduttore)
+		     AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+		     AND P.RamoGestione = 1
+		     AND P.CavalliFiscali >16
+		     AND p.frazionamento > 0 
+		     AND p.frazionamento in (1,2,3,4,6,12) 
+		     AND (((12+month(p.datascadenza)-(@mese)) Mod (12/p.frazionamento)) = 0)
+		     AND (
+		not exists
+		(Select p1.ramo from polizze p1
+		where c.codicefiscale = p1.codicefiscale
+		and (P1.DataStorno IS NULL OR P1.DataStorno = 0)
+		and p1.ramo in (89, 110, 111, 114, 189, 310, 54, 57, 155, 156))
+		)
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Contatti</pacchetto>
+        <nome>Rubrica clienti</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Estrae i riferimenti e i contatti dei clienti</descrizione>
+        <note></note>
+        <ultagg>20/03/2020</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="-1" obbligatorio="true" sinistra="32" larghezza="22">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT SubAgenzia, format(SubAgenzia,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Clienti C left join FigureProduttive as FP on (C.SubAgenzia=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@cognome" etichetta="Il nominativo contiene la stringa" tipo="string" valore="" sinistra="84" larghezza="42"/>
+        <parametro nome="@cap" etichetta="Cap" tipo="integer" valore="" sinistra="32" larghezza="22" nuovariga="true"/>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="#" obbligatorio="true" sinistra="84" larghezza="15">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+	<parametro nome="@sesso" etichetta="Sesso"  tipo="string" valore="" obbligatorio="true" larghezza="15" sinistra="111">
+	    <elencovalori>#;TUTTI;M;MASCHILE;F;FEMMINILE;N;SOCIETA</elencovalori>
+	</parametro>
+
+    </parametri>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    Left(C.Cognome,1) as Iniziale,
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Fax AS Fax,
+		    C.Cellulare AS Cellulare, 
+		    C.Email AS EMail, 
+		    C.TelAziendale AS [Telefono Aziendale], 
+		    C.NomeReferente AS [Nome Referente], 
+		    C.TelReferente AS [Telefono Referente],
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia],
+		    C.IDStatoCliente AS [ID Stato  cliente],
+		    TSC.StatoCliente AS [Stato del cliente]
+		FROM 
+		    [Clienti] AS C
+		 LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente)
+		WHERE 
+			 C.Cognome like '%' & @cognome & '%'
+		  AND @subagenzia in (-1,C.SubAgenzia)
+		  AND (@cap IS NULL OR @cap=C.cap)
+		  AND @statocliente IN ('#', C.IDStatoCliente)
+                  AND @sesso       IN ('#', C.Sesso)
+		ORDER BY 1, 2
+	]]></sql>
+    </estrazione>
+</oggetto>

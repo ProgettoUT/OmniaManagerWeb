@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Incassi</pacchetto>
+        <nome>4.Produzione - dettaglio</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>in manutenzione</stato>
+<descrizione><![CDATA[
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+]]></note>
+        <ultagg>25/07/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <!--parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="string" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT format(Convenzione,'00000'), format(Convenzione,'00000')
+	    		           FROM Incassi
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@datamin" etichetta="Effetto dal" tipo="date" larghezza="20" nuovariga="true" sinistra="32" valore="01/01/2001" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al" tipo="date" larghezza="20" nuovariga="false" sinistra="54" valore="31/12/2010" obbligatorio="true"/>
+        <parametro nome="@segmentazione" etichetta="Segmento" tipo="integer" obbligatorio="true" valore="-1" larghezza="42" sinistra="84">
+	    <elencovalori>
+	    -1;TUTTI;
+	    	-2;  DANNI;
+	    		-4;    AUTO;
+					 1;        RESPONSABILITA' CIVILE AUTO;
+					 2;        AUTO RISCHI DIVERSI;
+	    		-5;    RAMI ELEMENTARI;
+	    			-6;      PERSONE;
+					 3;        INFORTUNI;
+					 4;        MALATTIE;
+					 5;        RISCHI DIVERSI PERSONE;
+	    			-7;      AZIENDE;
+					 6;        INCENDIO RISCHI ORDINARI;
+					 7;        INCENDIO RISCHI INDUSTRIALI;
+					 8;        RISCHI TECNOLOGICI;
+					 9;        FURTO;
+					10;        RESPONSABILITA' CIVILE GENERALE;
+	    			-8;      ALTRI RAMI;
+					11;        TRASPORTI;
+					12;        AERONAUTICA;
+					13;        CAUZIONI;
+					14;        CREDITO;
+					15;        RISCHIO IMPIEGO;
+					16;        GRANDINE;
+					17;        BESTIAME;
+	    	-3;  VITA;
+                                        18;        VITA INDIVIDUALI;
+					19;        VITA COLLETTIVE;
+					20;        VITA FONDI PENSIONE
+	    </elencovalori>
+        </parametro-->
+        <parametro nome="@datafcmin" etichetta="Incasso dal" tipo="date" larghezza="20" nuovariga="false" sinistra="32" valore="01/01/2011" obbligatorio="true"/>
+        <parametro nome="@datafcmax" etichetta="al" tipo="date" larghezza="20" nuovariga="false" sinistra="54" valore="31/01/2011" obbligatorio="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<!--
+	    (Switch([tipocid]="1", "Gestione CID - Attiva"
+		          , [tipocid]="2", "Gestione CID - Parziale"
+		          , [tipocid]="4", "Gestione CID - Passiva"
+		          , [tipocid]="5", "Gestione CARD Gestionaria - Attivi"
+		          , [tipocid]="6", "Gestione CARD Mista - 50%"
+		          , [tipocid]="7", "Gestione CARD Debitrice - Passivi a forfait"
+		          , [tipocid]="8", "RCA attiva assistenza ai clienti")) 
+		                                  AS [Tipologia Cid descrizione], 
+
+		  AND ABS(IIF(IC.PremioTass,IC.PremioTass, 0)-IIF(MP.TotalePremioAnnuo,MP.TotalePremioAnnuo,0)-IC.PremioTass+IC.PremioTassO) > 0.05
+
+		    IIF((Select top 1 1 
+		           from Incassi i 
+		          where I.CodiceFiscInc = IC.CodiceFiscInc 
+		            AND ((I.DataFoglioCassa < IC.DataFoglioCassa)
+		             OR ((I.DataFoglioCassa = IC.DataFoglioCassa) AND (I.Polizza < IC.polizza))
+		             )),'N', 'S')             AS [Nuovo Cliente],
+	-->
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    IC.Agenzia                        AS [Agenzia],
+		    IC.CodiceFiscInc                  AS [Codice fiscale], 
+		    Trim(IC.Contraente)               AS [Nominativo], 
+		    IIF((IC.DataFoglioCassa = MinDataFoglioCassa AND IC.Polizza = MinPolizza AND C.DataInserimento >= @datafcmin),'S', 'N') 
+		                                      AS [Nuovo Cliente],
+		    C.DataInserimento                 as [Cliente dal],
+		    IC.CodiceSubAgente                AS [Sub agente], 
+		    IC.Polizza                        AS [Polizza],
+		    IC.DataFoglioCassa                AS [Foglio cassa], 
+		    IC.DataEffettoTitolo              AS [Effetto titolo], 
+		    IC.DataScadenzaTitolo             AS [Scadenza titolo], 
+		    Format(IC.Convenzione,'00000')    AS [Convenzione],
+		    Format(IC.Ramo    ,'000')         AS [Ramo],
+		    TR1.Ramo                          AS [Ramo des],
+		    Format(IC.CodiceProdotto,'00000') AS [Prodotto],
+		    PR2.Prodotto                      AS [Prodotto des],
+		    Format(IC.RamoGestione,  '00')    AS [Ramo Gestione],
+		    RG.DescRamoGest                   AS [Ramo Gestione Des],
+    		    MP.IDStorno                       AS [Cod storno],
+    		    TS.Storno                         AS [Storno], 
+    		    MP.DataStorno                     AS [Data Storno],
+		    MP.Agenzia                        AS [Agenzia old], 
+		    Format(MP.Ramo,          '000')   AS [Ramo old],
+		    TR.Ramo                           AS [Ramo Des old],
+		    MP.Polizza                        AS [Polizza old], 
+		    Format(MP.CodiceProdotto,'00000') AS [Prodotto old], 
+		    PR1.Prodotto                      AS [Prodotto des old],
+		    IC.TipoCarico                     AS [Carico incassi], 
+		    Switch(IC.TipoCarico='0', 'Emissione copertura provvisoria'
+		          ,IC.TipoCarico='1', 'Nuova emissione'
+		          ,IC.TipoCarico='2', 'Sostituzione'
+		          ,IC.TipoCarico='3', 'Variazione'
+		          ,IC.TipoCarico='4', 'Quietanza'
+		          ,IC.TipoCarico='5', 'Premio unico'
+		          ,IC.TipoCarico='6', 'Regolazione premio'
+		          ,IC.TipoCarico='8', 'Incasso di Penale'
+		          ,IC.TipoCarico='9', 'Rimborso di premio e/o provvigioni')
+		                                      AS [Carico incassi des], 
+		    IC.Tassabile                      AS [Imponibile (I)], 
+		    MP.TotalePremioAnnuo              AS [Premio annuo old (MP)], 
+                    IC.IncrProduzione                 AS [Produzione]
+		                                      
+		 FROM (((((((((
+		      [Incassi]    AS IC
+		 LEFT JOIN  [Clienti] AS C
+		   ON IC.CodiceFiscInc = C.CodiceFiscale)
+		 LEFT JOIN 
+			(SELECT CodiceFiscInc, min(Polizza) AS MinPolizza, Min(DataFoglioCassa) AS MinDataFoglioCassa
+			FROM Incassi
+			GROUP BY CodiceFiscInc
+			) I0
+		   ON IC.CodiceFiscInc = I0.CodiceFiscInc)
+		 LEFT JOIN  [MovPolizze] AS MP
+		   ON IC.Agenzia = MP.AgenziaSost
+		  AND IC.Polizza = MP.PolizzaSost
+		  AND IC.Ramo    = MP.RamoSost
+		  AND IC.DataEffettoTitolo=MP.DataStorno)
+		 LEFT JOIN [TipoStorni] AS TS
+		   ON MP.IDStorno = TS.IDStorno AND IIF(P.RamoGestione >=18 AND P.RamoGestione <=20, 'V', 'D')= TS.Settore)
+		 LEFT JOIN [TipoRami] AS TR
+		   ON MP.Ramo = TR.CodiceRamo)
+		 LEFT JOIN [TipoRami] AS TR1
+		   ON IC.Ramo = TR1.CodiceRamo)
+		 LEFT JOIN [RamoGest] AS RG
+		   ON IC.RamoGestione = RG.RamoGestione)
+		 LEFT JOIN [Prodotti] AS PR1
+		   ON MP.CodiceProdotto = PR1.CodiceProdotto)
+		 LEFT JOIN [Prodotti] AS PR2
+		   ON IC.CodiceProdotto = PR2.CodiceProdotto)
+		WHERE (IC.DataFoglioCassa BETWEEN @datafcmin AND @datafcmax)
+		  AND (
+		             (IC.TipoCarico = '0' AND IC.RamoGestione IN (18, 19, 20) AND IC.NumeroAppendice = 0)
+		  	  
+			  OR (IC.TipoCarico = '1' AND IC.RamoGestione IN (1, 2) AND (IC.Targa is null OR trim(IC.Targa)="" OR (Select count(*) from Incassi i where I.Targa = IC.Targa AND I.DataFoglioCassa < IC.DataFoglioCassa) = 0))			  
+			  OR (IC.TipoCarico = '1' AND IC.RamoGestione NOT IN (1, 2, 18, 19, 20))
+		          OR (IC.TipoCarico = '1' AND IC.RamoGestione IN (18, 19, 20) AND IC.NumeroAppendice = 0)
+		  	  
+		  	  OR (IC.TipoCarico = '2')
+		  	     
+			  OR (IC.TipoCarico = '3' AND IC.RamoGestione NOT IN (8, 13, 14, 15) AND IC.PremioNetto <> 0 )
+
+		  	  OR (IC.TipoCarico = '5' AND IC.RamoGestione NOT IN (18, 19, 20))		          
+		          OR (IC.TipoCarico = '5' AND IC.RamoGestione IN (18, 19, 20) AND IC.NumeroAppendice = 0)
+		      )
+		UNION SELECT 
+		    IC.Agenzia                        AS [Agenzia],
+		    IC.CodiceFiscInc                  AS [Codice fiscale], 
+		    Trim(IC.Contraente)               AS [Nominativo], 
+		    'N'                               AS [Nuovo Cliente],
+		    C.DataInserimento                 AS [Cliente dal],
+		    IC.CodiceSubAgente                AS [Sub agente], 
+		    IC.Polizza                        AS [Polizza],
+		    IC.DataFoglioCassa                AS [Foglio cassa], 
+		    IC.DataEffettoTitolo              AS [Effetto titolo], 
+		    IC.DataScadenzaTitolo             AS [Scadenza titolo], 
+		    Format(IC.Convenzione,'00000')    AS [Convenzione],
+		    Format(IC.Ramo    ,'000')         AS [Ramo],
+		    TR1.Ramo                          AS [Ramo des],
+		    Format(IC.CodiceProdotto,'00000') AS [Prodotto],
+		    PR2.Prodotto                      AS [Prodotto des],
+		    Format(IC.RamoGestione,  '00')    AS [Ramo Gestione],
+		    RG.DescRamoGest                   AS [Ramo Gestione Des],
+    		    MP.IDStorno                       AS [Cod storno],
+    		    TS.Storno                         AS [Storno], 
+    		    MP.DataStorno                     AS [Data Storno],
+		    MP.Agenzia                        AS [Agenzia old], 
+		    Format(MP.Ramo,          '000')   AS [Ramo old],
+		    TR.Ramo                           AS [Ramo Des old],
+		    MP.Polizza                        AS [Polizza old], 
+		    Format(MP.CodiceProdotto,'00000') AS [Prodotto old], 
+		    PR1.Prodotto                      AS [Prodotto des old],
+		    IC.TipoCarico                     AS [Carico incassi], 
+		    Switch(IC.TipoCarico='0', 'Emissione copertura provvisoria'
+		          ,IC.TipoCarico='1', 'Nuova emissione'
+		          ,IC.TipoCarico='2', 'Sostituzione'
+		          ,IC.TipoCarico='3', 'Variazione'
+		          ,IC.TipoCarico='4', 'Quietanza'
+		          ,IC.TipoCarico='5', 'Premio unico'
+		          ,IC.TipoCarico='6', 'Regolazione premio'
+		          ,IC.TipoCarico='8', 'Incasso di Penale'
+		          ,IC.TipoCarico='9', 'Rimborso di premio e/o provvigioni')
+		                                      AS [Carico incassi des], 
+		    IC.PremioNetto + IC.InteressiFraz + IC.Accessori
+		                                      AS [Premio netto (I)], 
+		    IC.PremioTass                     AS [Premio annuo (I)], 
+		    IC.PremioTassO                    AS [Premio annuo old (I)], 
+		    MP.TotalePremioAnnuo              AS [Premio annuo old (MP)], 
+                    IIF(IC.RamoGestione >= 13 AND IC.RamoGestione <= 17, 0 , IIF(INSTR("+AF+AK+AS+AX+A1+A2+A3+A6+A9+BE+M+N+Q+X+", "+" & MP.IDStorno & "+") > 0, -MP.TotalePremioAnnuo,0))
+                                                      AS [Produzione],
+		    0                                 AS [controllo]
+		                                      
+		 FROM ((((((((
+		      [Incassi]    AS IC
+		 LEFT JOIN  [Clienti] AS C
+		   ON IC.CodiceFiscInc = C.CodiceFiscale)
+		 LEFT JOIN  [MovPolizze] AS MP
+		   ON IC.Agenzia = MP.Agenzia
+		  AND IC.Polizza = MP.Polizza
+		  AND IC.Ramo    = MP.Ramo)
+		 LEFT JOIN [TipoStorni] AS TS
+		   ON MP.IDStorno = TS.IDStorno AND IIF(P.RamoGestione >=18 AND P.RamoGestione <=20, 'V', 'D')= TS.Settore)
+		 LEFT JOIN [TipoRami] AS TR
+		   ON MP.Ramo = TR.CodiceRamo)
+		 LEFT JOIN [TipoRami] AS TR1
+		   ON IC.Ramo = TR1.CodiceRamo)
+		 LEFT JOIN [RamoGest] AS RG
+		   ON IC.RamoGestione = RG.RamoGestione)
+		 LEFT JOIN [Prodotti] AS PR1
+		   ON MP.CodiceProdotto = PR1.CodiceProdotto)
+		 LEFT JOIN [Prodotti] AS PR2
+		   ON IC.CodiceProdotto = PR2.CodiceProdotto)
+		WHERE (IC.DataFoglioCassa BETWEEN @datafcmin AND @datafcmax)
+		  AND IC.TipoCarico = '9'
+                  AND (MP.IDStorno IS NULL OR MP.IDStorno NOT IN ('AG','AH', 'AO', 'A1', 'A7', 'A8', 'M', 'O'))
+		  AND (
+		  	     (IC.RamoGestione NOT IN (18, 19, 20))
+		          OR (IC.RamoGestione IN (18, 19, 20) AND IC.NumeroAppendice = 0)
+		      )
+		ORDER BY
+		    6
+	]]></sql>
+    </estrazione>
+</oggetto>

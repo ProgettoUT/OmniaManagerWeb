@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Provvigioni</pacchetto>
+        <nome>Provvigioni per ramo gestione</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>in manutenzione</stato>
+<descrizione><![CDATA[
+Estrae le provvigioni raggruppate per ramo gestione.
+]]></descrizione>
+<note><![CDATA[
+]]></note>
+        <ultagg>06/05/2018</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@datamin" etichetta="Foglio cassa dal" tipo="date" larghezza="20" sinistra="37" valore="=('01/01/' + format(Date(), 'yyyy'))" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al" tipo="date" larghezza="20" sinistra="76" valore="=format(Date(), 'dd/MM/yyyy')" obbligatorio="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="agente"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    Year(DataFoglioCassa)           AS [Anno],
+		    format(I.RamoGestione,'00')     AS [Ramo gestione],
+		    R.DescRamoGest                  AS [Descrizione],
+		    SUM(PrvFisse - PrvINF - PrvArd) AS [Provvigioni fisse],
+		    SUM(CavRca)                     AS [CAV],
+		    SUM(PrvINF)                     AS [Infortuni RCA],
+		    SUM(PrvArd)                     AS [ARD],
+		    SUM(PrvFisse + CavRca)          AS [Totale]
+		 FROM [IncassiBudget] I
+		 INNER JOIN RamoGest R
+		    ON I.RamoGestione = R.RamoGestione
+		WHERE DataFoglioCassa >= @datamin
+		  AND DataFoglioCassa <= @datamax
+		GROUP BY Year(I.DataFoglioCassa), I.RamoGestione, R.DescRamoGest
+		UNION SELECT
+		    Year(DataFoglioCassa)           AS [Anno],
+		    "TOTALE"                        AS [Ramo gestione],
+		    "TUTTI I RAMI GESTIONE"         AS [Descrizione],
+		    SUM(PrvFisse - PrvINF - PrvArd) AS [Provvigioni fisse],
+		    SUM(CavRca)                     AS [CAV],
+		    SUM(PrvINF)                     AS [Infortuni RCA],
+		    SUM(PrvArd)                     AS [ARD],
+		    SUM(PrvFisse + CavRca)          AS [Totale]
+		 FROM [IncassiBudget]
+		WHERE DataFoglioCassa >= @datamin
+		  AND DataFoglioCassa <= @datamax
+		GROUP BY Year(DataFoglioCassa)
+		ORDER BY 2, 1 DESC		    
+			]]></sql>
+    </estrazione>
+    <!--vecchia-estrazione-incassi>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    Year(DataFoglioCassa)           AS [Anno],
+		    format(I.RamoGestione,'00')     AS [Ramo gestione],
+		    R.DescRamoGest                  AS [Descrizione],
+		    SUM(IIF(I.RamoGestione = 1, PrvFisseRC, PrvAcq + PrvInc))
+		                                    AS [Provvigioni fisse],
+		    SUM(CavRca)                     AS [CAV],
+		    SUM(PrvINF)                     AS [Infortuni RCA],
+		    SUM(PrvIF+PrvKasko+PrvAssistenza)  AS [ARD],
+		    SUM(PrvAcq + PrvInc + CavRca)   AS [Totale]
+		 FROM [IncassiBudget] I
+		 INNER JOIN RamoGest R
+		    ON I.RamoGestione = R.RamoGestione
+		WHERE DataFoglioCassa >= @datamin
+		  AND DataFoglioCassa <= @datamax
+		GROUP BY Year(I.DataFoglioCassa), I.RamoGestione, R.DescRamoGest
+		UNION SELECT
+		    Year(DataFoglioCassa)           AS [Anno],
+		    "TOTALE"                        AS [Ramo gestione],
+		    "TUTTI I RAMI GESTIONE"         AS [Descrizione],
+		    SUM(IIF(RamoGestione = 1, PrvFisseRC, PrvAcq + PrvInc))
+		                                    AS [Provvigioni fisse],
+		    SUM(CavRca)                     AS [CAV],
+		    SUM(PrvINF)                     AS [Infortuni RCA],
+		    SUM(PrvIF+PrvKasko+PrvAssistenza)  AS [ARD],
+		    SUM(PrvAcq + PrvInc + CavRca)   AS [Totale]
+		 FROM [IncassiBudget]
+		WHERE DataFoglioCassa >= @datamin
+		  AND DataFoglioCassa <= @datamax
+		GROUP BY Year(DataFoglioCassa)
+		ORDER BY 2, 1 DESC		    
+			]]></sql>
+    </vecchia-estrazione-incassi-->
+</oggetto>

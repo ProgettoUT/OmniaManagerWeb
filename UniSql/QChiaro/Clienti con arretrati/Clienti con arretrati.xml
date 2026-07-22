@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Quietanzamento</pacchetto>
+        <nome>Clienti con arretrati</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco clienti con arretrati</descrizione>
+        <note></note>
+        <ultagg>10/03/2020</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@datamin" etichetta="Effetto dal" tipo="date" larghezza="11" sinistra="84" valore="=format(DateSerial(year(Date()), month(Date()), 1), 'dd/mm/yyyy')" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al"          tipo="date" larghezza="11" sinistra="100" valore="=format(DateAdd('d', -1, DateSerial(year(Date()), 1 + month(Date()), 1)), 'dd/mm/yyyy')" obbligatorio="true"/>
+        
+        <parametro nome="@sesso" etichetta="Sesso"  tipo="string" valore="" obbligatorio="true" larghezza="24" sinistra="32" nuovariga="true">
+	    <elencovalori>#;TUTTI;M;MASCHILE;F;FEMMINILE;N;SOCIETA</elencovalori>
+        </parametro>
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="#" obbligatorio="true" larghezza="10" sinistra="64">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy
+	    		           FROM Clienti
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+	    <elencovalori>SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy FROM Clienti ORDER BY 1</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT A.SubAgenzia
+		    ,(Switch([C.Sesso]="S","Spettabile",[C.Sesso]="F","Gentile Signora",[C.Sesso]="M","Egregio Signor")) AS [Titolo]
+		    ,TRIM(C.Cognome & " " & C.Nome) AS Contraente
+		    ,C.DataNascita AS [Data di nascita]
+		    ,C.Sesso
+		    ,C.Cellulare AS Cellulare
+		    ,C.Email AS EMail
+		    ,C.Indirizzo
+		    ,C.Cap
+		    ,C.Localita
+		    ,C.Provincia
+		    ,C.ConsensoPrivacy AS [Privacy]
+		    ,C.Telefono1 AS [Primo telefono]
+		    ,C.Fax AS Fax
+		    ,C.ClienteTop AS [ClienteTop]
+		    ,C.CodiceFiscale as [Codice Fiscale]
+		    ,MIN(EffettoTitolo) as [Prima scadenza]
+		    ,MAX(EffettoTitolo) as [Ultima scadenza]
+		    ,Count(*) as [Numero titoli]
+		 FROM ([Arretrati] AS A
+		 LEFT JOIN CLIENTI C ON A.CodiceFiscale = C.CodiceFiscale)
+		WHERE @subagenzia  IN (-1, A.SubAgenzia)
+		  AND A.EffettoTitolo >= @datamin
+		  AND A.EffettoTitolo <= @datamax
+		  AND @privacy     IN ('#', C.ConsensoPrivacy)
+		  AND @sesso       IN ('#', C.Sesso)
+		GROUP BY
+		     A.SubAgenzia
+		    ,(Switch([C.Sesso]="S","Spettabile",[C.Sesso]="F","Gentile Signora",[C.Sesso]="M","Egregio Signor"))
+		    ,TRIM(C.Cognome & " " & C.Nome)
+		    ,C.DataNascita
+		    ,C.Sesso
+		    ,C.Cellulare
+		    ,C.Email
+		    ,C.Indirizzo
+		    ,C.Cap
+		    ,C.Localita
+		    ,C.Provincia
+		    ,C.ConsensoPrivacy
+		    ,C.Telefono1
+		    ,C.Fax
+		    ,C.ClienteTop
+		    ,C.CodiceFiscale
+		ORDER BY 3
+	]]></sql>
+    </estrazione>
+</oggetto>

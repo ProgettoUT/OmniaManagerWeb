@@ -1,0 +1,17 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\Consap.dll.config
+C:\ApplicazioniDirezione\UTW\Consap.dll
+C:\ApplicazioniDirezione\UTW\Consap.pdb
+C:\ApplicazioniDirezione\UTW\Consap.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.FormAttivita.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.FormConsap.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.FormRichiesta.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.FormRichiestaSito.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Debug\Consap.pdb

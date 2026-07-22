@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Utilita</pacchetto>
+        <nome>Elenco codici storno</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Estrae tutti i codici storno</descrizione>
+        <note></note>
+        <ultagg>04/02/2014</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		      IdStorno AS [Codice storno]
+		    , Storno   AS [Descrizione]
+		FROM 
+		    TipoStorni
+		ORDER BY 1
+	]]></sql>
+    </estrazione>
+</oggetto>

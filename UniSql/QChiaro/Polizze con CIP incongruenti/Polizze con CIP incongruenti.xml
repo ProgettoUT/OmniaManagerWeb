@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Quietanzamento</pacchetto>
+        <nome>Polizze con CIP incongruenti</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco polizze con cip diverso da quello presente in anagrafica</descrizione>
+        <note></note>
+        <ultagg>20/03/2020</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@sesso" etichetta="Sesso "  tipo="string" valore="" obbligatorio="true" larghezza="24" sinistra="32">
+	          <elencovalori>#;TUTTI;M;MASCHILE;F;FEMMINILE;N;SOCIETA</elencovalori>
+        </parametro>
+        <parametro nome="@incassodal" etichetta="Incassi dal "  tipo="date" obbligatorio="true" larghezza="11" sinistra="70" valore="=format(DateSerial(year(Date()), 1, 1), 'dd/mm/yyyy')"></parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	      <sql profili="tutti">
+          <![CDATA[
+		      SELECT P.Agenzia
+               , P.Ramo
+		           , P.Polizza
+               , I.UltimoIncasso AS [Ultimo Incasso]
+		           , P.CodiceSubAgente AS [CIP Polizza]
+		           , P.IdStorno AS [Codice storno]
+		           , C.CodiceFiscale AS [Codice fiscale]
+		           , C.Cognome
+		           , C.Nome
+		           , C.SubAgenzia AS [CIP Cliente]
+		           , C.Sesso
+		           , C.DataNascita AS [Nato]
+		           , C.Indirizzo
+		           , C.Localita
+		           , C.Cellulare
+		           , C.Telefono1
+		           , C.Telefono2
+		           , C.Email
+          FROM ((Polizze AS P
+          INNER JOIN Clienti AS C ON P.CodiceFiscale = C.CodiceFiscale)
+          INNER JOIN (SELECT Ramo,Polizza,MAX(DataFoglioCassa) AS UltimoIncasso FROM Incassi GROUP BY Ramo,Polizza) AS I ON P.Ramo = I.Ramo AND P.Polizza = I.Polizza)
+          WHERE (P.CodiceSubAgente <> C.SubAgenzia) AND (I.UltimoIncasso > @incassodal) AND (P.CodiceFiscaleCF <> "xxx")
+          AND @sesso IN ('#', C.Sesso)
+          ORDER BY C.Cognome, C.Nome
+  	      ]]></sql>
+    </estrazione>
+</oggetto>

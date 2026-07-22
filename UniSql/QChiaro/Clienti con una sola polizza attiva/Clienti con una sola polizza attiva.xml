@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Copertura</pacchetto>
+        <nome>Clienti con una sola polizza attiva</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono estratti tutti i clienti che hanno una sola polizza attiva:
+Sono riportati i dati anagrafici.
+]]></descrizione>
+<note><![CDATA[
+]]></note>
+        <ultagg>16/06/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia], 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.Email AS EMail,
+		    C.IDZona AS [Identificativo zona]
+		FROM 
+		    (Clienti AS C
+		    Inner Join
+			(Select codicefiscale 
+			,count(polizza) as NumPol 
+			from polizze
+		      	WHERE @subagenzia  IN (-1, CodiceSubAgente)
+		      	  AND @produttore  IN (-1, CodiceProduttore)
+			  AND (DataStorno IS NULL OR DataStorno = 0)
+			group by codicefiscale
+			) as prca
+		        on c.codicefiscale = prca.codicefiscale)
+		WHERE NumPol = 1
+		ORDER BY 1, 3, 4
+	]]></sql>
+    </estrazione>
+</oggetto>

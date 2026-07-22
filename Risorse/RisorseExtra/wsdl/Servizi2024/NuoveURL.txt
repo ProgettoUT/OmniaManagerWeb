@@ -1,0 +1,10 @@
+https://wsappscoll.unipolassicurazioni.it/essigSXCC/services/SinistriServiceForAgenzie
+
+uploader/scarico lista documenti
+https://wsproxy.unipol.it/essigSXCC/ws/it/unipol/sx/service/unitools/UploaderUnitools/soap11
+
+UPLOAD/DOWNLOAD DOCUMENTI
+https://wsappscoll.unipolassicurazioni.it/essigSXCC/ws/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI/soap11
+per sostituire:
+lista documenti sinistro = "https://wsappsbo.unipolassicurazioni.it/essigSXCC/ws/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI/soap11"
+download documento = "https://wsappsbo.unipolassicurazioni.it/UploaderUnitools.dll/soap/IUploaderUnitools"

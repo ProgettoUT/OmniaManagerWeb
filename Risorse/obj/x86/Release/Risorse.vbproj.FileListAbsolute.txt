@@ -1,0 +1,9 @@
+C:\ApplicazioniDirezione\UTW\SETUP\Risorse.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Risorse.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Risorse.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\obj\x86\Release\Risorse.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\obj\x86\Release\Risorse.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\obj\x86\Release\Risorse.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\obj\x86\Release\Risorse.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\obj\x86\Release\Risorse.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\obj\x86\Release\Risorse.pdb

@@ -1,0 +1,20 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UtControls.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UtControls.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormAnteprima.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormAttivita.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormCercaCliente.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormCercaPolizze.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormCopiaDati.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormEmail.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.FormPopUp.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.ucLogin.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.ucNavigationBar.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.ucNote.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtControls\obj\x86\Release\UtControls.pdb

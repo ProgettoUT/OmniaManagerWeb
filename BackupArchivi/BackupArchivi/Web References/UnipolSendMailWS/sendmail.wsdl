@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendMail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailHTML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailHTMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailHTMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailWithAttachmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithMultiAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent1" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent2" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent3" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent4" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName4" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithMultiAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailWithMultiAttachmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithMultiAttachmentHTML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent1" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent2" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent3" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent4" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName4" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailWithMultiAttachmentHTMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailWithMultiAttachmentHTMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailHTMLWithEmbeddedAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent1" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent2" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent3" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent4" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName4" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailHTMLWithEmbeddedAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailHTMLWithEmbeddedAttachmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailHTMLWithEmbeddedAttachmentMax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bcc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subject" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent1" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent2" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent3" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent4" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent5" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent6" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName6" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent7" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName7" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent8" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName8" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent9" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName9" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent10" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName10" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent11" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName11" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent12" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName12" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent13" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName13" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent14" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName14" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent15" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName15" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent16" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName16" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent17" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName17" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent18" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName18" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent19" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName19" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentContent20" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="attachmentName20" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMailHTMLWithEmbeddedAttachmentMaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendMailHTMLWithEmbeddedAttachmentMaxResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendMailSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMail" />
+  </wsdl:message>
+  <wsdl:message name="SendMailSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailHTMLSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailHTML" />
+  </wsdl:message>
+  <wsdl:message name="SendMailHTMLSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailHTMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithAttachmentSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailWithAttachment" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithAttachmentSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailWithAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithMultiAttachmentSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailWithMultiAttachment" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithMultiAttachmentSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailWithMultiAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithMultiAttachmentHTMLSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailWithMultiAttachmentHTML" />
+  </wsdl:message>
+  <wsdl:message name="SendMailWithMultiAttachmentHTMLSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailWithMultiAttachmentHTMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailHTMLWithEmbeddedAttachmentSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailHTMLWithEmbeddedAttachment" />
+  </wsdl:message>
+  <wsdl:message name="SendMailHTMLWithEmbeddedAttachmentSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailHTMLWithEmbeddedAttachmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMailHTMLWithEmbeddedAttachmentMaxSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMailHTMLWithEmbeddedAttachmentMax" />
+  </wsdl:message>
+  <wsdl:message name="SendMailHTMLWithEmbeddedAttachmentMaxSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMailHTMLWithEmbeddedAttachmentMaxResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="SendMail">
+      <wsdl:input message="tns:SendMailSoapIn" />
+      <wsdl:output message="tns:SendMailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTML">
+      <wsdl:input message="tns:SendMailHTMLSoapIn" />
+      <wsdl:output message="tns:SendMailHTMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithAttachment">
+      <wsdl:input message="tns:SendMailWithAttachmentSoapIn" />
+      <wsdl:output message="tns:SendMailWithAttachmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithMultiAttachment">
+      <wsdl:input message="tns:SendMailWithMultiAttachmentSoapIn" />
+      <wsdl:output message="tns:SendMailWithMultiAttachmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithMultiAttachmentHTML">
+      <wsdl:input message="tns:SendMailWithMultiAttachmentHTMLSoapIn" />
+      <wsdl:output message="tns:SendMailWithMultiAttachmentHTMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTMLWithEmbeddedAttachment">
+      <wsdl:input message="tns:SendMailHTMLWithEmbeddedAttachmentSoapIn" />
+      <wsdl:output message="tns:SendMailHTMLWithEmbeddedAttachmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTMLWithEmbeddedAttachmentMax">
+      <wsdl:input message="tns:SendMailHTMLWithEmbeddedAttachmentMaxSoapIn" />
+      <wsdl:output message="tns:SendMailHTMLWithEmbeddedAttachmentMaxSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendMail">
+      <soap:operation soapAction="http://tempuri.org/SendMail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTML">
+      <soap:operation soapAction="http://tempuri.org/SendMailHTML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithAttachment">
+      <soap:operation soapAction="http://tempuri.org/SendMailWithAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithMultiAttachment">
+      <soap:operation soapAction="http://tempuri.org/SendMailWithMultiAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithMultiAttachmentHTML">
+      <soap:operation soapAction="http://tempuri.org/SendMailWithMultiAttachmentHTML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTMLWithEmbeddedAttachment">
+      <soap:operation soapAction="http://tempuri.org/SendMailHTMLWithEmbeddedAttachment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTMLWithEmbeddedAttachmentMax">
+      <soap:operation soapAction="http://tempuri.org/SendMailHTMLWithEmbeddedAttachmentMax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendMail">
+      <soap12:operation soapAction="http://tempuri.org/SendMail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTML">
+      <soap12:operation soapAction="http://tempuri.org/SendMailHTML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithAttachment">
+      <soap12:operation soapAction="http://tempuri.org/SendMailWithAttachment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithMultiAttachment">
+      <soap12:operation soapAction="http://tempuri.org/SendMailWithMultiAttachment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailWithMultiAttachmentHTML">
+      <soap12:operation soapAction="http://tempuri.org/SendMailWithMultiAttachmentHTML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTMLWithEmbeddedAttachment">
+      <soap12:operation soapAction="http://tempuri.org/SendMailHTMLWithEmbeddedAttachment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMailHTMLWithEmbeddedAttachmentMax">
+      <soap12:operation soapAction="http://tempuri.org/SendMailHTMLWithEmbeddedAttachmentMax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://rm.servizi.gr-u.it/sendmail/sendmail.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://rm.servizi.gr-u.it/sendmail/sendmail.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

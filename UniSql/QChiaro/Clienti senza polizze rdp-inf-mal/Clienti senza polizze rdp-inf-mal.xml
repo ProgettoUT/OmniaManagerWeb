@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Copertura</pacchetto>
+        <nome>Clienti senza polizze rdp-inf-mal</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono estratti tutti i clienti che non hanno polizze rdp, infortuni e malattie:
+Sono riportati i dati anagrafici.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Polizze attive (Data Storno non valorizzato)
+ - Persone fisiche (sesso diverso da 'N')
+ - Nessuna polizza nei rami gestione:
+   3 - Infortuni
+   4 - Malattie
+   5 - Rischi diversi persone
+]]></note>
+        <ultagg>18/06/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="90">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@mese" etichetta="Scadenza rata in" tipo="integer" valore="1" larghezza="20" nuovariga="true" sinistra="40">
+            <elencovalori>1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>
+        </parametro>
+        <parametro nome="@etaDa"  etichetta="eta compresa tra" tipo="integer" valore="21" obbligatorio="true" larghezza="3" sinistra="90"/>
+        <parametro nome="@etaA"   etichetta="e tra" tipo="integer" valore="60" obbligatorio="true" larghezza="3" sinistra="98"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.Email AS EMail,
+		    C.IDZona AS [Identificativo zona]
+		 FROM (((
+		      (SELECT DISTINCT CodiceFiscale 
+		         FROM POLIZZE
+		      	WHERE @subagenzia  IN (-1, CodiceSubAgente)
+		      	  AND @produttore  IN (-1, CodiceProduttore)
+		      	  AND (DataStorno IS NULL OR DataStorno = 0)
+		      ) AS P0		         
+		INNER JOIN CLIENTI AS C 
+		        ON C.CodiceFiscale = P0.CodiceFiscale)
+		INNER JOIN
+			(SELECT CODICEFISCALE 
+			   FROM POLIZZE
+			  WHERE (DataStorno IS NULL OR DataStorno = 0)
+			  GROUP BY CODICEFISCALE
+			 HAVING CINT(SUM(RAMOGESTIONE IN (3, 4, 5))) = 0
+			) AS PRCA
+		        ON C.CODICEFISCALE = PRCA.CODICEFISCALE)
+		INNER JOIN POLIZZE AS P
+		        ON c.codicefiscale = p.codicefiscale)				        
+		WHERE Sesso <> 'N'
+		  AND year(Date()) - year(DataNascita) between @etaA and @etaDa
+		  AND p.frazionamento > 0 
+		  AND p.frazionamento in (1,2,3,4,6,12) 
+		  AND (((12+month(p.datascadenza)-(@mese)) Mod (12/p.frazionamento)) = 0)
+		ORDER BY 2, 4, 5
+	]]></sql>
+    </estrazione>
+</oggetto>

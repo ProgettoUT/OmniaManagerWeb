@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--Richiesta: Estrazione numero di sinistri per targa e per contraente con esposizione dei dati generali e di contatto del contraente.-->
+<oggetto>
+    <manifesto>
+        <pacchetto>Sinistri</pacchetto>
+        <nome>Sinistri per targa</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae il dettaglio dei sinistri per classe veicolo.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Nessuno
+]]></note>
+        <ultagg>04/11/2016</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+	SELECT 
+	    S.TargaAssicurato             AS [Targa],
+	    S.CODICEFISCCONTRPOL          AS [Codice Fiscale],
+	    C.Cognome                     AS [Cognome], 
+	    C.Nome                        AS [Nome],
+	    S.NumeroSinistri              AS [Numero Sinistri],
+	    S.Liquidato
+	FROM (                                  
+	SELECT TargaAssicurato
+     	     , CODICEFISCCONTRPOL
+             , COUNT(*)      AS NumeroSinistri
+             , sum(PagatoAl) AS Liquidato
+          FROM Sinistri
+         WHERE TargaAssicurato > ''
+         GROUP BY TargaAssicurato, CODICEFISCCONTRPOL) S                                  
+	LEFT JOIN [CLIENTI] AS C 
+  	  ON (C.CODICEFISCALE = S.CODICEFISCCONTRPOL)
+       ORDER BY TargaAssicurato, S.CODICEFISCCONTRPOL
+         ]]></sql>
+    </estrazione>
+</oggetto>

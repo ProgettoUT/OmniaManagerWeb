@@ -1,0 +1,3372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="casa.org" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="casa.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="casa.org">
+      <s:element name="checkAccesso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nomeApplicazione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ipAddress_FORWARDED" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ipAddress_REMOTE_ADDR" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkAccessoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkAccessoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkUniGest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkUniGestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkUniGestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkUnitools">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkUnitoolsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkUnitoolsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkSmsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkVisure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkVisureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkVisureResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkQuotatore">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkQuotatoreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkQuotatoreResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkSistemaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkMultiplo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkMultiploResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkMultiploResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNews">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getNewsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getNewsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrazioneRicarica">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UtenteSubaccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QuantitaSms" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CostoPacchetto" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="AcquistoUnicoSistema" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrazioneRicaricaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrazioneRicaricaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraVisura">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdApp" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Targa" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TipoVeicolo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Esito" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraVisuraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraVisuraResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaStatistiche">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneUt" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaStatisticheResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiornaStatisticheResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkAccessoUnitools">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneUt" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkAccessoUnitoolsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkAccessoUnitoolsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoVisure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoVisureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoVisureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotali">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReportTotaliResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliAgenzia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliAgenziaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReportTotaliAgenziaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoRicariche">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoRicaricheResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoRicaricheResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkUnitoolsW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkUnitoolsWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkUnitoolsWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSmsW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSmsWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkSmsWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkVisureW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkVisureWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkVisureWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkQuotatoreW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkQuotatoreWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkQuotatoreWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSistemaW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkSistemaWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkSistemaWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkMultiploW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkMultiploWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkMultiploWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkPostalizzazioneW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkPostalizzazioneWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkPostalizzazioneWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrazioneRicaricaW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UtenteSubaccount" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="QuantitaSms" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CostoPacchetto" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="AcquistoUnicoSistema" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistrazioneRicaricaWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistrazioneRicaricaWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraVisuraW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdApp" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Targa" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TipoVeicolo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Esito" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraVisuraWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraVisuraWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaStatisticheW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneUt" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaStatisticheWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiornaStatisticheWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkAccessoUnitoolsW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneUt" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkAccessoUnitoolsWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkAccessoUnitoolsWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoVisureW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoVisureWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoVisureWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReportTotaliWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliAgenziaW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportTotaliAgenziaWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReportTotaliAgenziaWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoRicaricheW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataDal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DataAl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoRicaricheWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoRicaricheWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkMultiploX">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="checkMultiploXResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="checkMultiploXResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="setUnitoolsX">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codiceCompagnia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="valore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="setUnitoolsXResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="setUnitoolsXResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="verificaCodiciW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codici" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="verificaCodiciWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="verificaCodiciWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDatiPostalizzazioneW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codici" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getDatiPostalizzazioneWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDatiPostalizzazioneWResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaServizi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cfUtente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appRichiedenteModifica" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="descAzione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="richiestaMail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="templateMail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaServiziResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiornaServiziResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="checkAccessoSoapIn">
+    <wsdl:part name="parameters" element="tns:checkAccesso" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoSoapOut">
+    <wsdl:part name="parameters" element="tns:checkAccessoResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkUniGestSoapIn">
+    <wsdl:part name="parameters" element="tns:checkUniGest" />
+  </wsdl:message>
+  <wsdl:message name="checkUniGestSoapOut">
+    <wsdl:part name="parameters" element="tns:checkUniGestResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsSoapIn">
+    <wsdl:part name="parameters" element="tns:checkUnitools" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsSoapOut">
+    <wsdl:part name="parameters" element="tns:checkUnitoolsResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:checkSms" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:checkSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureSoapIn">
+    <wsdl:part name="parameters" element="tns:checkVisure" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureSoapOut">
+    <wsdl:part name="parameters" element="tns:checkVisureResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreSoapIn">
+    <wsdl:part name="parameters" element="tns:checkQuotatore" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreSoapOut">
+    <wsdl:part name="parameters" element="tns:checkQuotatoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:checkSistema" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:checkSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploSoapIn">
+    <wsdl:part name="parameters" element="tns:checkMultiplo" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploSoapOut">
+    <wsdl:part name="parameters" element="tns:checkMultiploResponse" />
+  </wsdl:message>
+  <wsdl:message name="getNewsSoapIn">
+    <wsdl:part name="parameters" element="tns:getNews" />
+  </wsdl:message>
+  <wsdl:message name="getNewsSoapOut">
+    <wsdl:part name="parameters" element="tns:getNewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrazioneRicarica" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrazioneRicaricaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraVisura" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraVisuraResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaStatistiche" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaStatisticheResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsSoapIn">
+    <wsdl:part name="parameters" element="tns:checkAccessoUnitools" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsSoapOut">
+    <wsdl:part name="parameters" element="tns:checkAccessoUnitoolsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoVisure" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoVisureResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliSoapIn">
+    <wsdl:part name="parameters" element="tns:ReportTotali" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliSoapOut">
+    <wsdl:part name="parameters" element="tns:ReportTotaliResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaSoapIn">
+    <wsdl:part name="parameters" element="tns:ReportTotaliAgenzia" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaSoapOut">
+    <wsdl:part name="parameters" element="tns:ReportTotaliAgenziaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoRicariche" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoRicaricheResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkUnitoolsW" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkUnitoolsWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkSmsW" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkSmsWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkVisureW" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkVisureWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkQuotatoreW" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkQuotatoreWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkSistemaW" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkSistemaWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkMultiploW" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkMultiploWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkPostalizzazioneWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkPostalizzazioneW" />
+  </wsdl:message>
+  <wsdl:message name="checkPostalizzazioneWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkPostalizzazioneWResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaWSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistrazioneRicaricaW" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaWSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistrazioneRicaricaWResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraWSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraVisuraW" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraWSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraVisuraWResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheWSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaStatisticheW" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheWSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaStatisticheWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsWSoapIn">
+    <wsdl:part name="parameters" element="tns:checkAccessoUnitoolsW" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsWSoapOut">
+    <wsdl:part name="parameters" element="tns:checkAccessoUnitoolsWResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureWSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoVisureW" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureWSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoVisureWResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliWSoapIn">
+    <wsdl:part name="parameters" element="tns:ReportTotaliW" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliWSoapOut">
+    <wsdl:part name="parameters" element="tns:ReportTotaliWResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaWSoapIn">
+    <wsdl:part name="parameters" element="tns:ReportTotaliAgenziaW" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaWSoapOut">
+    <wsdl:part name="parameters" element="tns:ReportTotaliAgenziaWResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheWSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoRicaricheW" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheWSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoRicaricheWResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploXSoapIn">
+    <wsdl:part name="parameters" element="tns:checkMultiploX" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploXSoapOut">
+    <wsdl:part name="parameters" element="tns:checkMultiploXResponse" />
+  </wsdl:message>
+  <wsdl:message name="setUnitoolsXSoapIn">
+    <wsdl:part name="parameters" element="tns:setUnitoolsX" />
+  </wsdl:message>
+  <wsdl:message name="setUnitoolsXSoapOut">
+    <wsdl:part name="parameters" element="tns:setUnitoolsXResponse" />
+  </wsdl:message>
+  <wsdl:message name="verificaCodiciWSoapIn">
+    <wsdl:part name="parameters" element="tns:verificaCodiciW" />
+  </wsdl:message>
+  <wsdl:message name="verificaCodiciWSoapOut">
+    <wsdl:part name="parameters" element="tns:verificaCodiciWResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDatiPostalizzazioneWSoapIn">
+    <wsdl:part name="parameters" element="tns:getDatiPostalizzazioneW" />
+  </wsdl:message>
+  <wsdl:message name="getDatiPostalizzazioneWSoapOut">
+    <wsdl:part name="parameters" element="tns:getDatiPostalizzazioneWResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaServiziSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaServizi" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaServiziSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaServiziResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoHttpGetIn">
+    <wsdl:part name="strKey" type="s:string" />
+    <wsdl:part name="nomeApplicazione" type="s:string" />
+    <wsdl:part name="ipAddress_FORWARDED" type="s:string" />
+    <wsdl:part name="ipAddress_REMOTE_ADDR" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUniGestHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUniGestHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getNewsHttpGetIn">
+    <wsdl:part name="data" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getNewsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaHttpGetIn">
+    <wsdl:part name="UtenteSubaccount" type="s:string" />
+    <wsdl:part name="QuantitaSms" type="s:string" />
+    <wsdl:part name="CostoPacchetto" type="s:string" />
+    <wsdl:part name="AcquistoUnicoSistema" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraHttpGetIn">
+    <wsdl:part name="IdApp" type="s:string" />
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="Agenzia" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Targa" type="s:string" />
+    <wsdl:part name="TipoVeicolo" type="s:string" />
+    <wsdl:part name="Esito" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkPostalizzazioneWHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkPostalizzazioneWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaWHttpGetIn">
+    <wsdl:part name="UtenteSubaccount" type="s:string" />
+    <wsdl:part name="QuantitaSms" type="s:string" />
+    <wsdl:part name="CostoPacchetto" type="s:string" />
+    <wsdl:part name="AcquistoUnicoSistema" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraWHttpGetIn">
+    <wsdl:part name="IdApp" type="s:string" />
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="Agenzia" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Targa" type="s:string" />
+    <wsdl:part name="TipoVeicolo" type="s:string" />
+    <wsdl:part name="Esito" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheWHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsWHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsWHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureWHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliWHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaWHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheWHttpGetIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploXHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploXHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="setUnitoolsXHttpGetIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+    <wsdl:part name="valore" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="setUnitoolsXHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="verificaCodiciWHttpGetIn">
+    <wsdl:part name="codici" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="verificaCodiciWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="getDatiPostalizzazioneWHttpGetIn">
+    <wsdl:part name="codici" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getDatiPostalizzazioneWHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaServiziHttpGetIn">
+    <wsdl:part name="token" type="s:string" />
+    <wsdl:part name="cfUtente" type="s:string" />
+    <wsdl:part name="appRichiedenteModifica" type="s:string" />
+    <wsdl:part name="descAzione" type="s:string" />
+    <wsdl:part name="richiestaMail" type="s:string" />
+    <wsdl:part name="templateMail" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaServiziHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoHttpPostIn">
+    <wsdl:part name="strKey" type="s:string" />
+    <wsdl:part name="nomeApplicazione" type="s:string" />
+    <wsdl:part name="ipAddress_FORWARDED" type="s:string" />
+    <wsdl:part name="ipAddress_REMOTE_ADDR" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUniGestHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUniGestHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getNewsHttpPostIn">
+    <wsdl:part name="data" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getNewsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaHttpPostIn">
+    <wsdl:part name="UtenteSubaccount" type="s:string" />
+    <wsdl:part name="QuantitaSms" type="s:string" />
+    <wsdl:part name="CostoPacchetto" type="s:string" />
+    <wsdl:part name="AcquistoUnicoSistema" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraHttpPostIn">
+    <wsdl:part name="IdApp" type="s:string" />
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="Agenzia" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Targa" type="s:string" />
+    <wsdl:part name="TipoVeicolo" type="s:string" />
+    <wsdl:part name="Esito" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkUnitoolsWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSmsWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkVisureWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkQuotatoreWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkSistemaWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkPostalizzazioneWHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkPostalizzazioneWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaWHttpPostIn">
+    <wsdl:part name="UtenteSubaccount" type="s:string" />
+    <wsdl:part name="QuantitaSms" type="s:string" />
+    <wsdl:part name="CostoPacchetto" type="s:string" />
+    <wsdl:part name="AcquistoUnicoSistema" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistrazioneRicaricaWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraWHttpPostIn">
+    <wsdl:part name="IdApp" type="s:string" />
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="Agenzia" type="s:string" />
+    <wsdl:part name="Utente" type="s:string" />
+    <wsdl:part name="Targa" type="s:string" />
+    <wsdl:part name="TipoVeicolo" type="s:string" />
+    <wsdl:part name="Esito" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraVisuraWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheWHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaStatisticheWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsWHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="Pc" type="s:string" />
+    <wsdl:part name="VersioneUt" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkAccessoUnitoolsWHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureWHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoVisureWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliWHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaWHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportTotaliAgenziaWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheWHttpPostIn">
+    <wsdl:part name="Compagnia" type="s:string" />
+    <wsdl:part name="CodiceAgenzia" type="s:string" />
+    <wsdl:part name="DataDal" type="s:string" />
+    <wsdl:part name="DataAl" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ElencoRicaricheWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploXHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="checkMultiploXHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="setUnitoolsXHttpPostIn">
+    <wsdl:part name="codiceAgenzia" type="s:string" />
+    <wsdl:part name="codiceCompagnia" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+    <wsdl:part name="valore" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="setUnitoolsXHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="verificaCodiciWHttpPostIn">
+    <wsdl:part name="codici" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="verificaCodiciWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="getDatiPostalizzazioneWHttpPostIn">
+    <wsdl:part name="codici" type="s:string" />
+    <wsdl:part name="token" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getDatiPostalizzazioneWHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaServiziHttpPostIn">
+    <wsdl:part name="token" type="s:string" />
+    <wsdl:part name="cfUtente" type="s:string" />
+    <wsdl:part name="appRichiedenteModifica" type="s:string" />
+    <wsdl:part name="descAzione" type="s:string" />
+    <wsdl:part name="richiestaMail" type="s:string" />
+    <wsdl:part name="templateMail" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaServiziHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="accessoCasaSoap">
+    <wsdl:operation name="checkAccesso">
+      <wsdl:input message="tns:checkAccessoSoapIn" />
+      <wsdl:output message="tns:checkAccessoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <wsdl:input message="tns:checkUniGestSoapIn" />
+      <wsdl:output message="tns:checkUniGestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <wsdl:input message="tns:checkUnitoolsSoapIn" />
+      <wsdl:output message="tns:checkUnitoolsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <wsdl:input message="tns:checkSmsSoapIn" />
+      <wsdl:output message="tns:checkSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <wsdl:input message="tns:checkVisureSoapIn" />
+      <wsdl:output message="tns:checkVisureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <wsdl:input message="tns:checkQuotatoreSoapIn" />
+      <wsdl:output message="tns:checkQuotatoreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <wsdl:input message="tns:checkSistemaSoapIn" />
+      <wsdl:output message="tns:checkSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <wsdl:input message="tns:checkMultiploSoapIn" />
+      <wsdl:output message="tns:checkMultiploSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <wsdl:input message="tns:getNewsSoapIn" />
+      <wsdl:output message="tns:getNewsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <wsdl:input message="tns:RegistrazioneRicaricaSoapIn" />
+      <wsdl:output message="tns:RegistrazioneRicaricaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <wsdl:input message="tns:RegistraVisuraSoapIn" />
+      <wsdl:output message="tns:RegistraVisuraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <wsdl:input message="tns:AggiornaStatisticheSoapIn" />
+      <wsdl:output message="tns:AggiornaStatisticheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <wsdl:input message="tns:checkAccessoUnitoolsSoapIn" />
+      <wsdl:output message="tns:checkAccessoUnitoolsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <wsdl:input message="tns:ElencoVisureSoapIn" />
+      <wsdl:output message="tns:ElencoVisureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <wsdl:input message="tns:ReportTotaliSoapIn" />
+      <wsdl:output message="tns:ReportTotaliSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <wsdl:input message="tns:ReportTotaliAgenziaSoapIn" />
+      <wsdl:output message="tns:ReportTotaliAgenziaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <wsdl:input message="tns:ElencoRicaricheSoapIn" />
+      <wsdl:output message="tns:ElencoRicaricheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <wsdl:input message="tns:checkUnitoolsWSoapIn" />
+      <wsdl:output message="tns:checkUnitoolsWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <wsdl:input message="tns:checkSmsWSoapIn" />
+      <wsdl:output message="tns:checkSmsWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <wsdl:input message="tns:checkVisureWSoapIn" />
+      <wsdl:output message="tns:checkVisureWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <wsdl:input message="tns:checkQuotatoreWSoapIn" />
+      <wsdl:output message="tns:checkQuotatoreWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <wsdl:input message="tns:checkSistemaWSoapIn" />
+      <wsdl:output message="tns:checkSistemaWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <wsdl:input message="tns:checkMultiploWSoapIn" />
+      <wsdl:output message="tns:checkMultiploWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <wsdl:input message="tns:checkPostalizzazioneWSoapIn" />
+      <wsdl:output message="tns:checkPostalizzazioneWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <wsdl:input message="tns:RegistrazioneRicaricaWSoapIn" />
+      <wsdl:output message="tns:RegistrazioneRicaricaWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <wsdl:input message="tns:RegistraVisuraWSoapIn" />
+      <wsdl:output message="tns:RegistraVisuraWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <wsdl:input message="tns:AggiornaStatisticheWSoapIn" />
+      <wsdl:output message="tns:AggiornaStatisticheWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <wsdl:input message="tns:checkAccessoUnitoolsWSoapIn" />
+      <wsdl:output message="tns:checkAccessoUnitoolsWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <wsdl:input message="tns:ElencoVisureWSoapIn" />
+      <wsdl:output message="tns:ElencoVisureWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <wsdl:input message="tns:ReportTotaliWSoapIn" />
+      <wsdl:output message="tns:ReportTotaliWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <wsdl:input message="tns:ReportTotaliAgenziaWSoapIn" />
+      <wsdl:output message="tns:ReportTotaliAgenziaWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <wsdl:input message="tns:ElencoRicaricheWSoapIn" />
+      <wsdl:output message="tns:ElencoRicaricheWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <wsdl:input message="tns:checkMultiploXSoapIn" />
+      <wsdl:output message="tns:checkMultiploXSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <wsdl:input message="tns:setUnitoolsXSoapIn" />
+      <wsdl:output message="tns:setUnitoolsXSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <wsdl:input message="tns:verificaCodiciWSoapIn" />
+      <wsdl:output message="tns:verificaCodiciWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <wsdl:input message="tns:getDatiPostalizzazioneWSoapIn" />
+      <wsdl:output message="tns:getDatiPostalizzazioneWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <wsdl:input message="tns:AggiornaServiziSoapIn" />
+      <wsdl:output message="tns:AggiornaServiziSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="accessoCasaHttpGet">
+    <wsdl:operation name="checkAccesso">
+      <wsdl:input message="tns:checkAccessoHttpGetIn" />
+      <wsdl:output message="tns:checkAccessoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <wsdl:input message="tns:checkUniGestHttpGetIn" />
+      <wsdl:output message="tns:checkUniGestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <wsdl:input message="tns:checkUnitoolsHttpGetIn" />
+      <wsdl:output message="tns:checkUnitoolsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <wsdl:input message="tns:checkSmsHttpGetIn" />
+      <wsdl:output message="tns:checkSmsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <wsdl:input message="tns:checkVisureHttpGetIn" />
+      <wsdl:output message="tns:checkVisureHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <wsdl:input message="tns:checkQuotatoreHttpGetIn" />
+      <wsdl:output message="tns:checkQuotatoreHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <wsdl:input message="tns:checkSistemaHttpGetIn" />
+      <wsdl:output message="tns:checkSistemaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <wsdl:input message="tns:checkMultiploHttpGetIn" />
+      <wsdl:output message="tns:checkMultiploHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <wsdl:input message="tns:getNewsHttpGetIn" />
+      <wsdl:output message="tns:getNewsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <wsdl:input message="tns:RegistrazioneRicaricaHttpGetIn" />
+      <wsdl:output message="tns:RegistrazioneRicaricaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <wsdl:input message="tns:RegistraVisuraHttpGetIn" />
+      <wsdl:output message="tns:RegistraVisuraHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <wsdl:input message="tns:AggiornaStatisticheHttpGetIn" />
+      <wsdl:output message="tns:AggiornaStatisticheHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <wsdl:input message="tns:checkAccessoUnitoolsHttpGetIn" />
+      <wsdl:output message="tns:checkAccessoUnitoolsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <wsdl:input message="tns:ElencoVisureHttpGetIn" />
+      <wsdl:output message="tns:ElencoVisureHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <wsdl:input message="tns:ReportTotaliHttpGetIn" />
+      <wsdl:output message="tns:ReportTotaliHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <wsdl:input message="tns:ReportTotaliAgenziaHttpGetIn" />
+      <wsdl:output message="tns:ReportTotaliAgenziaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <wsdl:input message="tns:ElencoRicaricheHttpGetIn" />
+      <wsdl:output message="tns:ElencoRicaricheHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <wsdl:input message="tns:checkUnitoolsWHttpGetIn" />
+      <wsdl:output message="tns:checkUnitoolsWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <wsdl:input message="tns:checkSmsWHttpGetIn" />
+      <wsdl:output message="tns:checkSmsWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <wsdl:input message="tns:checkVisureWHttpGetIn" />
+      <wsdl:output message="tns:checkVisureWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <wsdl:input message="tns:checkQuotatoreWHttpGetIn" />
+      <wsdl:output message="tns:checkQuotatoreWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <wsdl:input message="tns:checkSistemaWHttpGetIn" />
+      <wsdl:output message="tns:checkSistemaWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <wsdl:input message="tns:checkMultiploWHttpGetIn" />
+      <wsdl:output message="tns:checkMultiploWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <wsdl:input message="tns:checkPostalizzazioneWHttpGetIn" />
+      <wsdl:output message="tns:checkPostalizzazioneWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <wsdl:input message="tns:RegistrazioneRicaricaWHttpGetIn" />
+      <wsdl:output message="tns:RegistrazioneRicaricaWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <wsdl:input message="tns:RegistraVisuraWHttpGetIn" />
+      <wsdl:output message="tns:RegistraVisuraWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <wsdl:input message="tns:AggiornaStatisticheWHttpGetIn" />
+      <wsdl:output message="tns:AggiornaStatisticheWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <wsdl:input message="tns:checkAccessoUnitoolsWHttpGetIn" />
+      <wsdl:output message="tns:checkAccessoUnitoolsWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <wsdl:input message="tns:ElencoVisureWHttpGetIn" />
+      <wsdl:output message="tns:ElencoVisureWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <wsdl:input message="tns:ReportTotaliWHttpGetIn" />
+      <wsdl:output message="tns:ReportTotaliWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <wsdl:input message="tns:ReportTotaliAgenziaWHttpGetIn" />
+      <wsdl:output message="tns:ReportTotaliAgenziaWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <wsdl:input message="tns:ElencoRicaricheWHttpGetIn" />
+      <wsdl:output message="tns:ElencoRicaricheWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <wsdl:input message="tns:checkMultiploXHttpGetIn" />
+      <wsdl:output message="tns:checkMultiploXHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <wsdl:input message="tns:setUnitoolsXHttpGetIn" />
+      <wsdl:output message="tns:setUnitoolsXHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <wsdl:input message="tns:verificaCodiciWHttpGetIn" />
+      <wsdl:output message="tns:verificaCodiciWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <wsdl:input message="tns:getDatiPostalizzazioneWHttpGetIn" />
+      <wsdl:output message="tns:getDatiPostalizzazioneWHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <wsdl:input message="tns:AggiornaServiziHttpGetIn" />
+      <wsdl:output message="tns:AggiornaServiziHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="accessoCasaHttpPost">
+    <wsdl:operation name="checkAccesso">
+      <wsdl:input message="tns:checkAccessoHttpPostIn" />
+      <wsdl:output message="tns:checkAccessoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <wsdl:input message="tns:checkUniGestHttpPostIn" />
+      <wsdl:output message="tns:checkUniGestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <wsdl:input message="tns:checkUnitoolsHttpPostIn" />
+      <wsdl:output message="tns:checkUnitoolsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <wsdl:input message="tns:checkSmsHttpPostIn" />
+      <wsdl:output message="tns:checkSmsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <wsdl:input message="tns:checkVisureHttpPostIn" />
+      <wsdl:output message="tns:checkVisureHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <wsdl:input message="tns:checkQuotatoreHttpPostIn" />
+      <wsdl:output message="tns:checkQuotatoreHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <wsdl:input message="tns:checkSistemaHttpPostIn" />
+      <wsdl:output message="tns:checkSistemaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <wsdl:input message="tns:checkMultiploHttpPostIn" />
+      <wsdl:output message="tns:checkMultiploHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <wsdl:input message="tns:getNewsHttpPostIn" />
+      <wsdl:output message="tns:getNewsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <wsdl:input message="tns:RegistrazioneRicaricaHttpPostIn" />
+      <wsdl:output message="tns:RegistrazioneRicaricaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <wsdl:input message="tns:RegistraVisuraHttpPostIn" />
+      <wsdl:output message="tns:RegistraVisuraHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <wsdl:input message="tns:AggiornaStatisticheHttpPostIn" />
+      <wsdl:output message="tns:AggiornaStatisticheHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <wsdl:input message="tns:checkAccessoUnitoolsHttpPostIn" />
+      <wsdl:output message="tns:checkAccessoUnitoolsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <wsdl:input message="tns:ElencoVisureHttpPostIn" />
+      <wsdl:output message="tns:ElencoVisureHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <wsdl:input message="tns:ReportTotaliHttpPostIn" />
+      <wsdl:output message="tns:ReportTotaliHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <wsdl:input message="tns:ReportTotaliAgenziaHttpPostIn" />
+      <wsdl:output message="tns:ReportTotaliAgenziaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <wsdl:input message="tns:ElencoRicaricheHttpPostIn" />
+      <wsdl:output message="tns:ElencoRicaricheHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <wsdl:input message="tns:checkUnitoolsWHttpPostIn" />
+      <wsdl:output message="tns:checkUnitoolsWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <wsdl:input message="tns:checkSmsWHttpPostIn" />
+      <wsdl:output message="tns:checkSmsWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <wsdl:input message="tns:checkVisureWHttpPostIn" />
+      <wsdl:output message="tns:checkVisureWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <wsdl:input message="tns:checkQuotatoreWHttpPostIn" />
+      <wsdl:output message="tns:checkQuotatoreWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <wsdl:input message="tns:checkSistemaWHttpPostIn" />
+      <wsdl:output message="tns:checkSistemaWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <wsdl:input message="tns:checkMultiploWHttpPostIn" />
+      <wsdl:output message="tns:checkMultiploWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <wsdl:input message="tns:checkPostalizzazioneWHttpPostIn" />
+      <wsdl:output message="tns:checkPostalizzazioneWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <wsdl:input message="tns:RegistrazioneRicaricaWHttpPostIn" />
+      <wsdl:output message="tns:RegistrazioneRicaricaWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <wsdl:input message="tns:RegistraVisuraWHttpPostIn" />
+      <wsdl:output message="tns:RegistraVisuraWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <wsdl:input message="tns:AggiornaStatisticheWHttpPostIn" />
+      <wsdl:output message="tns:AggiornaStatisticheWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <wsdl:input message="tns:checkAccessoUnitoolsWHttpPostIn" />
+      <wsdl:output message="tns:checkAccessoUnitoolsWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <wsdl:input message="tns:ElencoVisureWHttpPostIn" />
+      <wsdl:output message="tns:ElencoVisureWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <wsdl:input message="tns:ReportTotaliWHttpPostIn" />
+      <wsdl:output message="tns:ReportTotaliWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <wsdl:input message="tns:ReportTotaliAgenziaWHttpPostIn" />
+      <wsdl:output message="tns:ReportTotaliAgenziaWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <wsdl:input message="tns:ElencoRicaricheWHttpPostIn" />
+      <wsdl:output message="tns:ElencoRicaricheWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <wsdl:input message="tns:checkMultiploXHttpPostIn" />
+      <wsdl:output message="tns:checkMultiploXHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <wsdl:input message="tns:setUnitoolsXHttpPostIn" />
+      <wsdl:output message="tns:setUnitoolsXHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <wsdl:input message="tns:verificaCodiciWHttpPostIn" />
+      <wsdl:output message="tns:verificaCodiciWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <wsdl:input message="tns:getDatiPostalizzazioneWHttpPostIn" />
+      <wsdl:output message="tns:getDatiPostalizzazioneWHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <wsdl:input message="tns:AggiornaServiziHttpPostIn" />
+      <wsdl:output message="tns:AggiornaServiziHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="accessoCasaSoap" type="tns:accessoCasaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="checkAccesso">
+      <soap:operation soapAction="casa.org/checkAccesso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <soap:operation soapAction="casa.org/checkUniGest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <soap:operation soapAction="casa.org/checkUnitools" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <soap:operation soapAction="casa.org/checkSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <soap:operation soapAction="casa.org/checkVisure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <soap:operation soapAction="casa.org/checkQuotatore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <soap:operation soapAction="casa.org/checkSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <soap:operation soapAction="casa.org/checkMultiplo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <soap:operation soapAction="casa.org/getNews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <soap:operation soapAction="casa.org/RegistrazioneRicarica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <soap:operation soapAction="casa.org/RegistraVisura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <soap:operation soapAction="casa.org/AggiornaStatistiche" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <soap:operation soapAction="casa.org/checkAccessoUnitools" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <soap:operation soapAction="casa.org/ElencoVisure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <soap:operation soapAction="casa.org/ReportTotali" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <soap:operation soapAction="casa.org/ReportTotaliAgenzia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <soap:operation soapAction="casa.org/ElencoRicariche" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <soap:operation soapAction="casa.org/checkUnitoolsW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <soap:operation soapAction="casa.org/checkSmsW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <soap:operation soapAction="casa.org/checkVisureW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <soap:operation soapAction="casa.org/checkQuotatoreW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <soap:operation soapAction="casa.org/checkSistemaW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <soap:operation soapAction="casa.org/checkMultiploW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <soap:operation soapAction="casa.org/checkPostalizzazioneW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <soap:operation soapAction="casa.org/RegistrazioneRicaricaW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <soap:operation soapAction="casa.org/RegistraVisuraW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <soap:operation soapAction="casa.org/AggiornaStatisticheW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <soap:operation soapAction="casa.org/checkAccessoUnitoolsW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <soap:operation soapAction="casa.org/ElencoVisureW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <soap:operation soapAction="casa.org/ReportTotaliW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <soap:operation soapAction="casa.org/ReportTotaliAgenziaW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <soap:operation soapAction="casa.org/ElencoRicaricheW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <soap:operation soapAction="casa.org/checkMultiploX" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <soap:operation soapAction="casa.org/setUnitoolsX" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <soap:operation soapAction="casa.org/verificaCodiciW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <soap:operation soapAction="casa.org/getDatiPostalizzazioneW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <soap:operation soapAction="casa.org/AggiornaServizi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="accessoCasaSoap12" type="tns:accessoCasaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="checkAccesso">
+      <soap12:operation soapAction="casa.org/checkAccesso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <soap12:operation soapAction="casa.org/checkUniGest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <soap12:operation soapAction="casa.org/checkUnitools" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <soap12:operation soapAction="casa.org/checkSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <soap12:operation soapAction="casa.org/checkVisure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <soap12:operation soapAction="casa.org/checkQuotatore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <soap12:operation soapAction="casa.org/checkSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <soap12:operation soapAction="casa.org/checkMultiplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <soap12:operation soapAction="casa.org/getNews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <soap12:operation soapAction="casa.org/RegistrazioneRicarica" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <soap12:operation soapAction="casa.org/RegistraVisura" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <soap12:operation soapAction="casa.org/AggiornaStatistiche" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <soap12:operation soapAction="casa.org/checkAccessoUnitools" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <soap12:operation soapAction="casa.org/ElencoVisure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <soap12:operation soapAction="casa.org/ReportTotali" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <soap12:operation soapAction="casa.org/ReportTotaliAgenzia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <soap12:operation soapAction="casa.org/ElencoRicariche" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <soap12:operation soapAction="casa.org/checkUnitoolsW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <soap12:operation soapAction="casa.org/checkSmsW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <soap12:operation soapAction="casa.org/checkVisureW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <soap12:operation soapAction="casa.org/checkQuotatoreW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <soap12:operation soapAction="casa.org/checkSistemaW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <soap12:operation soapAction="casa.org/checkMultiploW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <soap12:operation soapAction="casa.org/checkPostalizzazioneW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <soap12:operation soapAction="casa.org/RegistrazioneRicaricaW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <soap12:operation soapAction="casa.org/RegistraVisuraW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <soap12:operation soapAction="casa.org/AggiornaStatisticheW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <soap12:operation soapAction="casa.org/checkAccessoUnitoolsW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <soap12:operation soapAction="casa.org/ElencoVisureW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <soap12:operation soapAction="casa.org/ReportTotaliW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <soap12:operation soapAction="casa.org/ReportTotaliAgenziaW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <soap12:operation soapAction="casa.org/ElencoRicaricheW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <soap12:operation soapAction="casa.org/checkMultiploX" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <soap12:operation soapAction="casa.org/setUnitoolsX" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <soap12:operation soapAction="casa.org/verificaCodiciW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <soap12:operation soapAction="casa.org/getDatiPostalizzazioneW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <soap12:operation soapAction="casa.org/AggiornaServizi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="accessoCasaHttpGet" type="tns:accessoCasaHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="checkAccesso">
+      <http:operation location="/checkAccesso" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <http:operation location="/checkUniGest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <http:operation location="/checkUnitools" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <http:operation location="/checkSms" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <http:operation location="/checkVisure" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <http:operation location="/checkQuotatore" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <http:operation location="/checkSistema" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <http:operation location="/checkMultiplo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <http:operation location="/getNews" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <http:operation location="/RegistrazioneRicarica" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <http:operation location="/RegistraVisura" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <http:operation location="/AggiornaStatistiche" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <http:operation location="/checkAccessoUnitools" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <http:operation location="/ElencoVisure" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <http:operation location="/ReportTotali" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <http:operation location="/ReportTotaliAgenzia" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <http:operation location="/ElencoRicariche" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <http:operation location="/checkUnitoolsW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <http:operation location="/checkSmsW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <http:operation location="/checkVisureW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <http:operation location="/checkQuotatoreW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <http:operation location="/checkSistemaW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <http:operation location="/checkMultiploW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <http:operation location="/checkPostalizzazioneW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <http:operation location="/RegistrazioneRicaricaW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <http:operation location="/RegistraVisuraW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <http:operation location="/AggiornaStatisticheW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <http:operation location="/checkAccessoUnitoolsW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <http:operation location="/ElencoVisureW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <http:operation location="/ReportTotaliW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <http:operation location="/ReportTotaliAgenziaW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <http:operation location="/ElencoRicaricheW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <http:operation location="/checkMultiploX" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <http:operation location="/setUnitoolsX" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <http:operation location="/verificaCodiciW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <http:operation location="/getDatiPostalizzazioneW" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <http:operation location="/AggiornaServizi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="accessoCasaHttpPost" type="tns:accessoCasaHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="checkAccesso">
+      <http:operation location="/checkAccesso" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUniGest">
+      <http:operation location="/checkUniGest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitools">
+      <http:operation location="/checkUnitools" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSms">
+      <http:operation location="/checkSms" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisure">
+      <http:operation location="/checkVisure" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatore">
+      <http:operation location="/checkQuotatore" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistema">
+      <http:operation location="/checkSistema" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiplo">
+      <http:operation location="/checkMultiplo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNews">
+      <http:operation location="/getNews" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicarica">
+      <http:operation location="/RegistrazioneRicarica" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisura">
+      <http:operation location="/RegistraVisura" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatistiche">
+      <http:operation location="/AggiornaStatistiche" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitools">
+      <http:operation location="/checkAccessoUnitools" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisure">
+      <http:operation location="/ElencoVisure" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotali">
+      <http:operation location="/ReportTotali" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenzia">
+      <http:operation location="/ReportTotaliAgenzia" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicariche">
+      <http:operation location="/ElencoRicariche" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkUnitoolsW">
+      <http:operation location="/checkUnitoolsW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSmsW">
+      <http:operation location="/checkSmsW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkVisureW">
+      <http:operation location="/checkVisureW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkQuotatoreW">
+      <http:operation location="/checkQuotatoreW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSistemaW">
+      <http:operation location="/checkSistemaW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploW">
+      <http:operation location="/checkMultiploW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkPostalizzazioneW">
+      <http:operation location="/checkPostalizzazioneW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrazioneRicaricaW">
+      <http:operation location="/RegistrazioneRicaricaW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraVisuraW">
+      <http:operation location="/RegistraVisuraW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaStatisticheW">
+      <http:operation location="/AggiornaStatisticheW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkAccessoUnitoolsW">
+      <http:operation location="/checkAccessoUnitoolsW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoVisureW">
+      <http:operation location="/ElencoVisureW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliW">
+      <http:operation location="/ReportTotaliW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportTotaliAgenziaW">
+      <http:operation location="/ReportTotaliAgenziaW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoRicaricheW">
+      <http:operation location="/ElencoRicaricheW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkMultiploX">
+      <http:operation location="/checkMultiploX" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="setUnitoolsX">
+      <http:operation location="/setUnitoolsX" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verificaCodiciW">
+      <http:operation location="/verificaCodiciW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDatiPostalizzazioneW">
+      <http:operation location="/getDatiPostalizzazioneW" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaServizi">
+      <http:operation location="/AggiornaServizi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="accessoCasa">
+    <wsdl:port name="accessoCasaSoap" binding="tns:accessoCasaSoap">
+      <soap:address location="http://unitools.uniarea.it/accessocasa.asmx" />
+    </wsdl:port>
+    <wsdl:port name="accessoCasaSoap12" binding="tns:accessoCasaSoap12">
+      <soap12:address location="http://unitools.uniarea.it/accessocasa.asmx" />
+    </wsdl:port>
+    <wsdl:port name="accessoCasaHttpGet" binding="tns:accessoCasaHttpGet">
+      <http:address location="http://unitools.uniarea.it/accessocasa.asmx" />
+    </wsdl:port>
+    <wsdl:port name="accessoCasaHttpPost" binding="tns:accessoCasaHttpPost">
+      <http:address location="http://unitools.uniarea.it/accessocasa.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

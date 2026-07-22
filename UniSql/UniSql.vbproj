@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{CD832E62-B420-4825-864A-2C2E17B2AD7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UniSql</RootNamespace>
+    <AssemblyName>UniSql</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <DefineConstants>
+    </DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <DefineConstants>DEFMSTSQL=-1, DEFMSTCRT = -1</DefineConstants>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CCriterio.vb" />
+    <Compile Include="CManifesti.vb" />
+    <Compile Include="CManifestoLight.vb" />
+    <Compile Include="CManifesto.vb" />
+    <Compile Include="CManifestoSql.vb" />
+    <Compile Include="CParametri.vb" />
+    <Compile Include="CParametro.vb" />
+    <Compile Include="CProfilatore.vb" />
+    <Compile Include="CProfili.vb" />
+    <Compile Include="CProfilo.vb" />
+    <Compile Include="CriptaQuery.vb" />
+    <Compile Include="CUtente.vb" />
+    <Compile Include="CXml.vb" />
+    <Compile Include="DataGridViewColumnHeaderCell.vb" />
+    <Compile Include="FormNota.Designer.vb">
+      <DependentUpon>FormNota.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNota.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParametriBase.vb" />
+    <Compile Include="Test.vb" />
+    <Compile Include="frmEsplora.Designer.vb">
+      <DependentUpon>frmEsplora.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEsplora.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameParametri.vb" />
+    <Compile Include="frmGrid.Designer.vb">
+      <DependentUpon>frmGrid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmGrid.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmParametri.Designer.vb">
+      <DependentUpon>frmParametri.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmParametri.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProprieta.Designer.vb">
+      <DependentUpon>frmProprieta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmProprieta.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWait.Designer.vb">
+      <DependentUpon>frmWait.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmWait.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mgrExport.vb" />
+    <Compile Include="mgrFile.vb" />
+    <Compile Include="mgrGrid.vb" />
+    <Compile Include="mgrLogs.vb" />
+    <Compile Include="mgrMfs.vb" />
+    <Compile Include="mgrPrf.vb" />
+    <Compile Include="mgrString.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UniAggio.vb" />
+    <Compile Include="UniSql.vb" />
+    <Compile Include="Utils.vb" />
+    <Compile Include="Web References\UnicoServices\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormNota.resx">
+      <DependentUpon>FormNota.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEsplora.resx">
+      <DependentUpon>frmEsplora.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGrid.resx">
+      <DependentUpon>frmGrid.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmParametri.resx">
+      <DependentUpon>frmParametri.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProprieta.resx">
+      <DependentUpon>frmProprieta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWait.resx">
+      <DependentUpon>frmWait.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UnicoServices\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UnicoServices\UniwebEsplo.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.utools.it/asp/Estrattore/UniwebEsplo.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UnicoServices\</RelPath>
+      <UpdateFromURL>http://www.utools.it/asp/Estrattore/UniwebEsplo.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UniSql_UnicoServices_UniwebEsplo</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\UnicoServices\UniwebEsplo.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Anag\Anag.vbproj">
+      <Project>{49bbd6c0-0cd9-4d2e-8f69-a6c7988dedb4}</Project>
+      <Name>Anag</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Export\Export\Export.vbproj">
+      <Project>{87a4de56-ea76-471b-842d-2a665fe716eb}</Project>
+      <Name>Export</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Globale\UtUtility.vbproj">
+      <Project>{7affa253-9962-4aff-b530-cd998b973905}</Project>
+      <Name>UtUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Risorse\Risorse.vbproj">
+      <Project>{08e0a688-f575-410e-943e-74fd0b0b261e}</Project>
+      <Name>Risorse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCOM\UniCOM\UniCOM.vbproj">
+      <Project>{13892855-5d87-4b3c-84e4-ecbf8fc5093e}</Project>
+      <Name>UniCOM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtControls\UtControls.vbproj">
+      <Project>{E659FF22-35A5-45B0-B459-26A28EA4F01A}</Project>
+      <Name>UtControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

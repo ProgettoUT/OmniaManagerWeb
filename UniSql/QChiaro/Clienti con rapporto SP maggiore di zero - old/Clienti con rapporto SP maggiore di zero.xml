@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti con rapporto SP maggiore di [indicare]</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni cliente con liquidato sinistri totale maggiore di premio totale sono riportati:
+ - i dati anagrafici;
+ - il rapporto S/P (liquidato totale/Premi totale) 
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Nessuno
+
+SP3anni rapporto tra liquidato totale e incassato totale rami danni degli ultimi 3 anni
+]]></note>
+        <ultagg>21/10/2013</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@spmin" etichetta="sp da" tipo="integer" valore="0" obbligatorio="true" larghezza="19" sinistra="32" nuovariga="true"/>
+        <parametro nome="@spmax" etichetta="a" tipo="integer" valore="9999" obbligatorio="true" larghezza="19" sinistra="55" nuovariga="false"/>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="84" larghezza="42">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale as [Codice Fiscale del cliente],
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    CCUR(IIF(C.Liquidatototale=0.00,0.00
+		        ,IIF(C.Premitotale > 0, format(100.0 * C.Liquidatototale/C.Premitotale,'0.00')
+		        ,9999.99
+		        ))) AS [S/P (%)],		    
+		    C.PremiTotale     AS [Premi Totale],
+		    C.LiquidatoTotale AS [Liquidato Totale],
+		    C.PolizzeVigore   AS [Polizze],
+		    C.SinistriTotale  AS [Sinistri],
+		    CCUR(format(IIF(IsNull(PX),0.00,PX),'0.00')) AS [Provvigioni anno precedente],
+		    C.IdStatoCliente,
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia]
+		 FROM (Clienti AS C		         
+		LEFT JOIN (SELECT codicefiscinc as CodiceFiscale, sum(PrvAcq + PrvInc) as PX 
+		              FROM INCASSI 
+		             WHERE year(DataFoglioCassa) = year(Date()) - 1 
+		             GROUP BY codicefiscinc) AS PT
+		      ON C.CodiceFiscale = PT.CodiceFiscale)		            
+		WHERE @subagenzia   IN (-1, C.SubAgenzia)
+		  AND @produttore   IN (-1, C.Produttore)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+		  AND CCUR(IIF(C.Liquidatototale=0.00,0.00
+			  ,IIF(C.Premitotale > 0, format(100.0 * C.Liquidatototale/C.Premitotale,'0.00')
+			  ,9999.99
+			  ))) BETWEEN @spmin AND @spmax 
+		ORDER BY 1,  5 DESC
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Evidenze</pacchetto>
+        <nome>Evidenze</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Elenco delle evidenze.
+]]></descrizione>
+<note><![CDATA[
+]]></note>
+        <ultagg>23/05/2014</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT A.CodPuntoVendita       AS Agenzia
+		     , A.CodiceSubAgente       AS Subagenzia
+		     , A.CodiceFiscale         AS [Codice fiscale del cliente]
+		     , C.Cognome               AS [Cognome del cliente]
+		     , C.Nome                  AS [Nome del cliente]
+		     , A.DesEvidenza           AS Evidenza
+		     , A.DataApertura          AS Riferimento
+		     , IIF(B.Data1InvioEffettivo = #12/31/9999#, NULL, B.Data1InvioEffettivo) AS [Primo invio]
+		     , IIF(B.Data2InvioEffettivo = #12/31/9999#, NULL, B.Data2InvioEffettivo) AS [Ultimo invio]
+		     , B.Messaggio
+		 FROM (Unidocs_Evidenza A
+		INNER JOIN Unidocs_Promemoria B
+		   ON A.IdEvidenza = b.IdEvidenza)
+		 LEFT JOIN CLIENTI AS C
+		   ON A.CodiceFiscale = C.CodiceFiscale
+		WHERE DataChiusura = #12/31/9999#
+		  AND NOT IdOggetto IS NULL
+		ORDER BY 1, 2, 3		    
+			]]></sql>
+    </estrazione>
+</oggetto>

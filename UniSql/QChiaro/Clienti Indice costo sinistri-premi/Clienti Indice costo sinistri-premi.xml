@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti Indice costo sinistri-premi</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni cliente sono riportati:
+ - i dati anagrafici;
+ - il rapporto SP (PagatoAl + Riserva tecnica) / PremioTass degli ultimi n anni
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Nessuno
+]]></note>
+        <ultagg>05/08/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@spmin" etichetta="sp da" tipo="integer" valore="0,01" obbligatorio="true" larghezza="10" sinistra="32" nuovariga="true"/>
+        <parametro nome="@spmax" etichetta="a" tipo="integer"  valore="9999,99" obbligatorio="true" larghezza="10" sinistra="45" nuovariga="false"/>
+        <parametro nome="@anni"  etichetta="anni per SP" tipo="integer" valore="3"  obbligatorio="true" larghezza="04" sinistra="68" nuovariga="false"/>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="84" larghezza="42">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale as [Codice Fiscale del cliente],
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    CDBL(format(IIF(IsNull(PRVX),0.00,PRVX),'0.00')) AS [Provvigioni anno precedente],
+		    Cint(IIF(isnull(PLZX), 0, PLZX)) as [Polizze in vigore],
+		    Cint(IIF(isnull(SinistriTotali), 0, SinistriTotali)) as [Totale Sinistri],
+		    Cint(IIF(isnull(SinistriAttivi), 0, SinistriAttivi)) as [di cui attivi],
+		    Cint(IIF(isnull(SinistriSenzaSeguito), 0, SinistriSenzaSeguito)) as [di cui senza seguito],		    
+		    CDBL(IIF(isnull(SX) OR SX<=0, 0.00, IIF(isnull(IX) OR IX=0, 9999.99,S.SX/I.IX)) * 100.0) AS [Indice % Costo/Premi],
+		    CDBL(IIF(isnull(SX), 0.00, SX))      AS [Costo sinistri],
+		    CDBL(IIF(isnull(RX), 0.00, RX))      AS [di cui riserva tecnica],
+		    CDBL(IIF(isnull(IX), 0.00, IX))      AS [Premi Totale],
+		    C.IdStatoCliente as [Stato Cliente],
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Provincia]
+		 FROM ((((Clienti AS C		         
+		LEFT JOIN (SELECT codicefisccontrpol              as CodiceFiscale
+		                , count(*)                        as SinistriTotali
+		                , sum(IIF(TipoCid='5',1,0))       as SinistriAttivi
+		                , sum(IIF(TipoChiusura='SS',1,0)) as SinistriSenzaSeguito
+		                , sum(PagatoAl + IIF(TipoChiusura='..',Riserva,0)) as SX 
+		                , sum(IIF(TipoChiusura='..',Riserva,0)) as RX 
+		              FROM sinistri 
+		             WHERE year(AnnoMeseCompetenza) >= year(Date()) - @anni 
+		               AND NOT RamoGestione  IN (18, 19, 20)
+		               AND TipoSinistro <> '08'
+		             GROUP BY codicefisccontrpol) AS S
+		      ON C.CodiceFiscale = S.CodiceFiscale)
+		LEFT JOIN (SELECT codicefiscinc as CodiceFiscale
+		                , sum(Tassabile) as IX 
+		              FROM INCASSI 
+		             WHERE year(DataFoglioCassa) >= year(Date()) - @anni 
+		               AND NOT RamoGestione  IN (18, 19, 20)
+		             GROUP BY codicefiscinc) AS I
+		      ON C.CodiceFiscale = I.CodiceFiscale)		            
+		LEFT JOIN (SELECT CodiceFiscale, COUNT(*) as PLZX 
+		              FROM POLIZZE 
+		             WHERE DataStorno is Null or DataStorno = 0
+		               AND NOT RamoGestione  IN (18, 19, 20)
+		             GROUP BY CodiceFiscale) AS PP
+		      ON C.CodiceFiscale = PP.CodiceFiscale)		            
+		LEFT JOIN (SELECT codicefiscinc as CodiceFiscale, sum(PrvAcq + PrvInc) as PRVX 
+		              FROM INCASSI 
+		             WHERE year(DataFoglioCassa) = year(Date()) - 1 
+		               AND NOT RamoGestione  IN (18, 19, 20)
+		             GROUP BY codicefiscinc) AS PT
+		      ON C.CodiceFiscale = PT.CodiceFiscale)		            
+		WHERE @subagenzia   IN (-1, C.SubAgenzia)
+		  AND @produttore   IN (-1, C.Produttore)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+		  AND CDBL(IIF(isnull(SX) OR SX<=0, 0.00, IIF(isnull(IX) OR IX=0, 9999.99,S.SX/I.IX)) * 100.0) >= @spmin 
+		  AND CDBL(IIF(isnull(SX) OR SX<=0, 0.00, IIF(isnull(IX) OR IX=0, 9999.99,S.SX/I.IX)) * 100.0) <= @spmax
+		ORDER BY 10 DESC
+	]]></sql>
+    </estrazione>
+</oggetto>

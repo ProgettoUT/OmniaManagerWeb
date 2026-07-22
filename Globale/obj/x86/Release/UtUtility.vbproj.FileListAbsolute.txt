@@ -1,0 +1,28 @@
+C:\ApplicazioniDirezione\UTW\SETUP\Ut.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\Ut.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Ut.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Ut.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\UtUtility.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormCambioAgenzia.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormChiaviManetunzione.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormConfigura.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormDebug.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormDebugWeb.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormDettagioFiltro.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormGestioneFiltro.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormLog.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormLoginOWeb.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormNotifica.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormNotificaMini.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormProgessBar.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormRichiestaDate.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormUtenti.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormWeb.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\UtUtility.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\UtUtility.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\UtUtility.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Ut.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Ut.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Ut.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Globale\obj\x86\Release\Utx.FormFileSIA.resources

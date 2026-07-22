@@ -1,0 +1,15 @@
+C:\ApplicazioniDirezione\UTW\SETUP\Centralino.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Centralino.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Centralino.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.FormAvvioCentralino.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.FormNote.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.FormNotifica.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.FormUtente.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Centralino\Centralino\obj\x86\Release\Centralino.pdb

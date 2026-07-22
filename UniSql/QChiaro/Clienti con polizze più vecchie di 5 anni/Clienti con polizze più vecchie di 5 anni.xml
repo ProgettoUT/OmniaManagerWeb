@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Copertura</pacchetto>
+        <nome>Clienti con polizze più vecchie di 5 anni</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono estratti tutti i clienti che hanno delle polizze attive con data effetto vecchie più di x anni:
+Sono riportati i dati anagrafici.
+]]></descrizione>
+<note><![CDATA[
+]]></note>
+        <ultagg>14/11/2011</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@anni" etichetta="più vecchie di anni" tipo="integer" valore="5" obbligatorio="true" larghezza="4" sinistra="32" nuovariga="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia], 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.Email AS EMail,
+		    C.IDZona AS [Identificativo zona],
+		    C.TipoCliente AS [Tipo Cliente], 
+		    (right(str(TipoCliente),2)) AS Mercato, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione
+		 FROM
+		   ((((SELECT DISTINCT CodiceFiscale 
+		         FROM POLIZZE
+		      	WHERE @subagenzia  IN (-1, CodiceSubAgente)
+		      	  AND @produttore  IN (-1, CodiceProduttore)
+		      	  AND (DataStorno IS NULL OR DataStorno = 0)
+		      ) AS P		         
+		INNER JOIN Clienti          AS C   ON C.CodiceFiscale = P.CodiceFiscale)
+		INNER JOIN
+			(SELECT codicefiscale 
+			,COUNT(polizza) AS NumPol 
+			from polizze
+			WHERE (DataStorno IS NULL OR DataStorno = 0)
+			AND YEAR(DataEffetto) <= (YEAR(Date())-@anni)
+			GROUP BY codicefiscale
+			) AS prca
+			ON c.codicefiscale = prca.codicefiscale)
+		 LEFT JOIN Professioni AS PR  ON PR.IDProfessione = C.TipoCliente\100)
+		WHERE C.IDStatoCliente = 'EF'
+		  AND NumPol > 0
+		ORDER BY 1, 3, 4
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,1650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="com.sia.oma" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="com.sia.oma" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="com.sia.oma">
+      <s:element name="UploadFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileDocO8W">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="lice" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="mittente" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileDocO8WResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileDocO8WResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileOMB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOMB" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileOMBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileOMBResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileOMBFromO8W">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileOMBFromO8WResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileOMBFromO8WResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileOmnia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOmnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileOmniaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileOmniaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileAdHoc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileAdHocResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileAdHocResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileTUAPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileTUAPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileTUAPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileZurichPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileZurichPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileZurichPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileITALIANAPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileITALIANAPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileITALIANAPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIQAPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIQAPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileUNIQAPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileAvivaPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileAvivaPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileAvivaPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUCAPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUCAPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileUCAPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileUNIPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIPOL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIPOLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileUNIPOLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIPtfOldStyle">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileUNIPtfOldStyleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileUNIPtfOldStyleResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileAxaPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileAxaPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileAxaPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileCATPtf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileCATPtfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileCATPtfResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProgrFromMit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceO8W" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeMit" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProgrFromMitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetProgrFromMitResult" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastDateUploader">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastDateUploaderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLastDateUploaderResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastFileUploader">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="codAge" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastFileUploaderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastFileUploaderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetListFileTrasmittedUnipol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="codAge" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="from" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="to" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="tpFilter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetListFileTrasmittedUnipolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetListFileTrasmittedUnipolResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExistsFileNameUnipol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="codAge" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="filename" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExistsFileNameUnipolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExistsFileNameUnipolResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsLicenseOMActive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsLicenseOMActiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsLicenseOMActiveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTypeImportFromLicense">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTypeImportFromLicenseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTypeImportFromLicenseResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTypeImportFromO8W">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idLiceO8W" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTypeImportFromO8WResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTypeImportFromO8WResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSourceCodeFromTypeImport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idLiceO8W" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pipeCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSourceCodeFromTypeImportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSourceCodeFromTypeImportResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTypeImportCompleteFromO8W">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idLiceO8W" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTypeImportCompleteFromO8WResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTypeImportCompleteFromO8WResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticatedParams">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticatedParamsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetAuthenticatedParamsResult" type="tns:RAuthentication" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RAuthentication">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="done" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="authenticated" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="licenseKey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxDownload" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxUpload" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsLicenseO8WActive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsLicenseO8WActiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsLicenseO8WActiveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastRealDateUploader">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastRealDateUploaderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLastRealDateUploaderResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WsAutheticates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="License" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WsAutheticatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WsAutheticatesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAgeUnipolActive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodAge" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAgeUnipolActiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsAgeUnipolActiveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WsAutheticatesOMB">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="License" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeAccess" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WsAutheticatesOMBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WsAutheticatesOMBResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WsAutheticatesO8W">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeTransfer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WsAutheticatesO8WResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WsAutheticatesO8WResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDataBI">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccessID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadDataBIResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadDataBIResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileHelvetiaCoge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileHelvetiaCogeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileHelvetiaCogeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileItalianaCoge">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="f" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="idLiceOM" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileItalianaCogeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFileItalianaCogeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UploadFileSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFile" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileDocO8WSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileDocO8W" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileDocO8WSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileDocO8WResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileOMBSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileOMB" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileOMBSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileOMBResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileOMBFromO8WSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileOMBFromO8W" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileOMBFromO8WSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileOMBFromO8WResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileOmniaSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileOmnia" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileOmniaSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileOmniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileAdHocSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileAdHoc" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileAdHocSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileAdHocResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileTUAPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileTUAPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileTUAPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileTUAPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileZurichPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileZurichPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileZurichPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileZurichPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileITALIANAPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileITALIANAPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileITALIANAPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileITALIANAPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIQAPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIQAPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIQAPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIQAPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileAvivaPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileAvivaPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileAvivaPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileAvivaPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUCAPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileUCAPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUCAPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileUCAPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIPOLSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIPOL" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIPOLSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIPOLResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIPtfOldStyleSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIPtfOldStyle" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileUNIPtfOldStyleSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileUNIPtfOldStyleResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileAxaPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileAxaPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileAxaPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileAxaPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileCATPtfSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileCATPtf" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileCATPtfSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileCATPtfResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProgrFromMitSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProgrFromMit" />
+  </wsdl:message>
+  <wsdl:message name="GetProgrFromMitSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProgrFromMitResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLastDateUploaderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastDateUploader" />
+  </wsdl:message>
+  <wsdl:message name="GetLastDateUploaderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastDateUploaderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLastFileUploaderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastFileUploader" />
+  </wsdl:message>
+  <wsdl:message name="GetLastFileUploaderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastFileUploaderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetListFileTrasmittedUnipolSoapIn">
+    <wsdl:part name="parameters" element="tns:GetListFileTrasmittedUnipol" />
+  </wsdl:message>
+  <wsdl:message name="GetListFileTrasmittedUnipolSoapOut">
+    <wsdl:part name="parameters" element="tns:GetListFileTrasmittedUnipolResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExistsFileNameUnipolSoapIn">
+    <wsdl:part name="parameters" element="tns:ExistsFileNameUnipol" />
+  </wsdl:message>
+  <wsdl:message name="ExistsFileNameUnipolSoapOut">
+    <wsdl:part name="parameters" element="tns:ExistsFileNameUnipolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsLicenseOMActiveSoapIn">
+    <wsdl:part name="parameters" element="tns:IsLicenseOMActive" />
+  </wsdl:message>
+  <wsdl:message name="IsLicenseOMActiveSoapOut">
+    <wsdl:part name="parameters" element="tns:IsLicenseOMActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTypeImportFromLicenseSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTypeImportFromLicense" />
+  </wsdl:message>
+  <wsdl:message name="GetTypeImportFromLicenseSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTypeImportFromLicenseResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTypeImportFromO8WSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTypeImportFromO8W" />
+  </wsdl:message>
+  <wsdl:message name="GetTypeImportFromO8WSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTypeImportFromO8WResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSourceCodeFromTypeImportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSourceCodeFromTypeImport" />
+  </wsdl:message>
+  <wsdl:message name="GetSourceCodeFromTypeImportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSourceCodeFromTypeImportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTypeImportCompleteFromO8WSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTypeImportCompleteFromO8W" />
+  </wsdl:message>
+  <wsdl:message name="GetTypeImportCompleteFromO8WSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTypeImportCompleteFromO8WResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticatedParamsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAuthenticatedParams" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticatedParamsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAuthenticatedParamsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsLicenseO8WActiveSoapIn">
+    <wsdl:part name="parameters" element="tns:IsLicenseO8WActive" />
+  </wsdl:message>
+  <wsdl:message name="IsLicenseO8WActiveSoapOut">
+    <wsdl:part name="parameters" element="tns:IsLicenseO8WActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLastRealDateUploaderSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastRealDateUploader" />
+  </wsdl:message>
+  <wsdl:message name="GetLastRealDateUploaderSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastRealDateUploaderResponse" />
+  </wsdl:message>
+  <wsdl:message name="WsAutheticatesSoapIn">
+    <wsdl:part name="parameters" element="tns:WsAutheticates" />
+  </wsdl:message>
+  <wsdl:message name="WsAutheticatesSoapOut">
+    <wsdl:part name="parameters" element="tns:WsAutheticatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsAgeUnipolActiveSoapIn">
+    <wsdl:part name="parameters" element="tns:IsAgeUnipolActive" />
+  </wsdl:message>
+  <wsdl:message name="IsAgeUnipolActiveSoapOut">
+    <wsdl:part name="parameters" element="tns:IsAgeUnipolActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="WsAutheticatesOMBSoapIn">
+    <wsdl:part name="parameters" element="tns:WsAutheticatesOMB" />
+  </wsdl:message>
+  <wsdl:message name="WsAutheticatesOMBSoapOut">
+    <wsdl:part name="parameters" element="tns:WsAutheticatesOMBResponse" />
+  </wsdl:message>
+  <wsdl:message name="WsAutheticatesO8WSoapIn">
+    <wsdl:part name="parameters" element="tns:WsAutheticatesO8W" />
+  </wsdl:message>
+  <wsdl:message name="WsAutheticatesO8WSoapOut">
+    <wsdl:part name="parameters" element="tns:WsAutheticatesO8WResponse" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDataBISoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadDataBI" />
+  </wsdl:message>
+  <wsdl:message name="DownloadDataBISoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadDataBIResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileHelvetiaCogeSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileHelvetiaCoge" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileHelvetiaCogeSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileHelvetiaCogeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileItalianaCogeSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileItalianaCoge" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileItalianaCogeSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileItalianaCogeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WsUploaderSoap">
+    <wsdl:operation name="UploadFile">
+      <wsdl:input message="tns:UploadFileSoapIn" />
+      <wsdl:output message="tns:UploadFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileDocO8W">
+      <wsdl:input message="tns:UploadFileDocO8WSoapIn" />
+      <wsdl:output message="tns:UploadFileDocO8WSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOMB">
+      <wsdl:input message="tns:UploadFileOMBSoapIn" />
+      <wsdl:output message="tns:UploadFileOMBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOMBFromO8W">
+      <wsdl:input message="tns:UploadFileOMBFromO8WSoapIn" />
+      <wsdl:output message="tns:UploadFileOMBFromO8WSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOmnia">
+      <wsdl:input message="tns:UploadFileOmniaSoapIn" />
+      <wsdl:output message="tns:UploadFileOmniaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAdHoc">
+      <wsdl:input message="tns:UploadFileAdHocSoapIn" />
+      <wsdl:output message="tns:UploadFileAdHocSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileTUAPtf">
+      <wsdl:input message="tns:UploadFileTUAPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileTUAPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileZurichPtf">
+      <wsdl:input message="tns:UploadFileZurichPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileZurichPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileITALIANAPtf">
+      <wsdl:input message="tns:UploadFileITALIANAPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileITALIANAPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIQAPtf">
+      <wsdl:input message="tns:UploadFileUNIQAPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileUNIQAPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAvivaPtf">
+      <wsdl:input message="tns:UploadFileAvivaPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileAvivaPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUCAPtf">
+      <wsdl:input message="tns:UploadFileUCAPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileUCAPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPtf">
+      <wsdl:input message="tns:UploadFileUNIPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileUNIPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPOL">
+      <wsdl:input message="tns:UploadFileUNIPOLSoapIn" />
+      <wsdl:output message="tns:UploadFileUNIPOLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPtfOldStyle">
+      <wsdl:input message="tns:UploadFileUNIPtfOldStyleSoapIn" />
+      <wsdl:output message="tns:UploadFileUNIPtfOldStyleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAxaPtf">
+      <wsdl:input message="tns:UploadFileAxaPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileAxaPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileCATPtf">
+      <wsdl:input message="tns:UploadFileCATPtfSoapIn" />
+      <wsdl:output message="tns:UploadFileCATPtfSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgrFromMit">
+      <wsdl:input message="tns:GetProgrFromMitSoapIn" />
+      <wsdl:output message="tns:GetProgrFromMitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastDateUploader">
+      <wsdl:input message="tns:GetLastDateUploaderSoapIn" />
+      <wsdl:output message="tns:GetLastDateUploaderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastFileUploader">
+      <wsdl:input message="tns:GetLastFileUploaderSoapIn" />
+      <wsdl:output message="tns:GetLastFileUploaderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListFileTrasmittedUnipol">
+      <wsdl:input message="tns:GetListFileTrasmittedUnipolSoapIn" />
+      <wsdl:output message="tns:GetListFileTrasmittedUnipolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExistsFileNameUnipol">
+      <wsdl:input message="tns:ExistsFileNameUnipolSoapIn" />
+      <wsdl:output message="tns:ExistsFileNameUnipolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsLicenseOMActive">
+      <wsdl:input message="tns:IsLicenseOMActiveSoapIn" />
+      <wsdl:output message="tns:IsLicenseOMActiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportFromLicense">
+      <wsdl:input message="tns:GetTypeImportFromLicenseSoapIn" />
+      <wsdl:output message="tns:GetTypeImportFromLicenseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportFromO8W">
+      <wsdl:input message="tns:GetTypeImportFromO8WSoapIn" />
+      <wsdl:output message="tns:GetTypeImportFromO8WSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSourceCodeFromTypeImport">
+      <wsdl:input message="tns:GetSourceCodeFromTypeImportSoapIn" />
+      <wsdl:output message="tns:GetSourceCodeFromTypeImportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportCompleteFromO8W">
+      <wsdl:input message="tns:GetTypeImportCompleteFromO8WSoapIn" />
+      <wsdl:output message="tns:GetTypeImportCompleteFromO8WSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticatedParams">
+      <wsdl:input message="tns:GetAuthenticatedParamsSoapIn" />
+      <wsdl:output message="tns:GetAuthenticatedParamsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsLicenseO8WActive">
+      <wsdl:input message="tns:IsLicenseO8WActiveSoapIn" />
+      <wsdl:output message="tns:IsLicenseO8WActiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLastRealDateUploader">
+      <wsdl:input message="tns:GetLastRealDateUploaderSoapIn" />
+      <wsdl:output message="tns:GetLastRealDateUploaderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticates">
+      <wsdl:input message="tns:WsAutheticatesSoapIn" />
+      <wsdl:output message="tns:WsAutheticatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAgeUnipolActive">
+      <wsdl:input message="tns:IsAgeUnipolActiveSoapIn" />
+      <wsdl:output message="tns:IsAgeUnipolActiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticatesOMB">
+      <wsdl:input message="tns:WsAutheticatesOMBSoapIn" />
+      <wsdl:output message="tns:WsAutheticatesOMBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticatesO8W">
+      <wsdl:input message="tns:WsAutheticatesO8WSoapIn" />
+      <wsdl:output message="tns:WsAutheticatesO8WSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDataBI">
+      <wsdl:input message="tns:DownloadDataBISoapIn" />
+      <wsdl:output message="tns:DownloadDataBISoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileHelvetiaCoge">
+      <wsdl:input message="tns:UploadFileHelvetiaCogeSoapIn" />
+      <wsdl:output message="tns:UploadFileHelvetiaCogeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileItalianaCoge">
+      <wsdl:input message="tns:UploadFileItalianaCogeSoapIn" />
+      <wsdl:output message="tns:UploadFileItalianaCogeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WsUploaderSoap" type="tns:WsUploaderSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadFile">
+      <soap:operation soapAction="com.sia.oma/UploadFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileDocO8W">
+      <soap:operation soapAction="com.sia.oma/UploadFileDocO8W" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOMB">
+      <soap:operation soapAction="com.sia.oma/UploadFileOMB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOMBFromO8W">
+      <soap:operation soapAction="com.sia.oma/UploadFileOMBFromO8W" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOmnia">
+      <soap:operation soapAction="com.sia.oma/UploadFileOmnia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAdHoc">
+      <soap:operation soapAction="com.sia.oma/UploadFileAdHoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileTUAPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileTUAPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileZurichPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileZurichPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileITALIANAPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileITALIANAPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIQAPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileUNIQAPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAvivaPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileAvivaPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUCAPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileUCAPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileUNIPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPOL">
+      <soap:operation soapAction="com.sia.oma/UploadFileUNIPOL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPtfOldStyle">
+      <soap:operation soapAction="com.sia.oma/UploadFileUNIPtfOldStyle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAxaPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileAxaPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileCATPtf">
+      <soap:operation soapAction="com.sia.oma/UploadFileCATPtf" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgrFromMit">
+      <soap:operation soapAction="com.sia.oma/GetProgrFromMit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastDateUploader">
+      <soap:operation soapAction="com.sia.oma/GetLastDateUploader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastFileUploader">
+      <soap:operation soapAction="com.sia.oma/GetLastFileUploader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListFileTrasmittedUnipol">
+      <soap:operation soapAction="com.sia.oma/GetListFileTrasmittedUnipol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExistsFileNameUnipol">
+      <soap:operation soapAction="com.sia.oma/ExistsFileNameUnipol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLicenseOMActive">
+      <soap:operation soapAction="com.sia.oma/IsLicenseOMActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportFromLicense">
+      <soap:operation soapAction="com.sia.oma/GetTypeImportFromLicense" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportFromO8W">
+      <soap:operation soapAction="com.sia.oma/GetTypeImportFromO8W" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSourceCodeFromTypeImport">
+      <soap:operation soapAction="com.sia.oma/GetSourceCodeFromTypeImport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportCompleteFromO8W">
+      <soap:operation soapAction="com.sia.oma/GetTypeImportCompleteFromO8W" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticatedParams">
+      <soap:operation soapAction="com.sia.oma/GetAuthenticatedParams" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLicenseO8WActive">
+      <soap:operation soapAction="com.sia.oma/IsLicenseO8WActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastRealDateUploader">
+      <soap:operation soapAction="com.sia.oma/GetLastRealDateUploader" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticates">
+      <soap:operation soapAction="com.sia.oma/WsAutheticates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAgeUnipolActive">
+      <soap:operation soapAction="com.sia.oma/IsAgeUnipolActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticatesOMB">
+      <soap:operation soapAction="com.sia.oma/WsAutheticatesOMB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticatesO8W">
+      <soap:operation soapAction="com.sia.oma/WsAutheticatesO8W" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDataBI">
+      <soap:operation soapAction="com.sia.oma/DownloadDataBI" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileHelvetiaCoge">
+      <soap:operation soapAction="com.sia.oma/UploadFileHelvetiaCoge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileItalianaCoge">
+      <soap:operation soapAction="com.sia.oma/UploadFileItalianaCoge" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WsUploaderSoap12" type="tns:WsUploaderSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadFile">
+      <soap12:operation soapAction="com.sia.oma/UploadFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileDocO8W">
+      <soap12:operation soapAction="com.sia.oma/UploadFileDocO8W" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOMB">
+      <soap12:operation soapAction="com.sia.oma/UploadFileOMB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOMBFromO8W">
+      <soap12:operation soapAction="com.sia.oma/UploadFileOMBFromO8W" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileOmnia">
+      <soap12:operation soapAction="com.sia.oma/UploadFileOmnia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAdHoc">
+      <soap12:operation soapAction="com.sia.oma/UploadFileAdHoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileTUAPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileTUAPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileZurichPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileZurichPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileITALIANAPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileITALIANAPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIQAPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileUNIQAPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAvivaPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileAvivaPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUCAPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileUCAPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileUNIPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPOL">
+      <soap12:operation soapAction="com.sia.oma/UploadFileUNIPOL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileUNIPtfOldStyle">
+      <soap12:operation soapAction="com.sia.oma/UploadFileUNIPtfOldStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileAxaPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileAxaPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileCATPtf">
+      <soap12:operation soapAction="com.sia.oma/UploadFileCATPtf" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgrFromMit">
+      <soap12:operation soapAction="com.sia.oma/GetProgrFromMit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastDateUploader">
+      <soap12:operation soapAction="com.sia.oma/GetLastDateUploader" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastFileUploader">
+      <soap12:operation soapAction="com.sia.oma/GetLastFileUploader" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListFileTrasmittedUnipol">
+      <soap12:operation soapAction="com.sia.oma/GetListFileTrasmittedUnipol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExistsFileNameUnipol">
+      <soap12:operation soapAction="com.sia.oma/ExistsFileNameUnipol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLicenseOMActive">
+      <soap12:operation soapAction="com.sia.oma/IsLicenseOMActive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportFromLicense">
+      <soap12:operation soapAction="com.sia.oma/GetTypeImportFromLicense" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportFromO8W">
+      <soap12:operation soapAction="com.sia.oma/GetTypeImportFromO8W" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSourceCodeFromTypeImport">
+      <soap12:operation soapAction="com.sia.oma/GetSourceCodeFromTypeImport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeImportCompleteFromO8W">
+      <soap12:operation soapAction="com.sia.oma/GetTypeImportCompleteFromO8W" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticatedParams">
+      <soap12:operation soapAction="com.sia.oma/GetAuthenticatedParams" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLicenseO8WActive">
+      <soap12:operation soapAction="com.sia.oma/IsLicenseO8WActive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastRealDateUploader">
+      <soap12:operation soapAction="com.sia.oma/GetLastRealDateUploader" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticates">
+      <soap12:operation soapAction="com.sia.oma/WsAutheticates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAgeUnipolActive">
+      <soap12:operation soapAction="com.sia.oma/IsAgeUnipolActive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticatesOMB">
+      <soap12:operation soapAction="com.sia.oma/WsAutheticatesOMB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WsAutheticatesO8W">
+      <soap12:operation soapAction="com.sia.oma/WsAutheticatesO8W" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadDataBI">
+      <soap12:operation soapAction="com.sia.oma/DownloadDataBI" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileHelvetiaCoge">
+      <soap12:operation soapAction="com.sia.oma/UploadFileHelvetiaCoge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileItalianaCoge">
+      <soap12:operation soapAction="com.sia.oma/UploadFileItalianaCoge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WsUploader">
+    <wsdl:port name="WsUploaderSoap" binding="tns:WsUploaderSoap">
+      <soap:address location="https://omaportal.siaspa.com/sia.fta.portal/wsuploader.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WsUploaderSoap12" binding="tns:WsUploaderSoap12">
+      <soap12:address location="https://omaportal.siaspa.com/sia.fta.portal/wsuploader.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

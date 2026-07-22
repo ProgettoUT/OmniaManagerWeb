@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>In scadenza</pacchetto>
+        <nome>Polizze finanziate</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniare</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco delle polizze il cui ultimo incasso e' stato finanziato</descrizione>
+<note><![CDATA[
+]]></note>
+        <ultagg>25/07/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@anno" etichetta="Scadenza Anno - Mese" tipo="integer" valore="=year(Date())" multivalore="true" altezza="8" larghezza="10" sinistra="67">
+	    <elencovalori><![CDATA[SELECT 1111, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT year(DataScadenza), year(DataScadenza)
+	    		           FROM polizze
+	    		          WHERE year(DataScadenza) >= year(Date())
+	    		          ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@mese" etichetta="" tipo="integer" valore="-1" multivalore="true" altezza="8" larghezza="14" sinistra="78">
+            <elencovalori>-1;TUTTI;1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>
+        </parametro>
+
+
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" valore="#" multivalore="true" altezza="8" larghezza="30" sinistra="100">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = B.CodiceProdotto
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@ramopolizza" etichetta="Ramo" tipo="integer" valore="-1" multivalore="true" altezza="8" larghezza="30" sinistra="135">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+				   UNION SELECT DISTINCT P.Ramo, format(P.Ramo,'000') & ' - ' & TR.Ramo 
+				   FROM Polizze P left join [TipoRami] AS TR on (P.ramo=TR.CodiceRamo)
+				   ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="-1" obbligatorio="true" larghezza="35" sinistra="30" nuovariga="true">
+    	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+    	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+    	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+    	    		           ORDER BY 1
+    	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="-1" obbligatorio="true" larghezza="35" sinistra="30" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="integer" valore="-1" obbligatorio="true" larghezza="14" sinistra="30" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Convenzione, format(Convenzione,'00000')
+	    		           FROM Polizze
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="#" obbligatorio="true" larghezza="14" sinistra="51">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy
+	    		           FROM Clienti
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    (Year(Now())-Year([DataNascita])) AS [Eta del cliente], 
+		    (format(P.RamoGestione,'00') & ' - ' & TRG.DescRamoGest) AS [Ramo di gestione], 
+		    (format(P.Ramo,'000') & ' - ' & TR.Ramo) AS [Ramo Polizza], 
+		    P.Polizza AS Polizza, 
+		    P.DataEffetto AS [Data Effetto], 
+		    P.DataScadenza AS [Data Scadenza], 
+		    P.Frazionamento AS [Frazionamento Polizze], 
+		    P.Canale AS Canale, 
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.CodiceProduttore AS [Codice produttore Polizze], 
+		    (format(P.CodiceProdotto,'00000')) AS [Prodotto Polizza], 
+		    P.tipoPolProd AS [Tipo prodotto], 
+		    P.TotalePremioAnnuo AS [Totale premio annuo], 
+		    P.Targa AS [Numero targa], 
+		    P.CavalliFiscali AS [Cavalli fiscali], 
+		    P.Convenzione AS [Convenzione Polizze], 
+		    (TS.IDStorno & " - " & TS.Storno) AS [Tipo storno], 
+		    P.DataStorno AS [Data storno], 
+		    P.TipoCarico AS [Tipo carico polizze], 
+		    P.Clausole AS Clausole, 
+		    P.TipoTariffa AS [Tipo tariffa], 
+		    P.ClasseBonusMalus AS [Classe bonus malus], 
+		    P.CombinazioneMassimali AS [Combinazione massimali], 
+		    P.SettoreTariffario AS [Settore di tariffa], 
+		    P.ValoreincendioFurto AS [Valore incendio furto], 
+		    P.CodiceGaranzieAccessorie AS [Codice garanzie accessorie], 
+		    P.CodiceGaranziaInfortuni AS [Codice garanzia infortuni], 
+		    P.DiariaRitiroPatente AS [Diaria ritiro patente], 
+		    P.CodiceUtilizzoVeicolo AS [Codice utilizzo veicolo], 
+		    P.AlimentazioneVeicolo AS [Alimentazione veicolo], 
+		    P.ProfessioneRCA AS [Professione Rca], 
+		    P.CodicePagamento AS [Codice pagamento], 
+		    P.ImmatricVeicolo AS [Data immatricolazione veicolo],
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.ConsensoPrivacy AS [Privacy],
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS [Cellulare],
+		    C.Email,
+		    C.TipoCliente\100 & " - " & PR.Professione AS Professione,
+		    C.StatoCivile AS [Stato Civile]
+		FROM ((((((Clienti AS C 
+	       INNER JOIN Polizze    AS P   ON C.CodiceFiscale = P.CodiceFiscale)
+	       INNER JOIN (
+			       SELECT I1.AGENZIA, I1.RAMO, I1.POLIZZA
+			       FROM INCASSI I1
+			       INNER JOIN (
+				   SELECT AGENZIA, RAMO, POLIZZA, MAX(DATAEFFETTOTITOLO) AS MAX_DATAEFFETTOTITOLO
+				   FROM INCASSI
+				   GROUP BY AGENZIA, RAMO, POLIZZA) AS I2
+				    ON I1.AGENZIA = I2.AGENZIA
+				   AND I1.RAMO=I2.RAMO
+				   AND I1.POLIZZA = I2.POLIZZA
+				   AND I1.DATAEFFETTOTITOLO = I2.MAX_DATAEFFETTOTITOLO
+				WHERE TIPOPAGAMENTO = 'F') I
+		  ON I.AGENZIA = P.AGENZIA AND I.RAMO=P.RAMO AND I.POLIZZA = P.POLIZZA)
+	        LEFT JOIN RamoGest   AS TRG ON TRG.RamoGestione = P.RamoGestione)
+	        LEFT JOIN TipoRami   AS TR  ON TR.CodiceRamo = P.Ramo)
+	        LEFT JOIN TipoStorni AS TS  ON (TS.IDStorno = P.IDStorno AND IIF(P.RamoGestione >=18 AND P.RamoGestione <=20, 'V', 'D')= TS.Settore))
+		LEFT JOIN Professioni      AS PR  ON PR.IDProfessione = C.TipoCliente\100)
+		WHERE @subagenzia  IN (-1, P.CodiceSubAgente)
+		  AND @produttore  IN (-1, P.CodiceProduttore)
+		  AND (month(P.DataScadenza) IN (@mese) OR -1 IN (@mese))
+		  AND (year(P.DataScadenza) IN (@anno) OR 1111 IN (@anno))
+		  AND (P.CodiceProdotto IN (@prodotto) OR '#' IN (@prodotto)) 
+		  AND (P.Ramo IN (@ramopolizza) OR -1 IN (@ramopolizza)) 
+		  AND @convenzione IN (-1, P.Convenzione)
+                  AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+                  AND @privacy     IN ('#', C.ConsensoPrivacy)
+		  
+	]]></sql>
+	<!--AND (C.Sesso = 'N' OR (Year(Now())-Year([DataNascita])) between @etaMin AND @etaMax)-->
+    </estrazione>
+</oggetto>

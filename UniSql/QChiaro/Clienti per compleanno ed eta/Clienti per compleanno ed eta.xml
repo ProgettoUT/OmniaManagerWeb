@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti per compleanno ed eta</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono estratti tutti i clienti che compiono gli anni nel periodo specificato:
+Sono riportati i dati anagrafici.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Persone fisiche (sesso diverso da 'N')
+]]></note>
+        <ultagg>09/09/2014</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="90">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@datamin"  etichetta="Compleanno tra" tipo="date" valore="" obbligatorio="true" larghezza="12" sinistra="40" nuovariga="true"/>
+        <parametro nome="@datamax"  etichetta="e"              tipo="date" valore="" obbligatorio="true" larghezza="12" sinistra="58" />
+
+        <parametro nome="@etaDa"  etichetta="eta compresa tra" tipo="integer" valore="18" obbligatorio="true" larghezza="3" sinistra="90"/>
+        <parametro nome="@etaA"   etichetta="e tra" tipo="integer" valore="99" obbligatorio="true" larghezza="3" sinistra="98"/>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="40" larghezza="30" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    year(Date()) - year(DataNascita) as eta,
+		    C.DataNascita AS [Data di nascita],
+		    FORMAT(DataNascita,'MM DD') AS [Mese-giorno compleanno],
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.Email AS EMail,
+		    C.IDZona AS [Identificativo zona]
+		 FROM Clienti AS C   
+		WHERE @subagenzia   IN (-1, C.SubAgenzia)
+		  AND @produttore   IN (-1, C.Produttore)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+		  AND Sesso <> 'N'
+		  AND year(Date()) - year(DataNascita) between @etaA and @etaDa
+		  AND FORMAT(DataNascita,'MMDD') BETWEEN FORMAT(@datamin,'MMDD') AND FORMAT(@datamax,'MMDD')
+		ORDER BY 2, 4, 5
+	]]></sql>
+    </estrazione>
+</oggetto>

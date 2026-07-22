@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<!-- Generated WSDL for it.unipol.sx.webservice.serviziagenzia.service.SinistriServiceForAgenzieService web service -->
+<wsdl:definitions targetNamespace="http://sx.unipol.it/webservice/serviziagenzia/service" name="SinistriServiceForAgenzieService" xmlns:gwsoap="http://guidewire.com/ws/soapheaders" xmlns:gwwsdl="http://guidewire.com/pl/wsdl" xmlns:pogo="http://sx.unipol.it/webservice/serviziagenzia/service/domain" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://sx.unipol.it/webservice/serviziagenzia/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://sx.unipol.it/webservice/serviziagenzia/service" elementFormDefault="qualified" xmlns:gw="http://guidewire.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://guidewire.com/ws/soapheaders" schemaLocation="soapheaders.xsd"/>
+      <xs:import namespace="http://sx.unipol.it/webservice/serviziagenzia/service/domain"/>
+      <!-- getListaSinistriDelGiornoPerUtente(String, Date) : Result -->
+      <xs:element name="getListaSinistriDelGiornoPerUtente">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="username" type="xs:string" minOccurs="0"/>
+            <xs:element name="dataCreazioneInizio" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getListaSinistriDelGiornoPerUtenteResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="pogo:Result" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="WsdlFault">
+        <xs:complexType/>
+      </xs:element>
+      <xs:element name="WsiAuthenticationException">
+        <xs:complexType/>
+      </xs:element>
+      <!-- getSinistroDettaglio(String, String) : Result -->
+      <xs:element name="getSinistroDettaglio">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="username" type="xs:string" minOccurs="0"/>
+            <xs:element name="numeroSinistro" type="xs:string" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getSinistroDettaglioResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="pogo:Result" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema targetNamespace="http://sx.unipol.it/webservice/serviziagenzia/service/domain" elementFormDefault="qualified" xmlns:gw="http://guidewire.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Result">
+        <xs:sequence>
+          <xs:element name="DettaglioSinistro" type="pogo:DettaglioSinistro" minOccurs="0"/>
+          <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+          <xs:element name="ErrorDescription" type="xs:string" minOccurs="0"/>
+          <xs:element name="SinistroInfo" minOccurs="0" gw:viewas="array">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Entry" type="pogo:InfoSinistro" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DettaglioSinistro">
+        <xs:sequence>
+          <xs:element name="CodiceAgenzia" type="xs:string" minOccurs="0"/>
+          <xs:element name="CodiceClg" type="xs:string" minOccurs="0"/>
+          <xs:element name="CodiceFiscaleContraente" type="xs:string" minOccurs="0"/>
+          <xs:element name="CodicePerito" type="xs:string" minOccurs="0"/>
+          <xs:element name="CodiceSubAgenzia" type="xs:string" minOccurs="0"/>
+          <xs:element name="Convenzione" type="xs:string" minOccurs="0"/>
+          <xs:element name="DataAccadimento" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+          <xs:element name="DataAperturaSinistro" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+          <xs:element name="DataDenuncia" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+          <xs:element name="DataInterventoLegale" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+          <xs:element name="FlagLegale" type="xs:string" minOccurs="0"/>
+          <xs:element name="LiquidatoreAssegnatario" type="xs:string" minOccurs="0"/>
+          <xs:element name="NomeContraente" type="xs:string" minOccurs="0"/>
+          <xs:element name="NomeControparte" type="xs:string" minOccurs="0"/>
+          <xs:element name="NostraQuota" type="xs:decimal" minOccurs="0"/>
+          <xs:element name="NumeroPolizza" type="xs:string" minOccurs="0"/>
+          <xs:element name="NumeroPosizioni" type="xs:int" minOccurs="0"/>
+          <xs:element name="NumeroSinistro" type="xs:string" minOccurs="0"/>
+          <xs:element name="PresenzaCoseLesioni" type="xs:string" minOccurs="0"/>
+          <xs:element name="Prodotto" type="xs:string" minOccurs="0"/>
+          <xs:element name="ProfiloSinistro" type="xs:string" minOccurs="0"/>
+          <xs:element name="RamoPolizza" type="xs:string" minOccurs="0"/>
+          <xs:element name="RamoSinistro" type="xs:string" minOccurs="0"/>
+          <xs:element name="RiservaTecnica" type="xs:decimal" minOccurs="0"/>
+          <xs:element name="StatoTecnico" type="xs:string" minOccurs="0"/>
+          <xs:element name="TargaAssicurato" type="xs:string" minOccurs="0"/>
+          <xs:element name="TargaControparte" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="InfoSinistro">
+        <xs:sequence>
+          <xs:element name="DataApertura" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+          <xs:element name="NomeCognomeAssicurato" type="xs:string" minOccurs="0"/>
+          <xs:element name="Numero" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:portType name="SinistriServiceForAgenzieServicePortType">
+    <wsdl:operation name="getListaSinistriDelGiornoPerUtente">
+      <wsdl:input name="getListaSinistriDelGiornoPerUtente" message="tns:getListaSinistriDelGiornoPerUtente"/>
+      <wsdl:output name="getListaSinistriDelGiornoPerUtenteResponse" message="tns:getListaSinistriDelGiornoPerUtenteResponse"/>
+      <!-- If there are technical errors - ERROR -->
+      <wsdl:fault name="WsdlFault" message="tns:WsdlFault"/>
+      <wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getSinistroDettaglio">
+      <wsdl:input name="getSinistroDettaglio" message="tns:getSinistroDettaglio"/>
+      <wsdl:output name="getSinistroDettaglioResponse" message="tns:getSinistroDettaglioResponse"/>
+      <!-- If there are technical errors - ERROR -->
+      <wsdl:fault name="WsdlFault" message="tns:WsdlFault"/>
+      <wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SinistriServiceForAgenzieServiceSoap12Binding" type="tns:SinistriServiceForAgenzieServicePortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="getListaSinistriDelGiornoPerUtente">
+      <soap12:operation soapActionRequired="false" style="document"/>
+      <wsdl:input name="getListaSinistriDelGiornoPerUtente">
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+        <soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+        <soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+        <soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getListaSinistriDelGiornoPerUtenteResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WsdlFault">
+        <soap12:fault name="WsdlFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="WsiAuthenticationException">
+        <soap12:fault name="WsiAuthenticationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getSinistroDettaglio">
+      <soap12:operation soapActionRequired="false" style="document"/>
+      <wsdl:input name="getSinistroDettaglio">
+        <soap12:body use="literal"/>
+        <soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+        <soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+        <soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+        <soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSinistroDettaglioResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WsdlFault">
+        <soap12:fault name="WsdlFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="WsiAuthenticationException">
+        <soap12:fault name="WsiAuthenticationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SinistriServiceForAgenzieServiceSoap11Binding" type="tns:SinistriServiceForAgenzieServicePortType">
+    <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="getListaSinistriDelGiornoPerUtente">
+      <soap11:operation style="document"/>
+      <wsdl:input name="getListaSinistriDelGiornoPerUtente">
+        <soap11:body use="literal"/>
+        <soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+        <soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+        <soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+        <soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getListaSinistriDelGiornoPerUtenteResponse">
+        <soap11:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WsdlFault">
+        <soap11:fault name="WsdlFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="WsiAuthenticationException">
+        <soap11:fault name="WsiAuthenticationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getSinistroDettaglio">
+      <soap11:operation style="document"/>
+      <wsdl:input name="getSinistroDettaglio">
+        <soap11:body use="literal"/>
+        <soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+        <soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+        <soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+        <soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSinistroDettaglioResponse">
+        <soap11:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="WsdlFault">
+        <soap11:fault name="WsdlFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="WsiAuthenticationException">
+        <soap11:fault name="WsiAuthenticationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SinistriServiceForAgenzieService">
+    <wsdl:port name="SinistriServiceForAgenzieServiceSoap12Port" binding="tns:SinistriServiceForAgenzieServiceSoap12Binding">
+      <soap12:address location="http://localhost:8080/cc/ws/it/unipol/sx/webservice/serviziagenzia/service/SinistriServiceForAgenzieService"/>
+      <gwwsdl:address location="${cc}/ws/it/unipol/sx/webservice/serviziagenzia/service/SinistriServiceForAgenzieService"/>
+    </wsdl:port>
+    <wsdl:port name="SinistriServiceForAgenzieServiceSoap11Port" binding="tns:SinistriServiceForAgenzieServiceSoap11Binding">
+      <soap11:address location="http://localhost:8080/cc/ws/it/unipol/sx/webservice/serviziagenzia/service/SinistriServiceForAgenzieService/soap11"/>
+      <gwwsdl:address location="${cc}/ws/it/unipol/sx/webservice/serviziagenzia/service/SinistriServiceForAgenzieService/soap11"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:message name="getListaSinistriDelGiornoPerUtente">
+    <wsdl:part name="parameters" element="tns:getListaSinistriDelGiornoPerUtente"/>
+  </wsdl:message>
+  <wsdl:message name="getListaSinistriDelGiornoPerUtenteResponse">
+    <wsdl:part name="parameters" element="tns:getListaSinistriDelGiornoPerUtenteResponse"/>
+  </wsdl:message>
+  <wsdl:message name="WsdlFault">
+    <wsdl:part name="WsdlFault" element="tns:WsdlFault"/>
+  </wsdl:message>
+  <wsdl:message name="WsiAuthenticationException">
+    <wsdl:part name="WsiAuthenticationException" element="tns:WsiAuthenticationException"/>
+  </wsdl:message>
+  <wsdl:message name="getSinistroDettaglio">
+    <wsdl:part name="parameters" element="tns:getSinistroDettaglio"/>
+  </wsdl:message>
+  <wsdl:message name="getSinistroDettaglioResponse">
+    <wsdl:part name="parameters" element="tns:getSinistroDettaglioResponse"/>
+  </wsdl:message>
+  <wsdl:message name="gw-authentication">
+    <wsdl:part name="gw-authentication" element="gwsoap:authentication"/>
+  </wsdl:message>
+  <wsdl:message name="gw-locale-only">
+    <wsdl:part name="gw-locale-only" element="gwsoap:gw_locale"/>
+  </wsdl:message>
+  <wsdl:message name="gw-language-only">
+    <wsdl:part name="gw-language-only" element="gwsoap:gw_language"/>
+  </wsdl:message>
+  <wsdl:message name="gw-transaction-id">
+    <wsdl:part name="gw-transaction-id" element="gwsoap:transaction_id"/>
+  </wsdl:message>
+  <wsdl:message name="gw-traceability-id">
+    <wsdl:part name="gw-traceability-id" element="gwsoap:traceability_id"/>
+  </wsdl:message>
+</wsdl:definitions>

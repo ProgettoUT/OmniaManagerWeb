@@ -1,0 +1,10 @@
+C:\ApplicazioniDirezione\UTW\UMenu.dll.config
+C:\ApplicazioniDirezione\UTW\UMenu.dll
+C:\ApplicazioniDirezione\UTW\UMenu.pdb
+C:\ApplicazioniDirezione\UTW\UMenu.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UMenu\obj\x86\Debug\UMenu.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UMenu\obj\x86\Debug\UMenu.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UMenu\obj\x86\Debug\UMenu.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UMenu\obj\x86\Debug\UMenu.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UMenu\obj\x86\Debug\UMenu.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UMenu\obj\x86\Debug\UMenu.pdb

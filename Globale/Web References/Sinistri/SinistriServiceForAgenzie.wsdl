@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://service.serviziagenzia.websphere.sx.unipol.it" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:tns2="http://domain.serviziagenzia.websphere.sx.unipol.it" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://service.serviziagenzia.websphere.sx.unipol.it" targetNamespace="http://service.serviziagenzia.websphere.sx.unipol.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.serviziagenzia.websphere.sx.unipol.it">
+      <xsd:import namespace="http://domain.serviziagenzia.websphere.sx.unipol.it" />
+      <xsd:element name="getListaSinistriDelGiornoPerUtenteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getListaSinistriDelGiornoPerUtenteReturn" nillable="true" type="tns2:Result" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getSinistroDettaglio">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="username" nillable="true" type="xsd:string" />
+            <xsd:element name="aNumeroSinistro" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getSinistroDettaglioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getSinistroDettaglioReturn" nillable="true" type="tns2:Result" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getListaSinistriDelGiornoPerUtente">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="username" nillable="true" type="xsd:string" />
+            <xsd:element name="aDataCreazioneInizioString" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://domain.serviziagenzia.websphere.sx.unipol.it">
+      <xsd:complexType name="Result">
+        <xsd:sequence>
+          <xsd:element name="dettaglioSinistro" nillable="true" type="tns2:DettaglioSinistro" />
+          <xsd:element name="errorDescription" nillable="true" type="xsd:string" />
+          <xsd:element name="sinistroInfoList" nillable="true" type="tns2:ArrayOfInfoSinistro" />
+          <xsd:element name="errorCode" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DettaglioSinistro">
+        <xsd:sequence>
+          <xsd:element name="codiceAgenzia" nillable="true" type="xsd:string" />
+          <xsd:element name="codiceClg" nillable="true" type="xsd:string" />
+          <xsd:element name="codiceFiscaleContraente" nillable="true" type="xsd:string" />
+          <xsd:element name="codicePerito" nillable="true" type="xsd:string" />
+          <xsd:element name="codiceSubAgenzia" nillable="true" type="xsd:string" />
+          <xsd:element name="convenzione" nillable="true" type="xsd:string" />
+          <xsd:element name="dataAccadimento" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dataAperturaSinistro" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dataDenuncia" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="dataInterventoLegale" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="flagLegale" nillable="true" type="xsd:string" />
+          <xsd:element name="liquidatoreAssegnatario" nillable="true" type="xsd:string" />
+          <xsd:element name="nomeContraente" nillable="true" type="xsd:string" />
+          <xsd:element name="nomeControparte" nillable="true" type="xsd:string" />
+          <xsd:element name="nostraQuota" nillable="true" type="xsd:decimal" />
+          <xsd:element name="numeroPolizza" nillable="true" type="xsd:string" />
+          <xsd:element name="numeroPosizioni" nillable="true" type="xsd:int" />
+          <xsd:element name="numeroSinistro" nillable="true" type="xsd:string" />
+          <xsd:element name="presenzaCoseLesioni" nillable="true" type="xsd:string" />
+          <xsd:element name="prodotto" nillable="true" type="xsd:string" />
+          <xsd:element name="profiloSinistro" nillable="true" type="xsd:string" />
+          <xsd:element name="ramoPolizza" nillable="true" type="xsd:string" />
+          <xsd:element name="ramoSinistro" nillable="true" type="xsd:string" />
+          <xsd:element name="riservaTecnica" nillable="true" type="xsd:decimal" />
+          <xsd:element name="statoTecnico" nillable="true" type="xsd:string" />
+          <xsd:element name="targaAssicurato" nillable="true" type="xsd:string" />
+          <xsd:element name="targaControparte" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InfoSinistro">
+        <xsd:sequence>
+          <xsd:element name="dataApertura" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="nomeCognomeAssicurato" nillable="true" type="xsd:string" />
+          <xsd:element name="numero" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfInfoSinistro">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="InfoSinistro" nillable="true" type="tns2:InfoSinistro" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getListaSinistriDelGiornoPerUtenteRequest">
+    <wsdl:part name="parameters" element="impl:getListaSinistriDelGiornoPerUtente" />
+  </wsdl:message>
+  <wsdl:message name="getSinistroDettaglioResponse">
+    <wsdl:part name="parameters" element="impl:getSinistroDettaglioResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSinistroDettaglioRequest">
+    <wsdl:part name="parameters" element="impl:getSinistroDettaglio" />
+  </wsdl:message>
+  <wsdl:message name="getListaSinistriDelGiornoPerUtenteResponse">
+    <wsdl:part name="parameters" element="impl:getListaSinistriDelGiornoPerUtenteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SinistriServiceForAgenzieInterface">
+    <wsdl:operation name="getListaSinistriDelGiornoPerUtente">
+      <wsdl:input name="getListaSinistriDelGiornoPerUtenteRequest" message="impl:getListaSinistriDelGiornoPerUtenteRequest" />
+      <wsdl:output name="getListaSinistriDelGiornoPerUtenteResponse" message="impl:getListaSinistriDelGiornoPerUtenteResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSinistroDettaglio">
+      <wsdl:input name="getSinistroDettaglioRequest" message="impl:getSinistroDettaglioRequest" />
+      <wsdl:output name="getSinistroDettaglioResponse" message="impl:getSinistroDettaglioResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SinistriServiceForAgenzieSoapBinding" type="impl:SinistriServiceForAgenzieInterface">
+    <wsaw:UsingAddressing wsdl:required="false" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" />
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getListaSinistriDelGiornoPerUtente">
+      <wsdlsoap:operation soapAction="getListaSinistriDelGiornoPerUtente" />
+      <wsdl:input name="getListaSinistriDelGiornoPerUtenteRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getListaSinistriDelGiornoPerUtenteResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSinistroDettaglio">
+      <wsdlsoap:operation soapAction="getSinistroDettaglio" />
+      <wsdl:input name="getSinistroDettaglioRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSinistroDettaglioResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SinistriServiceForAgenzieService">
+    <wsdl:port name="SinistriServiceForAgenzie" binding="impl:SinistriServiceForAgenzieSoapBinding">
+      <wsdlsoap:address location="http://localhost:9080/SinistriServiceForAgenzie/services/SinistriServiceForAgenzie" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

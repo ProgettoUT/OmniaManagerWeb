@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Provvigioni</pacchetto>
+        <nome>Provvigioni per subagente</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>in manutenzione</stato>
+<descrizione><![CDATA[
+Estrae le provvigioni filtrando per anno-mese incasso e subagenti.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - nessuno
+]]></note>
+        <ultagg>19/10/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@annomesefc" etichetta="anno-mese" tipo="integer" larghezza="42" sinistra="32">
+            <elencovalori><![CDATA[SELECT DISTINCT FORMAT(DataFoglioCassa,'YYYYMM'), FORMAT(DataFoglioCassa,'YYYY MMMM') 
+                                   FROM INCASSI 
+                                   ORDER BY 1 DESC]]></elencovalori>
+        </parametro>
+        <parametro nome="@subagenzia" etichetta="Subagenzie" tipo="integer" valore="100" obbligatorio="false" larghezza="42" sinistra="84" multivalore="true" altezza="4">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive
+	    		           WHERE tipofigura='P' 
+	    		           AND IDFiguraProduttiva < 1000
+	    		           AND IDFiguraProduttiva IN (
+	    		           		SELECT DISTINCT CodiceSubAgente 
+	    		           		  FROM INCASSI IC 
+	    		           		  WHERE FORMAT(DataFoglioCassa,'YYYYMM')  = @annomesefc
+						  AND @segmentazione IN (-1,
+							iif(IC.RamoGestione >=  1 and IC.RamoGestione <= 17, -2, 0),
+							iif(IC.RamoGestione >= 18 and IC.RamoGestione <= 20, -3, 0),
+							iif(IC.RamoGestione >=  1 and IC.RamoGestione <=  2, -4, 0),
+							iif(IC.RamoGestione >=  3 and IC.RamoGestione <= 17, -5, 0),
+							iif(IC.RamoGestione >=  3 and IC.RamoGestione <=  5, -6, 0),
+							iif(IC.RamoGestione >=  6 and IC.RamoGestione <= 10, -7, 0),
+							iif(IC.RamoGestione >= 11 and IC.RamoGestione <= 17, -8, 0),
+							IC.RamoGestione)
+	    		           		)
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+
+        <parametro nome="@segmentazione" etichetta="Segmento" tipo="integer" obbligatorio="true" valore="-1" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori>
+	    -1;TUTTI;
+	    	-2;  DANNI;
+	    		-4;    AUTO;
+					 1;        RESPONSABILITA' CIVILE AUTO;
+					 2;        AUTO RISCHI DIVERSI;
+	    		-5;    RAMI ELEMENTARI;
+	    			-6;      PERSONE;
+					 3;        INFORTUNI;
+					 4;        MALATTIE;
+					 5;        RISCHI DIVERSI PERSONE;
+	    			-7;      AZIENDE;
+					 6;        INCENDIO RISCHI ORDINARI;
+					 7;        INCENDIO RISCHI INDUSTRIALI;
+					 8;        RISCHI TECNOLOGICI;
+					 9;        FURTO;
+					10;        RESPONSABILITA' CIVILE GENERALE;
+	    			-8;      ALTRI RAMI;
+					11;        TRASPORTI;
+					12;        AERONAUTICA;
+					13;        CAUZIONI;
+					14;        CREDITO;
+					15;        RISCHIO IMPIEGO;
+					16;        GRANDINE;
+					17;        BESTIAME;
+	    	-3;  VITA;
+                                        18;        VITA INDIVIDUALI;
+					19;        VITA COLLETTIVE;
+					20;        VITA FONDI PENSIONE
+	    </elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="agente"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    Contraente, 
+		    CodiceSubAgente       AS [Sub agente], 
+		    CodiceProduttore      AS [Produttore], 
+		    Format(Ramo,'000')    AS [Ramo],
+		    Polizza               AS [Polizza], 
+		    DataFoglioCassa       AS [Foglio cassa], 
+		    DataEffettoTitolo     AS [Effetto titolo], 
+		    TipoCarico            AS [Carico incassi], 
+		    TotaleTitolo          AS [Totale titolo], 
+		    ProvvAcqcSub          AS [Provvigioni acquisto subagente],
+		    ProvvIncSub           AS [Provvigioni incasso subagente],
+		    CavRca                AS [Provvigioni incasso subagente],
+		    [Provvigioni acquisto subagente] + [Provvigioni incasso subagente] 
+		                          AS [Totale provvigioni subagente],
+		    ProvvAcqcProd         AS [Provvigioni acquisto produttore],
+		    ProvvIncProd          AS [Provvigioni incasso produttore],
+		    [Provvigioni acquisto produttore] + [Provvigioni incasso produttore] 
+		                          AS [Totale provvigioni produttore]
+		 FROM [Incassi]
+		WHERE FORMAT(DataFoglioCassa,'YYYYMM')  = @annomesefc
+		  AND CodiceSubAgente IN (@subagenzia)
+		  AND @segmentazione IN (-1,
+		  	iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+		  	iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+		  	iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+		  	iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+		  	iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+		  	iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+		  	iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+		  	RamoGestione)
+		ORDER BY
+		    2,
+		    1
+			]]></sql>
+    </estrazione>
+</oggetto>

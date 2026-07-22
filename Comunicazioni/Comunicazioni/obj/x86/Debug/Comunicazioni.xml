@@ -1,0 +1,695 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Comunicazioni
+</name>
+</assembly>
+<members>
+<member name="T:Comunicazioni.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:Comunicazioni.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:Comunicazioni.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ConfiguraSede">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.#ctor">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciDownloadExCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniSedeStringaCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.ForzatureDLCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenzieCollegateCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.TabellaAgenzieCollegateCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.TipologiaAgenziaCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataAspCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.CercaAggiornamentoCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.ListinoSmsCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.ProvinceCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneLivelloCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.VersioneLivelloCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.Assicoop2CodiceCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciSubCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.ConfigAgenziaCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaProdottiCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaDatiSinistriCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioProdottiEffettuatoCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioDatiSinistriCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.RegistraLogUsoCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.SettingAgenzia.ConfiguraSede.ReferentiCompleted">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciDownloadEx(System.Int32,System.String,System.String,System.Int32,System.Boolean@,System.String@,System.String@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciDownloadExAsync(System.Int32,System.String,System.String,System.Int32,System.Boolean,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciDownloadExAsync(System.Int32,System.String,System.String,System.Int32,System.Boolean,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniSedeStringa(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniSedeStringaAsync(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniSedeStringaAsync(System.Int32,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ForzatureDL(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ForzatureDLAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ForzatureDLAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenzieCollegate(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenzieCollegateAsync(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenzieCollegateAsync(System.Int32,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.TabellaAgenzieCollegate(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.TabellaAgenzieCollegateAsync(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.TabellaAgenzieCollegateAsync(System.Int32,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccata(System.Int32,System.Int32,System.String,System.String,System.String@,System.String@,System.String@,System.String@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataAsync(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataAsync(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.TipologiaAgenzia(System.Int32,System.Int32,System.String@,System.String@,System.String@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.TipologiaAgenziaAsync(System.Int32,System.Int32,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.TipologiaAgenziaAsync(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataAsp(System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataAspAsync(System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AgenziaBloccataAspAsync(System.Int32,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CercaAggiornamento(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32@,System.Int32@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CercaAggiornamentoAsync(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CercaAggiornamentoAsync(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ListinoSms(System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ListinoSmsAsync(System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ListinoSmsAsync(System.Int32,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.Province(System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ProvinceAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ProvinceAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersione(System.Int32,System.String,System.String,System.String,System.Boolean@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneAsync(System.Int32,System.String,System.String,System.String,System.Boolean,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneAsync(System.Int32,System.String,System.String,System.String,System.Boolean,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneLivello(System.Int32,System.String,System.String,System.String,Comunicazioni.SettingAgenzia.DatiAgenzia@,Comunicazioni.SettingAgenzia.EsitoServizio@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneLivelloAsync(System.Int32,System.String,System.String,System.String,Comunicazioni.SettingAgenzia.DatiAgenzia,Comunicazioni.SettingAgenzia.EsitoServizio)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.DatiVersioneLivelloAsync(System.Int32,System.String,System.String,System.String,Comunicazioni.SettingAgenzia.DatiAgenzia,Comunicazioni.SettingAgenzia.EsitoServizio,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.VersioneLivello(System.Int32,System.String,System.String,System.String,Comunicazioni.SettingAgenzia.DatiAgenzia@,Comunicazioni.SettingAgenzia.EsitoServizio@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.VersioneLivelloAsync(System.Int32,System.String,System.String,System.String,Comunicazioni.SettingAgenzia.DatiAgenzia,Comunicazioni.SettingAgenzia.EsitoServizio)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.VersioneLivelloAsync(System.Int32,System.String,System.String,System.String,Comunicazioni.SettingAgenzia.DatiAgenzia,Comunicazioni.SettingAgenzia.EsitoServizio,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.Assicoop2Codice(System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.Assicoop2CodiceAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.Assicoop2CodiceAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciSub(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciSubAsync(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CodiciSubAsync(System.Int32,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ConfigAgenzia(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ConfigAgenziaAsync(System.Int32,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ConfigAgenziaAsync(System.Int32,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.Abilitazioni(System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniAsync(System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.AbilitazioniAsync(System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaProdotti(System.Int32,System.String,System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaProdottiAsync(System.Int32,System.String,System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaProdottiAsync(System.Int32,System.String,System.Data.DataSet,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaDatiSinistri(System.String,System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaDatiSinistriAsync(System.String,System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InviaDatiSinistriAsync(System.String,System.Data.DataSet,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioProdottiEffettuato(System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioProdottiEffettuatoAsync(System.Int32,System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioProdottiEffettuatoAsync(System.Int32,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioDatiSinistri(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioDatiSinistriAsync(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.InvioDatiSinistriAsync(System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.RegistraLogUso(System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.RegistraLogUsoAsync(System.Data.DataSet)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.RegistraLogUsoAsync(System.Data.DataSet,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.Referenti(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ReferentiAsync(System.Int32)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.ReferentiAsync(System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.SettingAgenzia.ConfiguraSede.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.DatiAgenzia">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiAgenzia.Livello">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.EsitoServizio">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.EsitoServizio.EsitoChiamata">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.EsitoServizio.Messaggio">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.EsitoServizio.CodiceErrore">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.EsitoServizio.MessaggioErrore">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.EsitoServizio.ValoreRestituiro">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventArgs.ConsensoImportazione">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventArgs.Errore">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventArgs.ErroreForzature">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CodiciDownloadExCompletedEventArgs.ErroreListe">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AbilitazioniSedeStringaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AbilitazioniSedeStringaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AbilitazioniSedeStringaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ForzatureDLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ForzatureDLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.ForzatureDLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AgenzieCollegateCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AgenzieCollegateCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenzieCollegateCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.TabellaAgenzieCollegateCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.TabellaAgenzieCollegateCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.TabellaAgenzieCollegateCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs.Prod">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs.Test">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs.Lab">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs.Gruppo">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataCompletedEventArgs.Errore">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventArgs.Prod">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventArgs.Test">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventArgs.Lab">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.TipologiaAgenziaCompletedEventArgs.Gruppo">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AgenziaBloccataAspCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AgenziaBloccataAspCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AgenziaBloccataAspCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.CercaAggiornamentoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.CercaAggiornamentoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CercaAggiornamentoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CercaAggiornamentoCompletedEventArgs.NuovaVersione">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CercaAggiornamentoCompletedEventArgs.NuovaSubVersione">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CercaAggiornamentoCompletedEventArgs.NuovoTipo">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ListinoSmsCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ListinoSmsCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.ListinoSmsCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ProvinceCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ProvinceCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.ProvinceCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.ProvinceCompletedEventArgs.Errore">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.DatiVersioneCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.DatiVersioneCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiVersioneCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiVersioneCompletedEventArgs.LogON">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiVersioneCompletedEventArgs.Errore">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.DatiVersioneLivelloCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.DatiVersioneLivelloCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiVersioneLivelloCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiVersioneLivelloCompletedEventArgs.Agenzia">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.DatiVersioneLivelloCompletedEventArgs.Esito">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.VersioneLivelloCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.VersioneLivelloCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.VersioneLivelloCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.VersioneLivelloCompletedEventArgs.Agenzia">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.VersioneLivelloCompletedEventArgs.Esito">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.Assicoop2CodiceCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.Assicoop2CodiceCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.Assicoop2CodiceCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.CodiciSubCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.CodiciSubCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.CodiciSubCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ConfigAgenziaCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ConfigAgenziaCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.ConfigAgenziaCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AbilitazioniCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.AbilitazioniCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.AbilitazioniCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InviaProdottiCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InviaProdottiCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.InviaProdottiCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InviaDatiSinistriCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InviaDatiSinistriCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.InviaDatiSinistriCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InvioProdottiEffettuatoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InvioProdottiEffettuatoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.InvioProdottiEffettuatoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InvioDatiSinistriCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.InvioDatiSinistriCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.InvioDatiSinistriCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.RegistraLogUsoCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.RegistraLogUsoCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.RegistraLogUsoCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ReferentiCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.SettingAgenzia.ReferentiCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.SettingAgenzia.ReferentiCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.WsComunicazioni.Service1">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.#ctor">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiCompleted">
+<remarks/>
+</member>
+<member name="E:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiArchivioCompleted">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.ListaDocumenti(System.String@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiArchivio(System.DateTime,System.DateTime,System.String@,System.String@)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiArchivioAsync(System.DateTime,System.DateTime,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.ListaDocumentiArchivioAsync(System.DateTime,System.DateTime,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Comunicazioni.WsComunicazioni.Service1.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.WsComunicazioni.ListaDocumentiCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.WsComunicazioni.ListaDocumentiCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.WsComunicazioni.ListaDocumentiCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.WsComunicazioni.ListaDocumentiCompletedEventArgs.UrlBaseDoc">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.WsComunicazioni.ListaDocumentiCompletedEventArgs.Errore">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.WsComunicazioni.ListaDocumentiArchivioCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Comunicazioni.WsComunicazioni.ListaDocumentiArchivioCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.WsComunicazioni.ListaDocumentiArchivioCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.WsComunicazioni.ListaDocumentiArchivioCompletedEventArgs.UrlBaseDoc">
+<remarks/>
+</member>
+<member name="P:Comunicazioni.WsComunicazioni.ListaDocumentiArchivioCompletedEventArgs.Errore">
+<remarks/>
+</member>
+</members>
+</doc>

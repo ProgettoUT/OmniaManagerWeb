@@ -1,0 +1,937 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7AFFA253-9962-4AFF-B530-CD998B973905}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Utx</RootNamespace>
+    <AssemblyName>Ut</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Text</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>Ut.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>Ut.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\AxInterop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.ADOX, Version=2.8.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Interop.ADOX.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.JRO, Version=2.6.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Interop.JRO.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Interop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="Kennedy.ManagedHooks, Version=1.2.0.10, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Kennedy.ManagedHooks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Microsoft.mshtml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Microsoft.Web.Services3.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3485.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3485.44\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3485.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3485.44\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=17.1.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2016.2.503.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Telerik.WinControls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="JRO" />
+    <Import Include="Kennedy.ManagedHooks" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agenzia.vb" />
+    <Compile Include="AgenziaOmnia.vb" />
+    <Compile Include="AnalisiDb.vb" />
+    <Compile Include="API.vb" />
+    <Compile Include="AppColor.vb" />
+    <Compile Include="ApplicationLog.vb" />
+    <Compile Include="ApplicationUserSetting.vb" />
+    <Compile Include="ArchivioUt.vb" />
+    <Compile Include="Autenticazioni.vb" />
+    <Compile Include="Bag.vb" />
+    <Compile Include="ConfigSede.vb" />
+    <Compile Include="ConfiguraAgenzia.vb" />
+    <Compile Include="ConnessioniDb.vb" />
+    <Compile Include="Crypto.vb" />
+    <Compile Include="Direzione.vb" />
+    <Compile Include="EnteGestore.vb" />
+    <Compile Include="Enumerazioni.vb" />
+    <Compile Include="Essig.vb" />
+    <Compile Include="Eventi.vb" />
+    <Compile Include="FormCambioAgenzia.Designer.vb">
+      <DependentUpon>FormCambioAgenzia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCambioAgenzia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChiaviManetunzione.Designer.vb">
+      <DependentUpon>FormChiaviManetunzione.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormChiaviManetunzione.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConfigura.Designer.vb">
+      <DependentUpon>FormConfigura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormConfigura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDebug.Designer.vb">
+      <DependentUpon>FormDebug.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDebug.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDebugWeb.Designer.vb">
+      <DependentUpon>FormDebugWeb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDebugWeb.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDettagioFiltro.Designer.vb">
+      <DependentUpon>FormDettagioFiltro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDettagioFiltro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFileSIA.Designer.vb">
+      <DependentUpon>FormFileSIA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormFileSIA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGestioneFiltro.Designer.vb">
+      <DependentUpon>FormGestioneFiltro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormGestioneFiltro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLog.Designer.vb">
+      <DependentUpon>FormLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLoginOWeb.Designer.vb">
+      <DependentUpon>FormLoginOWeb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLoginOWeb.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotifica.designer.vb">
+      <DependentUpon>FormNotifica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNotifica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotificaMini.Designer.vb">
+      <DependentUpon>FormNotificaMini.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNotificaMini.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPopUp.Designer.vb">
+      <DependentUpon>FormPopUp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormPopUp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProgessBar.Designer.vb">
+      <DependentUpon>FormProgessBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormProgessBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRichiestaDate.Designer.vb">
+      <DependentUpon>FormRichiestaDate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRichiestaDate.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUtenti.Designer.vb">
+      <DependentUpon>FormUtenti.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormUtenti.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWeb.Designer.vb">
+      <DependentUpon>FormWeb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormWeb.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Funzioni.vb" />
+    <Compile Include="GestioneDatabase.vb" />
+    <Compile Include="GestioneFileFlag.vb" />
+    <Compile Include="GestioneFlag.vb" />
+    <Compile Include="GestioneModelli.vb" />
+    <Compile Include="InfoSistema.vb" />
+    <Compile Include="Layout.vb" />
+    <Compile Include="AppFont.vb" />
+    <Compile Include="Licenze.vb" />
+    <Compile Include="Manutenzione.vb" />
+    <Compile Include="Migrazione.vb" />
+    <Compile Include="MyTimeout.vb" />
+    <Compile Include="Nota.vb" />
+    <Compile Include="NotificaRapida.vb" />
+    <Compile Include="OggettoForm.vb" />
+    <Compile Include="OmWeb.vb" />
+    <Compile Include="PaginaHtml.vb" />
+    <Compile Include="Pdf.vb" />
+    <Compile Include="PowerManager.vb" />
+    <Compile Include="Proxy.vb" />
+    <Compile Include="RegistroAttivita.vb" />
+    <Compile Include="RtfManager.vb" />
+    <Compile Include="Servizi.vb" />
+    <Compile Include="ServiziSinistri.vb" />
+    <Compile Include="Sessione.vb" />
+    <Compile Include="SettingItem.vb" />
+    <Compile Include="SIA.vb" />
+    <Compile Include="TestEssig.vb" />
+    <Compile Include="TestGuido.vb" />
+    <Compile Include="TextPrint.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TTYCreo.vb" />
+    <Compile Include="Utente.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Globale.vb" />
+    <Compile Include="MyFlatButton.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Performance.vb" />
+    <Compile Include="Recapito.vb" />
+    <Compile Include="SerializableDictionary.vb" />
+    <Compile Include="Setting.vb" />
+    <Compile Include="Tester.vb" />
+    <Compile Include="ApplicationPath.vb" />
+    <Compile Include="UtTabControl.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Web References\AdempimentiOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\AI\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\BudgetOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\DatabaseOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\EventiOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ImportaSinistriOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Log\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Rete\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServizioCassa\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServiziOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServiziUniarea\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="LibreriaZip.vb" />
+    <Compile Include="Web References\SettingAgenzia\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SettingFlag\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SettingOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SinistriOMW\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Sinistri\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UnipolSendMailWS\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UploadSiaMA\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UploadSia\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WebLogin\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WsCommand.vb" />
+    <Compile Include="WsFlag.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormCambioAgenzia.resx">
+      <DependentUpon>FormCambioAgenzia.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChiaviManetunzione.resx">
+      <DependentUpon>FormChiaviManetunzione.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConfigura.resx">
+      <DependentUpon>FormConfigura.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDebug.resx">
+      <DependentUpon>FormDebug.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDebugWeb.resx">
+      <DependentUpon>FormDebugWeb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDettagioFiltro.resx">
+      <DependentUpon>FormDettagioFiltro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFileSIA.resx">
+      <DependentUpon>FormFileSIA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGestioneFiltro.resx">
+      <DependentUpon>FormGestioneFiltro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLog.resx">
+      <DependentUpon>FormLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLoginOWeb.resx">
+      <DependentUpon>FormLoginOWeb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNotifica.resx">
+      <DependentUpon>FormNotifica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNotificaMini.resx">
+      <DependentUpon>FormNotificaMini.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProgessBar.resx">
+      <DependentUpon>FormProgessBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRichiestaDate.resx">
+      <DependentUpon>FormRichiestaDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUtenti.resx">
+      <DependentUpon>FormUtenti.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWeb.resx">
+      <DependentUpon>FormWeb.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Web References\AdempimentiOMW\Adempimenti.wsdl" />
+    <None Include="Web References\AdempimentiOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\AI\AI.wsdl" />
+    <None Include="Web References\AI\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\BudgetOMW\Budget.wsdl" />
+    <None Include="Web References\BudgetOMW\DatiAnalisiIncassi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\BudgetOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\DatabaseOMW\Database.wsdl" />
+    <None Include="Web References\DatabaseOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\ImportaSinistriOMW\EsitoChiamata1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ImportaSinistriOMW\InfoSinistriRisposta1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\EventiOMW\Eventi.wsdl" />
+    <None Include="Web References\EventiOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\ImportaSinistriOMW\Direzione.wsdl" />
+    <None Include="Web References\ImportaSinistriOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Log\Log.wsdl" />
+    <None Include="Web References\Log\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Rete\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Rete\Rete.wsdl" />
+    <None Include="Web References\ServizioCassa\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\ServizioCassa\ServizioCassa.wsdl" />
+    <None Include="Web References\ServiziOMW\DatiIncassi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServiziOMW\ProfiloUtente.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServiziOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\ServiziOMW\Risposta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServiziOMW\ServizioDatiOMW.wsdl" />
+    <None Include="Web References\ServiziUniarea\accessocasa.wsdl" />
+    <None Include="Web References\ServiziUniarea\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SettingAgenzia\DatiAgenzia.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SettingAgenzia\EsitoAssegni.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SettingAgenzia\EsitoServizio.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SettingAgenzia\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SettingAgenzia\SettingAgenzia.wsdl" />
+    <None Include="Web References\SettingFlag\Dati.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SettingFlag\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SettingFlag\SettingFlag.wsdl" />
+    <None Include="Web References\SettingOMW\GestioneSetting.wsdl" />
+    <None Include="Web References\SettingOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SettingOMW\SettingItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SinistriOMW\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SinistriOMW\Sinistri.wsdl" />
+    <None Include="Web References\Sinistri\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Sinistri\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Sinistri\SinistriServiceForAgenzie.wsdl" />
+    <None Include="Web References\UnipolSendMailWS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UnipolSendMailWS\sendmail.wsdl" />
+    <None Include="Web References\UploadSiaMA\RAuthentication.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UploadSiaMA\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\UploadSiaMA\WsUploader.wsdl" />
+    <None Include="Web References\UploadSia\FileUploader.wsdl" />
+    <None Include="Web References\UploadSia\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\WebLogin\Autenticazione.wsdl" />
+    <None Include="Web References\WebLogin\LoginResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebLogin\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Risorse\RisorseExtra\wsdl\SinistriServiceForAgenzie.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Sinistri\</RelPath>
+      <UpdateFromURL>C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Risorse\RisorseExtra\wsdl\SinistriServiceForAgenzie.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_Sinistri_SinistriServiceForAgenzieService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://omaportal.siaspa.com:5000/SIA.FTA.Portal/WsUploader.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UploadSiaMA\</RelPath>
+      <UpdateFromURL>http://omaportal.siaspa.com:5000/SIA.FTA.Portal/WsUploader.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_UploadSiaMA_WsUploader</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://omaportal.siaspa.com:5000/WS_UGF/FileUploader.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UploadSia\</RelPath>
+      <UpdateFromURL>http://omaportal.siaspa.com:5000/WS_UGF/FileUploader.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_UploadSia_FileUploader</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://rm.servizi.gr-u.it/sendmail/sendmail.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UnipolSendMailWS\</RelPath>
+      <UpdateFromURL>http://rm.servizi.gr-u.it/sendmail/sendmail.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_UnipolSendMailWS_Service1</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://www.utools.it/asp/SettingAgenzia/SettingAgenzia.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SettingAgenzia\</RelPath>
+      <UpdateFromURL>http://www.utools.it/asp/SettingAgenzia/SettingAgenzia.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_SettingAgenzia_ConfiguraSede</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Adempimenti.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AdempimentiOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Adempimenti.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_AdempimentiOMW_Adempimenti</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/AI.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AI\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/AI.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_AI_AI</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Autenticazione.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebLogin\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Autenticazione.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_WebLogin_Autenticazione</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\BudgetOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_BudgetOMW_ServizioBudget</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Database.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\DatabaseOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Database.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_DatabaseOMW_Database</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Direzione.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ImportaSinistriOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Direzione.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_ImportaSinistriOMW_Direzione</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Eventi.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\EventiOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Eventi.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_EventiOMW_GeneraEventi</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/GestioneSetting.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SettingOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/GestioneSetting.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_SettingOMW_GestioneSetting</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Log.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Log\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Log.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_Log_Log</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Rete.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Rete\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Rete.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_Rete_Rete1</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioCassa.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServizioCassa\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioCassa.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_ServizioCassa_ServizioCassa</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioDatiOMW.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiziOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioDatiOMW.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_ServiziOMW_ServizioDatiOMW</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/SettingFlag.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SettingFlag\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/SettingFlag.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_SettingFlag_SettingFlag</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Sinistri.asmx%3fop=ImportaSinistriAC">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SinistriOMW\</RelPath>
+      <UpdateFromURL>https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Sinistri.asmx%3fop=ImportaSinistriAC</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_SinistriOMW_Sinistri</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://ws.auaonline.it/accessocasa.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiziUniarea\</RelPath>
+      <UpdateFromURL>https://ws.auaonline.it/accessocasa.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Ut_ServiziUniarea_accessoCasa</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\ServiziUniarea\accessocasa.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DataBase.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Risorse\Risorse.vbproj">
+      <Project>{08e0a688-f575-410e-943e-74fd0b0b261e}</Project>
+      <Name>Risorse</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\UnipolSendMailWS\sendmail.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\SettingAgenzia\SettingAgenzia.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\ServiziOMW\ServizioDatiOMW.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DataBaseMA.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\EventiOMW\Eventi.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\BudgetOMW\Budget.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\AdempimentiOMW\Adempimenti.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Rete\Rete.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\SettingFlag\SettingFlag.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\DatabaseOMW\Database.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\SettingOMW\GestioneSetting.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Log\Log.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\SinistriOMW\Sinistri.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\ImportaSinistriOMW\Direzione.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\AI\AI.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\WebLogin\Autenticazione.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\ServizioCassa\ServizioCassa.disco" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

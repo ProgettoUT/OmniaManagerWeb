@@ -1,0 +1,784 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+UniCom
+</name>
+</assembly>
+<members>
+<member name="T:UniCom.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:UniCom.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:UniCom.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="M:UniCom.Postino.Destinatari(System.Collections.ArrayList)">
+ <summary>
+ Trasforma la lista di destinatari in una stringa separata da ;
+ </summary>
+ <param name="Lista">ArrayList contenente la lista delle e.mail</param>
+ <returns>stringa dei destinatari</returns>
+ <remarks></remarks>
+</member>
+<member name="M:UniCom.Sms.ArchiviaSmsNelDb(System.String,System.String,System.Collections.Generic.List{UniCom.Destinatario},System.String,System.String)">
+ <summary>
+ archivia un sms inviato nel db
+ </summary>
+ <param name="Testo">testo base</param>
+ <param name="Mittente">mittente</param>
+ <param name="ListaSms">lista dati di invio</param>
+ <param name="DataInvio">data di invio</param>
+ <param name="SendingID">IDT di gruppo</param>
+ <remarks></remarks>
+</member>
+<member name="M:UniCom.Funzioni.CartellaDocumentiCliente(System.String)">
+ <summary>
+ Cartella dei documenti del cliente
+ </summary>
+ <returns>path assoluto della cartella dei documenti del cliente</returns>
+ <remarks></remarks>
+</member>
+<member name="T:UniCom.Netfun.smsService">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.#ctor">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.createSessionCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.aliveSessionCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.isValidSessionCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.deleteSessionCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.deleteAllSessionUserCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.getErrorDescrCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.sendSmsSimpleCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.sendSmsAdvancedCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.getDeliveryCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.getCreditCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.getCreditAsTotSmsCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.getCreditSubaccountCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.getCreditSubaccountAsTotSmsCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.addTransactionSubaccountCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.addSubaccountCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.updateSubaccountCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.Netfun.smsService.deleteSubaccountCompleted">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.createSession(System.String,System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.createSessionAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.createSessionAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.aliveSession(System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.aliveSessionAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.aliveSessionAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.isValidSession(System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.isValidSessionAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.isValidSessionAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteSession(System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteSessionAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteSessionAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteAllSessionUser(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteAllSessionUserAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteAllSessionUserAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getErrorDescr(System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getErrorDescrAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getErrorDescrAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.sendSmsSimple(System.String,System.String,System.String,System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.sendSmsSimpleAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.sendSmsSimpleAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.sendSmsAdvanced(System.String,System.String,UniCom.Netfun.smsNUMBER[],System.String,System.String,UniCom.Netfun.smsOPTIONS,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.sendSmsAdvancedAsync(System.String,System.String,UniCom.Netfun.smsNUMBER[],System.String,System.String,UniCom.Netfun.smsOPTIONS)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.sendSmsAdvancedAsync(System.String,System.String,UniCom.Netfun.smsNUMBER[],System.String,System.String,UniCom.Netfun.smsOPTIONS,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getDelivery(System.String,System.String,System.String,System.String,UniCom.Netfun.smsDELIVERYFILTERS,System.String@,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getDeliveryAsync(System.String,System.String,System.String,System.String,UniCom.Netfun.smsDELIVERYFILTERS)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getDeliveryAsync(System.String,System.String,System.String,System.String,UniCom.Netfun.smsDELIVERYFILTERS,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCredit(System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditAsTotSms(System.String,System.String,System.String,System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditAsTotSmsAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditAsTotSmsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditSubaccount(System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditSubaccountAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditSubaccountAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditSubaccountAsTotSms(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditSubaccountAsTotSmsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.getCreditSubaccountAsTotSmsAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.addTransactionSubaccount(System.String,System.String,System.String,System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.addTransactionSubaccountAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.addTransactionSubaccountAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.addSubaccount(System.String,System.String,UniCom.Netfun.subaccountINFO,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.addSubaccountAsync(System.String,System.String,UniCom.Netfun.subaccountINFO)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.addSubaccountAsync(System.String,System.String,UniCom.Netfun.subaccountINFO,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.updateSubaccount(System.String,System.String,System.String,UniCom.Netfun.subaccountUpdateINFO,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.updateSubaccountAsync(System.String,System.String,System.String,UniCom.Netfun.subaccountUpdateINFO)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.updateSubaccountAsync(System.String,System.String,System.String,UniCom.Netfun.subaccountUpdateINFO,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteSubaccount(System.String,System.String,System.String,System.String@)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteSubaccountAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.deleteSubaccountAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.Netfun.smsService.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.smsNUMBER">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsNUMBER.number">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsNUMBER.tokens">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsNUMBER.id">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.subaccountUpdateINFO">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.username">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.email">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.password">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.name">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.lastname">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.tel">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.cel">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.fax">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.address">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.city">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.cap">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.province">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.notes">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.status">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountUpdateINFO.statusSpecified">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.subaccountINFO">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.username">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.email">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.password">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.name">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.lastname">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.tel">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.cel">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.fax">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.address">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.city">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.cap">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.province">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.subaccountINFO.notes">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.smsDELIVERYFILTERS">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsDELIVERYFILTERS.status">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsDELIVERYFILTERS.details">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsDELIVERYFILTERS.receivers">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.smsOPTIONS">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsOPTIONS.gateway">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsOPTIONS.date">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsOPTIONS.charset">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.smsOPTIONS.wappush">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.createSessionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.createSessionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.createSessionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.createSessionCompletedEventArgs.sessionKey">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.aliveSessionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.aliveSessionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.aliveSessionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.aliveSessionCompletedEventArgs.expiryTimestamp">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.isValidSessionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.isValidSessionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.isValidSessionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.deleteSessionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.deleteSessionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.deleteSessionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.deleteAllSessionUserCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.deleteAllSessionUserCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.deleteAllSessionUserCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getErrorDescrCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getErrorDescrCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getErrorDescrCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.sendSmsSimpleCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.sendSmsSimpleCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.sendSmsSimpleCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.sendSmsSimpleCompletedEventArgs.sendingID">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.sendSmsAdvancedCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.sendSmsAdvancedCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.sendSmsAdvancedCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.sendSmsAdvancedCompletedEventArgs.sendingID">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getDeliveryCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getDeliveryCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getDeliveryCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getDeliveryCompletedEventArgs.list">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getDeliveryCompletedEventArgs.format">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditCompletedEventArgs.credit">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditAsTotSmsCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditAsTotSmsCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditAsTotSmsCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditAsTotSmsCompletedEventArgs.sms">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditSubaccountCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditSubaccountCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditSubaccountCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditSubaccountCompletedEventArgs.credit">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditSubaccountAsTotSmsCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.getCreditSubaccountAsTotSmsCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditSubaccountAsTotSmsCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.getCreditSubaccountAsTotSmsCompletedEventArgs.sms">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.addTransactionSubaccountCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.addTransactionSubaccountCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.addTransactionSubaccountCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.addTransactionSubaccountCompletedEventArgs.newCredit">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.addSubaccountCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.addSubaccountCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.addSubaccountCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.addSubaccountCompletedEventArgs.id">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.updateSubaccountCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.updateSubaccountCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.updateSubaccountCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.updateSubaccountCompletedEventArgs.id">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.deleteSubaccountCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.Netfun.deleteSubaccountCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.deleteSubaccountCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="P:UniCom.Netfun.deleteSubaccountCompletedEventArgs.id">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.KoineWebService">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.#ctor">
+<remarks/>
+</member>
+<member name="E:UniCom.SiComunica.KoineWebService.NewlotCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.SiComunica.KoineWebService.ConfigUniCompleted">
+<remarks/>
+</member>
+<member name="E:UniCom.SiComunica.KoineWebService.TrackingCompleted">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.Newlot(UniCom.SiComunica.Identity,System.String,System.String,System.String,System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.NewlotAsync(UniCom.SiComunica.Identity,System.String,System.String,System.String,System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.NewlotAsync(UniCom.SiComunica.Identity,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.ConfigUni(UniCom.SiComunica.Identity)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.ConfigUniAsync(UniCom.SiComunica.Identity)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.ConfigUniAsync(UniCom.SiComunica.Identity,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.Tracking(UniCom.SiComunica.Identity,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.TrackingAsync(UniCom.SiComunica.Identity,System.String)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.TrackingAsync(UniCom.SiComunica.Identity,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UniCom.SiComunica.KoineWebService.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.Identity">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Identity.clientSystem">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Identity.user">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.User">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.User.userData">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.User.userKeys">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.UserData">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.address">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.cell">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.city">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.country">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.email">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.firstName">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.lastName">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.phone">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.provinceState">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserData.zip">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.Tracking">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Tracking.errors">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Tracking.status">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Tracking.trackingLink">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Tracking.warnings">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.Message">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Message.code">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Message.codeSpecified">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Message.message">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.ConfigUni">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.ConfigUni.configUniLink">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.ConfigUni.errors">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.ConfigUni.status">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.ConfigUni.warnings">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.Newlot">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Newlot.errors">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Newlot.idcampagna">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Newlot.status">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.Newlot.warnings">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.UserKeys">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserKeys.clientUserId">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserKeys.role">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserKeys.roleTimestamp">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.UserKeys.userFilter">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.NewlotCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.NewlotCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.NewlotCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.ConfigUniCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.ConfigUniCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.ConfigUniCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.TrackingCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UniCom.SiComunica.TrackingCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UniCom.SiComunica.TrackingCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

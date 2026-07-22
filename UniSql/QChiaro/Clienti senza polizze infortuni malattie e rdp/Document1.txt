@@ -1,0 +1,36 @@
+Danni Indiretti
+	Fabbricato
+	Rischio Locativo
+	Contenuto
+	Spese demolizione e sgombero
+	Aumento periodico Merci assicurate
+	Merci ed Attrezzature trasportate
+	Lastre
+	maggiori costi
+
+Atti vandalici e dolosi 
+	Fabbricato
+	Contenuto
+	Spese di demolizione e sgombero
+	Aumento periodico Merci assicurate
+	(Danni indiretti Medium) 20%
+		Fabbricato/Rischio Locativo
+		Contenuto
+		Aumento periodico Merci assicurate
+		Merci ed Attrezzature trasportate
+		Spese demolizione e sgombero
+		Lastre
+		maggiori costi
+		
+Eventi Atmosferici
+	Fabbricato
+	Contenuto
+	Spese di demolizione e sgombero
+	Aumento periodico Merci assicurate
+	Pannelli Fotovoltaici e solari termici
+	Danni indiretti Medium
+
+		
+
+
+

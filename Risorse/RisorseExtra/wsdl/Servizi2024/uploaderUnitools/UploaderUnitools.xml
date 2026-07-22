@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<!--  Generated WSDL for it.unipol.sx.service.unitools.UploaderUnitools web service  -->
+<wsdl:definitions xmlns:gwsoap="http://guidewire.com/ws/soapheaders" xmlns:gwwsdl="http://guidewire.com/pl/wsdl" xmlns:pogo="http://guidewire.com/it/unipol/sx/service/unitools/UploaderUnitoolsBean" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://guidewire.com/it/unipol/sx/service/unitools/UploaderUnitools" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://guidewire.com/it/unipol/sx/service/unitools/UploaderUnitools" name="UploaderUnitools">
+	<wsdl:types>
+		<xs:schema xmlns:gw="http://guidewire.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/service/unitools/UploaderUnitools" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/ws/soapheaders" schemaLocation="soapheaders.xsd.xml"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/service/unitools/UploaderUnitoolsBean"/>
+			<!--  uniUploadToLiquido(String, String, String, String, String, Date, byte[], ArrayList<String>, String) : UploaderUnitoolsBean  -->
+			<xs:element name="uniUploadToLiquido">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="claimNumber" type="xs:string" minOccurs="0"/>
+						<xs:element name="docType" type="xs:string" minOccurs="0"/>
+						<xs:element name="mimeType" type="xs:string" minOccurs="0"/>
+						<xs:element name="nameDoc" type="xs:string" minOccurs="0"/>
+						<xs:element name="agentUser" type="xs:string" minOccurs="0"/>
+						<xs:element name="dateDoc" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+						<xs:element name="byteCodeDoc" type="xs:hexBinary" minOccurs="0"/>
+						<xs:element name="posDoc" minOccurs="0" gw:viewas="list">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Entry" type="xs:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="note" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="uniUploadToLiquidoResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="pogo:UploaderUnitoolsBean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IllegalArgumentException">
+				<xs:complexType/>
+			</xs:element>
+			<xs:element name="RequiredFieldException">
+				<xs:complexType/>
+			</xs:element>
+			<xs:element name="WsiAuthenticationException">
+				<xs:complexType/>
+			</xs:element>
+			<!--  uniDownloadFromLiquido(String) : byte[]  -->
+			<xs:element name="uniDownloadFromLiquido">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="docUID" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="uniDownloadFromLiquidoResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--  docINList() : List<String>  -->
+			<xs:element name="docINList">
+				<xs:complexType/>
+			</xs:element>
+			<xs:element name="docINListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" minOccurs="0" gw:viewas="list">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Entry" type="xs:string" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/service/unitools/UploaderUnitoolsBean" elementFormDefault="qualified">
+			<xs:complexType name="UploaderUnitoolsBean">
+				<xs:sequence>
+					<xs:element name="errorDescription" type="xs:string" minOccurs="0"/>
+					<xs:element name="esito" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:portType name="UploaderUnitoolsPortType">
+		<wsdl:operation name="uniUploadToLiquido">
+			<wsdl:input name="uniUploadToLiquido" message="tns:uniUploadToLiquido"/>
+			<wsdl:output name="uniUploadToLiquidoResponse" message="tns:uniUploadToLiquidoResponse"/>
+			<!--  Se i parametri obbligatori sono vuoti o non formattati correttamente  -->
+			<wsdl:fault name="IllegalArgumentException" message="tns:IllegalArgumentException"/>
+			<!--  If claimNumber is null  -->
+			<wsdl:fault name="RequiredFieldException" message="tns:RequiredFieldException"/>
+			<wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+		</wsdl:operation>
+		<wsdl:operation name="uniDownloadFromLiquido">
+			<wsdl:input name="uniDownloadFromLiquido" message="tns:uniDownloadFromLiquido"/>
+			<wsdl:output name="uniDownloadFromLiquidoResponse" message="tns:uniDownloadFromLiquidoResponse"/>
+			<!--  se il documento non esiste  -->
+			<wsdl:fault name="IllegalArgumentException" message="tns:IllegalArgumentException"/>
+			<wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+		</wsdl:operation>
+		<wsdl:operation name="docINList">
+			<wsdl:input name="docINList" message="tns:docINList"/>
+			<wsdl:output name="docINListResponse" message="tns:docINListResponse"/>
+			<wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="UploaderUnitoolsSoap12Binding" type="tns:UploaderUnitoolsPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="uniUploadToLiquido">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<wsdl:input name="uniUploadToLiquido">
+				<soap12:body use="literal"/>
+				<soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="uniUploadToLiquidoResponse">
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="IllegalArgumentException">
+				<soap12:fault name="IllegalArgumentException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="RequiredFieldException">
+				<soap12:fault name="RequiredFieldException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap12:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="uniDownloadFromLiquido">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<wsdl:input name="uniDownloadFromLiquido">
+				<soap12:body use="literal"/>
+				<soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="uniDownloadFromLiquidoResponse">
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="IllegalArgumentException">
+				<soap12:fault name="IllegalArgumentException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap12:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="docINList">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<wsdl:input name="docINList">
+				<soap12:body use="literal"/>
+				<soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="docINListResponse">
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap12:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="UploaderUnitoolsSoap11Binding" type="tns:UploaderUnitoolsPortType">
+		<soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="uniUploadToLiquido">
+			<soap11:operation style="document"/>
+			<wsdl:input name="uniUploadToLiquido">
+				<soap11:body use="literal"/>
+				<soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="uniUploadToLiquidoResponse">
+				<soap11:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="IllegalArgumentException">
+				<soap11:fault name="IllegalArgumentException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="RequiredFieldException">
+				<soap11:fault name="RequiredFieldException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap11:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="uniDownloadFromLiquido">
+			<soap11:operation style="document"/>
+			<wsdl:input name="uniDownloadFromLiquido">
+				<soap11:body use="literal"/>
+				<soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="uniDownloadFromLiquidoResponse">
+				<soap11:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="IllegalArgumentException">
+				<soap11:fault name="IllegalArgumentException" use="literal"/>
+			</wsdl:fault>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap11:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="docINList">
+			<soap11:operation style="document"/>
+			<wsdl:input name="docINList">
+				<soap11:body use="literal"/>
+				<soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="docINListResponse">
+				<soap11:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap11:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="UploaderUnitools">
+		<wsdl:port name="UploaderUnitoolsSoap12Port" binding="tns:UploaderUnitoolsSoap12Binding">
+			<soap12:address location="http://lxfmjbliqcc.servizi.gr-u.it/essigSXCC/ws/it/unipol/sx/service/unitools/UploaderUnitools"/>
+			<gwwsdl:address location="${cc}/ws/it/unipol/sx/service/unitools/UploaderUnitools"/>
+		</wsdl:port>
+		<wsdl:port name="UploaderUnitoolsSoap11Port" binding="tns:UploaderUnitoolsSoap11Binding">
+			<soap11:address location="http://lxfmjbliqcc.servizi.gr-u.it/essigSXCC/ws/it/unipol/sx/service/unitools/UploaderUnitools/soap11"/>
+			<gwwsdl:address location="${cc}/ws/it/unipol/sx/service/unitools/UploaderUnitools/soap11"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:message name="uniUploadToLiquido">
+		<wsdl:part name="parameters" element="tns:uniUploadToLiquido"/>
+	</wsdl:message>
+	<wsdl:message name="uniUploadToLiquidoResponse">
+		<wsdl:part name="parameters" element="tns:uniUploadToLiquidoResponse"/>
+	</wsdl:message>
+	<wsdl:message name="IllegalArgumentException">
+		<wsdl:part name="IllegalArgumentException" element="tns:IllegalArgumentException"/>
+	</wsdl:message>
+	<wsdl:message name="RequiredFieldException">
+		<wsdl:part name="RequiredFieldException" element="tns:RequiredFieldException"/>
+	</wsdl:message>
+	<wsdl:message name="WsiAuthenticationException">
+		<wsdl:part name="WsiAuthenticationException" element="tns:WsiAuthenticationException"/>
+	</wsdl:message>
+	<wsdl:message name="uniDownloadFromLiquido">
+		<wsdl:part name="parameters" element="tns:uniDownloadFromLiquido"/>
+	</wsdl:message>
+	<wsdl:message name="uniDownloadFromLiquidoResponse">
+		<wsdl:part name="parameters" element="tns:uniDownloadFromLiquidoResponse"/>
+	</wsdl:message>
+	<wsdl:message name="docINList">
+		<wsdl:part name="parameters" element="tns:docINList"/>
+	</wsdl:message>
+	<wsdl:message name="docINListResponse">
+		<wsdl:part name="parameters" element="tns:docINListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="gw-authentication">
+		<wsdl:part name="gw-authentication" element="gwsoap:authentication"/>
+	</wsdl:message>
+	<wsdl:message name="gw-locale-only">
+		<wsdl:part name="gw-locale-only" element="gwsoap:gw_locale"/>
+	</wsdl:message>
+	<wsdl:message name="gw-language-only">
+		<wsdl:part name="gw-language-only" element="gwsoap:gw_language"/>
+	</wsdl:message>
+	<wsdl:message name="gw-transaction-id">
+		<wsdl:part name="gw-transaction-id" element="gwsoap:transaction_id"/>
+	</wsdl:message>
+	<wsdl:message name="gw-traceability-id">
+		<wsdl:part name="gw-traceability-id" element="gwsoap:traceability_id"/>
+	</wsdl:message>
+</wsdl:definitions>

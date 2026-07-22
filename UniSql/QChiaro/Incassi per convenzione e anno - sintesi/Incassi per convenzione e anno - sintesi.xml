@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Incassi</pacchetto>
+        <nome>Incassi per convenzione e anno - sintesi</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni anno-convenzione è riportato:
+ - la somma di
+        Premio Netto
+      + Interessi di frazionamento
+      + Accessori
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - nessuno
+]]></note>
+        <ultagg>20/05/2019</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoDa" etichetta="Anno da" tipo="integer" obbligatorio="true" larghezza="8" nuovariga="true" sinistra="40">
+	    <elencovalori>SELECT DISTINCT Year(DataFoglioCassa) AS A, A AS B FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@annoA" etichetta="a" tipo="integer" obbligatorio="true" larghezza="8" sinistra="52">
+	    <elencovalori>SELECT DISTINCT Year(DataFoglioCassa) AS A, A AS B FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@segmentazione" etichetta="Segmento " tipo="integer" obbligatorio="true" valore="-1" larghezza="40" sinistra="80">
+	    <elencovalori>
+	    	-1;TUTTI;
+	    	-2;  DANNI;
+	    		-4;    AUTO;
+					 1;        RESPONSABILITA' CIVILE AUTO;
+					 2;        AUTO RISCHI DIVERSI;
+	    		-5;    RAMI ELEMENTARI;
+	    			-6;      PERSONE;
+					 3;        INFORTUNI;
+					 4;        MALATTIE;
+					 5;        RISCHI DIVERSI PERSONE;
+	    			-7;      AZIENDE;
+					 6;        INCENDIO RISCHI ORDINARI;
+					 7;        INCENDIO RISCHI INDUSTRIALI;
+					 8;        RISCHI TECNOLOGICI;
+					 9;        FURTO;
+					10;        RESPONSABILITA' CIVILE GENERALE;
+	    			-8;      ALTRI RAMI;
+					11;        TRASPORTI;
+					12;        AERONAUTICA;
+					13;        CAUZIONI;
+					14;        CREDITO;
+					15;        RISCHIO IMPIEGO;
+					16;        GRANDINE;
+					17;        BESTIAME;
+	    	-3;  VITA;
+					18;        VITA INDIVIDUALI;
+					19;        VITA COLLETTIVE;
+					20;        VITA FONDI PENSIONE
+	    </elencovalori>
+        </parametro>
+        <parametro nome="@convenzioneDa" etichetta="Convenzione da" tipo="string" obbligatorio="true" larghezza="8" nuovariga="true" sinistra="40" valore="00000"/>
+        <parametro nome="@convenzioneA" etichetta="a" tipo="string" obbligatorio="true" larghezza="8" sinistra="52" valore="99999"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<!--sql profili="tutti"><![CDATA[
+		TRANSFORM
+		    Sum(Tassabile) AS [Incassi]
+		SELECT
+		    Convenzione AS [Convenzione]
+		FROM
+		    Incassi
+		WHERE Year(DataFoglioCassa) >= @annoDa
+		  AND Year(DataFoglioCassa) <= @annoA
+		  AND @subagenzia IN (-1, CodiceSubAgente)
+		  AND @produttore IN (-1, CodiceProduttore)
+		  AND @segmentazione IN (-1,
+		  	iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+		  	iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+		  	iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+		  	iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+		  	iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+		  	iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+		  	iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+		  	RamoGestione)
+		  AND Convenzione >= @convenzioneDa
+		  AND Convenzione <= @convenzioneA
+		GROUP BY Convenzione
+		PIVOT Year(DataFoglioCassa)
+	]]></sql-->
+	<sql profili="tutti"><![CDATA[
+		TRANSFORM
+		    Sum(importo)
+		SELECT
+		    Convenzione
+		FROM (
+			SELECT Convenzione, Year(DataFoglioCassa) & ' Tassabile' AS Anno, sum(Tassabile) AS Importo
+			 FROM Incassi
+			WHERE Year(DataFoglioCassa) >= @annoDa
+			  AND Year(DataFoglioCassa) <= @annoA
+			  AND @subagenzia IN (-1, CodiceSubAgente)
+			  AND @produttore IN (-1, CodiceProduttore)
+			  AND @segmentazione IN (-1,
+				iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+				iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+				iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+				iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+				iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+				iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+				iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+				RamoGestione)
+			  AND Convenzione >= @convenzioneDa
+			  AND Convenzione <= @convenzioneA
+			GROUP BY Convenzione, Year(DataFoglioCassa)
+
+			UNION
+			SELECT Convenzione, Year(DataFoglioCassa) & ' Totale' AS  Anno, sum(TotaleTitolo) AS Importo
+			FROM Incassi
+			WHERE Year(DataFoglioCassa) >= @annoDa
+			  AND Year(DataFoglioCassa) <= @annoA
+			  AND @subagenzia IN (-1, CodiceSubAgente)
+			  AND @produttore IN (-1, CodiceProduttore)
+			  AND @segmentazione IN (-1,
+				iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+				iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+				iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+				iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+				iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+				iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+				iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+				RamoGestione)
+			  AND Convenzione >= @convenzioneDa
+			  AND Convenzione <= @convenzioneA
+			GROUP BY Convenzione, Year(DataFoglioCassa)
+
+			UNION
+			SELECT Convenzione, Year(DataFoglioCassa) & ' Provvigioni' AS Anno, sum(PrvAcq+PrvInc) AS Importo
+			FROM Incassi
+			WHERE Year(DataFoglioCassa) >= @annoDa
+			  AND Year(DataFoglioCassa) <= @annoA
+			  AND @subagenzia IN (-1, CodiceSubAgente)
+			  AND @produttore IN (-1, CodiceProduttore)
+			  AND @segmentazione IN (-1,
+				iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+				iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+				iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+				iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+				iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+				iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+				iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+				RamoGestione)
+			  AND Convenzione >= @convenzioneDa
+			  AND Convenzione <= @convenzioneA
+			GROUP BY Convenzione, Year(DataFoglioCassa)
+
+		) T
+		GROUP BY Convenzione
+		PIVOT Anno
+	]]></sql>
+    </estrazione>
+</oggetto>

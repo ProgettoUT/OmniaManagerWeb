@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lettere>
+  <lettera aggrega="true"  nome="Avviso ad indirizzo di spedizione" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
+
+Gentile Cliente,
+
+desideriamo ricordarle che stanno per scadere le rate di premio delle polizze sottoindicate:
+
+#ELENCO_CON_PREMI#
+
+
+Potrà rinnovarle recandosi in uno dei nostri uffici o servendosi del bonifico bancario utilizzando le seguenti coordinate:
++c
+		iban   IT XX X XXXXX XXXXX XXXX XXXX XXXX
+-c
+Ringraziandola per la fiducia accordataci rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="false" nome="Avviso di regolazione premio" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
+
+Gentile Cliente,
+
+al fine di poter procedere, come da condizioni di polizza alla regolazione del premio in funzione degli elementi variabili presenti nel suo contratto, la preghiamo di restituirci compilata e sottoscritta l’allegata dichiarazione.
+
+Ringraziandola anticipatamente, rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+
+
+
+									UnipolSai Assicurazioni
+finepagina
+
+
+Mittente:
+#DESTINATARIO_NOME#
+#DESTINATARIO_INDIRIZZO#
+#DESTINATARIO_CAP# #DESTINATARIO_LOCALITA# #DESTINATARIO_PROVINCIA#
+
+
+								Inviato a:
+
+								UnipolSai
+								Agenzia di
+								Fax
+								email
+
+
+Denuncia dati per la regolazione del premio
+
+Vi comunichiamo i valori definitivi degli elementi variabili in base ai quali è stato calcolato il premio anticipato, necessari al calcolo del premio di regolazione del periodo assicurativo suindicato:
+
+Polizza numero   #POLIZZA_NUMERO#     Periodo di Assicurazione   dal   _________  al _________
+
+
+[]     Importo Retribuzioni Lorde________________________________
+[]     Importo Fatturato _______________________________________
+[]     Altro__________________________________________________
+
+La presente denuncia è resa secondo quanto stabilito dalle condizioni di assicurazione ed è conforme a verità.
+Prendiamo atto che, in caso di difformità, per eventuali sinistri saranno applicabili le norme di cui agli articoli 1892 e 1893 C.C.
+
+Data  ______________________
+								_____________________________
+								(timbro e firma del contraente)
+
+
+</testo>
+  </lettera>
+  <lettera aggrega="true"  nome="Contenzioso primo sollecito" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
+					+cOggetto:+g Rate scadute -g-c
+
+
+#ELENCO_CON_PREMI#
+
+Gentile cliente,
+
+le ricordiamo che il premio della sua polizza di assicurazione è scaduto e che è ormai trascorso il periodo di mora.
+
+La preghiamo di effettuare il pagamento delle rate di premio sopra indicate entro dieci giorni dalla presente, cosicchè la garanzia assicurativa, attualmente sospesa, possa riprendere la sua efficacia ed essere per lei motivo di tranquillità.
+
+Potrà regolarizzare la sua posizione presso i nostri uffici o servendosi del bonifico bancario utilizzando le seguenti coordinate:
++c
+		iban   IT XX X XXXXX XXXXX XXXX XXXX XXXX
+-c
+Qualora nel frattempo lei avesse già provveduto al pagamento della rata di premio, la preghiamo di non considerare la presente.
+
+Ringraziandola, rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="true"  nome="Contenzioso raccomandata" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>Raccomandata A.R.
+###CITTA### li #DATA_ODIERNA#
+
+
+					+cOggetto:+g Rate scadute -g-c
+
+
+#ELENCO_CON_PREMI#
+
+Gentile Cliente,
+
+Le ricordiamo che il premio della sua polizza di assicurazione è scaduto e che è ormai trascorso il periodo di mora.
+
+La preghiamo di effettuare il pagamento della rata del premio entro dieci giorni dalla presente, cosicché la garanzia assicurativa, attualmente sospesa, possa riprendere la sua efficacia ed essere per lei motivo di tranquillità.
+
++gIn difetto nostro malgrado, saremo costretti ad inviare il titolo insoluto al nostro ufficio contenzioso per il recupero forzoso del relativo premio con conseguente aggravio di spese a suo carico.-g
+
+Potrà regolarizzare la sua posizione presso i nostri uffici o servendosi del bonifico bancario utilizzando le seguenti coordinate:
++c
+		iban   IT XX X XXXXX XXXXX XXXX XXXX XXXX
+-c
+Qualora nel frattempo lei avesse già provveduto al pagamento della rata di premio, la preghiamo di non considerare la presente.
+
+Ringraziandola, rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="true"  nome="Polizze incassate" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
+
+Gentile cliente,
+
+in allegato inviamo i titoli sottoindicati:
+
+#ELENCO_CON_PREMI#
+
+La preghiamo di utilizzare la busta preaffrancata allegata per restituirci in originale le copie di nostra competenza gentilmente firmate nei punti indicati.
+
+Qualora presente, la preghiamo inoltre di restituirci anche il modello privacy firmato in originale.
+
+Ringraziandola per la cortese disponibilità rimaniamo in attesa di ricevere la documentazione e cogliamo l’occasione per porgerle i nostri più cordiali saluti.
+
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="false" nome="Riattivazione polizza Sospesa" estrazioni="1" campi="CONTRAENTE_NOME/DESTINATARIO_NOME/POLIZZA_NUMERO/POLIZZA_EFFETTO/POLIZZA_SCADENZA/SOSPESA_EFFETTO/SOSPESA_SCADENZA/SOSPESA_MESI/POLIZZA_PREMIO/POLIZZA_TIPO/SUB_AGENZIA/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_QUALIFICA/CONTRAENTE_INDIRIZZO/CONTRAENTE_LOCALITA/CONTRAENTE_CAP/CONTRAENTE_PROVINCIA/CONTRAENTE_TELEFONO/CONTRAENTE_FAX/CONTRAENTE_CELLULARE/CONTRAENTE_EMAIL/DESTINATARIO_PROVINCIA/DESTINATARIO_CAP/DESTINATARIO_CODICEFISCALE/PRIVACY/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
++gOggetto:-g Riattivazione polizza #POLIZZA_NUMERO# #POLIZZA_TIPO#
+
+Gentile Cliente,
+
+il giorno #SOSPESA_EFFETTO# come da sua richiesta abbiamo provveduto a sospendere la garanzia assicurativa sulla polizza stipulata per il veicolo in oggetto.
+
+Le ricordiamo che, come da condizioni contrattuali, trascorsi #SOSPESA_MESI# mesi la polizza dovrà considerarsi automaticamente annullata.
+
+Pertanto, al fine di evitare la risoluzione del contratto e la conseguente perdita di tutti i benefici contrattuali acquisiti, la preghiamo nel suo stesso interesse, di prendere contatto con l’agenzia entro e non oltre il #SOSPESA_SCADENZA#.
+
+Certi di aver fatto cosa gradita, rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+
+									UnipolSai Assicurazioni
+    </testo>
+  </lettera>
+  <lettera aggrega="false" nome="Sollecito libretto lettera" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_EFFETTO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA/TIPO_DOCUMENTO/DATA_APERTUTA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
++gOggetto:-g Richiesta fotocopia #TIPO_DOCUMENTO# (aggiornato) #POLIZZA_TIPO#
+
+
+Gentile Cliente,
+
+il giorno #POLIZZA_EFFETTO# abbiamo provveduto a dare corso alla polizza in oggetto.
+Ad oggi però, dobbiamo ancora ricevere la fotocopia #TIPO_DOCUMENTO# aggiornato.
+
+La preghiamo nel suo interesse, al fine di evitare +g+sl’irregolarità contrattuale-s-g, di farci pervenire quanto più sollecitamente possibile la documentazione richiesta.
+
+Le ricordiamo che il premio di polizza e le condizioni contrattuali riservatele sono state da noi formulate in funzione della documentazione che si è impegnato a fornirci non appena possibile.
+
++s+cRibadiamo pertanto che, in mancanza della documentazione richiesta saremo OBBLIGATI, nostro malgrado, a rettificare il premio in corso ed a procedere per il recupero dei benefici che le sono stati riservati.-c-s
+
+Certi di un suo cortese e sollecito riscontro rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="false" nome="Sollecito libretto Raccomandata" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_EFFETTO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA/TIPO_DOCUMENTO/DATA_APERTUTA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>Raccomandata A.R.
+###CITTA### li #DATA_ODIERNA#
+
+
++gOggetto:-g Richiesta fotocopia #TIPO_DOCUMENTO# (aggiornato) #POLIZZA_TIPO#
+
+
+Gentile Cliente,
+
+nonostante il tempo trascorso ed i ripetuti nostri precedenti solleciti a tutt’oggi non abbiamo ancora ricevuto la documentazione relativa alla polizza emessa lo scorso #POLIZZA_EFFETTO# in oggetto.
+
+Le ricordiamo che il premio di polizza e le condizioni contrattuali riservatele sono state da noi formulate in funzione della documentazione che si è impegnato a fornirci non appena possibile.
+
++gTali documenti risultano INDISPENSABILI per la regolarità contrattuale e il conseguente +cmantenimento del premio e della classe di merito in corso.-c-g
+
++cPertanto le ribadiamo nuovamente che, in mancanza della documentazione richiesta saremo OBBLIGATI, nostro malgrado, a rettificare il premio in corso ed a procedere per il recupero dei benefici che le sono stati riservati.-c
+
+Certi di un suo cortese e sollecito riscontro rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="false" nome="Sollecito polizza-variazione lettera" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_EFFETTO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA/TIPO_DOCUMENTO/DATA_APERTUTA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
++gOggetto:-g Richiesta restituzione documenti contrattuali firmati polizza #POLIZZA_NUMERO# #POLIZZA_TIPO#
+
+
+Gentile Cliente,
+
+il giorno #POLIZZA_EFFETTO#  è stato da noi emesso il documento contrattuale in oggetto e del quale non abbiamo ancora ricevuto le copie di nostra spettanza debitamente firmate.
+
+La preghiamo nel suo interesse, al fine di evitare +g+sl’irregolarità contrattuale-s-g, di farci pervenire quanto più sollecitamente possibile la documentazione richiesta.
+
+Certi di un suo cortese e sollecito riscontro rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+
+									UnipolSai Assicurazioni
+</testo>
+  </lettera>
+  <lettera aggrega="true"  nome="Titoli incassati" estrazioni="1" campi="DESTINATARIO_CODICEFISCALE/DESTINATARIO_QUALIFICA/DESTINATARIO_NOME/DESTINATARIO_PRESSO/DESTINATARIO_INDIRIZZO/DESTINATARIO_LOCALITA/DESTINATARIO_CAP/DESTINATARIO_PROVINCIA/POLIZZA_NUMERO/POLIZZA_SCADENZA/POLIZZA_PREMIO/POLIZZA_TIPO/TIPO_CARICO/ELENCO_CON_PREMI/ELENCO_SENZA_PREMI/DATA_ODIERNA" edit="true" fontname="Calibri" fontsize="11">
+    <testo>###CITTA### li #DATA_ODIERNA#
+
+
+
+Gentile Cliente,
+
+abbiamo ricevuto il pagamento delle quietanze sottoindicate:
+
+#ELENCO_CON_PREMI#
+
+Provvediamo quindi a trasmetterle i documenti in originale affinché lei possa entrare in possesso della documentazione di sua spettanza.
+
+Qualora presente, la preghiamo di restituirci il modello privacy firmato in originale utilizzando la busta preaffrancata allegata.
+
+Ringraziandola per la fiducia accordataci rimaniamo come sempre a sua completa disposizione per qualsivoglia esigenza o chiarimento.
+
+Con l’occasione le inviamo i nostri più cordiali saluti.
+
+
+									UnipolSai Assicurazioni
+
+
+
+
+
+</testo>
+  </lettera>
+</lettere>

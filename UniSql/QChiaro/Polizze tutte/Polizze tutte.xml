@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Polizze (tutte)</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae tutte le polizze
+]]></descrizione>
+        <ultagg>25/07/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="-1" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze AS P LEFT JOIN FigureProduttive AS F ON F.IDFiguraProduttiva = P.CodiceSubAgente  
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="-1" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze AS P LEFT JOIN FigureProduttive AS F ON F.IDFiguraProduttiva = P.CodiceProduttore  
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="0" obbligatorio="false" larghezza="1" sinistra="50" nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga2" etichetta="" tipo="integer" valore="0" obbligatorio="false" larghezza="1" sinistra="50" nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga3" etichetta="" tipo="integer" valore="0" obbligatorio="false" larghezza="1" sinistra="50" nuovariga="true" nascosto="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    P.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS [Cellulare],
+		    (format(P.RamoGestione,'00') & ' - ' & TG.DescRamoGest) AS [Ramo di gestione], 
+		    (format(P.Ramo,'000') & ' - ' & TR.Ramo) AS [Ramo Polizza], 
+		    P.Polizza AS Polizza, 
+		    P.DataEffetto AS [Data Effetto], 
+		    P.DataScadenza AS DataScadenza, 
+		    P.DataPrimaQuietanza AS [Data prima quietanza], 
+		    P.Frazionamento AS [Frazionamento Polizze], 
+		    P.Canale AS Canale, 
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.CodiceProduttore AS [Codice produttore Polizze], 
+		    (format(P.CodiceProdotto,'00000')) AS [Prodotto Polizza], 
+		    P.tipoPolProd AS [Tipo prodotto], 
+		    P.TotalePremioAnnuo AS [Totale premio annuo], 
+		    P.Targa AS [Numero targa], 
+		    P.CavalliFiscali AS [Cavalli fiscali], 
+		    P.Convenzione AS [Convenzione Polizze], 
+		    (P.IDStorno & " - " & TS.Storno) AS [Tipo storno], 
+		    P.DataStorno AS [Data storno], 
+		    P.TipoCarico AS [Tipo carico polizze], 
+		    P.Clausole AS Clausole, 
+		    P.TipoTariffa AS [Tipo tariffa], 
+		    P.ClasseBonusMalus AS [Classe bonus malus], 
+		    P.CombinazioneMassimali AS [Combinazione massimali], 
+		    P.SettoreTariffario AS [Settore di tariffa], 
+		    P.ValoreincendioFurto AS [Valore incendio furto], 
+		    P.CodiceGaranzieAccessorie AS [Codice garanzie accessorie], 
+		    P.CodiceGaranziaInfortuni AS [Codice garanzia infortuni], 
+		    P.DiariaRitiroPatente AS [Diaria ritiro patente], 
+		    P.CodiceUtilizzoVeicolo AS [Codice utilizzo veicolo], 
+		    P.AlimentazioneVeicolo AS [Alimentazione veicolo], 
+		    P.ProfessioneRCA AS [Professione Rca], 
+		    P.CodicePagamento AS [Codice pagamento], 
+		    P.ImmatricVeicolo AS [Data immatricolazione veicolo]
+		FROM 
+		    (((([Polizze] AS P
+		    LEFT JOIN [Clienti]    AS C  ON C.CodiceFiscale = P.CodiceFiscale)
+		    LEFT JOIN [RamoGest]   AS TG ON TG.RamoGestione = P.RamoGestione)
+		    LEFT JOIN [TipoRami]   AS TR ON TR.CodiceRamo   = P.Ramo)
+		    LEFT JOIN [TipoStorni] AS TS ON (TS.IDStorno     = P.IDStorno AND IIF(P.RamoGestione >=18 AND P.RamoGestione <=20, 'V', 'D') = TS.Settore))
+		WHERE (P.CodiceSubAgente  IN (@subagenzia) OR -1 IN (@subagenzia))
+		  AND (P.CodiceProduttore IN (@produttore) OR -1 IN (@produttore))
+	]]></sql>
+    </estrazione>
+</oggetto>

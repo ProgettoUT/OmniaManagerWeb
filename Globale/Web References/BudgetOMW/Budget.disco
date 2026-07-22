@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx?wsdl" docRef="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx" xmlns:q1="http://utools.auaonline.it/" binding="q1:ServizioBudgetSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx" xmlns:q2="http://utools.auaonline.it/" binding="q2:ServizioBudgetSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

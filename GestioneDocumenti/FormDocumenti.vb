@@ -1,0 +1,2433 @@
+﻿Imports System.IO
+Imports System.Diagnostics
+Imports System.Windows.Forms
+Imports System.Drawing
+Imports System.ComponentModel
+
+Public Class FormDocumenti
+
+    Public Event ActivateDoc()
+    Public Event CloseDoc()
+    Public Event ModificaDocumenti()
+
+    Private Const ChiaroScuro As Integer = 35
+    Private Const DeskStato As String = "In attesa..."
+    Private WithEvents UtScanners As Scanners = Globale.UtScanners
+
+    'per la toolstrip
+    Private WithEvents ComboBoxPagine As New ComboBox
+    Private WithEvents ComboBoxTipoVista As New ComboBox
+    Private WithEvents ButtonAbilitaScanner As New Button
+    Private LabelDimensioneFile As New Label
+    Private LabelDesk As New Label
+    Private tt As New ToolTip
+
+    Private ClienteCorrente As Clienti
+    Private PraticaCorrente As Pratiche
+    Private ScansioneCorrente As Scansione
+
+    Private mTipoChiusura As Utx.OggettoForm.ChiusuraForm
+    Private ListaDocumenti As DocumentiUpload
+
+    Sub New()
+
+        ' Chiamata richiesta dalla finestra di progettazione.
+        InitializeComponent()
+
+        ' Aggiungere le eventuali istruzioni di inizializzazione dopo la chiamata a InitializeComponent().
+        With Me
+            .Height = Screen.PrimaryScreen.WorkingArea.Height * 0.9
+            .Width = .Height * 1.429
+            .MinimumSize = New Drawing.Size(1000, 700)
+            .WindowState = Windows.Forms.FormWindowState.Normal
+            .StartPosition = Windows.Forms.FormStartPosition.CenterScreen
+            .Icon = Risorse.Immagini.Icon("scandoc")
+            .Text = "Unitools - Gestione documenti"
+            .Refresh()
+        End With
+        'licenza libreria 
+        Twain.LicenseKeys = Utx.Licenze.DynamicDotNetTwain_5_2_508_0
+
+        ImpostaControlli()
+        ImpostaToolStrip()
+        ImpostaOpzioniScanner()
+
+        'storico doc
+        Utx.Globale.Paths.CartellaDocumentiStorico = Utx.Globale.SettingUtente.LeggiValore(Utx.GestioneFlag.TipoFlag.CARTELLA_STORICO_DOC,
+                                                                                           Utx.Globale.Paths.CartellaDocumentiStorico)
+
+        Utx.OggettoForm.Add(Utx.OggettoForm.TipoForm.DOCUMENTI, Me)
+    End Sub
+
+#Region "proprietà"
+    Private mCodiceFiscale As String
+    Public Property CodiceFiscale() As String
+        Get
+            Return mCodiceFiscale
+        End Get
+        Set(value As String)
+            mCodiceFiscale = value.Trim
+            mTipoPratica = Pratiche.TipoPratica.CLIENTE
+            'l'impostazione del codice fiscale resetta la pratica
+            mIdSinistro = ""
+            mId = mCodiceFiscale
+            mRamo = 0
+            mPolizza = 0
+        End Set
+    End Property
+
+    Private mNomeCliente As String
+    Public Property NomeCliente() As String
+        Get
+            Return mNomeCliente
+        End Get
+        Set(value As String)
+            mNomeCliente = value.Trim
+        End Set
+    End Property
+
+    Private mIdSinistro As String
+    Public Property IdSinistro() As String
+        Get
+            Return mIdSinistro
+        End Get
+        Set(value As String)
+            mTipoPratica = Pratiche.TipoPratica.SINISTRO
+            mIdSinistro = value
+            mId = value
+            'sinistro e ramo/polizza sono alternativi
+            mRamo = 0
+            mPolizza = 0
+        End Set
+    End Property
+
+    Private mRamo As Integer
+    Public Property Ramo() As Integer
+        Get
+            Return mRamo
+        End Get
+        Set(value As Integer)
+            mRamo = value
+            mTipoPratica = Pratiche.TipoPratica.POLIZZA
+            mId = String.Format("{0:000}.{1:000000000}", mRamo, mPolizza)
+            'sinistro e ramo/polizza sono alternativi
+            mIdSinistro = ""
+        End Set
+    End Property
+
+    Private mPolizza As Integer
+    Public Property Polizza() As String
+        Get
+            Return mPolizza
+        End Get
+        Set(value As String)
+            mPolizza = value
+            mTipoPratica = Pratiche.TipoPratica.POLIZZA
+            mId = String.Format("{0:000}.{1:000000000}", mRamo, mPolizza)
+            'sinistro e ramo/polizza sono alternativi
+            mIdSinistro = ""
+        End Set
+    End Property
+
+    Private mCartellaAllegati As String
+    Public Property CartellaAllegati() As String
+        Get
+            Return mCartellaAllegati
+        End Get
+        Set(value As String)
+            mCartellaAllegati = value
+        End Set
+    End Property
+
+    Private mTipoPratica As Pratiche.TipoPratica
+    Public Property TipoPratica() As Pratiche.TipoPratica
+        Get
+            Return mTipoPratica
+        End Get
+        Set(value As Pratiche.TipoPratica)
+            mTipoPratica = value
+        End Set
+    End Property
+
+    Private mId As String
+    Public Property Id() As String
+        Get
+            Return mId
+        End Get
+        Set(value As String)
+            Select Case value.Length
+                Case 11, 16
+                    TipoPratica = Pratiche.TipoPratica.CLIENTE
+                Case 19
+                    TipoPratica = Pratiche.TipoPratica.SINISTRO
+                Case Else
+                    TipoPratica = Pratiche.TipoPratica.POLIZZA
+            End Select
+            mId = value
+        End Set
+    End Property
+
+    Public ReadOnly Property IdPratica() As String
+        Get
+            Select Case mTipoPratica
+                Case Pratiche.TipoPratica.POLIZZA
+                    Return String.Format("Polizza {0}", Id)
+                Case Pratiche.TipoPratica.SINISTRO
+                    Return String.Format("Sinistro {0}", Id)
+                Case Else
+                    Return ""
+            End Select
+        End Get
+    End Property
+
+    Private mNumeroAllegati As Integer
+    Public Property NumeroAllegati() As Integer
+        Get
+            Return mNumeroAllegati
+        End Get
+        Set(value As Integer)
+            mNumeroAllegati = value
+        End Set
+    End Property
+
+    Public Sub Reset()
+        mCodiceFiscale = ""
+        mId = ""
+        mIdSinistro = ""
+        mRamo = 0
+        mPolizza = 0
+        mTipoPratica = Pratiche.TipoPratica.DOCUMENTI_AGENZIA
+        tvPratiche.SelectedNode = Nothing
+    End Sub
+
+    Private Shared mLiquidoCookie As Net.CookieContainer
+    Public Shared Property LiquidoCookie() As Net.CookieContainer
+        Get
+            Return mLiquidoCookie
+        End Get
+        Set(value As Net.CookieContainer)
+            mLiquidoCookie = value
+        End Set
+    End Property
+#End Region
+
+    Private Sub FormDocumenti_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+        mTipoChiusura = Utx.OggettoForm.ChiusuraForm.NORMALE
+        RaiseEvent ActivateDoc()
+
+        If (PraticaCorrente Is Nothing) OrElse (Id <> PraticaCorrente.Id) Then
+            'bottone allegati
+            With btnAllega
+                .Text = "Allega mail"
+                .BackColor = SystemColors.Control
+                '.Enabled = Directory.Exists(mCartellaAllegati) 'disattivato 01/2026 per malfunzionamento
+                If .Enabled Then .BackColor = Color.PaleGreen
+            End With
+            mNumeroAllegati = 0
+
+            'controllo nome cliente
+            If String.IsNullOrEmpty(mNomeCliente) Then
+                mNomeCliente = Clienti.CF2NomeCliente(mCodiceFiscale)
+            End If
+
+            'creo la cartella cliente se non c'è
+            ClienteCorrente = New Clienti(mCodiceFiscale, mNomeCliente)
+            CaricaPraticaCorrente(ClienteCorrente)
+        End If
+    End Sub
+
+    Private Sub FormMain_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
+        Me.Refresh()
+        CaricaTipoDocSertel()
+    End Sub
+
+    Private Sub FormMain_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        'blocco la chiusura se il bottone fine doc è abilitato
+        If btnFineDoc.Enabled Then
+            MsgBox("Completare la scansione in sospeso.", vbInformation, Utx.Globale.TitoloApp)
+            e.Cancel = True
+        Else
+            mCartellaAllegati = ""
+
+            UtScanners.SalvaPredefinito()
+
+            If mTipoChiusura = Utx.OggettoForm.ChiusuraForm.HIDE Then
+                Utx.OggettoForm.Close(Utx.OggettoForm.TipoForm.DOCUMENTI, Me)
+                If ComboBoxTipoDoc.Items.Count > 0 Then ComboBoxTipoDoc.SelectedIndex = 0
+                RaiseEvent CloseDoc()
+                e.Cancel = True
+            Else
+                Utx.OggettoForm.Dispose(Utx.OggettoForm.TipoForm.DOCUMENTI)
+            End If
+        End If
+    End Sub
+
+    Private Sub FormMain_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        Twain.Dispose()
+    End Sub
+
+    Private Sub ImpostaControlli()
+
+        'splitter
+        SplitContainerMain.SplitterDistance = SplitContainerMain.Width * 0.5
+
+        'tab
+        TabPageOpzioni.Text = "Opzioni"
+        TabPageScanner.Text = "Scanner"
+        TabPageModifica.Text = "Modifica"
+
+        tlpScanner.Visible = False
+        tlpScanner.BackColor = Colori.BcOpzioniScanner
+        LabelChiaroScuro.BackColor = Colori.BcOpzioniScanner
+
+        ComboBoxSource.DisplayMember = "Name"
+
+        'bottone di accesso allo scanner
+        With ButtonAbilitaScanner
+            .Dock = DockStyle.Fill
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderSize = 2
+            .FlatAppearance.MouseOverBackColor = Color.Moccasin
+            .BackColor = SystemColors.Control
+            .Font = Utx.AppFont.Bold
+            .Text = "Accedi allo scanner locale"
+            .TextAlign = ContentAlignment.MiddleCenter
+            .ForeColor = Color.Black
+            If Globale.UtScanners.Ready Then
+                .FlatAppearance.BorderColor = Color.Green
+            Else
+                .FlatAppearance.BorderColor = Color.Red
+            End If
+        End With
+        tlpScan.Controls.Add(ButtonAbilitaScanner)
+        tlpScan.SetCellPosition(ButtonAbilitaScanner, New TableLayoutPanelCellPosition(0, 0))
+        tlpScan.SetColumnSpan(ButtonAbilitaScanner, 2)
+
+        'listbox doc
+        With ListBoxDocumenti
+            .AllowDrop = True
+            .Sorted = True
+            .DisplayMember = "Nome"
+        End With
+
+        With btnSelezionaScanner
+            .BackColor = SystemColors.Control
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .FlatAppearance.MouseOverBackColor = Utx.AppColor.VerdeAcido
+            .Image = Risorse.Immagini.Bitmap("aggiorna")
+            .ImageAlign = ContentAlignment.MiddleCenter
+            .Text = ""
+        End With
+
+        With btnPratica
+            .Margin = New Padding(3)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = Colori.Pratiche.BcbtnPratica
+            .Image = Risorse.Immagini.Bitmap("_redim")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = ""
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+
+        With btnScanNuovo
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10, 0, 10, 0)
+            .Text = "Acquisisci nuovo documento"
+            .TextAlign = ContentAlignment.MiddleLeft
+            .Image = Risorse.Immagini.Bitmap("scandoc")
+            .ImageAlign = ContentAlignment.MiddleRight
+        End With
+        With ButtonRDP
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(0)
+            .Text = "RDP"
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+
+        With btnScanAggiungi
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10, 0, 10, 0)
+            .Text = String.Format("Acquisisci e aggiungi{0}al documento tif selezionato", Environment.NewLine)
+            .TextAlign = ContentAlignment.MiddleLeft
+            .Image = Risorse.Immagini.Bitmap("scandoc")
+            .ImageAlign = ContentAlignment.MiddleRight
+        End With
+
+        With btnScannerRete
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10, 0, 10, 0)
+            .Text = "Scanner di rete"
+            .TextAlign = ContentAlignment.MiddleLeft
+            .Image = Risorse.Immagini.Bitmap("scanrete")
+            .ImageAlign = ContentAlignment.MiddleRight
+        End With
+        With ButtonCartellaRete
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Text = "..."
+            .TextAlign = ContentAlignment.BottomCenter
+        End With
+        tt.SetToolTip(ButtonCartellaRete, "Seleziona la cartella dello scanner di rete")
+
+        With LabelStato
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .BorderStyle = BorderStyle.None
+            .BackColor = Colori.BcLabelStato
+            .ForeColor = Colori.FcLabelStato
+            .Text = DeskStato
+        End With
+
+        With btnFineDoc
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10)
+            .Image = Risorse.Immagini.Bitmap("disk")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Fine documento"
+            .TextAlign = ContentAlignment.MiddleLeft
+            .Enabled = False
+        End With
+
+        With tvPratiche
+            .BackColor = Colori.Pratiche.Bc
+            .ForeColor = Colori.Pratiche.Fc
+            .ImageList = ImageList1
+        End With
+
+        With Twain
+            .Dock = DockStyle.Fill
+            .Visible = True
+            .BorderStyle = Dynamsoft.DotNet.TWAIN.Enums.DWTWndBorderStyle.Single3D
+        End With
+
+        With PictureBoxLogo
+            .Dock = DockStyle.Fill
+            .Visible = False
+            .BorderStyle = Dynamsoft.DotNet.TWAIN.Enums.DWTWndBorderStyle.Single3D
+            .Image = Risorse.Immagini.Image("LogoA4")
+            .SizeMode = PictureBoxSizeMode.StretchImage
+        End With
+
+        AxAcroPDF1.Dock = DockStyle.Fill
+        AxAcroPDF1.Visible = False
+
+        'sertel
+        With btnCercaSertel
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(3)
+            .Image = Risorse.Immagini.Bitmap("view")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Vedi i documenti su Liquido"
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+
+        With btnInviaSertel
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(3)
+            .Image = Risorse.Immagini.Bitmap("upload")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Invia il documento a Liquido"
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+
+        dtpDataArrivoDoc.Enabled = False
+        CheckBoxRinominaFile.Checked = True
+
+        'uscita
+        With btnEsci
+            .Margin = New Padding(1)
+            .Padding = New Padding(10)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderSize = 2
+            .FlatAppearance.BorderColor = Color.Orange
+            .BackColor = SystemColors.Control
+            .Image = Risorse.Immagini.Bitmap("esci")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Esci"
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+
+        'scheda editor
+        With btnEditor
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10)
+            .Image = Risorse.Immagini.Bitmap("edit")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Modifica immagine"
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+
+        With btnEliminaPagina
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10)
+            .Image = Risorse.Immagini.Bitmap("cancel")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Cancella pagina"
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+
+        With btnConvertiFormato
+            .Margin = New Padding(1)
+            .FlatStyle = FlatStyle.Flat
+            .FlatAppearance.BorderColor = Color.Silver
+            .BackColor = SystemColors.Control
+            .Padding = New Padding(10)
+            .Image = Risorse.Immagini.Image("pdf")
+            .ImageAlign = ContentAlignment.MiddleRight
+            .Text = "Converti in PDF"
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+        btnImporta.BackColor = SystemColors.Control
+        btnEsporta.BackColor = SystemColors.Control
+        btnCancella.BackColor = SystemColors.Control
+        btnApri.BackColor = SystemColors.Control
+        btnRinomina.BackColor = SystemColors.Control
+        btnNuovaPratica.BackColor = SystemColors.Control
+        btnVisualizzaTutto.BackColor = SystemColors.Control
+        LinkLabelPDF.Links.Add(0, 100, "https://tools.pdf24.org/it/")
+
+        tt.IsBalloon = True
+        tt.InitialDelay = 1000
+        tt.SetToolTip(btnSelezionaScanner, "Rileva scanner")
+        tt.SetToolTip(LabelDimensioneFile, "Dimensione file selezionato")
+    End Sub
+
+    Private Sub ImpostaToolStrip()
+
+        With ToolStripAnteprima
+            .Visible = False
+            .SuspendLayout()
+            .Font = Utx.AppFont.Normal
+            .GripStyle = ToolStripGripStyle.Hidden
+            .RenderMode = ToolStripRenderMode.ManagerRenderMode
+            .Items.Clear()
+        End With
+
+        Dim ttch As ToolStripControlHost
+
+        With ComboBoxPagine
+            .AutoSize = False
+            .Width = 105
+            .DropDownStyle = ComboBoxStyle.DropDownList
+        End With
+        ttch = New ToolStripControlHost(ComboBoxPagine)
+        ToolStripAnteprima.Items.Add(ttch)
+
+        ToolStripAnteprima.Items.Add(New ToolStripLabel(" Vista:"))
+        With ComboBoxTipoVista
+            .AutoSize = False
+            .Width = 60
+            .DropDownStyle = ComboBoxStyle.DropDownList
+
+            .Items.Add("1 x 1")
+            .Items.Add("1 x 2")
+            .Items.Add("2 x 2")
+
+            .SelectedIndex = 0
+        End With
+        ttch = New ToolStripControlHost(ComboBoxTipoVista)
+        ToolStripAnteprima.Items.Add(ttch)
+
+        With LabelDimensioneFile
+            .BorderStyle = BorderStyle.Fixed3D
+            .Width = 70
+            .BackColor = Colori.BcLabelDimensioneFile
+            .Text = "-"
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        ttch = New ToolStripControlHost(LabelDimensioneFile)
+        ttch.AutoSize = False
+        ttch.Alignment = ToolStripItemAlignment.Right
+        ToolStripAnteprima.Items.Add(ttch)
+
+        With LabelDesk
+            .Text = "Dimensione:"
+            .TextAlign = ContentAlignment.MiddleCenter
+        End With
+        ttch = New ToolStripControlHost(LabelDesk)
+        ttch.Alignment = ToolStripItemAlignment.Right
+        ToolStripAnteprima.Items.Add(ttch)
+
+        With ToolStripAnteprima
+            .Visible = True
+            .ResumeLayout()
+            .Refresh()
+        End With
+
+    End Sub
+
+    Private Sub ImpostaOpzioniScanner()
+
+        'opzioni di scansione
+        rbBianoNero.Checked = True
+
+        'risoluzione
+        With ComboBoxRisoluzione
+            .DisplayMember = "Descrizione"
+
+            .Items.Add(New Risoluzione(75))
+            .Items.Add(New Risoluzione(100))
+            .Items.Add(New Risoluzione(150))
+            .Items.Add(New Risoluzione(200))
+            .Items.Add(New Risoluzione(300))
+            .Items.Add(New Risoluzione(400))
+            .Items.Add(New Risoluzione(600))
+
+            .SelectedIndex = 3
+        End With
+
+        'formato
+        With ComboBoxFormato
+            .DisplayMember = "Descrizione"
+
+            .Items.Add(New Formati("PDF"))
+            .Items.Add(New Formati("TIF"))
+            .Items.Add(New Formati("PNG"))
+            .Items.Add(New Formati("JPG"))
+            .Items.Add(New Formati("BMP"))
+
+            .SelectedIndex = 0
+        End With
+
+        With tbChiaroScuro
+            .TickStyle = TickStyle.BottomRight
+            .TickFrequency = 5
+            .Minimum = 0
+            .Maximum = 100
+            .Value = 35
+        End With
+
+        ComboBoxTipoVista.SelectedIndex = 0 '1x1
+        rbBianoNero.Checked = True 'b&w
+        chkDuplex.Checked = False
+    End Sub
+
+    Private Sub InitScanner()
+        Try
+            If Globale.UtScanners.Ready = False Then
+                'Globale.UtScanners.RilevaScanner(Me.Twain)
+                Try
+                    'è importante chiudere il SM perchè altrimenti non aggiorna la lista delle periferiche
+                    '(accendo lo scanner ma non lo vede)
+                    'Twain.CloseSourceManager()
+
+                    Twain.IfThrowException = False ' True
+                    Globale.Log.Info("Error: {0} - {1}", {Twain.ErrorCode, Twain.ErrorString})
+
+                    Twain.SupportedDeviceType = Dynamsoft.DotNet.TWAIN.Enums.EnumSupportedDeviceType.SDT_TWAIN
+
+                    'riempio il combo con i nomi degli scanner
+                    'in ComboBoxSource.Tag conservo il numero di periferiche rilevate
+                    ComboBoxSource.Items.Clear()
+
+                    'se ci sono periferiche twain rilevate
+                    If Twain.SourceCount > 0 Then
+
+                        For i As Integer = 0 To Twain.SourceCount - 1
+                            ComboBoxSource.Items.Add(Twain.SourceNameItems(i))
+
+                            'se lo scanner è l'ultimo che era stato impostato e salvato
+                            If Twain.SourceNameItems(i) = My.Settings.NomeScanner Then
+                                ComboBoxSource.SelectedIndex = i 'lo seleziono
+                            End If
+                        Next
+
+                        ComboBoxSource.Tag = ComboBoxSource.Items.Count
+
+                        'se non ci sono selezioni prendo il primo della lista
+                        If ComboBoxSource.SelectedIndex < 0 Then ComboBoxSource.SelectedIndex = 0
+                    Else
+                        ComboBoxSource.Items.Add("Periferiche non rilevate")
+                        ComboBoxSource.SelectedIndex = 0
+                        ComboBoxSource.Tag = 0
+                    End If
+
+                Catch ex As Exception
+                    Globale.Log.Errore(ex)
+                    Globale.Log.Info(Twain.ErrorString)
+                End Try
+
+            End If
+
+            If Globale.UtScanners.Ready Then
+
+                ComboBoxSource.Items.Clear()
+
+                'riempio il combo con i nomi degli scanner
+                For Each scanner As Scanner In Globale.UtScanners.ListaScanner
+                    ComboBoxSource.Items.Add(scanner)
+                Next
+                'seleziono lo scanner predefinito
+                If Globale.UtScanners.ScannerSelezionato IsNot Nothing Then
+                    ComboBoxSource.SelectedIndex = Globale.UtScanners.ScannerSelezionato.Index
+                Else
+                    ComboBoxSource.SelectedIndex = 0
+                End If
+            Else
+                ComboBoxSource.Items.Add(New Scanner(0, Scanners.NO_SCANNER))
+                ComboBoxSource.SelectedIndex = 0
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Globale.Log.Info(Twain.ErrorString)
+        End Try
+
+        ComboBoxSource.Refresh()
+        ComboBoxFormato.Refresh()
+        ComboBoxRisoluzione.Refresh()
+
+        'controlla se è necessario usare lo scanner RDP
+        UsaScannerRDP()
+    End Sub
+
+    'Private Sub Timeout_Timeout() Handles Timeout.Timeout
+
+    '    Control.CheckForIllegalCrossThreadCalls = False
+
+    '    Using AttesaScanner As New FormAttesa
+
+    '        'se è entrato qui è andato in timeout la richiesta al DS twain
+    '        AttesaScanner.Messaggio = String.Format("Lo scanner non risponde nei tempi previsti.{0}" +
+    '                                                "Provare a spegnere e riaccendere lo scanner.{0}" +
+    '                                                "Il problema è solitamente legato all'account utilizzato ({1}).{0}" +
+    '                                                "Se il problema persiste aprire un AHD segnalando il problema dell'utente.",
+    '                                                Environment.NewLine, Environment.UserName)
+
+    '        AttesaScanner.TopMost = True
+    '        AttesaScanner.ShowDialog()
+
+    '        If AttesaScanner.DialogResult = Windows.Forms.DialogResult.Retry Then
+    '            Timeout.Continua()
+    '        Else
+    '            Me.Close()
+    '        End If
+    '    End Using
+    'End Sub
+
+    Private Sub UsaScannerRDP()
+
+        If SessioneRDP() Then
+            ButtonRDP.Enabled = True
+
+            If UtScanners.ScannerDisponibili = 0 Then
+                btnScanNuovo.Enabled = False
+                tlpScanner.Enabled = True
+                btnScanAggiungi.Visible = False
+                btnFineDoc.Visible = False
+            Else
+                'ripristino i bottoni
+                With btnScanNuovo
+                    .BackColor = SystemColors.Control
+                    .Padding = New Padding(10, 0, 10, 0)
+                    .Text = "Acquisisci nuovo documento"
+                    .TextAlign = ContentAlignment.MiddleLeft
+                    .Image = Risorse.Immagini.Bitmap("scandoc")
+                    .ImageAlign = ContentAlignment.MiddleRight
+                    .Enabled = True
+                    .Tag = ""
+                End With
+
+                tlpScanner.Enabled = True
+                btnScanAggiungi.Visible = True
+                btnFineDoc.Visible = True
+
+                'fermo il timer
+                TimerScanner.Enabled = False
+            End If
+        Else
+            ButtonRDP.Enabled = False
+        End If
+    End Sub
+
+    Private Sub CaricaPraticaCorrente(Cliente As Clienti)
+        Try
+            Cursor.Current = Cursors.WaitCursor
+
+            'azzero i nodi
+            tvPratiche.Nodes.Clear()
+            'perché non venga tagliato il testo quando si cambia il font
+            tvPratiche.BeginUpdate()
+
+            'aggiungo il nodo base (cliente)
+            Dim NodoCliente As New TreeNode
+
+            With NodoCliente
+                .NodeFont = New Font(tvPratiche.Font.Name, tvPratiche.Font.Size, FontStyle.Bold)
+                .Text = Cliente.NomeCliente
+                .Tag = New Pratiche(Cliente)
+                .ImageIndex = 4
+                .SelectedImageIndex = 4
+            End With
+
+            tvPratiche.Nodes.Add(NodoCliente)
+
+            'carico ora la pratica corrente
+            If IdPratica.Length > 0 Then
+
+                PraticaCorrente = New Pratiche(ClienteCorrente, IdPratica)
+
+                'coloro la pratica corrente
+                Dim n As New TreeNode With {
+                    .Text = PraticaCorrente.IdPratica,
+                    .Tag = PraticaCorrente,
+                    .BackColor = Colori.Pratiche.BcCorrente,
+                    .ForeColor = Colori.Pratiche.FcCorrente,
+                    .SelectedImageIndex = 1
+                }
+
+                If n.Text.StartsWith("Polizza", StringComparison.InvariantCultureIgnoreCase) Then
+                    n.ImageIndex = 2
+                Else
+                    n.ImageIndex = 3
+                End If
+
+                NodoCliente.Nodes.Add(n)
+
+                'aggiungo in modo ricorsivo (se esistono) tutte le sotto-cartelle
+                For Each c As String In Directory.GetDirectories(n.Tag.FullPathPratica)
+                    CaricaPratica(n, n.Tag, New DirectoryInfo(c).Name)
+                Next
+
+                'aggiorno il nodo cliente con il numero di pratiche
+                NodoCliente.Text += String.Format(" ({0})", Cliente.NumeroPratiche)
+
+                'nodo banca
+                'CreaNodoBanca(Cliente)
+
+                tvPratiche.SelectedNode = tvPratiche.Nodes(0).Nodes(0)
+            Else
+                'la pratica corrente è il cliente stesso
+                PraticaCorrente = NodoCliente.Tag
+                'coloro il nodo cliente
+                NodoCliente.BackColor = Colori.Pratiche.BcCorrente
+                NodoCliente.ForeColor = Colori.Pratiche.FcCorrente
+                'seleziono il cliente
+                tvPratiche.SelectedNode = tvPratiche.Nodes(0)
+            End If
+
+            tvPratiche.ExpandAll()
+            tvPratiche.EndUpdate()
+            tvPratiche.Refresh()
+
+        Catch ex As Exception
+            Globale.Log.Info(ex.Message)
+        Finally
+            Cursor.Current = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub CaricaPraticheCliente(Cliente As Clienti)
+        Try
+            Cursor.Current = Cursors.WaitCursor
+
+            'azzero i nodi
+            tvPratiche.Nodes.Clear()
+            'perché non venga tagliato il testo quando si cambia il font
+            tvPratiche.BeginUpdate()
+
+            Dim NodoCliente As New TreeNode
+
+            'definisco e aggiungo il nodo base (cliente)
+            With NodoCliente
+                .NodeFont = New Font(tvPratiche.Font.Name, tvPratiche.Font.Size, FontStyle.Bold)
+                .Text = Cliente.NomeCliente
+                .Tag = New Pratiche(Cliente)
+                .ImageIndex = 4
+                .SelectedImageIndex = 4
+            End With
+
+            tvPratiche.Nodes.Add(NodoCliente)
+
+            For Each dir As String In Directory.GetDirectories(NodoCliente.Tag.FullPathPratica)
+                CaricaPratica(NodoCliente, NodoCliente.Tag, New DirectoryInfo(dir).Name)
+            Next
+
+            'aggiorno il nodo cliente con il numero di pratiche
+            NodoCliente.Text += String.Format(" ({0})", Cliente.NumeroPratiche)
+
+            'trovare il nodo della pratica corrente
+            Dim PraticaSelezionata As New TreeNode
+
+            If PraticaCorrente.Tipo = Pratiche.TipoPratica.CLIENTE Then
+                'la pratica è la cartella cliente
+                PraticaSelezionata = NodoCliente
+            Else
+                For Each n As TreeNode In tvPratiche.Nodes(0).Nodes
+
+                    If n.Text = PraticaCorrente.IdPratica Then
+                        PraticaSelezionata = n
+                        Exit For
+                    End If
+                Next
+            End If
+
+            'coloro la pratica corrente
+            PraticaSelezionata.BackColor = Colori.Pratiche.BcCorrente
+            PraticaSelezionata.ForeColor = Colori.Pratiche.FcCorrente
+            'scrolla per rendere comunque visibile il nodo selezionato
+            PraticaSelezionata.EnsureVisible()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        Finally
+            tvPratiche.ExpandAll()
+            tvPratiche.Sort()
+            tvPratiche.EndUpdate()
+            tvPratiche.Refresh()
+            Cursor.Current = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub CaricaPraticheDaLista(Cliente As Clienti, ListaDocumenti() As String)
+
+        If (ListaDocumenti.Length = 0) OrElse (ListaDocumenti Is Nothing) Then
+            Exit Sub
+        End If
+
+        Cursor.Current = Cursors.WaitCursor
+
+        Try
+            'azzero i nodi
+            tvPratiche.Nodes.Clear()
+            'perché non venga tagliato il testo quando si cambia il font
+            tvPratiche.BeginUpdate()
+
+            Dim NodoCliente As New TreeNode
+
+            'definisco e aggiungo il nodo base (cliente)
+            With NodoCliente
+                .NodeFont = New Font(tvPratiche.Font.Name, tvPratiche.Font.Size, FontStyle.Bold)
+                .Text = Cliente.NomeCliente
+                .Tag = New Pratiche(Cliente)
+                .ImageIndex = 4
+                .SelectedImageIndex = 4
+            End With
+
+            tvPratiche.Nodes.Add(NodoCliente)
+
+            For Each doc As String In ListaDocumenti
+                CaricaPratica(NodoCliente, NodoCliente.Tag, New DirectoryInfo(Path.GetDirectoryName(doc)).Name)
+            Next
+
+            'aggiorno il nodo cliente con il numero di pratiche
+            NodoCliente.Text += String.Format(" ({0})", Cliente.NumeroPratiche)
+
+            If ListaDocumenti.Length > 0 Then
+                'seleziono la prima pratica
+                tvPratiche.SelectedNode = tvPratiche.Nodes(0).Nodes(0)
+                'seleziono il documento
+                ListBoxDocumenti.SelectedIndex = IndiceDocumento(Path.GetFileName(ListaDocumenti(0)))
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Info(ex.Message)
+            MsgBox(ex)
+        Finally
+            tvPratiche.ExpandAll()
+            tvPratiche.EndUpdate()
+            tvPratiche.Refresh()
+        End Try
+
+    End Sub
+
+    Private Sub CaricaStoricoCliente(Cliente As Clienti)
+        Try
+            Cursor.Current = Cursors.WaitCursor
+
+            'azzero i nodi
+            tvPratiche.Nodes.Clear()
+            'perché non venga tagliato il testo quando si cambia il font
+            tvPratiche.BeginUpdate()
+
+            Dim NodoCliente As New TreeNode
+
+            'e il cliente non è presente nello storico
+            If Cliente.EsisteStorico Then
+                'definisco e aggiungo il nodo base (cliente)
+                With NodoCliente
+                    .NodeFont = New Font(tvPratiche.Font.Name, tvPratiche.Font.Size, FontStyle.Bold)
+                    .Text = Cliente.NomeCliente
+                    .Tag = New Pratiche(Cliente, True)
+                    .ImageIndex = 4
+                    .SelectedImageIndex = 4
+                End With
+
+                tvPratiche.Nodes.Add(NodoCliente)
+
+                For Each dir As String In Directory.GetDirectories(NodoCliente.Tag.FullPathPratica)
+                    CaricaPratica(NodoCliente, NodoCliente.Tag, New DirectoryInfo(dir).Name)
+                Next
+
+                'aggiorno il nodo cliente con il numero di pratiche
+                NodoCliente.Text += String.Format(" ({0})", Cliente.NumeroPraticheStorico)
+            Else
+                With NodoCliente
+                    .NodeFont = New Font(tvPratiche.Font.Name, tvPratiche.Font.Size, FontStyle.Bold)
+                    .Text = "Cliente non presente nello storico"
+                    .ImageIndex = 4
+                    .SelectedImageIndex = 4
+                End With
+
+                tvPratiche.Nodes.Add(NodoCliente)
+            End If
+
+            'seleziono il nodo cliente
+            tvPratiche.SelectedNode = tvPratiche.Nodes(0)
+
+        Catch ex As Exception
+            Globale.Log.Info(ex.Message)
+            MsgBox(ex)
+        Finally
+            tvPratiche.ExpandAll()
+            tvPratiche.EndUpdate()
+            tvPratiche.Refresh()
+            Cursor.Current = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub CaricaPratica(ByRef Padre As TreeNode,
+                              ByRef Contenitore As Pratiche,
+                              IdPratica As String)
+
+        Dim n As New TreeNode
+
+        Try
+            Dim p As New Pratiche(Contenitore, IdPratica)
+
+            n.Text = New DirectoryInfo(p.FullPathPratica).Name
+            n.Tag = p
+            n.SelectedImageIndex = 1
+
+            If n.Text.StartsWith("Polizza", StringComparison.InvariantCultureIgnoreCase) Then
+                n.ImageIndex = 2
+            ElseIf n.Text.StartsWith("Sinistro", StringComparison.InvariantCultureIgnoreCase) Then
+                n.ImageIndex = 3
+            Else
+                n.ImageIndex = 0
+            End If
+
+            Padre.Nodes.Add(n)
+
+            For Each dir As String In Directory.GetDirectories(p.FullPathPratica)
+                CaricaPratica(n, p, New DirectoryInfo(dir).Name)
+            Next
+
+        Catch ex As Exception
+            Globale.Log.Info(ex.Message)
+            MsgBox(ex)
+        End Try
+
+    End Sub
+
+    'Private Function CreaNodoBanca(ByRef Cliente As Clienti) As TreeNode
+
+    '    Dim n As New TreeNode
+    '    n.Text = "Banca"
+    '    n.Tag = New Pratiche(DepositoCorrente, Cliente, n.Text)
+    '    n.ImageIndex = 0
+    '    n.SelectedImageIndex = 1
+
+    '    NuoveCartelle.Add(n.Tag)
+
+    '    Return n
+
+    'End Function
+
+    Private Sub CaricaDocumentiPratica(Optional DocSelezionato As String = "")
+        'carica i documenti della pratica selezionata
+        Try
+            Dim PraticaCorrente As Pratiche = tvPratiche.SelectedNode.Tag
+
+            If String.IsNullOrEmpty(PraticaCorrente.FullPathPratica) Then Exit Sub
+
+            ListBoxDocumenti.Items.Clear()
+
+            For Each f As String In Directory.GetFiles(PraticaCorrente.FullPathPratica)
+                ListBoxDocumenti.Items.Add(New Documenti(PraticaCorrente, Path.GetFileName(f)))
+            Next
+
+            'seleziono il documento richiesto
+            ListBoxDocumenti.SelectedIndex = IndiceDocumento(DocSelezionato)
+
+            If ListBoxDocumenti.SelectedIndex < 0 Then VisualizzaNoDoc()
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub CaricaDocumentiPraticaStorico(Optional DocSelezionato As String = "")
+        'carica i documenti della pratica selezionata
+        Try
+            Dim PraticaCorrente As Pratiche = tvPratiche.SelectedNode.Tag
+
+            If Directory.Exists(PraticaCorrente.FullPathStorico) = False Then
+                MsgBox("Pratica non presente nello storico", MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+                Exit Sub
+            End If
+
+            If String.IsNullOrEmpty(PraticaCorrente.FullPathStorico) Then Exit Sub
+
+            ListBoxDocumenti.Items.Clear()
+
+            For Each f As String In Directory.GetFiles(PraticaCorrente.FullPathStorico)
+                ListBoxDocumenti.Items.Add(New Documenti(PraticaCorrente, Path.GetFileName(f)))
+            Next
+
+            If ListBoxDocumenti.SelectedIndex < 0 Then VisualizzaNoDoc()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub RecuperaDocumentoStorico(Optional DocSelezionato As String = "")
+        'sposta documento dallo storico al corrente
+        Try
+            Dim PraticaCorrente As Pratiche = tvPratiche.SelectedNode.Tag
+
+            Dim Destinazione As String = Path.Combine(PraticaCorrente.FullPathPratica, ListBoxDocumenti.SelectedItem.FullPathDoc)
+            If File.Exists(Destinazione) Then
+                MsgBox("File già presente nella documentazione corrente", MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+            Else
+                'sposta file
+                My.Computer.FileSystem.MoveFile(Path.Combine(PraticaCorrente.FullPathStorico, ListBoxDocumenti.SelectedItem), Destinazione)
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Function IndiceDocumento(NomeDocumento As String) As Integer
+        If ListBoxDocumenti.Items.Count = 0 Then
+            Return -1
+        ElseIf NomeDocumento.Trim.Length = 0 Then
+            Return 0
+        Else
+            For k As Integer = 0 To ListBoxDocumenti.Items.Count - 1
+                If ListBoxDocumenti.Items(k).Nome = NomeDocumento Then
+                    Return k
+                End If
+            Next
+            'non trovato
+            Return 0
+        End If
+    End Function
+
+    Private Sub tvPratiche_BeforeSelect(sender As Object, e As System.Windows.Forms.TreeViewCancelEventArgs) Handles tvPratiche.BeforeSelect
+        Try
+            If tvPratiche.SelectedNode IsNot Nothing Then
+
+                If tvPratiche.SelectedNode.Tag.IdPratica <> PraticaCorrente.IdPratica Then
+                    tvPratiche.SelectedNode.BackColor = tvPratiche.BackColor
+                End If
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub tvPratiche_AfterSelect(sender As Object, e As System.Windows.Forms.TreeViewEventArgs) Handles tvPratiche.AfterSelect
+        Try
+            Dim p As Pratiche = tvPratiche.SelectedNode.Tag
+
+            If p Is Nothing Then
+                ListBoxDocumenti.Enabled = False
+                btnPratica.Text = ""
+            Else
+                ListBoxDocumenti.Enabled = True
+
+                If p.IdPratica <> PraticaCorrente.IdPratica Then
+                    tvPratiche.SelectedNode.BackColor = Colori.Pratiche.BcSelezionata
+                    tvPratiche.Refresh()
+                End If
+
+                'aggiorno intestazione listbox documenti
+                btnPratica.Text = p.Descrizione
+                btnPratica.Refresh()
+
+                'carico documenti della pratica. nel caso del nodo cliente la pratica è il cliente stesso
+                CaricaDocumentiPratica()
+                GroupBoxSertel.Enabled = (tvPratiche.SelectedNode.Tag.Tipo = UnitoolsDocumenti.Pratiche.TipoPratica.SINISTRO)
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ListBoxDocumenti_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ListBoxDocumenti.MouseDown
+
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            btnRinomina_Click(Me, New EventArgs)
+        End If
+    End Sub
+
+    Private Sub ListBoxDocumenti_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ListBoxDocumenti.SelectedIndexChanged
+
+        If ListBoxDocumenti.SelectedIndex < 0 Then
+            VisualizzaNoDoc()
+        End If
+
+        If ListBoxDocumenti.SelectedItem Is Nothing Then
+            Exit Sub
+        End If
+
+        Cursor.Current = Cursors.WaitCursor
+
+        Try
+            Dim d As Documenti = ListBoxDocumenti.SelectedItem
+
+            'imposto il bottone per l'accodamento e la cancellazione pagina
+            btnScanAggiungi.Enabled = d.Accodamento
+
+            'imposto il tooltip al nome del file selezionato
+            tt.SetToolTip(ListBoxDocumenti, d.Nome)
+
+            AxAcroPDF1.Visible = False
+            Twain.Visible = False
+            PictureBoxLogo.Visible = True
+
+            If d.IsImmagine Then
+
+                ComboBoxPagine.Enabled = True
+                ComboBoxTipoVista.Enabled = True
+
+                CaricaImmagine(d)
+
+                AxAcroPDF1.Visible = False
+                Twain.Visible = True
+                PictureBoxLogo.Visible = False
+
+                'pagina modifica
+                If TabControlMain.TabPages.IndexOf(TabPageModifica) < 0 Then
+                    TabControlMain.TabPages.Insert(1, TabPageModifica)
+                End If
+
+            ElseIf d.IsPdf Then
+
+                ComboBoxPagine.Enabled = False
+                ComboBoxTipoVista.Enabled = False
+
+                AxAcroPDF1.LoadFile(d.FullPathDoc)
+
+                AxAcroPDF1.Visible = True
+                Twain.Visible = False
+                PictureBoxLogo.Visible = False
+                TabControlMain.TabPages.Remove(TabPageModifica)
+            Else
+                VisualizzaNoDoc()
+            End If
+
+            LabelDimensioneFile.Text = d.Dimensione
+
+        Catch ex As Exception
+            Globale.Log.Info(ex.Message)
+            MsgBox(ex)
+        End Try
+
+        Cursor.Current = Cursors.Default
+    End Sub
+
+    Private Sub VisualizzaNoDoc()
+        PictureBoxLogo.Visible = True
+        AxAcroPDF1.Visible = False
+        Twain.Visible = False
+        ComboBoxPagine.Enabled = False
+        ComboBoxTipoVista.Enabled = False
+        btnScanAggiungi.Enabled = False
+        Twain.RemoveAllImages()
+        TabControlMain.TabPages.Remove(TabPageModifica)
+    End Sub
+
+    Private Sub CaricaImmagine(ByRef d As Documenti)
+        Try
+            'pulisco e carico l'immagine
+            RemoveHandler Twain.OnTopImageInTheViewChanged, AddressOf Twain_OnTopImageInTheViewChanged
+
+            Twain.IfThrowException = True
+
+            Twain.RemoveAllImages()
+            Twain.LoadImage(d.FullPathDoc)
+
+            'combo per le pagine
+            AggiornaPagine()
+            ComboBoxPagine.SelectedIndex = 0
+
+            'aggancio l'evento per sincronizzare le pagine con lo scroll di twain
+            AddHandler Twain.OnTopImageInTheViewChanged, AddressOf Twain_OnTopImageInTheViewChanged
+
+        Catch ex As Exception
+            MsgBox(String.Format("Si è verificato un errore nel caricamento dell'immagine.{0}File probabilmente danneggiato.{0}Errore: {1}",
+                                 Environment.NewLine, ex.Message),
+                             MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+            Globale.Log.Info(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub AggiornaPagine()
+        'combo per le pagine
+        ComboBoxPagine.Items.Clear()
+
+        For p As Integer = 0 To Twain.HowManyImagesInBuffer - 1
+            ComboBoxPagine.Items.Add(String.Format("Pagina {0} di {1}",
+                                                   p + 1,
+                                                   Twain.HowManyImagesInBuffer))
+        Next
+
+    End Sub
+
+    Private Sub ToolStripComboBox1_SelectedIndexChanged(sender As Object, e As System.EventArgs)
+
+        If ComboBoxPagine.SelectedIndex >= 0 Then
+            Twain.CurrentImageIndexInBuffer = ComboBoxPagine.SelectedIndex
+        End If
+    End Sub
+
+    Private Sub btnVisualizzaTutto_Click(sender As System.Object, e As System.EventArgs) Handles btnVisualizzaTutto.Click
+        CaricaPraticheCliente(ClienteCorrente)
+    End Sub
+
+    Private Sub btnPratica_Click(sender As System.Object, e As System.EventArgs) Handles btnPratica.Click
+        Try
+            If tvPratiche.SelectedNode.Tag IsNot Nothing Then
+                Me.WindowState = FormWindowState.Minimized
+
+                Dim p As Pratiche = tvPratiche.SelectedNode.Tag
+
+                Using f As New FormDocPratica
+                    With f
+                        .FormBorderStyle = Windows.Forms.FormBorderStyle.FixedDialog
+                        .MaximizeBox = False
+                        .MinimizeBox = False
+                        .StartPosition = FormStartPosition.CenterScreen
+                        .TopMost = True
+                        .Opacity = 0.9
+                        .Pratica = p
+                        .Text = p.Descrizione
+
+                        .ShowDialog()
+                    End With
+
+                    Me.WindowState = FormWindowState.Normal
+                    Me.Refresh()
+
+                    'carico i documenti della pratica che potrebbero essere cambiati
+                    CaricaDocumentiPratica()
+                    ListBoxDocumenti.SelectedIndex = IndiceDocumento(f.ListBoxDocumenti.Text)
+                    RaiseEvent ModificaDocumenti()
+                End Using
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnNuovaPratica_Click(sender As System.Object, e As System.EventArgs) Handles btnNuovaPratica.Click
+        Try
+            If (tvPratiche.SelectedNode IsNot Nothing) AndAlso (tvPratiche.SelectedNode.Tag IsNot Nothing) Then
+
+                tvPratiche.LabelEdit = True
+
+                Dim n As TreeNode = tvPratiche.SelectedNode.Nodes.Add("Nuova cartella")
+                tvPratiche.ExpandAll()
+                n.BeginEdit()
+            Else
+                MsgBox("Selezionare prima una cartella", MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub tvPratiche_AfterLabelEdit(sender As Object, e As System.Windows.Forms.NodeLabelEditEventArgs) Handles tvPratiche.AfterLabelEdit
+
+        Try
+            tvPratiche.LabelEdit = False
+
+            'in caso si lascia la label di default (Nuova cartella) la label è nothing
+            If e.Label IsNot Nothing Then e.Node.Text = e.Label
+            'recupero la pratica padre
+            Dim padre As Pratiche = tvPratiche.SelectedNode.Tag
+
+            If e.Node.Text.ToLower = "nuova cartella" Then
+                MsgBox("Il nome 'Nuova cartella' non è consentito", MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+                e.Node.Remove()
+            ElseIf padre.EsisteSottocartellaPratica(e.Node.Text) Then
+                MsgBox("La cartella con questo nome già esiste", MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+                e.Node.Remove()
+            Else
+                'creo la nuova pratica
+                With e.Node
+                    .Tag = New Pratiche(padre, e.Node.Text)
+                    .ImageIndex = 0
+                    .SelectedImageIndex = 1
+                End With
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+
+    End Sub
+
+    Private Sub tbChiaroScuro_ValueChanged(sender As Object, e As System.EventArgs) Handles tbChiaroScuro.ValueChanged
+        txtChiaroScuro.Text = tbChiaroScuro.Value
+    End Sub
+
+    Private Sub txtChiaroScuro_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtChiaroScuro.TextChanged
+        Try
+            If IsNumeric(txtChiaroScuro.Text) Then
+
+                If txtChiaroScuro.Text >= 0 And txtChiaroScuro.Text <= 100 Then
+                    tbChiaroScuro.Value = txtChiaroScuro.Text
+                Else
+                    txtChiaroScuro.Text = ChiaroScuro
+                End If
+            Else
+                If txtChiaroScuro.Text.Trim = "" Then
+                    tbChiaroScuro.Value = 0
+                Else
+                    txtChiaroScuro.Text = ChiaroScuro
+                End If
+            End If
+
+            txtChiaroScuro.ForeColor = ColoreChiaroScuro(txtChiaroScuro.Text)
+
+        Catch ex As Exception
+            txtChiaroScuro.Text = 50
+        End Try
+    End Sub
+
+    Private Sub btnApri_Click(sender As System.Object, e As System.EventArgs) Handles btnApri.Click
+
+        If ListBoxDocumenti.SelectedIndex >= 0 Then
+            Process.Start(ListBoxDocumenti.SelectedItem.FullPathDoc)
+        End If
+    End Sub
+
+    Private Sub btnCancella_Click_1(sender As System.Object, e As System.EventArgs) Handles btnCancella.Click
+        Try
+            If ListBoxDocumenti.SelectedIndex < 0 Then Exit Sub
+
+            If ListBoxDocumenti.SelectedItem.CancellaDocumento() Then
+                CaricaDocumentiPratica()
+                RaiseEvent ModificaDocumenti()
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnEsci_Click(sender As System.Object, e As System.EventArgs) Handles btnEsci.Click
+        mTipoChiusura = Utx.OggettoForm.ChiusuraForm.HIDE
+        Me.Close()
+    End Sub
+
+    Private Sub CaricaTipoDocSertel()
+        With ComboBoxTipoDoc
+            Try
+                Me.Cursor = Cursors.WaitCursor
+
+                .Enabled = False
+                .DropDownStyle = ComboBoxStyle.DropDown
+                .DropDownHeight = Me.Height * 0.8
+                .AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                .AutoCompleteSource = AutoCompleteSource.ListItems
+                .Refresh()
+
+                ListaDocumenti = New DocumentiUpload
+
+                ComboBoxTipoDoc.DataSource = ListaDocumenti.ListaDocumenti
+                ComboBoxTipoDoc.DisplayMember = "Descrizione"
+
+                If ComboBoxTipoDoc.Items.Count > 0 Then
+                    ComboBoxTipoDoc.SelectedIndex = 0
+                End If
+            Catch ex As Exception
+                Globale.Log.Errore(ex)
+            Finally
+                Me.Cursor = Cursors.Default
+                .Enabled = True
+            End Try
+        End With
+    End Sub
+
+    Private Sub rbBianoNero_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rbBianoNero.CheckedChanged
+        If rbBianoNero.Checked = True Then
+            lbHelpSertel.Text = "Per inviare documenti a Sertel: Opzioni di scansione Ok"
+            lbHelpSertel.BackColor = Colori.Sertel.BcInvioSi
+        Else
+            lbHelpSertel.Text = "Per inviare documenti a Sertel preferire 'Scansione in Bianco e Nero'"
+            lbHelpSertel.BackColor = Colori.Sertel.BcInvioNo
+        End If
+    End Sub
+
+    Private Sub btnImporta_Click(sender As System.Object, e As System.EventArgs) Handles btnImporta.Click
+        Try
+            Static Cartellainiziale As String = My.Computer.FileSystem.SpecialDirectories.Desktop
+
+            Using cd As New OpenFileDialog
+
+                cd.InitialDirectory = Cartellainiziale
+                cd.CheckFileExists = True
+                cd.RestoreDirectory = False
+
+                cd.ShowDialog()
+
+                If cd.FileName <> "" Then
+
+                    Dim d As New Documenti(tvPratiche.SelectedNode.Tag, Path.GetFileName(cd.FileName))
+                    d.AggiungiProtocollo()
+                    d.CopiaDocumento(cd.FileName, False)
+
+                    ListBoxDocumenti.Items.Add(d)
+                    ListBoxDocumenti.SelectedIndex = IndiceDocumento(d.Nome)
+
+                    'salvo cartella di importazione
+                    Cartellainiziale = Path.GetDirectoryName(cd.FileName)
+                End If
+            End Using
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnEsporta_Click(sender As System.Object, e As System.EventArgs) Handles btnEsporta.Click
+        Try
+            If ListBoxDocumenti.SelectedIndex < 0 Then Exit Sub
+
+            Using cd As New SaveFileDialog
+
+                cd.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
+                cd.AddExtension = True
+                cd.DefaultExt = ListBoxDocumenti.SelectedItem.Formato
+                cd.Filter = String.Format("File {0}|*.{1}", cd.DefaultExt, cd.DefaultExt)
+                cd.FileName = ListBoxDocumenti.SelectedItem.Nome
+                cd.ShowDialog()
+
+                If cd.FileName <> "" Then
+
+                    If File.Exists(cd.FileName) Then
+
+                        If MsgBox("Il file già esiste: lo volete sovrascrivere?",
+                                  MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2, "Esporta file") = MsgBoxResult.Yes Then
+
+                            File.Copy(ListBoxDocumenti.SelectedItem.FullPathDoc, cd.FileName, True)
+                        End If
+                    Else
+                        File.Copy(ListBoxDocumenti.SelectedItem.FullPathDoc, cd.FileName)
+                    End If
+                End If
+            End Using
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnEliminaPagina_Click(sender As System.Object, e As System.EventArgs) Handles btnEliminaPagina.Click
+        Try
+            Dim IndicePagina As Integer = Twain.CurrentImageIndexInBuffer
+
+            If MsgBox(String.Format("Confermate la cancellazione della pagina {0}?",
+                                    IndicePagina + 1),
+                      MsgBoxStyle.Question + MsgBoxStyle.YesNo + MsgBoxStyle.DefaultButton2,
+                      "Cancella pagina") = MsgBoxResult.Yes Then
+
+                Dim Frame As New Dynamsoft.DotNet.TWAIN.IndexList
+
+                For k = 0 To Twain.HowManyImagesInBuffer - 1
+                    If k <> IndicePagina Then Frame.Add(k)
+                Next
+
+                'cancello il file originale
+                File.Delete(ListBoxDocumenti.SelectedItem.FullPathDoc)
+
+                'e lo riscrivo senza la pagina
+                Twain.SaveAsMultiPageTIFF(ListBoxDocumenti.SelectedItem.FullPathDoc, Frame)
+
+                'ricarico il documento da visualizzare
+                CaricaImmagine(ListBoxDocumenti.SelectedItem)
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ComboBoxTipoVista_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboBoxTipoVista.SelectedIndexChanged
+        Twain.SetViewMode(ComboBoxTipoVista.Text.Split("x")(0), ComboBoxTipoVista.Text.Split("x")(1))
+    End Sub
+
+    Private Sub Twain_OnTopImageInTheViewChanged(sImageIndex As Short)
+        On Error Resume Next
+        ComboBoxPagine.SelectedIndex = Twain.CurrentImageIndexInBuffer
+    End Sub
+
+    Private Sub ComboBoxPagine_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboBoxPagine.SelectedIndexChanged
+        On Error Resume Next
+        Twain.CurrentImageIndexInBuffer = ComboBoxPagine.SelectedIndex
+    End Sub
+
+    Private Sub btnEditor_Click(sender As System.Object, e As System.EventArgs) Handles btnEditor.Click
+
+        'documento in modifica
+        Dim d As Documenti = ListBoxDocumenti.SelectedItem
+
+        With Twain
+            .ImageEditorIfEnableEnumerator = True
+            .IfModalImageEditor = True
+            .ImageEditorIfReadonly = False
+            .ImageEditorWindowTitle = "Unitools: modifica immagini"
+
+            .ShowImageEditor()
+        End With
+
+        'cancello il file
+        File.Delete(d.FullPathDoc)
+        'e lo salvo con le modifiche
+        Twain.SaveAllAsMultiPageTIFF(d.FullPathDoc)
+
+        'ricarico il doc
+        ListBoxDocumenti_SelectedIndexChanged(Me, New EventArgs)
+    End Sub
+
+    Private Sub btnConvertiFormato_Click(sender As System.Object, e As System.EventArgs) Handles btnConvertiFormato.Click
+        Try
+            Dim FileDest As String = Path.ChangeExtension(ListBoxDocumenti.SelectedItem.FullPathDoc, "pdf")
+
+            Twain.SaveAllAsPDF(FileDest)
+
+            CaricaDocumentiPratica()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnSelezionaScanner_Click(sender As System.Object, e As System.EventArgs) Handles btnSelezionaScanner.Click
+        Globale.UtScanners.Init(True)
+    End Sub
+
+    Private Sub ComboBoxSource_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBoxSource.SelectedIndexChanged
+        Try
+            If UtScanners.ScannerDisponibili > 0 Then
+                'salvo ultimo scanner selezionato
+                UtScanners.ScannerSelezionato = ComboBoxSource.SelectedItem
+
+                If Globale.UtScanners.ScannerSelezionato.Duplex = True Then
+                    chkDuplex.Text = "Fronte/Retro"
+                    chkDuplex.Enabled = True
+                    'lo stato non lo cambio
+                    chkDuplex.Tag = True
+                Else
+                    chkDuplex.Text = "Fronte/Retro non supportato"
+                    chkDuplex.Enabled = False
+                    chkDuplex.Checked = False
+                    chkDuplex.Tag = False
+                End If
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+
+            chkDuplex.Text = "Fronte/Retro non supportato"
+            chkDuplex.Checked = False
+            chkDuplex.Enabled = False
+            chkDuplex.Tag = False
+        End Try
+    End Sub
+
+#Region "Scansione documento"
+    Private Sub btnScanNuovo_Click(sender As System.Object, e As System.EventArgs) Handles btnScanNuovo.Click
+        Try
+            If UtScanners.ScannerDisponibili = 0 Then
+                MsgBox("Non sono state rilevate periferiche di acquisizione.", MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+                Exit Sub
+            End If
+
+            If ScansioneCorrente Is Nothing Then
+                ScansioneCorrente = New Scansione(Scansione.TipoScansione.Nuovo)
+
+                Twain.RemoveAllImages()
+
+                AxAcroPDF1.Visible = False
+                PictureBoxLogo.Visible = True
+            Else
+                ScansioneCorrente.Stato = Scansione.StatoScansione.InCorso
+            End If
+
+            AbilitaControlliInScansione(ScansioneCorrente.Tipo, ScansioneCorrente.Stato)
+
+            EseguiScansione()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            InterrompiScansione()
+        End Try
+    End Sub
+
+    Private Sub btnScanAggiungi_Click(sender As Object, e As System.EventArgs) Handles btnScanAggiungi.Click
+        Try
+            If UtScanners.ScannerDisponibili = 0 Then
+                MsgBox("Non sono state rilevate periferiche di acquisizione.", MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+                Exit Sub
+            End If
+
+            'forzo il formato tif
+            ComboBoxFormato.SelectedIndex = 0
+
+            If ScansioneCorrente Is Nothing Then
+                ScansioneCorrente = New Scansione(Scansione.TipoScansione.Accoda)
+
+                AxAcroPDF1.Visible = False
+            Else
+                ScansioneCorrente.Stato = Scansione.StatoScansione.InCorso
+            End If
+
+            AbilitaControlliInScansione(ScansioneCorrente.Tipo, ScansioneCorrente.Stato)
+
+            EseguiScansione()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            InterrompiScansione()
+        End Try
+    End Sub
+
+    Private Sub EseguiScansione()
+        Try
+            With Twain
+                .IfThrowException = True
+
+                .SelectSourceByIndex(ComboBoxSource.SelectedIndex)
+                .OpenSource()
+
+                .IfShowUI = False
+                .IfDisableSourceAfterAcquire = True
+
+                'se il f/r è supportato. il controllo è necessario perchè se non supportato il tentativo
+                'di assegnazione di un qualsiasi valore genera un errore
+                If UtScanners.ScannerSelezionato.Duplex = True Then
+                    .IfDuplexEnabled = chkDuplex.Checked
+                End If
+
+                .Resolution = ComboBoxRisoluzione.SelectedItem.Risoluzione
+                'per il fujitsu
+                .Brightness = Int(-128 + (383 * txtChiaroScuro.Text / 100)) 'valori da -128 a 255
+
+                'in caso di accodamento seleziono lo stesso tipo di pixeltype
+                If ScansioneCorrente.Tipo = Scansione.TipoScansione.Accoda Then
+
+                    If .PixelType = Dynamsoft.DotNet.TWAIN.Enums.TWICapPixelType.TWPT_BW Then
+                        rbBianoNero.Checked = True
+
+                    ElseIf .PixelType = Dynamsoft.DotNet.TWAIN.Enums.TWICapPixelType.TWPT_GRAY Then
+                        rbScalaGrigi.Checked = True
+                    Else
+                        rbColori.Checked = True
+                    End If
+                End If
+
+                If rbBianoNero.Checked Then
+                    .PixelType = Dynamsoft.DotNet.TWAIN.Enums.TWICapPixelType.TWPT_BW
+                ElseIf rbScalaGrigi.Checked Then
+                    .PixelType = Dynamsoft.DotNet.TWAIN.Enums.TWICapPixelType.TWPT_GRAY
+                Else
+                    .PixelType = Dynamsoft.DotNet.TWAIN.Enums.TWICapPixelType.TWPT_RGB
+                End If
+
+                .AcquireImage()
+            End With
+
+        Catch ex As Exception
+            Globale.Log.Info(String.Format("Errore {0}: {1}", Twain.ErrorCode, Twain.ErrorString))
+
+            MsgBox(String.Format("Comunicazione con lo scanner fallita.{0}(Errore {1}: {2})",
+                                 Environment.NewLine, Twain.ErrorCode, Twain.ErrorString),
+                             MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+
+            InterrompiScansione()
+        End Try
+
+    End Sub
+
+    Private Sub Twain_OnTransferCancelled() Handles Twain.OnTransferCancelled
+
+        'si verifica quando non c'è carta e l'utente preme annulla
+        ScansioneCorrente.Stato = Scansione.StatoScansione.Annulla
+    End Sub
+
+    Private Sub Twain_OnPostAllTransfers() Handles Twain.OnPostAllTransfers
+
+        Try
+            If ScansioneCorrente.Stato = Scansione.StatoScansione.Annulla Then
+                InterrompiScansione()
+            Else
+                Select Case ComboBoxFormato.SelectedItem.Formato
+
+                    Case "png", "jpg", "bmp"
+                        'per i documenti a pagina singola chiudo automaticamente il doc
+                        btnFineDoc_Click(Me, New EventArgs)
+
+                    Case Else
+                        'visualizzo ultima pagina scansita
+                        AggiornaPagine()
+                        ComboBoxPagine.SelectedIndex = ComboBoxPagine.Items.Count - 1
+
+                        Twain.Visible = True
+                        PictureBoxLogo.Visible = False
+
+                        'lo stato diventa di attesa per un'altra pagina
+                        ScansioneCorrente.Stato = Scansione.StatoScansione.InPausa
+                        AbilitaControlliInScansione(ScansioneCorrente.Tipo, ScansioneCorrente.Stato)
+                End Select
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+            Globale.Log.Info(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub InterrompiScansione()
+        On Error Resume Next
+        Twain.RemoveAllImages()
+        ScansioneCorrente = Nothing
+        AbilitaControlliInScansione(Scansione.TipoScansione.Nuovo, Scansione.StatoScansione.Finita)
+        ListBoxDocumenti_SelectedIndexChanged(Me, New EventArgs)
+    End Sub
+
+    Private Sub AbilitaControlliInScansione(TipoScansione As Scansione.TipoScansione,
+                                            StatoScansione As Scansione.StatoScansione)
+        Try
+            Select Case StatoScansione
+
+                Case Scansione.StatoScansione.InCorso 'pagina in scansione
+
+                    TableLayoutPanelEsploraDoc.Enabled = False
+                    ToolStripAnteprima.Enabled = False
+                    LabelDimensioneFile.Text = "-"
+                    Twain.Enabled = False
+
+                    'source
+                    ComboBoxSource.Enabled = False
+                    btnSelezionaScanner.Enabled = False
+                    ComboBoxRisoluzione.Enabled = False
+                    ComboBoxFormato.Enabled = False
+                    rbBianoNero.Enabled = False
+                    rbScalaGrigi.Enabled = False
+                    rbColori.Enabled = False
+                    chkDuplex.Enabled = False
+                    tbChiaroScuro.Enabled = False
+                    txtChiaroScuro.Enabled = False
+
+                    'sertel
+                    GroupBoxSertel.Enabled = (tvPratiche.SelectedNode.Tag.Tipo = UnitoolsDocumenti.Pratiche.TipoPratica.SINISTRO)
+
+                    btnScanNuovo.Enabled = False
+                    btnScanAggiungi.Enabled = False
+                    btnFineDoc.Enabled = False
+
+                    btnEsci.Enabled = False
+                    LabelStato.Text = "Acquisizione in corso..."
+
+                Case Scansione.StatoScansione.InPausa 'in attesa di altre pagine
+
+                    ToolStripAnteprima.Enabled = True
+                    Twain.Enabled = True
+
+                    'source
+                    ComboBoxRisoluzione.Enabled = True
+                    chkDuplex.Enabled = True
+                    tbChiaroScuro.Enabled = True
+                    txtChiaroScuro.Enabled = True
+
+                    'per il formato PDF posso anche cambiare bn/colore ogni pagina
+                    'la  cosa non è consentita con i tiff perché produce un errore nel file
+                    Dim f As Formati = ComboBoxFormato.SelectedItem
+
+                    If f.IsPdf Then
+                        rbBianoNero.Enabled = True
+                        rbScalaGrigi.Enabled = True
+                        rbColori.Enabled = True
+                    End If
+
+                    If TipoScansione = Scansione.TipoScansione.Nuovo Then
+                        btnScanNuovo.Enabled = True
+                    Else
+                        btnScanAggiungi.Enabled = True
+                    End If
+
+                    btnFineDoc.Enabled = True
+                    LabelStato.Text = String.Format("In attesa della pagina {0}",
+                                                    Twain.HowManyImagesInBuffer + 1)
+
+                Case Scansione.StatoScansione.Finita
+
+                    TableLayoutPanelEsploraDoc.Enabled = True
+                    ToolStripAnteprima.Enabled = True
+                    Twain.Enabled = True
+
+                    'source
+                    ComboBoxSource.Enabled = True
+                    btnSelezionaScanner.Enabled = True
+                    ComboBoxRisoluzione.Enabled = True
+                    ComboBoxFormato.Enabled = True
+                    rbBianoNero.Enabled = True
+                    rbScalaGrigi.Enabled = True
+                    rbColori.Enabled = True
+                    chkDuplex.Enabled = True
+                    tbChiaroScuro.Enabled = True
+                    txtChiaroScuro.Enabled = True
+
+                    'sertel
+                    GroupBoxSertel.Enabled = (tvPratiche.SelectedNode.Tag.Tipo = UnitoolsDocumenti.Pratiche.TipoPratica.SINISTRO)
+
+                    btnScanNuovo.Enabled = True
+                    'il bottone per l'aggiunta viene gestito nell'evento di selezione del doc nella list box
+                    btnFineDoc.Enabled = False
+                    btnEsci.Enabled = True
+
+                    LabelStato.Text = DeskStato
+            End Select
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+
+    End Sub
+
+    Private Sub btnFineDoc_Click(sender As System.Object, e As System.EventArgs) Handles btnFineDoc.Click
+        Try
+            btnFineDoc.Enabled = False
+
+            'per sicurezza ma non dovrebbe servire
+            If ScansioneCorrente Is Nothing Then Exit Sub
+
+            LabelStato.Text = "Salvataggio in corso..."
+            LabelStato.Refresh()
+
+            Dim d As Documenti
+
+            If ScansioneCorrente.Tipo = Scansione.TipoScansione.Accoda Then
+                d = ListBoxDocumenti.SelectedItem
+            Else
+                'creo un nuovo documento
+                d = New Documenti(tvPratiche.SelectedNode.Tag,
+                                  "",
+                                  ComboBoxFormato.SelectedItem.Formato)
+            End If
+
+            SalvaDocumento(Twain, d)
+
+            Twain.CloseSource()
+            Twain.RemoveAllImages()
+
+            If ScansioneCorrente.Tipo = Scansione.TipoScansione.Nuovo Then
+                'aggiungo il nuovo documento
+                ListBoxDocumenti.Items.Add(New Documenti(PraticaCorrente, d.FullPathDoc))
+                'cerco il documento appena aggiunto per selezionarlo
+                ListBoxDocumenti.SelectedIndex = IndiceDocumento(d.Nome)
+            Else
+                'per l'aggiornamento del documento a cui si sono aggiunte le pagine
+                ListBoxDocumenti_SelectedIndexChanged(Me, New System.EventArgs)
+            End If
+            RaiseEvent ModificaDocumenti()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        Finally
+            ScansioneCorrente.Stato = Scansione.StatoScansione.Finita
+            AbilitaControlliInScansione(ScansioneCorrente.Tipo, ScansioneCorrente.Stato)
+            ScansioneCorrente = Nothing
+        End Try
+    End Sub
+
+    Private Sub SalvaDocumento(ByRef Tw As Dynamsoft.DotNet.TWAIN.DynamicDotNetTwain,
+                               d As Documenti)
+        Try
+            Tw.IfThrowException = True
+
+            Select Case d.Formato
+                Case "tif", "tiff"
+                    If ScansioneCorrente.Tipo = Scansione.TipoScansione.Accoda Then
+                        File.Delete(d.FullPathDoc)
+                    End If
+                    Tw.SaveAllAsMultiPageTIFF(d.FullPathDoc)
+                Case "pdf"
+                    Tw.SaveAllAsPDF(d.FullPathDoc)
+                Case "png"
+                    Tw.SaveAsPNG(d.FullPathDoc, 0)
+                Case "jpg"
+                    Tw.SaveAsJPEG(d.FullPathDoc, 0)
+                Case "bmp"
+                    Tw.SaveAsBMP(d.FullPathDoc, 0)
+            End Select
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+#End Region
+
+#Region "Drag & drop"
+    Private Sub ListBoxDocumenti_DragDrop(sender As Object, e As System.Windows.Forms.DragEventArgs) Handles ListBoxDocumenti.DragDrop
+        Try
+            Cursor.Current = Cursors.WaitCursor
+
+            Dim FileOrigine As String = e.Data.GetData(DataFormats.FileDrop, True)(0)
+
+            Dim d As New Documenti(tvPratiche.SelectedNode.Tag, Path.GetFileName(FileOrigine))
+            d.AggiungiProtocollo()
+            d.CopiaDocumento(FileOrigine, False)
+
+            ListBoxDocumenti.Items.Add(d)
+            ListBoxDocumenti.SelectedIndex = IndiceDocumento(d.Nome)
+            RaiseEvent ModificaDocumenti()
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        Finally
+            ListBoxDocumenti.BackColor = Colori.Trascina.BcFatto
+            Cursor.Current = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub ListBoxDocumenti_DragEnter(sender As Object, e As System.Windows.Forms.DragEventArgs) Handles ListBoxDocumenti.DragEnter
+        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+            e.Effect = DragDropEffects.Copy
+            ListBoxDocumenti.BackColor = Colori.Trascina.BcLascia
+        Else
+            e.Effect = DragDropEffects.None
+        End If
+    End Sub
+
+    Private Sub ListBoxDocumenti_DragLeave(sender As Object, e As System.EventArgs) Handles ListBoxDocumenti.DragLeave
+        ListBoxDocumenti.BackColor = Colori.Trascina.BcFatto
+    End Sub
+#End Region
+
+    Private Sub btnRinomina_Click(sender As System.Object, e As System.EventArgs) Handles btnRinomina.Click
+        Try
+            If ListBoxDocumenti.SelectedIndex < 0 Then Exit Sub
+
+            Using f As New FormRinomina
+                'documento corrente
+                Dim d As Documenti = ListBoxDocumenti.SelectedItem
+
+                With f
+                    .VecchioNome = d.NomeSenzaDataDocumento
+                    .DataDoc = d.DataDocumento
+                    .ShowDialog()
+                End With
+
+                If f.NuovoNome.Length > 0 Then
+                    d.RinominaDocumento(f.NuovoNome)
+                    'ricarica la pratica
+                    CaricaDocumentiPratica()
+                    'seleziono il doc
+                    ListBoxDocumenti.SelectedIndex = IndiceDocumento(d.Nome)
+                    RaiseEvent ModificaDocumenti()
+                End If
+            End Using
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ComboBoxTipoDoc_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ComboBoxTipoDoc.SelectedIndexChanged
+        dtpDataArrivoDoc.Enabled = ComboBoxTipoDoc.SelectedIndex > 0
+        'riempio il combo con la lista completa e seleziono l'elemento scelto
+        Dim CodiceDoc As String = ComboBoxTipoDoc.SelectedItem.Codice
+        ComboBoxTipoDoc.DataSource = ListaDocumenti.ListaDocumenti
+        For Each doc As DocumentiUpload.Documento In ComboBoxTipoDoc.Items
+            If doc.Codice = CodiceDoc Then
+                ComboBoxTipoDoc.SelectedItem = doc
+                Exit For
+            End If
+        Next
+    End Sub
+
+#Region "Servizi Liquido"
+    Private Sub btnInviaSertel_Click(sender As System.Object, e As System.EventArgs) Handles btnInviaSertel.Click
+        Try
+            If ListBoxDocumenti.SelectedIndex < 0 Then
+                MsgBox("Selezionare prima il documento da inviare.", MsgBoxStyle.Information)
+                Exit Sub
+            End If
+
+            Dim P As Pratiche = tvPratiche.SelectedNode.Tag
+
+            If P Is Nothing Then Exit Sub
+
+            'se è un sinistro
+            If P.Tipo = UnitoolsDocumenti.Pratiche.TipoPratica.SINISTRO Then
+                'se è selezionato un documento
+                If ComboBoxTipoDoc.SelectedIndex > 0 Then
+
+                    Dim Doc As Documenti = ListBoxDocumenti.SelectedItem
+                    Dim Tipo As DocumentiUpload.Documento = ComboBoxTipoDoc.SelectedItem
+
+                    'se il doc è in un formato accettato da sertel
+                    If Doc.FormatoSertel = True Then
+
+                        Using f As New FormUploadLiquido
+
+                            'parametri per l'operazione da eseguire
+                            With f
+                                .Operazione = Globale.TipoOperazioneLiquido.UPLOAD
+                                .IdSinistro = P.Id
+                                .CartellaLocaleSinistro = P.FullPathPratica
+                                .FileToUpload = Doc
+                                .CodiceDocumento = Tipo.Codice
+                                .Abbinamento = Tipo.Abbinamento
+                                .Rinomina = CheckBoxRinominaFile.Checked
+                                .NuovoNome = Tipo.Descrizione
+                                .CfAssicurato = mCodiceFiscale
+                                .DataArrivoDoc = dtpDataArrivoDoc.Value
+                            End With
+
+                            f.ShowDialog()
+
+                            'se il file è stato rinominato ricarico i doc
+                            If CheckBoxRinominaFile.Checked Then
+                                CaricaDocumentiPratica()
+                            End If
+                        End Using
+                    Else
+                        MsgBox("I formati accettati sono TIF/PDF. Convertire in formato PDF e riprovare",
+                           MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+                    End If
+                Else
+                    ComboBoxTipoDoc.Focus()
+                    ComboBoxTipoDoc.DroppedDown = True
+                End If
+            Else
+                MsgBox("La pratica selezionata non è un sinistro.", MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnCercaSertel_Click(sender As System.Object, e As System.EventArgs) Handles btnCercaSertel.Click
+        Try
+            If tvPratiche.SelectedNode.Tag.Tipo = UnitoolsDocumenti.Pratiche.TipoPratica.SINISTRO Then
+
+                Dim p As Pratiche = tvPratiche.SelectedNode.Tag
+
+                Using f As New FormDownloadLiquido
+
+                    With f
+                        'parametri per l'operazione da eseguire (lista doc)
+                        .Operazione = Globale.TipoOperazioneLiquido.LISTALIQUIDO
+                        .IdSinistro = p.Id
+                        .CartellaLocaleSinistro = p.FullPathPratica
+                        .CodiceDocumento = 0
+                        .DataArrivoDoc = ""
+
+                        .ShowDialog()
+
+                        CaricaDocumentiPratica()
+                    End With
+                End Using
+            Else
+                ComboBoxTipoDoc.DroppedDown = True
+                MsgBox("La pratica selezionata non è un sinistro.", MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+#End Region
+
+#Region "Sessione RDP"
+
+    Private Sub Invia2RDP()
+        Try
+            Clipboard.Clear()
+
+            'pare che possa evitare l'errore 521
+            Threading.Thread.Sleep(100)
+
+            Clipboard.SetText(String.Format("UtScan:{0};{1};{2}",
+                                            ClienteCorrente.NomeCliente,
+                                            tvPratiche.SelectedNode.Tag.IdPratica,
+                                            tvPratiche.SelectedNode.Tag.FullPathPratica))
+
+
+            'avvio il timer per sentire la risposta dello scanner rdp
+            TimerScanner.Enabled = True
+            TimerScanner.Interval = 2000
+
+        Catch cb As System.Runtime.InteropServices.ExternalException
+            MsgBox("Impossibile accedere ora agli appunti. Riprovate.", MsgBoxStyle.Exclamation, Utx.Globale.TitoloApp)
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub TimerScanner_Tick(sender As Object, e As System.EventArgs) Handles TimerScanner.Tick
+        On Error Resume Next
+
+        Dim Appunti As String
+        Appunti = Clipboard.GetText()
+
+        If Appunti.StartsWith("UTSCANOK:", StringComparison.InvariantCultureIgnoreCase) Then
+            TimerScanner.Enabled = False 'fermo il timer
+            'pulisco gli appunti
+            Clipboard.Clear()
+            CaricaDocumentiPratica()
+        End If
+    End Sub
+#End Region
+
+    'Private Sub CheckBoxStorico_CheckedChanged(sender As System.Object, e As System.EventArgs)
+    '    If CheckBoxStorico.Checked Then
+    '        CaricaStoricoCliente(ClienteCorrente)
+    '        CheckBoxStorico.Text = "Vedi corrente"
+    '    Else
+    '        CaricaPraticaCorrente(ClienteCorrente)
+    '        CheckBoxStorico.Text = "Vedi storico"
+    '    End If
+    '    ResetStatoStorico()
+    'End Sub
+
+    'Private Sub ResetStatoStorico()
+    '    If CheckBoxStorico.Checked Then
+    '        tvPratiche.BackColor = Colori.Pratiche.BcStorico
+    '        CheckBoxStorico.BackColor = Colori.Pratiche.BcBtnStoricoSi
+    '        CheckBoxStorico.ForeColor = Colori.Pratiche.FcBtnStoricoSi
+    '        btnNuovaPratica.Enabled = False
+    '    Else
+    '        tvPratiche.BackColor = Colori.Pratiche.Bc
+    '        CheckBoxStorico.BackColor = Colori.Pratiche.BcBtnStoricoNo
+    '        CheckBoxStorico.ForeColor = Colori.Pratiche.FcBtnStoricoNo
+    '        btnNuovaPratica.Enabled = True
+    '    End If
+    'End Sub
+
+    Private Sub btnAllega_Click(sender As System.Object, e As System.EventArgs) Handles btnAllega.Click
+        Try
+            If ListBoxDocumenti.SelectedIndex >= 0 Then
+
+                Dim d As Documenti = ListBoxDocumenti.SelectedItem
+                Dim FileDest As String = Path.Combine(mCartellaAllegati, d.Nome)
+
+                If File.Exists(FileDest) Then
+                    MsgBox("Il file è stato già allegato all'e-mail.", MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+                Else
+                    File.Copy(d.FullPathDoc, FileDest)
+                    'nel tag conservo il numero dei file allegati
+                    mNumeroAllegati += 1
+                End If
+
+                btnAllega.Text = String.Format("Allega mail ({0})", mNumeroAllegati)
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub btnScannerRete_Click(sender As System.Object, e As System.EventArgs) Handles btnScannerRete.Click
+        'se il percorso non esiste lo richiede
+        If String.IsNullOrEmpty(FormScannerRete.CartellaScannerRete) Then
+            ButtonCartellaRete.PerformClick()
+        End If
+
+        'se è stato salvato lo apre
+        If String.IsNullOrEmpty(FormScannerRete.CartellaScannerRete) = False Then
+            Using f As New FormScannerRete
+                With f
+                    .PraticaCorrente = PraticaCorrente
+                    .ShowDialog()
+
+                    If f.DocumentoImportato IsNot Nothing Then
+
+                        ListBoxDocumenti.Items.Add(f.DocumentoImportato)
+                        ListBoxDocumenti.SelectedIndex = IndiceDocumento(f.DocumentoImportato.Nome)
+
+                        'seleziono il documento
+                        ListBoxDocumenti.SelectedIndex = IndiceDocumento(f.DocumentoImportato.Nome)
+
+                        'rinomina
+                        btnRinomina_Click(Me, New EventArgs)
+                    End If
+                End With
+            End Using
+        End If
+    End Sub
+
+    Private Sub ButtonSelezionaScannerRete_Click(sender As Object, e As EventArgs) Handles ButtonCartellaRete.Click
+        Try
+            Dim d As New FolderBrowserDialog With {.SelectedPath = FormScannerRete.CartellaScannerRete}
+            d.ShowDialog()
+
+            If d.SelectedPath.Length > 0 Then
+                FormScannerRete.CartellaScannerRete = d.SelectedPath
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ButtonCercaDocumenti_Click(sender As Object, e As EventArgs) Handles ButtonCercaDocumenti.Click
+
+        Dim f As New FormConteggioDoc
+
+        With f
+            .FormBorderStyle = FormBorderStyle.FixedDialog
+            .MaximizeBox = False
+            .MinimizeBox = False
+            .StartPosition = FormStartPosition.CenterParent
+            .Text = "Conteggio documenti"
+
+            .CartellaDocumenti = Utx.Globale.Paths.CartellaDocumenti
+            .CartellaCliente = ClienteCorrente.FullPathCliente
+
+            .ShowDialog()
+        End With
+
+        CaricaPraticheDaLista(ClienteCorrente, f.ListaDoc)
+    End Sub
+
+    Private Sub ButtonAbilitaScanner_Click(sender As Object, e As EventArgs) Handles ButtonAbilitaScanner.Click
+        On Error Resume Next
+        ButtonAbilitaScanner.Visible = False
+        tlpScanner.Visible = True
+        InitScanner()
+    End Sub
+
+    Private Sub UtScanner_InizializzazioneCompletata(Ready As Boolean) Handles UtScanners.InizializzazioneCompletata
+        On Error Resume Next
+        CheckForIllegalCrossThreadCalls = False
+        InitScanner()
+        ComboBoxSource.DroppedDown = True
+    End Sub
+
+    Private Sub ComboBoxSource_DropDownClosed(sender As Object, e As EventArgs) Handles ComboBoxSource.DropDownClosed
+        ComboBoxSource.Refresh()
+    End Sub
+
+    Private Sub LabelColore_Paint(sender As Object, e As PaintEventArgs) Handles LabelColore.Paint
+        Dim linGrBrush As New Drawing2D.LinearGradientBrush(e.ClipRectangle, Color.Yellow, Color.HotPink, Drawing2D.LinearGradientMode.Horizontal)
+        Dim pen As New Pen(linGrBrush)
+        e.Graphics.FillRectangle(linGrBrush, e.ClipRectangle)
+    End Sub
+
+    Private Sub LabelGrigi_Paint(sender As Object, e As PaintEventArgs) Handles LabelGrigi.Paint
+        Dim linGrBrush As New Drawing2D.LinearGradientBrush(e.ClipRectangle, Color.White, Color.DimGray, Drawing2D.LinearGradientMode.Horizontal)
+        Dim pen As New Pen(linGrBrush)
+        e.Graphics.FillRectangle(linGrBrush, e.ClipRectangle)
+    End Sub
+
+    Private Sub PictureBoxLogo_VisibleChanged(sender As Object, e As EventArgs) Handles PictureBoxLogo.VisibleChanged
+        If PictureBoxLogo.Visible = True Then
+            PictureBoxLogo.Refresh()
+        End If
+    End Sub
+
+    Private Sub LinkLabelPDF_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelPDF.LinkClicked
+        Process.Start(e.Link.LinkData.ToString())
+    End Sub
+
+    Private Sub ComboBoxTipoDoc_DropDown(sender As Object, e As EventArgs) Handles ComboBoxTipoDoc.DropDown
+        Dim TestoUtente As String = ComboBoxTipoDoc.Text.Substring(0, ComboBoxTipoDoc.SelectionStart)
+        If TestoUtente.Length = 0 Then
+            ComboBoxTipoDoc.DataSource = ListaDocumenti.ListaDocumenti
+        Else
+            ComboBoxTipoDoc.DataSource = ListaDocumenti.ListaFiltrata(TestoUtente)
+        End If
+    End Sub
+
+    Private Sub ButtonRDP_Click(sender As Object, e As EventArgs) Handles ButtonRDP.Click
+        Invia2RDP()
+    End Sub
+
+    Private Sub ButtonSetStorico_Click(sender As Object, e As EventArgs) Handles ButtonSetStorico.Click
+        Try
+            Dim d As New FolderBrowserDialog
+            d.SelectedPath = Utx.Globale.SettingUtente.LeggiValore(Utx.GestioneFlag.TipoFlag.CARTELLA_STORICO_DOC, Utx.Globale.Paths.CartellaDocumentiStorico)
+            d.ShowDialog()
+
+            If d.SelectedPath.Length > 0 Then
+                Utx.Globale.SettingUtente.AggiungiModifica(Utx.GestioneFlag.TipoFlag.CARTELLA_STORICO_DOC, d.SelectedPath, True)
+                Utx.Globale.Paths.CartellaDocumentiStorico = d.SelectedPath
+            End If
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub CheckBoxStorico_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxStorico.CheckedChanged
+        Try
+            If CheckBoxStorico.Checked Then
+                CheckBoxStorico.Text = "Vai a corrente"
+                ListBoxDocumenti.BackColor = Color.Gainsboro
+                ButtonRecupera.Enabled = True
+                CaricaDocumentiPraticaStorico()
+            Else
+                CheckBoxStorico.Text = "Vai a storico"
+                ListBoxDocumenti.BackColor = SystemColors.Window
+                ButtonRecupera.Enabled = False
+                CaricaDocumentiPratica()
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ButtonRecupera_Click(sender As Object, e As EventArgs) Handles ButtonRecupera.Click
+        Try
+            If ListBoxDocumenti.SelectedIndex >= 0 Then
+                RecuperaDocumentoStorico()
+                CheckBoxStorico.Checked = False
+            End If
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+End Class

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="Evento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoEvento">
+        <s:restriction base="s:string">
+          <s:enumeration value="NESSUNO" />
+          <s:enumeration value="AGGIORNA_INCASSI" />
+          <s:enumeration value="MIGRA_DBUNO" />
+          <s:enumeration value="CONSOLIDA_MA" />
+          <s:enumeration value="CONSOLIDA_DOWNLOAD_AGENZIE" />
+          <s:enumeration value="AGGIORNA_ARRETRATI" />
+          <s:enumeration value="CIP" />
+          <s:enumeration value="SOGGETTI" />
+          <s:enumeration value="UTENZE" />
+          <s:enumeration value="PUNTI_VENDITA" />
+          <s:enumeration value="IMPORTA_SINISTRI_WS" />
+          <s:enumeration value="SMS_NOTIFICHE" />
+          <s:enumeration value="SMS_REGISTRA" />
+          <s:enumeration value="AGGIORNA_CHIUSURA_CASSA" />
+          <s:enumeration value="AGGIORNA_POSTALIZZAZIONE" />
+          <s:enumeration value="AGGIORNA_VARIAZIONI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="EventoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GeneraEvento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Evento" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cartella" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GeneraEventoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Test">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="EventoSoapIn">
+    <wsdl:part name="parameters" element="tns:Evento" />
+  </wsdl:message>
+  <wsdl:message name="EventoSoapOut">
+    <wsdl:part name="parameters" element="tns:EventoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GeneraEventoSoapIn">
+    <wsdl:part name="parameters" element="tns:GeneraEvento" />
+  </wsdl:message>
+  <wsdl:message name="GeneraEventoSoapOut">
+    <wsdl:part name="parameters" element="tns:GeneraEventoResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapIn">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapOut">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GeneraEventiSoap">
+    <wsdl:operation name="Evento">
+      <wsdl:input message="tns:EventoSoapIn" />
+      <wsdl:output message="tns:EventoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneraEvento">
+      <wsdl:input message="tns:GeneraEventoSoapIn" />
+      <wsdl:output message="tns:GeneraEventoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <wsdl:input message="tns:TestSoapIn" />
+      <wsdl:output message="tns:TestSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GeneraEventiSoap" type="tns:GeneraEventiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Evento">
+      <soap:operation soapAction="http://utools.auaonline.it/Evento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeneraEvento">
+      <soap:operation soapAction="http://utools.auaonline.it/GeneraEvento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://utools.auaonline.it/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GeneraEventiSoap12" type="tns:GeneraEventiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Evento">
+      <soap12:operation soapAction="http://utools.auaonline.it/Evento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeneraEvento">
+      <soap12:operation soapAction="http://utools.auaonline.it/GeneraEvento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://utools.auaonline.it/Test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GeneraEventi">
+    <wsdl:port name="GeneraEventiSoap" binding="tns:GeneraEventiSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Eventi.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GeneraEventiSoap12" binding="tns:GeneraEventiSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Eventi.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

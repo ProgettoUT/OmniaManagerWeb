@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Incassi</pacchetto>
+        <nome>Lista polizze non incassate</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+]]></descrizione>
+<note><![CDATA[
+]]></note>
+<documentazione altezza="200"><![CDATA[
+<html><body style="background-color:#F0F0F0;font-family: Tahoma, Verdana">
+<center><font color="red" size="5"><b>Lista polizze non incassate</b></font></center><br/>
+L'elenco è costituito dalle polizze:
+<ul style="">
+<li>incassate l'anno precedente rispetto al periodo selezionato</li>
+<li>che non sono state sostituite</li>
+<li>la cui targa non sia stata nuovamente da noi assicurata</li>
+<li>non cumulative (ramo diverso da 130, 131, 230, 231)</li>
+</ul>
+</body></html>
+]]></documentazione>
+        <ultagg>19/12/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@datafcmin" etichetta="Incasso da confrontare con l'anno precedente: dal  " tipo="date" larghezza="20" nuovariga="false" sinistra="65" valore="=format(DateSerial(year(Date()), 1, 1), 'dd/mm/yyyy')" obbligatorio="true"/>
+        <parametro nome="@datafcmax" etichetta="al  " tipo="date" larghezza="20" nuovariga="false" sinistra="89" valore="=format(DateAdd('d', -1, DateSerial(year(Date()), month(Date()), 1)), 'dd/mm/yyyy')" obbligatorio="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    Trim(Trim(C.Cognome) & ' ' &
+		    Trim(C.Nome))                     AS [Nominativo],
+		    I0.Agenzia                        AS [Agenzia],
+		    I0.CodiceSubAgente                AS [Sub agente],
+		    Format(I0.RamoGestione,  '00')    AS [Ramo Gestione],
+		    Format(I0.Ramo,          '000')   AS [Ramo],
+		    Format(I0.CodiceProdotto,'00000') AS [Prodotto],
+		    I0.Polizza                        AS [Polizza],
+		    Format(I0.Convenzione,   '00000') AS [Convenzione],
+		    I0.DataFoglioCassa                AS [Foglio cassa],
+		    I0.DataEffettoTitolo              AS [Effetto titolo],
+		    I0.Targa,
+		    IIF(P.frazionamento, P.frazionamento, MP.frazionamento)
+		                                      AS [Frazionamento],
+		    I0.TipoCarico                     AS [Tipo carico],
+		    MP.IDStorno                       AS [Storno (cod)],
+		    TS.Storno                         AS [Storno],
+		    MP.DataStorno                     AS [Data storno],
+		    (I0.Tassabile)                    AS [Premio Tassabile],
+		    (I0.PrvAcq + I0.PrvInc)           AS [Provvigioni],
+		    I0.CodiceFiscInc                  AS [Codice fiscale]
+		 FROM ((((([Incassi]   AS I0
+		 LEFT JOIN Polizze AS P
+		   ON I0.Ramo    = P.Ramo
+		  AND I0.Polizza = P.Polizza)
+		 LEFT JOIN MovPolizze AS MP
+		   ON I0.Ramo    = MP.Ramo
+		  AND I0.Polizza = MP.Polizza)
+		 LEFT JOIN [Incassi]   AS I1
+		   ON I0.Ramo    = I1.Ramo
+		  AND I0.Polizza = I1.Polizza
+		  AND I0.RataIntermedia = I1.RataIntermedia
+		  AND (I0.DataScadenzaTitolo = DATEADD('yyyy', -1, I1.DataScadenzaTitolo)))
+		 LEFT JOIN [Clienti]   AS C
+		   ON I0.CodiceFiscInc = C.CodiceFiscale)
+		 LEFT JOIN [TipoStorni] AS TS
+		   ON (MP.IDStorno = TS.IDStorno AND IIF(MP.RamoGestione >=18 AND MP.RamoGestione <=20, 'V', 'D')= TS.Settore))
+		WHERE I0.DataFoglioCassa   >= DATEADD('yyyy', -1, @datafcmin)
+		  AND I0.DataFoglioCassa   <= DATEADD('yyyy', -1, @datafcmax)
+		  AND (I0.RataIntermedia = 'N')
+		  AND (I0.TipoCarico <> '9')
+		  AND (I0.Ramo NOT IN (130, 131, 230, 231))
+		  AND (MP.PolizzaSost IS NULL OR MP.PolizzaSost = 0)
+		  AND (I1.Polizza IS NULL OR I1.TipoCarico='9')
+		  AND (I0.Targa is null
+			     OR trim(I0.Targa)=''
+			     OR 0 = (SELECT count(*)
+				       FROM Incassi I
+				      WHERE I.Targa = I0.Targa
+					AND I.DataFoglioCassa > I0.DataFoglioCassa
+					AND I.TipoCarico = '1'))
+		ORDER BY
+		    I0.Polizza, I0.DataFoglioCassa
+		    ]]></sql>
+    </estrazione>
+</oggetto>

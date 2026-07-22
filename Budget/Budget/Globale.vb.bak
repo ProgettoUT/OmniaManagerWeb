@@ -1,0 +1,36 @@
+﻿Imports System.IO
+
+Module Globale
+    Public Log As New Utx.ApplicationLog("Budget.log")
+
+    'Public FullNameDbBudget As String
+    'Public FullNameDbIncassi As String
+    'Public FullNameDbClienti As String
+    'Public FullNameDbComuni As String
+
+    Public Sub InitDbPath()
+        'FullNameDbBudget = Path.Combine(Utx.Globale.AgenziaRichiesta.CartellaDati, "Budget.mdb")
+        'FullNameDbIncassi = Path.Combine(Utx.Globale.AgenziaRichiesta.CartellaDati, "Incassi.mdb")
+        'FullNameDbClienti = Path.Combine(Utx.Globale.AgenziaRichiesta.CartellaDati, "Clienti.mdb")
+        'FullNameDbComuni = Path.Combine(Utx.Globale.Paths.CartellaModelliDatiComuni, "Supporto.mdb")
+    End Sub
+
+    Public Sub InitDbPath(Agenzia As String)
+        'FullNameDbBudget = Path.Combine(Utx.ConnessioniDb.CartellaDatiAgenzia(Agenzia), "Budget.mdb")
+        'FullNameDbIncassi = Path.Combine(Utx.ConnessioniDb.CartellaDatiAgenzia(Agenzia), "Incassi.mdb")
+        'FullNameDbClienti = Path.Combine(Utx.ConnessioniDb.CartellaDatiAgenzia(Agenzia), "Clienti.mdb")
+        'FullNameDbComuni = Path.Combine(Utx.ConnessioniDb.CartellaDatiAgenzia(Agenzia), "Supporto.mdb")
+    End Sub
+
+    Public Function RamoGestioneToComparto(RamoGestione As Integer) As Integer
+        Select Case RamoGestione
+            Case 0 : Return 0
+            Case 1, 2 : Return 1
+            Case 3, 4, 5 : Return 2
+            Case 6, 7, 8, 9, 21, 22, 23 : Return 3
+            Case 11, 12, 13, 14, 16, 17 : Return 4
+            Case 18, 19, 20 : Return 5
+            Case 10 : Return 6
+        End Select
+    End Function
+End Module

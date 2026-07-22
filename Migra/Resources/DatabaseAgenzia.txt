@@ -1,0 +1,3211 @@
+**AVVIO PROGRAMMA DI IMPORTAZIONE ...;
+
+USE MASTER;
+
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'DB{agenzia}')
+   DROP DATABASE DB{agenzia};
+
+**creazione del database ...;
+
+CREATE DATABASE DB{agenzia}  
+ON   
+(   NAME = DB{agenzia},  
+    FILENAME = '{0}\DB{agenzia}.mdf',  
+    SIZE = 100MB,  
+    MAXSIZE = 4GB,  
+    FILEGROWTH = 10MB )  
+LOG ON  
+(   NAME = LG{agenzia},  
+    FILENAME = '{0}\LG{agenzia}.log',  
+    SIZE = 50MB,  
+    MAXSIZE = 1GB,  
+    FILEGROWTH = 25MB );
+
+USE DB{agenzia};
+ALTER DATABASE [DB{agenzia}] SET AUTO_CLOSE OFF;
+
+**Creazione tabella [Ana_Abitazione];
+
+IF OBJECT_ID('dbo.[Ana_Abitazione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Abitazione];
+
+CREATE TABLE dbo.[Ana_Abitazione]
+    (
+    [CodiceFiscale] CHAR(16),
+    [IdAbitazione] INT,
+    [CodAbitazione] CHAR(1),
+    [mq] SMALLINT,
+    [ValoreCommerciale] MONEY,
+    [Proprietario] BIT NOT NULL,
+    [Mutuo] BIT NOT NULL,
+    [ImportoAnnuale] MONEY
+    );
+
+
+**Creazione tabella [Ana_AbitazioneTipo];
+
+IF OBJECT_ID('dbo.[Ana_AbitazioneTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AbitazioneTipo];
+
+CREATE TABLE dbo.[Ana_AbitazioneTipo]
+    (
+    [CodAbitazione] CHAR(1),
+    [DescAbitazione] VARCHAR(20)
+    );
+
+
+**Creazione tabella [Ana_AnalisiRca];
+
+IF OBJECT_ID('dbo.[Ana_AnalisiRca]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AnalisiRca];
+
+CREATE TABLE dbo.[Ana_AnalisiRca]
+    (
+    [CodiceFiscale] CHAR(16),
+    [IdPolizza] INT,
+    [Polizza] VARCHAR(50),
+    [Convenzione] VARCHAR(255),
+    [DataScadenza] DATE,
+    [TipoVeicolo] VARCHAR(20),
+    [Marca] VARCHAR(25),
+    [Modello] VARCHAR(25),
+    [Targa] VARCHAR(25),
+    [PremioOld] MONEY,
+    [PremioNew] MONEY,
+    [Unibox] CHAR(1),
+    [GuidaEsperta] CHAR(1),
+    [Finanziamento] CHAR(1),
+    [Riparazione] CHAR(1),
+    [FlexIncendioFurto] SMALLINT,
+    [SinistroData] DATE,
+    [SinistroMalus] CHAR(1),
+    [SinistroSoN] CHAR(1)
+    );
+
+
+**Creazione tabella [Ana_Attivita];
+
+IF OBJECT_ID('dbo.[Ana_Attivita]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Attivita];
+
+CREATE TABLE dbo.[Ana_Attivita]
+    (
+    [CodiceFiscale] CHAR(16),
+    [IdAttivita] INT,
+    [TipoAttivita] CHAR(1),
+    [ImpresaPubblica] BIT NOT NULL,
+    [ImpresaSettore] VARCHAR(100),
+    [ImpresaDimensione] CHAR(1),
+    [ImpresaDenominazione] VARCHAR(100),
+    [ImpresaInizio] DATE,
+    [AttivitaFase] CHAR(1),
+    [AtivitaImporto] MONEY
+    );
+
+
+**Creazione tabella [Ana_AttivitaCeto];
+
+IF OBJECT_ID('dbo.[Ana_AttivitaCeto]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaCeto];
+
+CREATE TABLE dbo.[Ana_AttivitaCeto]
+    (
+    [CetoAttivita] CHAR(1),
+    [DesCeto] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_AttivitaDimensione];
+
+IF OBJECT_ID('dbo.[Ana_AttivitaDimensione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaDimensione];
+
+CREATE TABLE dbo.[Ana_AttivitaDimensione]
+    (
+    [CodDimensione] CHAR(1),
+    [DesDimensione] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_AttivitaFase];
+
+IF OBJECT_ID('dbo.[Ana_AttivitaFase]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaFase];
+
+CREATE TABLE dbo.[Ana_AttivitaFase]
+    (
+    [CodFase] CHAR(1),
+    [DesFase] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_AttivitaTipo];
+
+IF OBJECT_ID('dbo.[Ana_AttivitaTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaTipo];
+
+CREATE TABLE dbo.[Ana_AttivitaTipo]
+    (
+    [TipoAttivita] CHAR(1),
+    [CetoAttivita] CHAR(1),
+    [DesAttivita] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_Diario];
+
+IF OBJECT_ID('dbo.[Ana_Diario]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Diario];
+
+CREATE TABLE dbo.[Ana_Diario]
+    (
+    [CodiceFiscale] CHAR(16),
+    [Progressivo] INT,
+    [TipoLogging] INT,
+    [DataInserimento] DATE,
+    [Utente] VARCHAR(255),
+    [Descrizione] TEXT
+    );
+
+
+**Creazione tabella [Ana_FasiVendita];
+
+IF OBJECT_ID('dbo.[Ana_FasiVendita]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FasiVendita];
+
+CREATE TABLE dbo.[Ana_FasiVendita]
+    (
+    [CodiceFiscale] CHAR(16),
+    [Fase] CHAR(1),
+    [Data] DATE,
+    [Utente] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_FinanzaCose];
+
+IF OBJECT_ID('dbo.[Ana_FinanzaCose]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaCose];
+
+CREATE TABLE dbo.[Ana_FinanzaCose]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodServizio] CHAR(1),
+    [CodSoddisfazione] CHAR(1)
+    );
+
+
+**Creazione tabella [Ana_FinanzaCoseSoddisfazione];
+
+IF OBJECT_ID('dbo.[Ana_FinanzaCoseSoddisfazione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaCoseSoddisfazione];
+
+CREATE TABLE dbo.[Ana_FinanzaCoseSoddisfazione]
+    (
+    [CodSoddisfazione] CHAR(1),
+    [DesSoddisfazione] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_FinanzaCoseTipo];
+
+IF OBJECT_ID('dbo.[Ana_FinanzaCoseTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaCoseTipo];
+
+CREATE TABLE dbo.[Ana_FinanzaCoseTipo]
+    (
+    [CodServizio] CHAR(1),
+    [DesServizio] VARCHAR(30)
+    );
+
+
+**Creazione tabella [Ana_FinanzaStrumento];
+
+IF OBJECT_ID('dbo.[Ana_FinanzaStrumento]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaStrumento];
+
+CREATE TABLE dbo.[Ana_FinanzaStrumento]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodStrumento] CHAR(1),
+    [Importo] MONEY,
+    [Banca] VARCHAR(255),
+    [Sim] VARCHAR(255),
+    [Tipologia] VARCHAR(255),
+    [CodEsperienza] CHAR(1),
+    [CoperturaPolizza] BIT NOT NULL
+    );
+
+
+**Creazione tabella [Ana_FinanzaStrumentoEsperienza];
+
+IF OBJECT_ID('dbo.[Ana_FinanzaStrumentoEsperienza]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaStrumentoEsperienza];
+
+CREATE TABLE dbo.[Ana_FinanzaStrumentoEsperienza]
+    (
+    [CodEsperienza] CHAR(1),
+    [DesEsperienza] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_FinanzaStrumentoTipo];
+
+IF OBJECT_ID('dbo.[Ana_FinanzaStrumentoTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaStrumentoTipo];
+
+CREATE TABLE dbo.[Ana_FinanzaStrumentoTipo]
+    (
+    [CodStrumento] CHAR(1),
+    [DesStrumento] VARCHAR(255)
+    );
+
+
+**Creazione tabella [Ana_Hobby];
+
+IF OBJECT_ID('dbo.[Ana_Hobby]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Hobby];
+
+CREATE TABLE dbo.[Ana_Hobby]
+    (
+    [CodiceFiscale] CHAR(16),
+    [IdHobby] INT,
+    [DesHobby] VARCHAR(100),
+    [Frequenza] VARCHAR(25),
+    [PericoloInfortuni] BIT NOT NULL,
+    [PericoloMorte] BIT NOT NULL,
+    [CoperturaHobby] BIT NOT NULL
+    );
+
+
+**Creazione tabella [Ana_NucleoFamiliare];
+
+IF OBJECT_ID('dbo.[Ana_NucleoFamiliare]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_NucleoFamiliare];
+
+CREATE TABLE dbo.[Ana_NucleoFamiliare]
+    (
+    [CodiceFiscale] CHAR(16),
+    [IdFamiliare] INT,
+    [CodiceFiscaleFamiliare] VARCHAR(16),
+    [CodRelazione] CHAR(1),
+    [Nome] VARCHAR(255),
+    [Eta] SMALLINT,
+    [Convivente] BIT NOT NULL,
+    [AttivitaSvolta] VARCHAR(255),
+    [AttivitaLuogo] VARCHAR(255),
+    [AttivitaInizio] DATE,
+    [RedditoAnnuo] MONEY
+    );
+
+
+**Creazione tabella [Ana_NucleoFamiliareRelazione];
+
+IF OBJECT_ID('dbo.[Ana_NucleoFamiliareRelazione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_NucleoFamiliareRelazione];
+
+CREATE TABLE dbo.[Ana_NucleoFamiliareRelazione]
+    (
+    [CodRelazione] CHAR(1),
+    [DesRelazione] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_Opzione];
+
+IF OBJECT_ID('dbo.[Ana_Opzione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Opzione];
+
+CREATE TABLE dbo.[Ana_Opzione]
+    (
+    [Progressivo] INT,
+    [Tipo] VARCHAR(50),
+    [Parametro] VARCHAR(255),
+    [Valore] VARCHAR(255)
+    );
+
+
+**Creazione tabella [Ana_PianoCodici];
+
+IF OBJECT_ID('dbo.[Ana_PianoCodici]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_PianoCodici];
+
+CREATE TABLE dbo.[Ana_PianoCodici]
+    (
+    [Tipologia] CHAR(1),
+    [Codice] CHAR(1),
+    [Idioma] VARCHAR(25),
+    [Ordine] INT
+    );
+
+
+**Creazione tabella [Ana_Polizza];
+
+IF OBJECT_ID('dbo.[Ana_Polizza]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Polizza];
+
+CREATE TABLE dbo.[Ana_Polizza]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdPolizza] INT NOT NULL,
+    [Polizza] VARCHAR(50),
+    [Sezione] CHAR(1),
+    [Compagnia] VARCHAR(100),
+    [Targa] VARCHAR(25),
+    [Marca] VARCHAR(25),
+    [Modello] VARCHAR(25),
+    [Doc] VARCHAR(255),
+    [DataScadenza] DATE,
+    [DataDisdetta] DATE,
+    [DataPreventivo] DATE,
+    [DataPromemoria] DATE
+    );
+
+
+**Creazione tabella [Ana_PolizzaRamo];
+
+IF OBJECT_ID('dbo.[Ana_PolizzaRamo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_PolizzaRamo];
+
+CREATE TABLE dbo.[Ana_PolizzaRamo]
+    (
+    [CodRamo] CHAR(1),
+    [DesRamo] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_Soggetto];
+
+IF OBJECT_ID('dbo.[Ana_Soggetto]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Soggetto];
+
+CREATE TABLE dbo.[Ana_Soggetto]
+    (
+    [CodiceFiscale] CHAR(16),
+    [Agenzia] CHAR(5),
+    [Subagenzia] CHAR(4),
+    [Produttore] CHAR(3),
+    [Voip] VARCHAR(255),
+    [SocialNet] VARCHAR(255),
+    [SitoWeb] VARCHAR(255),
+    [BancaIban] VARCHAR(255),
+    [BancaNome] VARCHAR(255),
+    [Convenzione] CHAR(5),
+    [CasaIndirizzo] VARCHAR(50),
+    [CasaLocalita] VARCHAR(50),
+    [CasaCap] CHAR(5),
+    [CasaProvincia] CHAR(3),
+    [LavoroIndirizzo] VARCHAR(50),
+    [LavoroLocalita] VARCHAR(50),
+    [LavoroCap] CHAR(5),
+    [LavoroProvincia] CHAR(3),
+    [AgenziaPrivacy] VARCHAR(255),
+    [Referente] VARCHAR(255),
+    [CodStatoCivile] CHAR(1),
+    [CodPagamento] CHAR(1),
+    [CodProfiloRischio] CHAR(1),
+    [PrivacyInizio] DATE,
+    [PrivacyFine] DATE,
+    [DocumentoTipo] VARCHAR(255),
+    [DocumentoNumero] VARCHAR(255),
+    [DocumentoAutorita] VARCHAR(255),
+    [DocumentoLuogo] VARCHAR(255),
+    [DocumentoRilascio] DATE,
+    [DocumentoScadenza] DATE,
+    [DipendenteMatricola] VARCHAR(255),
+    [DipendenteAzienda] VARCHAR(255),
+    [DipendenteConvenzione] VARCHAR(255),
+    [DipendenteVariazione] VARCHAR(255),
+    [TipoFiguraContraente] VARCHAR(255),
+    [TipoFiguraPresentatore] VARCHAR(255),
+    [TipoFiguraBeneficiario] VARCHAR(255),
+    [TipoFiguraAssicurato] VARCHAR(255),
+    [TipoFiguraPerContoDi] VARCHAR(255),
+    [SAE] VARCHAR(255),
+    [ATECO] VARCHAR(255),
+    [TelNumero1] VARCHAR(20),
+    [TelNota1] VARCHAR(50),
+    [TelNumero2] VARCHAR(20),
+    [TelNota2] VARCHAR(50),
+    [TelNumero3] VARCHAR(20),
+    [TelNota3] VARCHAR(50),
+    [TelNumero4] VARCHAR(20),
+    [TelNota4] VARCHAR(50),
+    [EmailIndirizzo1] VARCHAR(255),
+    [EmailNota1] VARCHAR(50),
+    [EmailIndirizzo2] VARCHAR(255),
+    [EmailNota2] VARCHAR(50),
+    [AltroIndirizzo] VARCHAR(50),
+    [AltroLocalita] VARCHAR(50),
+    [AltroCap] CHAR(5),
+    [AltroProvincia] CHAR(3),
+    [Note] TEXT,
+    [destinatarioqualifica] VARCHAR(50),
+    [destinatarionominativo] VARCHAR(50),
+    [destinatariopresso] VARCHAR(50),
+    [destinatarioindirizzo] VARCHAR(50),
+    [destinatariocap] CHAR(5),
+    [destinatariolocalita] VARCHAR(50),
+    [destinatarioprovincia] CHAR(3)
+    );
+
+
+**Creazione tabella [Ana_SoggettoPagamento];
+
+IF OBJECT_ID('dbo.[Ana_SoggettoPagamento]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SoggettoPagamento];
+
+CREATE TABLE dbo.[Ana_SoggettoPagamento]
+    (
+    [CodPagamento] CHAR(1),
+    [DesPagamento] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_SoggettoProfiloRischio];
+
+IF OBJECT_ID('dbo.[Ana_SoggettoProfiloRischio]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SoggettoProfiloRischio];
+
+CREATE TABLE dbo.[Ana_SoggettoProfiloRischio]
+    (
+    [CodProfiloRischio] CHAR(1),
+    [DesProfiloRischio] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_SoggettoStatoCivile];
+
+IF OBJECT_ID('dbo.[Ana_SoggettoStatoCivile]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SoggettoStatoCivile];
+
+CREATE TABLE dbo.[Ana_SoggettoStatoCivile]
+    (
+    [CodStatoCivile] CHAR(1),
+    [DesStatoCivile] VARCHAR(25)
+    );
+
+
+**Creazione tabella [Ana_SpesaPiano];
+
+IF OBJECT_ID('dbo.[Ana_SpesaPiano]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SpesaPiano];
+
+CREATE TABLE dbo.[Ana_SpesaPiano]
+    (
+    [CodiceFiscale] CHAR(16),
+    [IdSpesa] INT,
+    [SpesaImporto] MONEY
+    );
+
+
+**Creazione tabella [Ana_SpesaTipo];
+
+IF OBJECT_ID('dbo.[Ana_SpesaTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SpesaTipo];
+
+CREATE TABLE dbo.[Ana_SpesaTipo]
+    (
+    [IdSpesa] INT,
+    [Frequenza] CHAR(1),
+    [Descrizione] VARCHAR(255),
+    [Dettaglio] VARCHAR(255) NOT NULL
+    );
+
+
+**Creazione tabella [Unidocs_Documento];
+
+IF OBJECT_ID('dbo.[Unidocs_Documento]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Documento];
+
+CREATE TABLE dbo.[Unidocs_Documento]
+    (
+    [IdEvidenza] INT,
+    [CodTipoDocumento] CHAR(2),
+    [DataScadenza] DATE,
+    [DataRichiesta] DATE,
+    [DataRicevuta] DATE
+    );
+
+
+**Creazione tabella [Unidocs_Evidenza];
+
+IF OBJECT_ID('dbo.[Unidocs_Evidenza]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Evidenza];
+
+CREATE TABLE dbo.[Unidocs_Evidenza]
+    (
+    [IdEvidenza] INT,
+    [CodCompagnia] SMALLINT,
+    [CodPuntoVendita] INT,
+    [DesEvidenza] VARCHAR(255),
+    [IdOggetto] VARCHAR(50),
+    [DesNote] TEXT,
+    [CodGravita] TINYINT,
+    [CodTipoEvidenza] TINYINT,
+    [CodTipoOggetto] TINYINT,
+    [DataApertura] DATE,
+    [DataChiusura] DATE,
+    [CodiceFiscale] CHAR(16),
+    [CodiceSubAgente] INT,
+    [DataRiferimento] DATE
+    );
+
+
+**Creazione tabella [Unidocs_Promemoria];
+
+IF OBJECT_ID('dbo.[Unidocs_Promemoria]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Promemoria];
+
+CREATE TABLE dbo.[Unidocs_Promemoria]
+    (
+    [IdPromemoria] INT,
+    [IdEvidenza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [FlagDaInviare] BIT NOT NULL,
+    [Data1InvioPrevisto] DATE,
+    [Data2InvioPrevisto] DATE,
+    [Data1InvioEffettivo] DATE,
+    [Data2InvioEffettivo] DATE,
+    [FlagInvioEmail] BIT NOT NULL,
+    [IndirizzoEmail] VARCHAR(50),
+    [FlagInvioSms] BIT NOT NULL,
+    [NumeroSms] VARCHAR(15),
+    [IdModello] SMALLINT,
+    [TipoDestinatario] TINYINT,
+    [Messaggio] TEXT,
+    [Note] TEXT,
+	[FlagInvioPosta] BIT NOT NULL,
+	[Flags] INT,
+    );
+
+
+**Creazione tabella [AndamentoSinistri];
+
+IF OBJECT_ID('dbo.[AndamentoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[AndamentoSinistri];
+
+CREATE TABLE dbo.[AndamentoSinistri]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [AgenziaSinistro] SMALLINT,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [DataUltPagam] DATE,
+    [NrPosizioni] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [RiservaBilancio] FLOAT,
+    [StatoTecnico] CHAR(2),
+    [StatoBilancistico] CHAR(2)
+    );
+
+
+**Creazione tabella [BudgetAnnuo];
+
+IF OBJECT_ID('dbo.[BudgetAnnuo]', 'U') IS NOT NULL DROP TABLE dbo.[BudgetAnnuo];
+
+CREATE TABLE dbo.[BudgetAnnuo]
+    (
+    [CodiceFigura] INT,
+    [Anno] SMALLINT,
+    [RamoGestione] SMALLINT,
+    [Importo] FLOAT
+    );
+
+
+**Creazione tabella [Codici];
+
+IF OBJECT_ID('dbo.[Codici]', 'U') IS NOT NULL DROP TABLE dbo.[Codici];
+
+CREATE TABLE dbo.[Codici]
+    (
+    [Tipo] VARCHAR(12),
+    [Codice] SMALLINT,
+    [Descrizione] VARCHAR(20)
+    );
+
+
+**Creazione tabella [FigureProduttive];
+
+IF OBJECT_ID('dbo.[FigureProduttive]', 'U') IS NOT NULL DROP TABLE dbo.[FigureProduttive];
+
+CREATE TABLE dbo.[FigureProduttive]
+    (
+    [IDFiguraProduttiva] INT,
+    [FiguraProduttiva] VARCHAR(40),
+    [DataAttivazione] DATE,
+    [DataDisattivazione] DATE,
+    [Attiva] CHAR(1),
+    );
+
+
+**Creazione tabella [RgToComparto];
+
+IF OBJECT_ID('dbo.[RgToComparto]', 'U') IS NOT NULL DROP TABLE dbo.[RgToComparto];
+
+CREATE TABLE dbo.[RgToComparto]
+    (
+    [RamoGestione] SMALLINT,
+    [Comparto] SMALLINT,
+    [Settore] SMALLINT,
+    [Aggregato] SMALLINT
+    );
+
+
+**Creazione tabella [Assegni];
+
+IF OBJECT_ID('dbo.[Assegni]', 'U') IS NOT NULL DROP TABLE dbo.[Assegni];
+
+CREATE TABLE dbo.[Assegni]
+    (
+    [Contraente] VARCHAR(40),
+    [Ramo] INT,
+    [Polizza] INT,
+    [DataEffettoTitolo] DATE,
+    [DataFoglioCassa] DATE,
+    [IdAssegno] VARCHAR(22),
+    [ImportoIncassato] FLOAT,
+    [ImportoAssegno] FLOAT,
+    [Annotazioni] VARCHAR(100)
+    );
+
+
+**Creazione tabella [Buste];
+
+IF OBJECT_ID('dbo.[Buste]', 'U') IS NOT NULL DROP TABLE dbo.[Buste];
+
+CREATE TABLE dbo.[Buste]
+    (
+    [Inviato] BIT NOT NULL,
+    [DataBusta] DATE,
+    [TipoBusta] VARCHAR(10),
+    [Tipo] CHAR(1),
+    [Agenzia] CHAR(5) NOT NULL,
+    [Ramo] INT NOT NULL,
+    [Polizza] INT NOT NULL,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(40),
+    [Appendice] INT NOT NULL,
+    [EffettoAppendice] DATE NOT NULL,
+    [EffettoTitolo] DATE NOT NULL,
+    [TipoCarico] CHAR(1) NOT NULL,
+    [DataFoglioCassa] DATE NOT NULL,
+    [Esito] CHAR(2),
+    [TotaleTitolo] REAL,
+    [Prodotto] CHAR(5),
+    [SubAgenzia] INT,
+    [Stampato] CHAR(1),
+    [Targa] VARCHAR(9),
+    [Archivio] INT,
+    [RamoGestione] INT,
+    [Nota] VARCHAR(255)
+    );
+
+
+**Creazione tabella [ChiusuraCassa];
+
+IF OBJECT_ID('dbo.[ChiusuraCassa]', 'U') IS NOT NULL DROP TABLE dbo.[ChiusuraCassa];
+
+CREATE TABLE dbo.[ChiusuraCassa]
+    (
+    [Protocollo] INT NOT NULL,
+    [Id] VARCHAR(6),
+    [TipoRecord] SMALLINT,
+    [Tipo] CHAR(1),
+    [PuntoVendita] INT,
+    [Sezione] CHAR(2),
+    [Segno] CHAR(1),
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [EffettoPolizza] DATE,
+    [EffettoTitolo] DATE,
+    [TipoCarico] CHAR(1),
+    [Esito] CHAR(2),
+    [TipoPagamento] CHAR(2),
+    [DataEsito] DATE,
+    [CodiceCassa] CHAR(4),
+    [Contraente] VARCHAR(40),
+    [TotaleTitolo] FLOAT,
+    [SubAgenzia] SMALLINT,
+    [TipoMovimento] VARCHAR(20),
+    [Rientro] CHAR(1),
+    [Spunta] CHAR(1),
+    [ImportoIncassato] FLOAT,
+    [DecadeDoc] DATE
+    );
+
+
+**Creazione tabella [ContiCorrenti];
+
+IF OBJECT_ID('dbo.[ContiCorrenti]', 'U') IS NOT NULL DROP TABLE dbo.[ContiCorrenti];
+
+CREATE TABLE dbo.[ContiCorrenti]
+    (
+    [Conto] VARCHAR(20),
+    [Banca] VARCHAR(50)
+    );
+
+
+**Creazione tabella [Legami];
+
+IF OBJECT_ID('dbo.[Legami]', 'U') IS NOT NULL DROP TABLE dbo.[Legami];
+
+CREATE TABLE dbo.[Legami]
+    (
+    [CodicePrincipale] SMALLINT,
+    [CodiceLegato] INT
+    );
+
+
+**Creazione tabella [Pagamento];
+
+IF OBJECT_ID('dbo.[Pagamento]', 'U') IS NOT NULL DROP TABLE dbo.[Pagamento];
+
+CREATE TABLE dbo.[Pagamento]
+    (
+    [TipoPagamento] CHAR(2),
+    [Desk] VARCHAR(40)
+    );
+
+
+**Creazione tabella [PuntiVendita];
+
+IF OBJECT_ID('dbo.[PuntiVendita]', 'U') IS NOT NULL DROP TABLE dbo.[PuntiVendita];
+
+CREATE TABLE dbo.[PuntiVendita]
+    (
+    [Codice] INT,
+    [Descrizione] VARCHAR(50),
+    [CodiceEssigReti] INT
+    );
+
+
+**Creazione tabella [Quadrature];
+
+IF OBJECT_ID('dbo.[Quadrature]', 'U') IS NOT NULL DROP TABLE dbo.[Quadrature];
+
+CREATE TABLE dbo.[Quadrature]
+    (
+    [Data] DATE,
+    [PuntoVendita] SMALLINT,
+    [CodiceCassa] CHAR(4),
+    [B500] SMALLINT,
+    [B200] SMALLINT,
+    [B100] SMALLINT,
+    [B50] SMALLINT,
+    [B20] SMALLINT,
+    [B10] SMALLINT,
+    [B5] SMALLINT,
+    [Moneta] FLOAT,
+    [NumeroAssegni] SMALLINT,
+    [TotaleAssegni] FLOAT
+    );
+
+
+**Creazione tabella [Sezioni];
+
+IF OBJECT_ID('dbo.[Sezioni]', 'U') IS NOT NULL DROP TABLE dbo.[Sezioni];
+
+CREATE TABLE dbo.[Sezioni]
+    (
+    [Ordine] SMALLINT,
+    [Codice] CHAR(2),
+    [Sezione] VARCHAR(10)
+    );
+
+
+**Creazione tabella [Clienti];
+
+IF OBJECT_ID('dbo.[Clienti]', 'U') IS NOT NULL DROP TABLE dbo.[Clienti];
+
+CREATE TABLE dbo.[Clienti]
+    (
+    [CodiceFiscale] CHAR(16),
+    [Cognome] VARCHAR(40),
+    [Nome] VARCHAR(25),
+    [DataNascita] DATE,
+    [Indirizzo] VARCHAR(60),
+    [Cap] CHAR(5),
+    [Localita] VARCHAR(40),
+    [ComuneCAB] INT,
+    [StatoCAB] SMALLINT,
+    [Provincia] CHAR(2),
+    [Telefono1] VARCHAR(14),
+    [Telefono2] VARCHAR(14),
+    [Sesso] CHAR(1),
+    [Capofamiglia] CHAR(1),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [ClienteTop] CHAR(1),
+    [DataTop] DATE,
+    [Produttore] SMALLINT,
+    [StatoCivile] CHAR(2),
+    [NucleoFamiliare] SMALLINT,
+    [PrimaCasa] CHAR(1),
+    [AltriImmobili] CHAR(1),
+    [TitoliStato] CHAR(1),
+    [FasciaReddito] CHAR(1),
+    [Sindacati] CHAR(1),
+    [PolizzeAltreComp] CHAR(1),
+    [CartaCredito] CHAR(1),
+    [EsclusioneAttivita] CHAR(1),
+    [Ente] CHAR(1),
+    [TipoCliente] INT,
+    [IDSegmentoCorrente] SMALLINT,
+    [IDSegmentoPrecedente] SMALLINT,
+    [IDStatoCliente] CHAR(2),
+    [IDZona] SMALLINT,
+    [DataInserimento] DATE,
+    [DataCessazione] DATE,
+    [AgenziaPrevalente] INT,
+    [SubAgenzia] INT,
+    [SubAgenziaSIMA] INT,
+    [DataUltimaVisita] DATE,
+    [DataProssimaVisita] DATE,
+    [PolizzeVigore] SMALLINT,
+    [PolizzeStoriche] SMALLINT,
+    [PremiCorrente] FLOAT,
+    [SinistriCorrente] SMALLINT,
+    [LiquidatoCorrente] FLOAT,
+    [PremiPrecedente] FLOAT,
+    [SinistriPrecedente] SMALLINT,
+    [LiquidatoPrecedente] FLOAT,
+    [PremiTotale] FLOAT,
+    [SinistriTotale] SMALLINT,
+    [LiquidatoTotale] FLOAT,
+    [ConsensoPrivacy] CHAR(2),
+    [RilascioPatente] VARCHAR(6),
+    [Email] VARCHAR(50),
+    [Fax] VARCHAR(14),
+    [Cellulare] VARCHAR(14),
+    [TelReferente] VARCHAR(14),
+    [NomeReferente] VARCHAR(40),
+    [TelAziendale] VARCHAR(14),
+    [CodAvvisoScadenza] CHAR(1),
+    [AnnoMeseInizioEsclTemp] VARCHAR(6),
+    [AnnoMeseFineEsclTemp] VARCHAR(6),
+    [CodModalitaIncasso] CHAR(1),
+    [Flag1] SMALLINT,
+    [Flag2] SMALLINT,
+    [Flag3] SMALLINT,
+    [RisTelefono] VARCHAR(14),
+    [RisTelefonoNota] VARCHAR(50),
+    [RisCellulare] VARCHAR(14),
+    [RisCellulareNota] VARCHAR(50),
+    [RisMail] VARCHAR(50),
+    [RisMailNota] VARCHAR(50)
+    );
+
+
+**Creazione tabella [Marcatori];
+
+IF OBJECT_ID('dbo.[Marcatori]', 'U') IS NOT NULL DROP TABLE dbo.[Marcatori];
+
+CREATE TABLE dbo.[Marcatori]
+    (
+    [Codice] SMALLINT,
+    [Descrizione] VARCHAR(50)
+    );
+
+
+**Creazione tabella [Rubrica];
+
+IF OBJECT_ID('dbo.[Rubrica]', 'U') IS NOT NULL DROP TABLE dbo.[Rubrica];
+
+CREATE TABLE dbo.[Rubrica]
+    (
+    [Email] VARCHAR(80)
+    );
+
+
+**Creazione tabella [Unidocs_Documento];
+
+IF OBJECT_ID('dbo.[Unidocs_Documento]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Documento];
+
+CREATE TABLE dbo.[Unidocs_Documento]
+    (
+    [IdEvidenza] INT,
+    [CodTipoDocumento] CHAR(2),
+    [DataScadenza] DATE,
+    [DataRichiesta] DATE,
+    [DataRicevuta] DATE
+    );
+
+
+**Creazione tabella [Unidocs_Evidenza];
+
+IF OBJECT_ID('dbo.[Unidocs_Evidenza]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Evidenza];
+
+CREATE TABLE dbo.[Unidocs_Evidenza]
+    (
+    [IdEvidenza] INT,
+    [CodCompagnia] SMALLINT,
+    [CodPuntoVendita] INT,
+    [DesEvidenza] VARCHAR(255),
+    [IdOggetto] VARCHAR(50),
+    [DesNote] TEXT,
+    [CodGravita] TINYINT,
+    [CodTipoEvidenza] TINYINT,
+    [CodTipoOggetto] TINYINT,
+    [DataApertura] DATE,
+    [DataChiusura] DATE,
+    [CodiceFiscale] CHAR(16),
+    [CodiceSubAgente] INT,
+    [DataRiferimento] DATE
+    );
+
+
+**Creazione tabella [Unidocs_Promemoria];
+
+IF OBJECT_ID('dbo.[Unidocs_Promemoria]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Promemoria];
+
+CREATE TABLE dbo.[Unidocs_Promemoria]
+    (
+    [IdPromemoria] INT,
+    [IdEvidenza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [FlagDaInviare] BIT NOT NULL,
+    [Data1InvioPrevisto] DATE,
+    [Data2InvioPrevisto] DATE,
+    [Data1InvioEffettivo] DATE,
+    [Data2InvioEffettivo] DATE,
+    [FlagInvioEmail] BIT NOT NULL,
+    [IndirizzoEmail] VARCHAR(50),
+    [FlagInvioSms] BIT NOT NULL,
+    [NumeroSms] VARCHAR(15),
+    [IdModello] SMALLINT,
+    [TipoDestinatario] TINYINT,
+    [Messaggio] TEXT,
+    [Note] TEXT,
+    [FlagInvioPosta] BIT NOT NULL
+    );
+
+
+**Creazione tabella [unidocs_tipodocumento];
+
+IF OBJECT_ID('dbo.[unidocs_tipodocumento]', 'U') IS NOT NULL DROP TABLE dbo.[unidocs_tipodocumento];
+
+CREATE TABLE dbo.[unidocs_tipodocumento]
+    (
+    [codtipodocumento] CHAR(2) NOT NULL,
+    [destipodocumento] VARCHAR(100) NOT NULL
+    );
+
+
+**Creazione tabella [Arretrati];
+
+IF OBJECT_ID('dbo.[Arretrati]', 'U') IS NOT NULL DROP TABLE dbo.[Arretrati];
+
+CREATE TABLE dbo.[Arretrati]
+    (
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [EffettoAppendice] DATE,
+    [NumeroAppendice] SMALLINT,
+    [EffettoTitolo] DATE,
+    [TipoCarico] CHAR(1),
+    [CodiceFiscale] CHAR(16),
+    [Cognome] VARCHAR(40),
+    [Nome] VARCHAR(25),
+    [Sesso] CHAR(1),
+    [Tassabile] FLOAT,
+    [TotaleTitolo] FLOAT,
+    [Prodotto] CHAR(5),
+    [Delegataria] CHAR(3),
+    [SubAgenzia] SMALLINT,
+    [Convenzione] INT,
+    [Targa] VARCHAR(20),
+    [Modello] VARCHAR(40),
+    [RamoGestione] SMALLINT,
+    [Comparto] SMALLINT,
+    [Incassabile] BIT NOT NULL,
+    [PrvAcq] FLOAT,
+    [PrvInc] FLOAT,
+    [PremioRc] FLOAT,
+    [PrIF] FLOAT,
+    [PrINF] FLOAT,
+    [PrKasko] FLOAT,
+    [PrAssistenza] FLOAT
+    );
+
+
+**Creazione tabella [Avvisi];
+
+IF OBJECT_ID('dbo.[Avvisi]', 'U') IS NOT NULL DROP TABLE dbo.[Avvisi];
+
+CREATE TABLE dbo.[Avvisi]
+    (
+    [Compagnia] TINYINT,
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [SubAgenzia] INT,
+    [Produttore] INT,
+    [ConvenzioneProvv] INT,
+    [Convenzione] INT,
+    [Appendice] SMALLINT,
+    [Frazionamento] TINYINT,
+    [Prodotto] INT,
+    [TipoCliente] INT,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(40),
+    [Indirizzo] VARCHAR(50),
+    [Cap] CHAR(5),
+    [Localita] VARCHAR(30),
+    [Provincia] CHAR(2),
+    [Sesso] CHAR(1),
+    [Delegataria] SMALLINT,
+    [Quota] REAL,
+    [FlagMigrazione] CHAR(1),
+    [TipoQT] CHAR(1),
+    [NumeroQT] INT,
+    [EffettoRata] DATE,
+    [FlagScadenzaAnnuale] CHAR(1),
+    [PremioRataNetto] FLOAT,
+    [Accessori] FLOAT,
+    [PremioRataLordo] FLOAT,
+    [ProvvAcquisto] FLOAT,
+    [ProvvIncasso] FLOAT,
+    [ProvvIncassoSub] FLOAT,
+    [ProvvAcquistoSub] FLOAT,
+    [TipoPolArd] CHAR(1),
+    [ScadenzaRata] DATE,
+    [TipoOrd] CHAR(1),
+    [Targa] VARCHAR(20),
+    [Marca] CHAR(3),
+    [Modello] VARCHAR(40),
+    [TipoPagamento] SMALLINT,
+    [StampaDirezione] CHAR(1),
+    [IdCriterioSel] SMALLINT,
+    [PrioritaCriterioSel] SMALLINT,
+    [IdModelloStampa] SMALLINT,
+    [FranchigiaFruttuosa] CHAR(1),
+    [CauzioneFranFru] FLOAT,
+    [UniboxAurobox] CHAR(1),
+    [CanoneBox] FLOAT,
+    [TipoComunicazione] SMALLINT,
+    [CodMsgDirezione] SMALLINT,
+    [CodMsgAgenzia] SMALLINT,
+    [MassimaleSinistroPreqt] REAL,
+    [MassimalePersonePreqt] REAL,
+    [MassimaleCoseAnimaliPreqt] REAL,
+    [MassimaleSinistroPostqt] REAL,
+    [MassimalePersonePostqt] REAL,
+    [MassimaleCoseAnimaliPostqt] REAL,
+    [RiformaMassimali] CHAR(2)
+    );
+
+
+**Creazione tabella [ControlloIncassi];
+
+IF OBJECT_ID('dbo.[ControlloIncassi]', 'U') IS NOT NULL DROP TABLE dbo.[ControlloIncassi];
+
+CREATE TABLE dbo.[ControlloIncassi]
+    (
+    [Agenzia] INT,
+    [DataFoglioCassa] DATE,
+    [NumeroRecord] INT,
+    [Tassabile] FLOAT,
+    [TotaleLordo] FLOAT,
+    [NumeroCorrezioni] INT,
+    [Ignora] BIT NOT NULL
+    );
+
+
+**Creazione tabella [Incassi];
+
+IF OBJECT_ID('dbo.[Incassi]', 'U') IS NOT NULL DROP TABLE dbo.[Incassi];
+
+CREATE TABLE dbo.[Incassi]
+    (
+    [Tipo] CHAR(1),
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [Ramo] INT,
+    [Polizza] INT,
+    [DataEffettoAppendice] DATE,
+    [NumeroAppendice] SMALLINT,
+    [DataEffettoTitolo] DATE,
+    [TipoCarico] CHAR(1),
+    [TipoMat] CHAR(1),
+    [Esito] CHAR(2),
+    [TipoPagamento] CHAR(2),
+    [DataFoglioCassa] DATE,
+    [EffettivoPagamento] DATE,
+    [CodiceCassa] CHAR(4),
+    [Contraente] VARCHAR(25),
+    [CodiceFiscInc] VARCHAR(16),
+    [Tassabile] FLOAT,
+    [TotaleTitolo] FLOAT,
+    [PrvAcq] FLOAT,
+    [PrvInc] FLOAT,
+    [Delegataria] CHAR(3),
+    [CodiceSubAgente] SMALLINT,
+    [Convenzione] CHAR(5),
+    [CodiceProduttore] SMALLINT,
+    [ConvProvv] INT,
+    [ScadenzaVincolo] DATE,
+    [CodiceProdotto] CHAR(5),
+    [Frazionamento] SMALLINT,
+    [IncrProduzione] FLOAT,
+    [DiCuiARD] FLOAT,
+    [DiCuiINF] FLOAT,
+    [TariffaVita] CHAR(5),
+    [RenditaPrevista] FLOAT,
+    [RamoGestione] SMALLINT,
+    [EffettoPolizza] DATE,
+    [ScadenzaPolizza] DATE,
+    [TipoMovimento] VARCHAR(255),
+    [AliqPrvAcq] FLOAT,
+    [AliqPrvInc] FLOAT,
+    [Tutela] FLOAT,
+    [Assistenza] FLOAT,
+    [PremioRC] FLOAT,
+    [PrvFisseRC] FLOAT,
+    [CavRCA] FLOAT,
+    [PrIF] FLOAT,
+    [PrvIF] FLOAT,
+    [PrINF] FLOAT,
+    [PrvINF] FLOAT,
+    [PrKasko] FLOAT,
+    [PrvKasko] FLOAT,
+    [PrAssistenza] FLOAT,
+    [PrvAssistenza] FLOAT,
+    [SSN] FLOAT,
+    [DataScadenzaTitolo] DATE,
+    [ImportoIncassato] FLOAT,
+    [ProdottoVita] VARCHAR(20),
+    [TipoUnibox] CHAR(1),
+    [Targa] VARCHAR(9),
+    [CanoneBox] FLOAT,
+    [Quota] FLOAT,
+    [DataRegolazione] VARCHAR(10),
+    [Cin] CHAR(1),
+    [Abi] INT,
+    [Cab] INT,
+    [ContoCorrente] VARCHAR(12),
+    [RataIntermedia] CHAR(1),
+    [PuntoVendita] INT
+    );
+
+
+**Creazione tabella [MonitorQT];
+
+IF OBJECT_ID('dbo.[MonitorQT]', 'U') IS NOT NULL DROP TABLE dbo.[MonitorQT];
+
+CREATE TABLE dbo.[MonitorQT]
+    (
+    [Agenzia] INT,
+    [Polizza] INT,
+    [Sub] SMALLINT,
+    [Produttore] SMALLINT,
+    [Effetto] DATE,
+    [TipoQT] CHAR(1),
+    [InAumento] CHAR(1),
+    [InMalus] CHAR(1),
+    [SinCONSAP] INT,
+    [SatRca] CHAR(1),
+    [SatCvt] CHAR(1),
+    [BonusFedelta] FLOAT,
+    [BonusAIRcOld] FLOAT,
+    [BonusAIRcNew] FLOAT,
+    [ScontoSinistriComfort] FLOAT,
+    [DiffRataLordo] FLOAT,
+    [UniboxOld] FLOAT,
+    [UniboxNew] FLOAT,
+    [TipoOcto] CHAR(4),
+    [TariffaKm] CHAR(1),
+    [KmPercorsi] INT,
+    [ScontoOctoRcOld] REAL,
+    [ScontoOctoRcNew] REAL,
+    [Scivolo] CHAR(1),
+    [RiparazioneFS] CHAR(1),
+    [Tagliacarta] CHAR(1),
+    [CambioFraz] CHAR(1),
+    [TotRataLordoOld] FLOAT,
+    [TotRataLordoNew] FLOAT,
+    [PercDiffTotRata] REAL,
+    [RcaLordoRataNew100] FLOAT,
+    [RcaLordoRataOld] FLOAT,
+    [RcaLordoRataNew] FLOAT,
+    [PercDiffRcaRata] REAL,
+    [ArdLordoRataOld] FLOAT,
+    [ArdLordoRataNew] FLOAT,
+    [PercDiffArdRata] REAL,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(40),
+    [ProprietarioCF] VARCHAR(16),
+    [Proprietario] VARCHAR(40),
+    [FrazOld] TINYINT,
+    [FrazNew] TINYINT,
+    [Targa] VARCHAR(20),
+    [TipoVeicolo] VARCHAR(20),
+    [Marca] CHAR(3),
+    [Alimentazione] CHAR(1),
+    [Kw] INT,
+    [HP] SMALLINT,
+    [CC] INT,
+    [Quintali] SMALLINT,
+    [QuintaliRim] SMALLINT,
+    [Posti] SMALLINT,
+    [PostiRim] SMALLINT,
+    [TSL] SMALLINT,
+    [EdTariffaOld] DATE,
+    [FormaTariffaOld] VARCHAR(25),
+    [FormulaTariffaOld] VARCHAR(25),
+    [OpzioneTariffaOld] VARCHAR(25),
+    [EdTariffaNew] DATE,
+    [FormaTariffaNew] VARCHAR(25),
+    [FormulaTariffaNew] VARCHAR(25),
+    [OpzioneTariffaNew] VARCHAR(25),
+    [Convenzione] INT,
+    [PercScontoConvenzione] REAL,
+    [FlexOld] REAL,
+    [PercScontoPlaf] REAL,
+    [MeritoOld] SMALLINT,
+    [PercorsoOld] CHAR(1),
+    [CuOld] SMALLINT,
+    [MeritoNew] SMALLINT,
+    [PercorsoNew] CHAR(1),
+    [CuNew] SMALLINT,
+    [Protezione] CHAR(1),
+    [MaxOld] SMALLINT,
+    [MaxNew] SMALLINT,
+    [SaturazioneMax] CHAR(1),
+    [FspOld] CHAR(1),
+    [FspNew] CHAR(1),
+    [TariffaArd] INT,
+    [ProdottoCvt] VARCHAR(7),
+    [CodiceAIOld] VARCHAR(7),
+    [CodiceAINew] VARCHAR(7),
+    [ValoreIF] FLOAT,
+    [AGOld] TINYINT,
+    [AGNew] TINYINT,
+    [INCNettoOld] FLOAT,
+    [INCNettoNew] FLOAT,
+    [INCPercFlex] REAL,
+    [INCPercAIOld] REAL,
+    [INCPercAINew] REAL,
+    [FURNettoOld] FLOAT,
+    [FURNettoNew] FLOAT,
+    [FURPercFlex] REAL,
+    [FURPercAIOld] REAL,
+    [FURPercAINew] REAL,
+    [ATMNettoOld] FLOAT,
+    [ATMNettoNew] FLOAT,
+    [ATMPercFlex] REAL,
+    [ATMPercAIOld] REAL,
+    [ATMPercAINew] REAL,
+    [ESPNettoOld] FLOAT,
+    [ESPNettoNew] FLOAT,
+    [ESPPercFlex] REAL,
+    [ESPPercAIOld] REAL,
+    [ESPPercAINew] REAL,
+    [KASNettoOld] FLOAT,
+    [KASNettoNew] FLOAT,
+    [KASPercFlex] REAL,
+    [KASPercAIOld] REAL,
+    [KASPercAINew] REAL,
+    [COLNettoOld] FLOAT,
+    [COLNettoNew] FLOAT,
+    [COLPercFlex] REAL,
+    [COLPercAIOld] REAL,
+    [COLPercAINew] REAL,
+    [GANettoOld] FLOAT,
+    [GANettoNew] FLOAT,
+    [GAPercFlex] REAL,
+    [GAPercAIOld] REAL,
+    [GAPercAINew] REAL,
+    [GASaturazione] CHAR(1),
+    [CRINettoOld] FLOAT,
+    [CRINettoNew] FLOAT,
+    [CRIPercFlex] REAL,
+    [CRIPercAIOld] REAL,
+    [CRIPercAINew] REAL,
+    [TUTNettoOld] FLOAT,
+    [TUTNettoNew] FLOAT,
+    [TUTPercFlex] REAL,
+    [TUTPercAIOld] REAL,
+    [TUTPercAINew] REAL,
+    [TUTSaturazione] CHAR(1),
+    [ASSNettoOld] FLOAT,
+    [ASSNettoNew] FLOAT,
+    [ASSPercFlex] REAL,
+    [ASSPercAIOld] REAL,
+    [ASSPercAINew] REAL,
+    [ASSSaturazione] CHAR(1),
+    [RIMBOXNettoOld] FLOAT,
+    [RIMBOXNettoNew] FLOAT,
+    [RIMBOXPercFlex] REAL,
+    [UNISALNettoOld] FLOAT,
+    [UNISALNettoNew] FLOAT,
+    [UNISALPercFlex] REAL,
+    [UNISALPercAIOld] REAL,
+    [UNISALPercAINew] REAL,
+    [UNISALSaturazione] CHAR(1),
+    [ADINettoOld] FLOAT,
+    [ADINettoNew] FLOAT,
+    [INFNettoOld] FLOAT,
+    [INFNettoNew] FLOAT,
+    [INFPercFlex] REAL,
+    [INFPercAIOld] REAL,
+    [INFPercAINew] REAL,
+    [INFSaturazione] CHAR(1),
+    [RPNettoOld] FLOAT,
+    [RPNettoNew] FLOAT,
+    [RPPercFlex] REAL,
+    [RPPercAIOld] REAL,
+    [RPPercAINew] REAL,
+    [SAPNettoOld] FLOAT,
+    [SAPNettoNew] FLOAT,
+    [SAPPercFlex] REAL,
+    [SAPPercAIOld] REAL,
+    [SAPPercAINew] REAL,
+    [Flex] BIT NOT NULL,
+    [Disdetta] BIT NOT NULL,
+    [RcaLordoForzata] FLOAT,
+    [ImportoFlexRca] FLOAT,
+    [PercFlexRca] REAL,
+    [IFLordoForzata] FLOAT,
+    [ImportoFlexIF] FLOAT,
+    [PercFlexIF] REAL,
+    [KaskoLordoForzata] FLOAT,
+    [ImportoFlexKasko] FLOAT,
+    [PercFlexKasko] FLOAT,
+    [Annotazioni] TEXT,
+    [Fatto] BIT NOT NULL,
+    [Sostituita] BIT NOT NULL,
+    [Variata] BIT NOT NULL,
+    [AliquotaRca] FLOAT
+    );
+
+
+**Creazione tabella [Registro];
+
+IF OBJECT_ID('dbo.[Registro]', 'U') IS NOT NULL DROP TABLE dbo.[Registro];
+
+CREATE TABLE dbo.[Registro]
+    (
+    [Errore] BIT NOT NULL,
+    [Importazione] DATE,
+    [Agenzia] INT,
+    [Giorno] DATE,
+    [Descrizione] VARCHAR(100),
+    [TotaleEssig] FLOAT,
+    [TotaleDownload] FLOAT,
+    [Differenza] FLOAT,
+    [Tipo] VARCHAR(10)
+    );
+
+
+**Creazione tabella [CalendarioDoc];
+
+IF OBJECT_ID('dbo.[CalendarioDoc]', 'U') IS NOT NULL DROP TABLE dbo.[CalendarioDoc];
+
+CREATE TABLE dbo.[CalendarioDoc]
+    (
+    [Agenzia] CHAR(5),
+    [TipoFile] SMALLINT,
+    [Codice] SMALLINT,
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [NomeFile] VARCHAR(50),
+    [DataRicezione] DATE
+    );
+
+
+**Creazione tabella [CalendarioOmnia];
+
+IF OBJECT_ID('dbo.[CalendarioOmnia]', 'U') IS NOT NULL DROP TABLE dbo.[CalendarioOmnia];
+
+CREATE TABLE dbo.[CalendarioOmnia]
+    (
+    [TipoFile] CHAR(2),
+    [UltimoAggiornamento] DATE,
+    [Consolida] DATE
+    );
+
+
+**Creazione tabella [CalendarioUt];
+
+IF OBJECT_ID('dbo.[CalendarioUt]', 'U') IS NOT NULL DROP TABLE dbo.[CalendarioUt];
+
+CREATE TABLE dbo.[CalendarioUt]
+    (
+    [Agenzia] CHAR(5),
+    [TipoFile] CHAR(2),
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [NomeFile] VARCHAR(50),
+    [DataRicezione] DATE,
+    [Consolida] DATE
+    );
+
+
+**Creazione tabella [Cip];
+
+IF OBJECT_ID('dbo.[Cip]', 'U') IS NOT NULL DROP TABLE dbo.[Cip];
+
+CREATE TABLE dbo.[Cip]
+    (
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [Cip] INT,
+    [DeskCip] VARCHAR(40),
+    [CognomeComponente] VARCHAR(40),
+    [NomeComponente] VARCHAR(20),
+    [PuntoVendita] INT,
+    [RegimeFiscale] INT,
+    [DeskRegimeFiscale] VARCHAR(20),
+    [EstrattoConto] CHAR(1),
+    [Flessibilita] CHAR(1),
+    [DerogaAgenzia] CHAR(1),
+    [DerogaPolizza] CHAR(1),
+    [CognomeSoggetto] VARCHAR(40),
+    [NomeSoggetto] VARCHAR(20),
+    [CfComponente] VARCHAR(16),
+    [CfSoggetto] VARCHAR(16),
+    [Ruolo] CHAR(5),
+    [DeskRuolo] VARCHAR(22),
+    [PD00] CHAR(1),
+    [EnteGestore] VARCHAR(16),
+    [AgenziaMadre] INT,
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [CaricoProvv] CHAR(1),
+    [TipoCip] VARCHAR(12),
+    [TipoSede] VARCHAR(20),
+    [NumeroRegistro] VARCHAR(10),
+    [DataRegistro] DATE,
+    [Flex] CHAR(1),
+    [FlexInizio] DATE,
+    [FlexFine] DATE
+    );
+
+
+**Creazione tabella [ContattiCip];
+
+IF OBJECT_ID('dbo.[ContattiCip]', 'U') IS NOT NULL DROP TABLE dbo.[ContattiCip];
+
+CREATE TABLE dbo.[ContattiCip]
+    (
+    [Cip] INT NOT NULL,
+    [Email] VARCHAR(50),
+    [Cellulare] VARCHAR(15)
+    );
+
+
+**Creazione tabella [GruppiCip];
+
+IF OBJECT_ID('dbo.[GruppiCip]', 'U') IS NOT NULL DROP TABLE dbo.[GruppiCip];
+
+CREATE TABLE dbo.[GruppiCip]
+    (
+    [Gruppo] INT,
+    [Descrizione] VARCHAR(20),
+    [Cip] INT
+    );
+
+
+**Creazione tabella [InfoDatabase];
+
+IF OBJECT_ID('dbo.[InfoDatabase]', 'U') IS NOT NULL DROP TABLE dbo.[InfoDatabase];
+
+CREATE TABLE dbo.[InfoDatabase]
+    (
+    [Proprieta] VARCHAR(100),
+    [Valore] VARCHAR(100)
+    );
+
+
+**Creazione tabella [Punti_Vendita];
+
+IF OBJECT_ID('dbo.[Punti_Vendita]', 'U') IS NOT NULL DROP TABLE dbo.[Punti_Vendita];
+
+CREATE TABLE dbo.[Punti_Vendita]
+    (
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [PuntoVenditaAgenzia] INT,
+    [PuntoVenditaLivello2] INT,
+    [PuntoVenditaLivello3] INT,
+    [DeskPuntoVendita] VARCHAR(40),
+    [TipoPuntoVendita] VARCHAR(20),
+    [Indirizzo] VARCHAR(40),
+    [CAP] CHAR(5),
+    [Localita] VARCHAR(30),
+    [Provincia] CHAR(5),
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [Meccanizzazione] VARCHAR(20),
+    [Telefono1] VARCHAR(15),
+    [Telefono2] VARCHAR(15),
+    [Telefono3] VARCHAR(15),
+    [Fax] VARCHAR(15)
+    );
+
+
+**Creazione tabella [RegistroAttivita];
+
+IF OBJECT_ID('dbo.[RegistroAttivita]', 'U') IS NOT NULL DROP TABLE dbo.[RegistroAttivita];
+
+CREATE TABLE dbo.[RegistroAttivita]
+    (
+    [Data] DATE,
+    [TipoAttivita] INT,
+    [Utente] VARCHAR(15),
+    [Protocollo] VARCHAR(20)
+    );
+
+
+**Creazione tabella [Soggetti];
+
+IF OBJECT_ID('dbo.[Soggetti]', 'U') IS NOT NULL DROP TABLE dbo.[Soggetti];
+
+CREATE TABLE dbo.[Soggetti]
+    (
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [EnteGestore] VARCHAR(16),
+    [CfSoggetto] VARCHAR(16),
+    [CognomeSoggetto] VARCHAR(40),
+    [NomeSoggetto] VARCHAR(20),
+    [CfComponente] VARCHAR(16),
+    [CognomeComponente] VARCHAR(40),
+    [NomeComponente] VARCHAR(20),
+    [Sesso] CHAR(1),
+    [RuoloEssig] CHAR(5),
+    [DeskRuoloEssig] VARCHAR(100),
+    [DataInizioRuolo] DATE,
+    [IncaricoEssig] CHAR(1),
+    [DeskIncaricoEssig] VARCHAR(20),
+    [CodiceIsvap] INT,
+    [DeskCodiceIsvap] VARCHAR(100),
+    [RamoRca] CHAR(1),
+    [RamoPersone] CHAR(1),
+    [RamoAziende] CHAR(1),
+    [RamoVita] CHAR(1),
+    [ProdottiBancari] CHAR(1),
+    [InizioMandato] DATE,
+    [FineMandato] DATE,
+    [CausaleFineMandato] VARCHAR(20),
+    [EstrattoConto] CHAR(1),
+    [DerogaAgenzia] CHAR(1),
+    [FormaSoc] INT,
+    [DeskFormaSoc] VARCHAR(20),
+    [NumeroRegistro] VARCHAR(10),
+    [DataRegistro] DATE,
+    [OreFormazione] INT,
+    [Plurimandatario] CHAR(1),
+    [RegimeFiscale] INT,
+    [DeskRegimeFiscale] VARCHAR(20),
+    [Telefono1] VARCHAR(15),
+    [Telefono2] VARCHAR(15),
+    [Promotore] CHAR(1),
+    [GruppoUnipol] CHAR(1),
+    [PresenzaPD] CHAR(1),
+    [RuoloPD] CHAR(5),
+    [TipoOrario] CHAR(2),
+    [Email] VARCHAR(50),
+    [PrimoReferente] VARCHAR(30),
+    [NumeroIscrizione] VARCHAR(10),
+    [Incarico] VARCHAR(20),
+    [Contatti] VARCHAR(40)
+    );
+
+
+**Creazione tabella [TipoAttivita];
+
+IF OBJECT_ID('dbo.[TipoAttivita]', 'U') IS NOT NULL DROP TABLE dbo.[TipoAttivita];
+
+CREATE TABLE dbo.[TipoAttivita]
+    (
+    [codtipoattivita] SMALLINT,
+    [destipoattivita] VARCHAR(50)
+    );
+
+
+**Creazione tabella [Utenze];
+
+IF OBJECT_ID('dbo.[Utenze]', 'U') IS NOT NULL DROP TABLE dbo.[Utenze];
+
+CREATE TABLE dbo.[Utenze]
+    (
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [CfComponente] VARCHAR(16),
+    [NomeComponente] VARCHAR(60),
+    [Utenza] VARCHAR(8),
+    [StatoUtenza] VARCHAR(15),
+    [Profilo] CHAR(1),
+    [Ruolo] CHAR(5),
+    [NomeSoggetto] VARCHAR(60)
+    );
+
+
+**Creazione tabella [AttivitaQT];
+
+IF OBJECT_ID('dbo.[AttivitaQT]', 'U') IS NOT NULL DROP TABLE dbo.[AttivitaQT];
+
+CREATE TABLE dbo.[AttivitaQT]
+    (
+    [Aggiornato] DATE,
+    [Attivita] SMALLINT,
+    [Chiusura] DATE,
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [Sub] SMALLINT,
+    [Convenzione] INT,
+    [Fraz] SMALLINT,
+    [CodiceFiscale] CHAR(255),
+    [Contraente] VARCHAR(255),
+    [DataEffettoTitolo] DATE,
+    [DataScadenzaTitolo] DATE,
+    [ScadenzaVincolo] DATE,
+    [DataSospensione] DATE,
+    [DataImma] VARCHAR(255),
+    [Clausole] VARCHAR(255),
+    [Veicolo] SMALLINT,
+    [TipoVeicolo] VARCHAR(255),
+    [Targa] VARCHAR(255),
+    [Marca] VARCHAR(255),
+    [Modello] VARCHAR(255),
+    [Infocar] VARCHAR(255),
+    [Descrizione] VARCHAR(255),
+    [Messaggio] VARCHAR(255),
+    [Premio] FLOAT,
+    [Quota] SMALLINT,
+    [Delagataria] INT,
+    [Coass1] INT,
+    [Quota1] INT,
+    [PremioCoass1] FLOAT,
+    [Coass2] INT,
+    [Quota2] INT,
+    [PremioCoass2] FLOAT,
+    [Coass3] INT,
+    [Quota3] INT,
+    [PremioCoass3] FLOAT,
+    [Prodotto] VARCHAR(255),
+    [EsercizioSinistro] INT,
+    [AgenziaSinistro] INT,
+    [NumeroSinistro] INT,
+    [Franchigia] FLOAT
+    );
+
+
+**Creazione tabella [BudgetFlex];
+
+IF OBJECT_ID('dbo.[BudgetFlex]', 'U') IS NOT NULL DROP TABLE dbo.[BudgetFlex];
+
+CREATE TABLE dbo.[BudgetFlex]
+    (
+    [Anno] INT,
+    [Codice] INT,
+    [ScontoMedio] REAL,
+    [ScontoMassimo] REAL
+    );
+
+
+**Creazione tabella [CodiciAttivita];
+
+IF OBJECT_ID('dbo.[CodiciAttivita]', 'U') IS NOT NULL DROP TABLE dbo.[CodiciAttivita];
+
+CREATE TABLE dbo.[CodiciAttivita]
+    (
+    [CodiceAttivita] SMALLINT,
+    [Desk] VARCHAR(20)
+    );
+
+
+**Creazione tabella [ElencoFlex];
+
+IF OBJECT_ID('dbo.[ElencoFlex]', 'U') IS NOT NULL DROP TABLE dbo.[ElencoFlex];
+
+CREATE TABLE dbo.[ElencoFlex]
+    (
+    [Aggiornato] DATE,
+    [Agenzia] INT,
+    [Ramo] INT,
+    [Polizza] INT,
+    [Contraente] VARCHAR(255),
+    [Sub] INT,
+    [Prodotto] VARCHAR(255),
+    [PremioAnnuo] FLOAT,
+    [PremioCed] FLOAT,
+    [Delta] FLOAT,
+    [DataEmissione] DATE,
+    [Quota] INT,
+    [Movimento] VARCHAR(255),
+    [Riforma] BIT NOT NULL
+    );
+
+
+**Creazione tabella [FlexRE];
+
+IF OBJECT_ID('dbo.[FlexRE]', 'U') IS NOT NULL DROP TABLE dbo.[FlexRE];
+
+CREATE TABLE dbo.[FlexRE]
+    (
+    [Codice] INT,
+    [TipoFlex] CHAR(2),
+    [Desk] VARCHAR(100)
+    );
+
+
+**Creazione tabella [Prodotto2Flex];
+
+IF OBJECT_ID('dbo.[Prodotto2Flex]', 'U') IS NOT NULL DROP TABLE dbo.[Prodotto2Flex];
+
+CREATE TABLE dbo.[Prodotto2Flex]
+    (
+    [Prodotto] FLOAT,
+    [TipoFlex] CHAR(2),
+    [CodiceSettoreFlex] INT
+    );
+
+
+**Creazione tabella [SinistriMemo];
+
+IF OBJECT_ID('dbo.[SinistriMemo]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriMemo];
+
+CREATE TABLE dbo.[SinistriMemo]
+    (
+    [Utente] VARCHAR(14),
+    [DataModifica] DATE,
+    [Memo] TEXT,
+    [Allarme] DATE,
+    [Tipo] CHAR(1),
+    [Id] INT NOT NULL,
+    [IdNota] VARCHAR(20),
+    [CodiceFiscale] CHAR(16),
+    [DataCommit] DATE
+    );
+
+
+**Creazione tabella [BDA];
+
+IF OBJECT_ID('dbo.[BDA]', 'U') IS NOT NULL DROP TABLE dbo.[BDA];
+
+CREATE TABLE dbo.[BDA]
+    (
+    [BloccoTarga] BIT NOT NULL,
+    [Aggiornato] DATE,
+    [ProvenienzaTarga] CHAR(2),
+    [CodiceFiscaleStorno] CHAR(16),
+    [Targa] VARCHAR(20) NOT NULL,
+    [ClasseRca] CHAR(3),
+    [CartaCircolazione] DATE,
+    [MotivoEmissioneCarta] VARCHAR(40),
+    [Immatricolazione] DATE,
+    [Modello] VARCHAR(40),
+    [Cilindrata] REAL,
+    [HP] REAL,
+    [KW] REAL,
+    [Alimentazione] CHAR(5),
+    [CodiceCompagnia] INT,
+    [CodiceFiscale] CHAR(16),
+    [Effetto] DATE,
+    [ScadenzaCopertura] DATE,
+    [ScadenzaContratto] DATE,
+    [Tariffa] VARCHAR(15),
+    [ClasseTariffa] VARCHAR(10),
+    [DataSinistro] DATE,
+    [Prodotto] CHAR(5),
+    [Ramo] INT,
+    [Polizza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [Frazionamento] INT,
+    [Convenzione] CHAR(5),
+    [IdStorno] CHAR(2),
+    [DataStorno] DATE,
+    [UltimoPremio] REAL,
+    [IncendioFurto] REAL
+    );
+
+
+**Creazione tabella [MovPolizze];
+
+IF OBJECT_ID('dbo.[MovPolizze]', 'U') IS NOT NULL DROP TABLE dbo.[MovPolizze];
+
+CREATE TABLE dbo.[MovPolizze]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [DataPrimaQuietanza] DATE,
+    [Frazionamento] INT,
+    [Canale] VARCHAR(10),
+    [CodiceSubAgente] INT,
+    [CodiceSubAgenteSIMA] INT,
+    [CodiceProduttore] INT,
+    [CodiceProduttoreSIMA] INT,
+    [CodiceProdotto] CHAR(5),
+    [TotalePremioAnnuo] FLOAT,
+    [Targa] VARCHAR(20),
+    [CavalliFiscali] INT,
+    [Convenzione] INT,
+    [IDStorno] CHAR(2),
+    [DataStorno] DATE,
+    [TipoCarico] SMALLINT,
+    [Clausole] VARCHAR(41),
+    [TipoTariffa] CHAR(1),
+    [ClasseBonusMalus] SMALLINT,
+    [CombinazioneMassimali] SMALLINT,
+    [SettoreTariffario] CHAR(1),
+    [ValoreIncendioFurto] FLOAT,
+    [CodiceGaranzieAccessorie] SMALLINT,
+    [CodiceGaranziaInfortuni] SMALLINT,
+    [DiariaRitiroPatente] FLOAT,
+    [CodiceUtilizzoVeicolo] CHAR(1),
+    [AlimentazioneVeicolo] CHAR(1),
+    [ProfessioneRCA] SMALLINT,
+    [CodicePagamento] SMALLINT,
+    [Delegataria] SMALLINT,
+    [Quota] REAL,
+    [ClasseRca] CHAR(3),
+    [UsoRca] CHAR(2),
+    [CodiceProdottoOld] CHAR(5),
+    [RamoGestione] SMALLINT,
+    [TipoPolProd] SMALLINT,
+    [ImmatricVeicolo] VARCHAR(7),
+    [CompagniaSost] SMALLINT,
+    [AgenziaSost] INT,
+    [RamoSost] SMALLINT,
+    [PolizzaSost] INT,
+    [AnnoMeseCompetenza] VARCHAR(6),
+    [DataElaborazione] DATE,
+    [FlagSospesa] CHAR(2),
+    [DataEffettoSospesa] DATE,
+    [FlagFlessibilita] CHAR(1),
+    [PercentualeFlessibilita] FLOAT,
+    [FlagRegolazionePremio] CHAR(1),
+    [EsercizioCompetenza] INT,
+    [MarcaVeicolo] VARCHAR(14)
+    );
+
+
+**Creazione tabella [Polizze];
+
+IF OBJECT_ID('dbo.[Polizze]', 'U') IS NOT NULL DROP TABLE dbo.[Polizze];
+
+CREATE TABLE dbo.[Polizze]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [Agenzia] INT NOT NULL,
+    [Ramo] SMALLINT NOT NULL,
+    [Polizza] INT NOT NULL,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [DataPrimaQuietanza] DATE,
+    [Frazionamento] INT,
+    [Canale] VARCHAR(10),
+    [CodiceSubAgente] INT,
+    [CodiceSubAgenteSIMA] INT,
+    [CodiceProduttore] INT,
+    [CodiceProduttoreSIMA] INT,
+    [CodiceProdotto] CHAR(5),
+    [TotalePremioAnnuo] FLOAT,
+    [Targa] VARCHAR(20),
+    [CavalliFiscali] INT,
+    [Convenzione] INT,
+    [IDStorno] CHAR(2),
+    [DataStorno] DATE,
+    [TipoCarico] SMALLINT,
+    [Clausole] VARCHAR(101),
+    [TipoTariffa] CHAR(1),
+    [ClasseBonusMalus] SMALLINT,
+    [CombinazioneMassimali] SMALLINT,
+    [SettoreTariffario] CHAR(1),
+    [ValoreIncendioFurto] FLOAT,
+    [CodiceGaranzieAccessorie] SMALLINT,
+    [CodiceGaranziaInfortuni] SMALLINT,
+    [DiariaRitiroPatente] FLOAT,
+    [CodiceUtilizzoVeicolo] CHAR(1),
+    [AlimentazioneVeicolo] CHAR(1),
+    [ProfessioneRCA] SMALLINT,
+    [CodicePagamento] SMALLINT,
+    [CodiceProdottoOld] CHAR(5),
+    [ClasseRca] CHAR(3),
+    [UsoRca] CHAR(2),
+    [RamoGestione] SMALLINT,
+    [TipoPolProd] SMALLINT,
+    [ImmatricVeicolo] VARCHAR(6),
+    [FlagSospesa] CHAR(2),
+    [DataEffettoSospesa] DATE,
+    [FlagFlessibilita] CHAR(1),
+    [PercentualeFlessibilita] FLOAT,
+    [FlagRegolazionePremio] CHAR(1),
+    [EsercizioCompetenza] INT,
+    [MarcaVeicolo] VARCHAR(14)
+    );
+
+
+**Creazione tabella [PolizzeSostituite];
+
+IF OBJECT_ID('dbo.[PolizzeSostituite]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeSostituite];
+
+CREATE TABLE dbo.[PolizzeSostituite]
+    (
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [TipoVar] CHAR(2),
+    [DataVar] DATE,
+    [ScadenzaPolizza] DATE
+    );
+
+
+**Creazione tabella [ReplicaNote];
+
+IF OBJECT_ID('dbo.[ReplicaNote]', 'U') IS NOT NULL DROP TABLE dbo.[ReplicaNote];
+
+CREATE TABLE dbo.[ReplicaNote]
+    (
+    [Utente] VARCHAR(14),
+    [DataModifica] DATE,
+    [Memo] TEXT,
+    [Allarme] DATE,
+    [Tipo] CHAR(1),
+    [Id] INT,
+    [IdNota] VARCHAR(20),
+    [CodiceFiscale] CHAR(16),
+    [DataCommit] DATE
+    );
+
+
+**Creazione tabella [AndamentoSinistri];
+
+IF OBJECT_ID('dbo.[AndamentoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[AndamentoSinistri];
+
+CREATE TABLE dbo.[AndamentoSinistri]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [PagatoAl] FLOAT,
+    [Riserva] FLOAT,
+    [RiservaBilancio] FLOAT,
+    [TipoChiusura] CHAR(2)
+    );
+
+
+**Creazione tabella [Documenti];
+
+IF OBJECT_ID('dbo.[Documenti]', 'U') IS NOT NULL DROP TABLE dbo.[Documenti];
+
+CREATE TABLE dbo.[Documenti]
+    (
+    [CartellaRoot] VARCHAR(20),
+    [Documento] VARCHAR(100),
+    [Note] TEXT
+    );
+
+
+**Creazione tabella [SIncarichi];
+
+IF OBJECT_ID('dbo.[SIncarichi]', 'U') IS NOT NULL DROP TABLE dbo.[SIncarichi];
+
+CREATE TABLE dbo.[SIncarichi]
+    (
+    [DataCompetenza] DATE,
+    [AgenziaSinistro] SMALLINT,
+    [EsercizioSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Posizione] SMALLINT,
+    [CFDanneggiato] VARCHAR(16),
+    [Cognome] VARCHAR(40),
+    [Nome] VARCHAR(40),
+    [CodicePerito] INT,
+    [ProfessionePerito] SMALLINT,
+    [DataIncarico] DATE,
+    [TipoIncarico] CHAR(2),
+    [DataRestituzione] DATE,
+    [TipoRestituzione] CHAR(2),
+    [CodicePeritoSAP] VARCHAR(10),
+    [TipoIncaricoCC] VARCHAR(30),
+    [TipoSpecializzazione] VARCHAR(50),
+    [TipoFiduciario] VARCHAR(50),
+    [StatoIncarico] VARCHAR(50),
+    [StatoIncaricoCarrozzeria] VARCHAR(50),
+    [EsitoPerizia] VARCHAR(30)
+    );
+
+
+**Creazione tabella [SinistriAC];
+
+IF OBJECT_ID('dbo.[SinistriAC]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriAC];
+
+CREATE TABLE dbo.[SinistriAC]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] SMALLINT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] VARCHAR(8),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    );
+
+
+**Creazione tabella [SinistriAia];
+
+IF OBJECT_ID('dbo.[SinistriAia]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriAia];
+
+CREATE TABLE dbo.[SinistriAia]
+    (
+    [AnnoCompetenza] SMALLINT,
+    [Agenzia_1] INT,
+    [sub_2] INT,
+    [age_sin_3] INT,
+    [esercizio_sx_4] SMALLINT,
+    [num_sin_5] INT,
+    [age_pol_6] INT,
+    [ramo_pol_7] SMALLINT,
+    [num_pol_8] INT,
+    [intest_pol_9] VARCHAR(20),
+    [tipo_chius_10] CHAR(2),
+    [eser_den_11] CHAR(2),
+    [soglia_anno_preced_12] FLOAT,
+    [soglia_anno_corrente_13] FLOAT,
+    [risarcimenti_ec_14] FLOAT,
+    [spese_liq_ec_15] FLOAT,
+    [recup_eff_ec_16] FLOAT,
+    [riserve_fin_ec_17] FLOAT,
+    [forf_deb_pag_ris_EC_18] FLOAT,
+    [forf_gest_pag_ris_EC_19] FLOAT,
+    [costo_sx_ec_lordo_punte_20] FLOAT,
+    [costo_sx_ec_plafonato_21] FLOAT,
+    [costo_sx_iniz_ep_22] FLOAT,
+    [costo_sx_iniz_ep_plafonato_23] FLOAT,
+    [risarcimenti_ep_24] FLOAT,
+    [spese_liq_ep_25] FLOAT,
+    [recup_eff_ep_26] FLOAT,
+    [riserve_fin_ep_27] FLOAT,
+    [forf_deb_pag_ris_EP_28] FLOAT,
+    [forf_gest_pag_ris_EP_29] FLOAT,
+    [costo_fin_sx_ep_lordo_punte_30] FLOAT,
+    [costo_fin_sx_ep_plafonato_31] FLOAT,
+    [sopravv_32] FLOAT,
+    [flag_coass_33] CHAR(1)
+    );
+
+
+**Creazione tabella [SinistriControparte];
+
+IF OBJECT_ID('dbo.[SinistriControparte]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriControparte];
+
+CREATE TABLE dbo.[SinistriControparte]
+    (
+    [EsercizioSinistro] SMALLINT NOT NULL,
+    [AgenziaSinistro] SMALLINT NOT NULL,
+    [NumeroSinistro] INT NOT NULL
+    );
+
+
+**Creazione tabella [SinistriDA];
+
+IF OBJECT_ID('dbo.[SinistriDA]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriDA];
+
+CREATE TABLE dbo.[SinistriDA]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] SMALLINT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] VARCHAR(8),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    );
+
+
+**Creazione tabella [SinistriDP];
+
+IF OBJECT_ID('dbo.[SinistriDP]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriDP];
+
+CREATE TABLE dbo.[SinistriDP]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT NOT NULL,
+    [AgenziaSinistro] SMALLINT NOT NULL,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT NOT NULL,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT NOT NULL,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] SMALLINT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] VARCHAR(8),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    );
+
+
+**Creazione tabella [Spagamenti];
+
+IF OBJECT_ID('dbo.[Spagamenti]', 'U') IS NOT NULL DROP TABLE dbo.[Spagamenti];
+
+CREATE TABLE dbo.[Spagamenti]
+    (
+    [DataCompetenza] DATE,
+    [AgenziaSinistro] SMALLINT,
+    [EsercizioSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Posizione] SMALLINT,
+    [CFDanneggiato] VARCHAR(16),
+    [Cognome] VARCHAR(40),
+    [Nome] VARCHAR(40),
+    [Tipo] SMALLINT,
+    [Forma] SMALLINT,
+    [Data] DATE,
+    [Assegno] VARCHAR(15),
+    [Importo] FLOAT
+    );
+
+
+**Creazione tabella [StoricoSinistri];
+
+IF OBJECT_ID('dbo.[StoricoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoSinistri];
+
+CREATE TABLE dbo.[StoricoSinistri]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] SMALLINT,
+    [CodiceProduttoreSima] SMALLINT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] SMALLINT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] CHAR(2),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    );
+
+
+**Creazione tabella [Titoli];
+
+IF OBJECT_ID('dbo.[Titoli]', 'U') IS NOT NULL DROP TABLE dbo.[Titoli];
+
+CREATE TABLE dbo.[Titoli]
+    (
+    [ProgressivoFile] INT,
+    [DataElaborazione] DATE,
+    [CodicePuntoVendita] CHAR(5),
+    [Progressivo] CHAR(2),
+    [TipoElaborazione] CHAR(2),
+    [Ramo] CHAR(3),
+    [Polizza] VARCHAR(9),
+    [EffettoAppendice] DATE,
+    [NumeroAppendice] CHAR(3),
+    [DataEffetto] DATE,
+    [TipoCarico] CHAR(1),
+    [DataScadenza] DATE,
+    [DataEmissione] DATE,
+    [DataFoglioCassa] DATE,
+    [DataStorno] DATE,
+    [CodiceEsito] CHAR(2),
+    [TerminaleCassa] CHAR(4),
+    [CodiceTerminale] CHAR(4),
+    [PremioNetto] MONEY,
+    [Interessi] MONEY,
+    [Accessori] MONEY,
+    [TotaleLordo] MONEY,
+    [Abbuono] MONEY,
+    [ProvvigioneAcquisto] MONEY,
+    [ProvvigioneAcquistoRic] MONEY,
+    [ProvvigioneIncasso] MONEY,
+    [ImpostaSSN] MONEY,
+    [Valuta] CHAR(3),
+    [TipoMatricola] CHAR(1),
+    [CodiceUltimaTransazione] CHAR(4),
+    [TipoQuietanza] CHAR(1),
+    [DataSistema] DATE,
+    [CodiceCaricoProvvigionale] CHAR(1),
+    [CodiceTipoPagamento] CHAR(1),
+    [DataEffetivoPagamento] DATE,
+    [FlagEmessoPregresso] CHAR(1),
+    [DataEffettoMovimento] DATE,
+    [CodiceSubagente] CHAR(5),
+    [CodiceProduttore] CHAR(5),
+    [CodiceConvenzioneProvvigionata] CHAR(5),
+    [CodiceConvenzione] CHAR(5),
+    [DataTrasferimentoTitolo] DATE,
+    [FlagTipoRamo] CHAR(1),
+    [FlagTitoloEsente] CHAR(1),
+    [CodiceCombinazioneAurFF] CHAR(1),
+    [ImportoAurobox] MONEY,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(25),
+    [Frazionamento] CHAR(1),
+    [CodiceProdotto] CHAR(5),
+    [TipoMatricolaVita] CHAR(4),
+    [DataEffettoPolizza] DATE,
+    [CompagniaDelegataria] CHAR(3),
+    [QuotaCoass] MONEY,
+    [NumeroTesta] VARCHAR(9),
+    [FlagRID] CHAR(1),
+    [FlagIncassoDirezione] CHAR(1),
+    [AliquotaProvvigionaleIncasso] MONEY,
+    [AliquotaProvvigionaleAcquisto] MONEY,
+    [PremioTutela] MONEY,
+    [PremioAssistenza] MONEY,
+    [ImportoCAV] MONEY
+    );
+
+
+**Creazione tabella [Unicoop];
+
+IF OBJECT_ID('dbo.[Unicoop]', 'U') IS NOT NULL DROP TABLE dbo.[Unicoop];
+
+CREATE TABLE dbo.[Unicoop]
+    (
+    [Gruppo] CHAR(3),
+    [Azienda] CHAR(5),
+    [Matricola] VARCHAR(10),
+    [Contraente] VARCHAR(50),
+    [Ramo] CHAR(3),
+    [Polizza] VARCHAR(8),
+    [ImportoRata] FLOAT,
+    [DebitoResiduo] FLOAT,
+    [DebitoTotale] FLOAT,
+    [TotaleRate] SMALLINT,
+    [NumeroRateResidue] SMALLINT,
+    [EffettoVariazione] DATE,
+    [DataUltimoAddebito] DATE
+    );
+
+
+**Creazione tabella [UnicoopCodici];
+
+IF OBJECT_ID('dbo.[UnicoopCodici]', 'U') IS NOT NULL DROP TABLE dbo.[UnicoopCodici];
+
+CREATE TABLE dbo.[UnicoopCodici]
+    (
+    [Tipo] CHAR(1),
+    [Gruppo] CHAR(3),
+    [Azienda] CHAR(5),
+    [Predefinito] BIT NOT NULL
+    );
+
+
+**Creazione tabella [ArriviPolizze];
+
+IF OBJECT_ID('dbo.[ArriviPolizze]', 'U') IS NOT NULL DROP TABLE dbo.[ArriviPolizze];
+
+CREATE TABLE dbo.[ArriviPolizze]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [DataPrimaQuietanza] DATE,
+    [Frazionamento] TINYINT,
+    [Canale] VARCHAR(10),
+    [CodiceSubAgente] SMALLINT,
+    [CodiceSubAgenteSIMA] SMALLINT,
+    [CodiceProduttore] SMALLINT,
+    [CodiceProduttoreSIMA] SMALLINT,
+    [CodiceProdotto] CHAR(5),
+    [TotalePremioAnnuo] FLOAT,
+    [Targa] VARCHAR(9),
+    [CavalliFiscali] SMALLINT,
+    [Convenzione] INT,
+    [IDStorno] CHAR(2),
+    [DataStorno] DATE,
+    [TipoCarico] SMALLINT,
+    [Clausole] VARCHAR(41),
+    [TipoTariffa] CHAR(1),
+    [ClasseBonusMalus] SMALLINT,
+    [CombinazioneMassimali] SMALLINT,
+    [SettoreTariffario] CHAR(1),
+    [ValoreIncendioFurto] FLOAT,
+    [CodiceGaranzieAccessorie] SMALLINT,
+    [CodiceGaranziaInfortuni] SMALLINT,
+    [DiariaRitiroPatente] FLOAT,
+    [CodiceUtilizzoVeicolo] CHAR(1),
+    [AlimentazioneVeicolo] CHAR(1),
+    [ProfessioneRCA] SMALLINT,
+    [CodicePagamento] SMALLINT,
+    [CodiceProdottoOld] CHAR(5),
+    [ClasseRca] CHAR(2),
+    [UsoRca] CHAR(2),
+    [RamoGestione] SMALLINT,
+    [TipoPolProd] SMALLINT,
+    [ImmatricVeicolo] VARCHAR(6)
+    );
+
+
+**Creazione tabella [InfoDatabase];
+
+IF OBJECT_ID('dbo.[InfoDatabase]', 'U') IS NOT NULL DROP TABLE dbo.[InfoDatabase];
+
+CREATE TABLE dbo.[InfoDatabase]
+    (
+    [Proprieta] VARCHAR(100),
+    [Valore] VARCHAR(100)
+    );
+
+
+**Creazione tabella [StoricoIncassi];
+
+IF OBJECT_ID('dbo.[StoricoIncassi]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoIncassi];
+
+CREATE TABLE dbo.[StoricoIncassi]
+    (
+    [AnnoMeseCompetenza] VARCHAR(6),
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [NumeroAppendice] SMALLINT,
+    [DataEffettoAppendice] DATE,
+    [DataEffettoTitolo] DATE,
+    [DataScadenzaTitolo] DATE,
+    [DataFoglioCassa] DATE,
+    [TipoCarico] CHAR(1),
+    [Contraente] VARCHAR(25),
+    [TotaleTitolo] FLOAT,
+    [TotaleProvvigioni] FLOAT,
+    [CodiceProdotto] CHAR(5),
+    [Convenzione] CHAR(5),
+    [Delegataria] CHAR(3),
+    [NostraQuota] INT,
+    [CodiceSubAgente] SMALLINT,
+    [CodiceProduttore] SMALLINT,
+    [Frazionamento] TINYINT,
+    [PREMIONETTO] FLOAT,
+    [INTERESSIFRAZ] FLOAT,
+    [ACCESSORI] FLOAT,
+    [PROVVACQC] FLOAT,
+    [PROVVACQS] FLOAT,
+    [PROVVINC] FLOAT,
+    [PROVVACQCSUB] FLOAT,
+    [PROVVINCSUB] FLOAT,
+    [PROVVACQCPROD] FLOAT,
+    [PROVVINCPROD] FLOAT,
+    [CONVENZPROVVACQ] FLOAT,
+    [CONVENZPROVVINC] FLOAT,
+    [CAPOMAGLIA1ACQ] FLOAT,
+    [CAPOMAGLIA1INC] FLOAT,
+    [CAPOMAGLIA2ACQ] FLOAT,
+    [CAPOMAGLIA2INC] FLOAT,
+    [PREMIOTASS] FLOAT,
+    [PREMIOTASSO] FLOAT,
+    [CodiceFiscInc] VARCHAR(16),
+    [Targa] VARCHAR(9),
+    [RamoGestione] INT
+    );
+
+
+**Creazione tabella [StoricoPolizze];
+
+IF OBJECT_ID('dbo.[StoricoPolizze]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoPolizze];
+
+CREATE TABLE dbo.[StoricoPolizze]
+    (
+    [Mese] INT,
+    [Anno] INT,
+    [Ramo] SMALLINT,
+    [CodiceSubAgente] SMALLINT,
+    [Polizze] INT,
+    [Premi] FLOAT
+    );
+
+--------------------------------------------------------------------------------
+--SISTEMAZIONE CAMPI CHIAVI;
+--------------------------------------------------------------------------------
+**set NOTNULL [Ana_Abitazione].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_Abitazione] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_Abitazione].[IdAbitazione];
+ALTER TABLE dbo.[Ana_Abitazione] ALTER COLUMN [IdAbitazione] INT NOT NULL;
+**Creazione chiave [Ana_Abitazione];
+ALTER TABLE ANA_ABITAZIONE ADD CONSTRAINT PK_ANA_ABITAZIONE PRIMARY KEY CLUSTERED (CodiceFiscale, IdAbitazione);
+  
+**set NOTNULL [Ana_AbitazioneTipo].[CodAbitazione];
+ALTER TABLE dbo.[Ana_AbitazioneTipo] ALTER COLUMN [CodAbitazione] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_AbitazioneTipo];
+ALTER TABLE ANA_ABITAZIONETIPO ADD CONSTRAINT PK_ANA_ABITAZIONETIPO PRIMARY KEY CLUSTERED (CodAbitazione);
+ 
+**set NOTNULL [Ana_AnalisiRca].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_AnalisiRca] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_AnalisiRca].[IdPolizza];
+ALTER TABLE dbo.[Ana_AnalisiRca] ALTER COLUMN [IdPolizza] INT NOT NULL;
+**Creazione chiave [Ana_AnalisiRca];
+ALTER TABLE ANA_ANALISIRCA ADD CONSTRAINT PK_ANA_ANALISIRCA PRIMARY KEY CLUSTERED (CodiceFiscale, IdPolizza);
+ 
+**set NOTNULL [Ana_Attivita].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_Attivita] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_Attivita].[IdAttivita];
+ALTER TABLE dbo.[Ana_Attivita] ALTER COLUMN [IdAttivita] INT NOT NULL;
+**Creazione chiave [Ana_Attivita];
+ALTER TABLE ANA_ATTIVITA ADD CONSTRAINT PK_ANA_ATTIVITA PRIMARY KEY CLUSTERED (CodiceFiscale, IdAttivita);
+ 
+**set NOTNULL [Ana_AttivitaCeto].[CetoAttivita];
+ALTER TABLE dbo.[Ana_AttivitaCeto] ALTER COLUMN [CetoAttivita] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_AttivitaCeto];
+ALTER TABLE ANA_ATTIVITACETO ADD CONSTRAINT PK_ANA_ATTIVITACETO PRIMARY KEY CLUSTERED (CetoAttivita);
+ 
+**set NOTNULL [Ana_AttivitaDimensione].[CodDimensione];
+ALTER TABLE dbo.[Ana_AttivitaDimensione] ALTER COLUMN [CodDimensione] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_AttivitaDimensione];
+ALTER TABLE ANA_ATTIVITADIMENSIONE ADD CONSTRAINT PK_ANA_ATTIVITADIMENSIONE PRIMARY KEY CLUSTERED (CodDimensione);
+ 
+**set NOTNULL [Ana_AttivitaFase].[CodFase];
+ALTER TABLE dbo.[Ana_AttivitaFase] ALTER COLUMN [CodFase] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_AttivitaFase];
+ALTER TABLE ANA_ATTIVITAFASE ADD CONSTRAINT PK_ANA_ATTIVITAFASE PRIMARY KEY CLUSTERED (CodFase);
+ 
+**set NOTNULL [Ana_AttivitaTipo].[TipoAttivita];
+ALTER TABLE dbo.[Ana_AttivitaTipo] ALTER COLUMN [TipoAttivita] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_AttivitaTipo];
+ALTER TABLE ANA_ATTIVITATIPO ADD CONSTRAINT PK_ANA_ATTIVITATIPO PRIMARY KEY CLUSTERED (TipoAttivita);
+ 
+**set NOTNULL [Ana_Diario].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_Diario] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_Diario].[Progressivo];
+ALTER TABLE dbo.[Ana_Diario] ALTER COLUMN [Progressivo] INT NOT NULL;
+**Creazione chiave [Ana_Diario];
+ALTER TABLE ANA_DIARIO ADD CONSTRAINT PK_ANA_DIARIO PRIMARY KEY CLUSTERED (CodiceFiscale, Progressivo);
+ 
+**set NOTNULL [Ana_FasiVendita].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_FasiVendita] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_FasiVendita].[Fase];
+ALTER TABLE dbo.[Ana_FasiVendita] ALTER COLUMN [Fase] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_FasiVendita];
+ALTER TABLE ANA_FASIVENDITA ADD CONSTRAINT PK_ANA_FASIVENDITA PRIMARY KEY CLUSTERED (CodiceFiscale, Fase);
+
+**set NOTNULL [Ana_FinanzaCose].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_FinanzaCose] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_FinanzaCose].[CodServizio];
+ALTER TABLE dbo.[Ana_FinanzaCose] ALTER COLUMN [CodServizio] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_FinanzaCose];
+ALTER TABLE ANA_FINANZACOSE ADD CONSTRAINT PK_ANA_FINANZACOSE PRIMARY KEY CLUSTERED (CodiceFiscale, CodServizio);
+
+**set NOTNULL [Ana_FinanzaCoseSoddisfazione].[CodSoddisfazione];
+ALTER TABLE dbo.[Ana_FinanzaCoseSoddisfazione] ALTER COLUMN [CodSoddisfazione] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_FinanzaCoseSoddisfazione];
+ALTER TABLE ANA_FINANZACOSESODDISFAZIONE ADD CONSTRAINT PK_ANA_FINANZACOSESODDISFAZIONE PRIMARY KEY CLUSTERED (CodSoddisfazione);
+
+**set NOTNULL [Ana_FinanzaCoseTipo].[CodServizio];
+ALTER TABLE dbo.[Ana_FinanzaCoseTipo] ALTER COLUMN [CodServizio] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_FinanzaCoseTipo];
+ALTER TABLE ANA_FINANZACOSETIPO ADD CONSTRAINT PK_ANA_FINANZACOSETIPO PRIMARY KEY CLUSTERED (CodServizio);
+
+**set NOTNULL [Ana_FinanzaStrumento].[CodStrumento];
+ALTER TABLE dbo.[Ana_FinanzaStrumento] ALTER COLUMN [CodStrumento] CHAR(1) NOT NULL;
+**set NOTNULL [Ana_FinanzaStrumento].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_FinanzaStrumento] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**Creazione chiave [Ana_FinanzaStrumento];
+ALTER TABLE ANA_FINANZASTRUMENTO ADD CONSTRAINT PK_ANA_FINANZASTRUMENTO PRIMARY KEY CLUSTERED (CodStrumento, CodiceFiscale);
+
+**set NOTNULL [Ana_FinanzaStrumentoEsperienza].[CodEsperienza];
+ALTER TABLE dbo.[Ana_FinanzaStrumentoEsperienza] ALTER COLUMN [CodEsperienza] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_FinanzaStrumentoEsperienza];
+ALTER TABLE ANA_FINANZASTRUMENTOESPERIENZA ADD CONSTRAINT PK_ANA_FINANZASTRUMENTOESPERIENZA PRIMARY KEY CLUSTERED (CodEsperienza);
+
+**set NOTNULL [Ana_FinanzaStrumentoTipo].[CodStrumento];
+ALTER TABLE dbo.[Ana_FinanzaStrumentoTipo] ALTER COLUMN [CodStrumento] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_FinanzaStrumentoTipo];
+ALTER TABLE ANA_FINANZASTRUMENTOTIPO ADD CONSTRAINT PK_ANA_FINANZASTRUMENTOTIPO PRIMARY KEY CLUSTERED (CodStrumento);
+
+**set NOTNULL [Ana_Hobby].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_Hobby] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_Hobby].[IdHobby];
+ALTER TABLE dbo.[Ana_Hobby] ALTER COLUMN [IdHobby] INT NOT NULL;
+**Creazione chiave [Ana_Hobby];
+ALTER TABLE ANA_HOBBY ADD CONSTRAINT PK_ANA_HOBBY PRIMARY KEY CLUSTERED (CodiceFiscale, IdHobby);
+
+**set NOTNULL [Ana_NucleoFamiliare].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_NucleoFamiliare] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_NucleoFamiliare].[IdFamiliare];
+ALTER TABLE dbo.[Ana_NucleoFamiliare] ALTER COLUMN [IdFamiliare] INT NOT NULL;
+**Creazione chiave [Ana_NucleoFamiliare];
+ALTER TABLE ANA_NUCLEOFAMILIARE ADD CONSTRAINT PK_ANA_NUCLEOFAMILIARE PRIMARY KEY CLUSTERED (CodiceFiscale, IdFamiliare);
+
+**set NOTNULL [Ana_NucleoFamiliareRelazione].[CodRelazione];
+ALTER TABLE dbo.[Ana_NucleoFamiliareRelazione] ALTER COLUMN [CodRelazione] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_NucleoFamiliareRelazione];
+ALTER TABLE ANA_NUCLEOFAMILIARERELAZIONE ADD CONSTRAINT PK_ANA_NUCLEOFAMILIARERELAZIONE PRIMARY KEY CLUSTERED (CodRelazione);
+
+**set NOTNULL [Ana_Opzione].[Progressivo];
+ALTER TABLE dbo.[Ana_Opzione] ALTER COLUMN [Progressivo] INT NOT NULL;
+**Creazione chiave [Ana_Opzione];
+ALTER TABLE ANA_OPZIONE ADD CONSTRAINT PK_ANA_OPZIONE PRIMARY KEY CLUSTERED (Progressivo);
+
+**set NOTNULL [Ana_PianoCodici].[Tipologia];
+ALTER TABLE dbo.[Ana_PianoCodici] ALTER COLUMN [Tipologia] CHAR(1) NOT NULL;
+**set NOTNULL [Ana_PianoCodici].[Codice];
+ALTER TABLE dbo.[Ana_PianoCodici] ALTER COLUMN [Codice] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_PianoCodici];
+ALTER TABLE ANA_PIANOCODICI ADD CONSTRAINT PK_ANA_PIANOCODICI PRIMARY KEY CLUSTERED (Tipologia, Codice);
+
+**set NOTNULL [Ana_Polizza].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_Polizza] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_Polizza].[IdPolizza];
+ALTER TABLE dbo.[Ana_Polizza] ALTER COLUMN [IdPolizza] INT NOT NULL;
+**Creazione chiave [Ana_Polizza];
+ALTER TABLE ANA_POLIZZA ADD CONSTRAINT PK_ANA_POLIZZA PRIMARY KEY CLUSTERED (CodiceFiscale, IdPolizza);
+
+**set NOTNULL [Ana_PolizzaRamo].[CodRamo];
+ALTER TABLE dbo.[Ana_PolizzaRamo] ALTER COLUMN [CodRamo] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_PolizzaRamo];
+ALTER TABLE ANA_POLIZZARAMO ADD CONSTRAINT PK_ANA_POLIZZARAMO PRIMARY KEY CLUSTERED (CodRamo);
+
+**set NOTNULL [Ana_Soggetto].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_Soggetto] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**Creazione chiave [Ana_Soggetto];
+ALTER TABLE ANA_SOGGETTO ADD CONSTRAINT PK_ANA_SOGGETTO PRIMARY KEY CLUSTERED (CodiceFiscale);
+
+**set NOTNULL [Ana_SoggettoPagamento].[CodPagamento];
+ALTER TABLE dbo.[Ana_SoggettoPagamento] ALTER COLUMN [CodPagamento] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_SoggettoPagamento];
+ALTER TABLE ANA_SOGGETTOPAGAMENTO ADD CONSTRAINT PK_ANA_SOGGETTOPAGAMENTO PRIMARY KEY CLUSTERED (CodPagamento);
+
+**set NOTNULL [Ana_SoggettoProfiloRischio].[CodProfiloRischio];
+ALTER TABLE dbo.[Ana_SoggettoProfiloRischio] ALTER COLUMN [CodProfiloRischio] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_SoggettoProfiloRischio];
+ALTER TABLE ANA_SOGGETTOPROFILORISCHIO ADD CONSTRAINT PK_ANA_SOGGETTOPROFILORISCHIO PRIMARY KEY CLUSTERED (CodProfiloRischio);
+
+**set NOTNULL [Ana_SoggettoStatoCivile].[CodStatoCivile];
+ALTER TABLE dbo.[Ana_SoggettoStatoCivile] ALTER COLUMN [CodStatoCivile] CHAR(1) NOT NULL;
+**Creazione chiave [Ana_SoggettoStatoCivile];
+ALTER TABLE ANA_SOGGETTOSTATOCIVILE ADD CONSTRAINT PK_ANA_SOGGETTOSTATOCIVILE PRIMARY KEY CLUSTERED (CodStatoCivile);
+
+**set NOTNULL [Ana_SpesaPiano].[CodiceFiscale];
+ALTER TABLE dbo.[Ana_SpesaPiano] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**set NOTNULL [Ana_SpesaPiano].[IdSpesa];
+ALTER TABLE dbo.[Ana_SpesaPiano] ALTER COLUMN [IdSpesa] INT NOT NULL;
+**Creazione chiave [Ana_SpesaPiano];
+ALTER TABLE ANA_SPESAPIANO ADD CONSTRAINT PK_ANA_SPESAPIANO PRIMARY KEY CLUSTERED (CodiceFiscale, IdSpesa);
+
+**set NOTNULL [Ana_SpesaTipo].[IdSpesa];
+ALTER TABLE dbo.[Ana_SpesaTipo] ALTER COLUMN [IdSpesa] INT NOT NULL;
+**Creazione chiave [Ana_SpesaTipo];
+ALTER TABLE ANA_SPESATIPO ADD CONSTRAINT PK_ANA_SPESATIPO PRIMARY KEY CLUSTERED (IdSpesa);
+
+
+**set NOTNULL [Buste].[Agenzia];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [Agenzia] CHAR(5) NOT NULL;
+**set NOTNULL [Buste].[Ramo];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [Ramo] INT NOT NULL;
+**set NOTNULL [Buste].[Polizza];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [Polizza] INT NOT NULL;
+**set NOTNULL [Buste].[Appendice];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [Appendice] INT NOT NULL;
+**set NOTNULL [Buste].[EffettoAppendice];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [EffettoAppendice] DATE NOT NULL;
+**set NOTNULL [Buste].[EffettoTitolo];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [EffettoTitolo] DATE NOT NULL;
+**set NOTNULL [Buste].[TipoCarico];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [TipoCarico] CHAR(1) NOT NULL;
+**set NOTNULL [Buste].[DataFoglioCassa];
+ALTER TABLE dbo.[Buste] ALTER COLUMN [DataFoglioCassa] DATE NOT NULL;
+
+**Creazione chiave [Buste];
+ALTER TABLE BUSTE ADD CONSTRAINT PK_BUSTE PRIMARY KEY CLUSTERED (Agenzia, Ramo, Polizza, Appendice, EffettoAppendice, EffettoTitolo, TipoCarico, DataFoglioCassa);
+**Creazione indice [Buste];
+CREATE NONCLUSTERED INDEX IX1_BUSTE ON BUSTE (CodiceFiscale);
+
+**set NOTNULL [Clienti].[CodiceFiscale];
+ALTER TABLE dbo.[Clienti] ALTER COLUMN [CodiceFiscale] CHAR(16) NOT NULL;
+**Creazione chiave [Clienti];
+ALTER TABLE CLIENTI ADD CONSTRAINT PK_CLIENTI PRIMARY KEY CLUSTERED (CodiceFiscale); 
+**Creazione indice [Clienti];
+CREATE NONCLUSTERED INDEX IX1_CLIENTI ON CLIENTI (Cognome);
+
+**set NOTNULL [unidocs_tipodocumento].[codtipodocumento];
+ALTER TABLE dbo.[unidocs_tipodocumento] ALTER COLUMN [codtipodocumento] CHAR(2) NOT NULL;
+**Creazione chiave [unidocs_tipodocumento];
+ALTER TABLE UNIDOCS_TIPODOCUMENTO ADD CONSTRAINT PK_UNIDOCS_TIPODOCUMENTO PRIMARY KEY CLUSTERED (codtipodocumento);
+
+**set NOTNULL [ContattiCip].[Cip];
+ALTER TABLE dbo.[ContattiCip] ALTER COLUMN [Cip] INT NOT NULL;
+**Creazione chiave [ContattiCip];
+ALTER TABLE CONTATTICIP ADD CONSTRAINT PK_CONTATTICIP PRIMARY KEY CLUSTERED (Cip);
+
+**set NOTNULL [TipoAttivita].[codtipoattivita];
+ALTER TABLE dbo.[TipoAttivita] ALTER COLUMN [codtipoattivita] SMALLINT NOT NULL;
+**Creazione chiave [TipoAttivita];
+ALTER TABLE TIPOATTIVITA ADD CONSTRAINT PK_TIPOATTIVITA PRIMARY KEY CLUSTERED (codtipoattivita);
+
+**set NOTNULL [SinistriMemo].[Id];
+ALTER TABLE dbo.[SinistriMemo] ALTER COLUMN [Id] INT NOT NULL;
+**Creazione chiave [SinistriMemo];
+ALTER TABLE SINISTRIMEMO ADD CONSTRAINT PK_SINISTRIMEMO PRIMARY KEY CLUSTERED (Id);
+
+**set NOTNULL [Polizze].[Agenzia];
+ALTER TABLE dbo.[Polizze] ALTER COLUMN [Agenzia] INT NOT NULL;
+**set NOTNULL [Polizze].[Ramo];
+ALTER TABLE dbo.[Polizze] ALTER COLUMN [Ramo] SMALLINT NOT NULL;
+**set NOTNULL [Polizze].[Polizza];
+ALTER TABLE dbo.[Polizze] ALTER COLUMN [Polizza] INT NOT NULL;
+**Creazione chiave [Polizze];
+ALTER TABLE POLIZZE ADD CONSTRAINT PK_POLIZZE PRIMARY KEY CLUSTERED (Agenzia, Ramo, Polizza);
+
+**set NOTNULL [BDA].[Targa];
+ALTER TABLE dbo.[BDA] ALTER COLUMN [Targa] CHAR(20) NOT NULL;
+**Creazione chiave [BDA];
+ALTER TABLE BDA ADD CONSTRAINT PK_BDA PRIMARY KEY CLUSTERED (Targa);
+**Creazione indice [BDA];
+CREATE NONCLUSTERED INDEX IX1_BDA ON BDA (CodiceCompagnia); 
+**Creazione indice [BDA];
+CREATE NONCLUSTERED INDEX IX2_BDA ON BDA (CodiceFiscale); 
+**Creazione indice [BDA];
+CREATE NONCLUSTERED INDEX IX3_BDA ON BDA (CodiceFiscaleStorno); 
+**Creazione indice [BDA];
+CREATE NONCLUSTERED INDEX IX4_BDA ON BDA (IdStorno);
+ 
+ 
+
+**set NOTNULL [AndamentoSinistri].[AgenziaSinistro];
+ALTER TABLE dbo.[AndamentoSinistri] ALTER COLUMN [AgenziaSinistro] SMALLINT NOT NULL;
+**set NOTNULL [AndamentoSinistri].[EsercizioSinistro];
+ALTER TABLE dbo.[AndamentoSinistri] ALTER COLUMN [EsercizioSinistro] SMALLINT NOT NULL;
+**set NOTNULL [AndamentoSinistri].[NumeroSinistro];
+ALTER TABLE dbo.[AndamentoSinistri] ALTER COLUMN [NumeroSinistro] INT NOT NULL;
+**Creazione chiave [AndamentoSinistri];
+ALTER TABLE ANDAMENTOSINISTRI ADD CONSTRAINT PK_ANDAMENTOSINISTRI PRIMARY KEY CLUSTERED (AgenziaSinistro, EsercizioSinistro, NumeroSinistro);
+
+**set NOTNULL [SinistriDP].[Compagnia];
+ALTER TABLE dbo.[SinistriDP] ALTER COLUMN [Compagnia] INT NOT NULL;
+**set NOTNULL [SinistriDP].[AgenziaSinistro];
+ALTER TABLE dbo.[SinistriDP] ALTER COLUMN [AgenziaSinistro] SMALLINT NOT NULL;
+**set NOTNULL [SinistriDP].[EsercizioSinistro];
+ALTER TABLE dbo.[SinistriDP] ALTER COLUMN [EsercizioSinistro] SMALLINT NOT NULL;
+**set NOTNULL [SinistriDP].[NumeroSinistro];
+ALTER TABLE dbo.[SinistriDP] ALTER COLUMN [NumeroSinistro] INT NOT NULL;
+**Creazione chiave [SinistriDP];
+ALTER TABLE SINISTRIDP ADD CONSTRAINT PK_SINISTRIDP PRIMARY KEY CLUSTERED (AgenziaSinistro, EsercizioSinistro, NumeroSinistro);
+**Creazione indice [SinistriDP];
+CREATE NONCLUSTERED INDEX IX1_SINISTRIDP ON SINISTRIDP (CognomeAssicurato);
+ 
+**set NOTNULL [SinistriControparte].[EsercizioSinistro];
+ALTER TABLE dbo.[SinistriControparte] ALTER COLUMN [EsercizioSinistro] SMALLINT NOT NULL;
+**set NOTNULL [SinistriControparte].[AgenziaSinistro];
+ALTER TABLE dbo.[SinistriControparte] ALTER COLUMN [AgenziaSinistro] SMALLINT NOT NULL;
+**set NOTNULL [SinistriControparte].[NumeroSinistro];
+ALTER TABLE dbo.[SinistriControparte] ALTER COLUMN [NumeroSinistro] INT NOT NULL;
+**Creazione chiave [SinistriControparte];
+ALTER TABLE SINISTRICONTROPARTE ADD CONSTRAINT PK_SINISTRICONTROPARTE PRIMARY KEY CLUSTERED (AgenziaSinistro, EsercizioSinistro, NumeroSinistro);
+
+
+**Creazione indice [Assegni];
+CREATE NONCLUSTERED INDEX IX1_ASSEGNI ON ASSEGNI (IdAssegno);
+**Creazione indice [PuntiVendita];
+CREATE NONCLUSTERED INDEX IX1_PUNTIVENDITA ON PUNTIVENDITA (Codice);
+**Creazione indice [PuntiVendita];
+CREATE NONCLUSTERED INDEX IX2_PUNTIVENDITA ON PUNTIVENDITA (CodiceEssigReti);
+**Creazione indice [Avvisi];
+CREATE NONCLUSTERED INDEX IX1_AVVISI ON AVVISI (NumeroQT); 
+**Creazione indice [ControlloIncassi];
+CREATE NONCLUSTERED INDEX IX1_CONTROLLOINCASSI ON CONTROLLOINCASSI (NumeroCorrezioni); 
+**Creazione indice [ControlloIncassi];
+CREATE NONCLUSTERED INDEX IX2_CONTROLLOINCASSI ON CONTROLLOINCASSI (NumeroRecord); 
+
+**Creazione indice [Incassi];
+CREATE NONCLUSTERED INDEX IX1_INCASSI ON INCASSI (Ramo, Polizza, DataFoglioCassa);
+ 
+**Creazione indice [MonitorQT];
+CREATE NONCLUSTERED INDEX IX1_MONITORQT ON MONITORQT (CodiceAINew); 
+**Creazione indice [MonitorQT];
+CREATE NONCLUSTERED INDEX IX2_MONITORQT ON MONITORQT (CodiceAIOld); 
+**Creazione indice [MonitorQT];
+CREATE NONCLUSTERED INDEX IX3_MONITORQT ON MONITORQT (Polizza);
+ 
+**Creazione indice [CalendarioDoc];
+CREATE NONCLUSTERED INDEX IX1_CALENDARIODOC ON CALENDARIODOC (Codice);
+ 
+**Creazione indice [BudgetFlex];
+CREATE NONCLUSTERED INDEX IX1_BUDGETFLEX ON BUDGETFLEX (Codice);
+ 
+**Creazione indice [CodiciAttivita];
+CREATE NONCLUSTERED INDEX IX1_CODICIATTIVITA ON CODICIATTIVITA (CodiceAttivita);
+ 
+**Creazione indice [FlexRE];
+CREATE NONCLUSTERED INDEX IX1_FLEXRE ON FLEXRE (Codice);
+ 
+ 
+**Creazione indice [ReplicaNote];
+CREATE NONCLUSTERED INDEX IX1_REPLICANOTE ON REPLICANOTE (Id);
+ 
+**Creazione indice [SIncarichi];
+CREATE NONCLUSTERED INDEX IX1_SINCARICHI ON SINCARICHI (CodicePerito);
+**Creazione indice [SIncarichi];
+CREATE NONCLUSTERED INDEX IX2_SINCARICHI ON SINCARICHI (CodicePeritoSAP);
+**Creazione indice [SIncarichi];
+CREATE NONCLUSTERED INDEX IX3_SINCARICHI ON SINCARICHI (NumeroSinistro);
+ 
+**Creazione indice [SinistriAC];
+CREATE NONCLUSTERED INDEX IX1_SINISTRIAC ON SINISTRIAC (CognomeAssicurato);
+
+**Creazione indice [SinistriDA];
+CREATE NONCLUSTERED INDEX IX1_SINISTRIDA ON SINISTRIDA (CognomeAssicurato);
+**CREAZIONE DATABASE AGENZIA TERMINATO CORRETTAMENTE;
+
+
+**annotazioni di stefano
+no key:
+[CodiciAttivita]
+[BudgetFlex]
+[CalendarioDoc] >> chiave nomefile???
+[BRIDGE] indice >> obsoleta
+[ReplicaNote] indice su ID???
+[SinistriAC] 'bonificare'
+[SinistriDA] >>  come sinistri DP
+[SIncarichi]
+[MonitorQT] >> polizza,dataeffetto???
+[Assegni]
+[PuntiVendita]
+[Avvisi]
+[ControlloIncassi] >> agenzia,datafogliocassa
+[Incassi] >> indici: datafogliocassa,ramogestione???,polizza,codicefiscale

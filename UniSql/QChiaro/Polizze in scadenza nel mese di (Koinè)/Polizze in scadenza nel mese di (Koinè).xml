@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>In scadenza</pacchetto>
+        <nome>Polizze in scadenza nel mese di (Koinè)</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco delle polizze in scadenza nel mese indicato</descrizione>
+        <note></note>
+        <ultagg>25/03/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annomese" etichetta="Anno-Mese" tipo="string" larghezza="10" nuovariga="true" sinistra="40">
+            <elencovalori><![CDATA[SELECT DISTINCT FORMAT(DataScadenza,'YYYYMM'), FORMAT(DataScadenza,'YYYY-MM') 
+                                   FROM POLIZZE 
+                                   WHERE (DataStorno IS NULL OR DataStorno = 0)
+                                     AND DataScadenza >= DateAdd("m", -1, Date())
+                                   ORDER BY 1]]></elencovalori>
+        </parametro>
+        <parametro nome="@siAuto" etichetta="Includi i rami auto" tipo="boolean" valore="true"/>
+        <parametro nome="@siVita" etichetta="Includi i rami vita" tipo="boolean" valore="true"/>
+        <parametro nome="@siRe"   etichetta="Includi i rami re"   tipo="boolean" valore="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    format(P.Ramo,'000')          as Ramo,
+		    format(P.Polizza,'000000000') as Polizza,
+		    format(P.DataScadenza,'DDMMYYYY')  as Scadenza
+		FROM 
+		    [Polizze] AS P
+		WHERE @subagenzia  IN (-1, P.CodiceSubAgente)
+		  AND @produttore  IN (-1, P.CodiceProduttore)
+		  AND @annomese = FORMAT(P.DataScadenza,'YYYYMM')
+		  AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+		     AND ((@siAuto AND P.ramo in (30, 51, 53, 55, 130, 300, 72, 79, 131, 132, 179, 301))
+		     OR   (@siVita AND P.ramo in (89, 110, 111, 114, 189, 310, 54, 57, 155, 156))
+		     OR   (@siRe   AND not P.ramo in (30, 51, 53, 55, 130, 300, 72, 79, 131, 132, 179, 301,
+		                                      89, 110, 111, 114, 189, 310, 54, 57, 155, 156)))
+		ORDER BY 3
+	]]></sql>
+    </estrazione>
+</oggetto>

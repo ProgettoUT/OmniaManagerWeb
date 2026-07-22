@@ -1,0 +1,1204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.utools.it/asp/SettingAgenzia" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.utools.it/asp/SettingAgenzia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.utools.it/asp/SettingAgenzia">
+      <s:element name="CodiciDownloadEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceControllo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConsensoImportazione" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErroreForzature" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErroreListe" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CodiciDownloadExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiciDownloadExResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="ConsensoImportazione" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErroreForzature" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErroreListe" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AbilitazioniSedeStringa">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AbilitazioniSedeStringaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AbilitazioniSedeStringaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForzatureDL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ForzatureDLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ForzatureDLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgenzieCollegate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgenzieCollegateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgenzieCollegateResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TabellaAgenzieCollegate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TabellaAgenzieCollegateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TabellaAgenzieCollegateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgenziaBloccata">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneUt" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Prod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Test" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Lab" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gruppo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgenziaBloccataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AgenziaBloccataResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Prod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Test" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Lab" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gruppo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TipologiaAgenzia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Prod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Test" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Lab" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gruppo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TipologiaAgenziaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TipologiaAgenziaResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Prod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Test" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Lab" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gruppo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgenziaBloccataAsp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgenziaBloccataAspResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AgenziaBloccataAspResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CercaAggiornamento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="VersioneCorrente" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SubVersioneCorrente" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="NuovaVersione" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="NuovaSubVersione" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NuovoTipo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CercaAggiornamentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CercaAggiornamentoResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="NuovaVersione" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="NuovaSubVersione" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NuovoTipo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListinoSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListinoSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListinoSmsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Province">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProvinceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProvinceResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatiVersione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneCorrente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ambiente" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="LogON" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatiVersioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatiVersioneResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="LogON" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatiVersioneLivello">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneCorrente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="tns:DatiAgenzia" />
+            <s:element minOccurs="0" maxOccurs="1" name="Esito" type="tns:EsitoServizio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatiAgenzia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Livello" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EsitoServizio">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EsitoChiamata" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceErrore" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MessaggioErrore" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValoreRestituiro" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DatiVersioneLivelloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatiVersioneLivelloResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="tns:DatiAgenzia" />
+            <s:element minOccurs="0" maxOccurs="1" name="Esito" type="tns:EsitoServizio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VersioneLivello">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneCorrente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ambiente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="tns:DatiAgenzia" />
+            <s:element minOccurs="0" maxOccurs="1" name="Esito" type="tns:EsitoServizio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VersioneLivelloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VersioneLivelloResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="tns:DatiAgenzia" />
+            <s:element minOccurs="0" maxOccurs="1" name="Esito" type="tns:EsitoServizio" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Assicoop2Codice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sigla" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Assicoop2CodiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Assicoop2CodiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CodiciSub">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CodiciSubResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiciSubResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfigAgenzia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceSede" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfigAgenziaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfigAgenziaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Abilitazioni">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AbilitazioniResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AbilitazioniResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaProdotti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dsStatistiche">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaProdottiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InviaProdottiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaDatiSinistri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dsStatistiche">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaDatiSinistriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InviaDatiSinistriResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvioProdottiEffettuato">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvioProdottiEffettuatoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InvioProdottiEffettuatoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvioDatiSinistri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvioDatiSinistriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InvioDatiSinistriResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLogUso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatiLog">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistraLogUsoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistraLogUsoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Referenti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Agenzia" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReferentiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReferentiResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CodiciDownloadExSoapIn">
+    <wsdl:part name="parameters" element="tns:CodiciDownloadEx" />
+  </wsdl:message>
+  <wsdl:message name="CodiciDownloadExSoapOut">
+    <wsdl:part name="parameters" element="tns:CodiciDownloadExResponse" />
+  </wsdl:message>
+  <wsdl:message name="AbilitazioniSedeStringaSoapIn">
+    <wsdl:part name="parameters" element="tns:AbilitazioniSedeStringa" />
+  </wsdl:message>
+  <wsdl:message name="AbilitazioniSedeStringaSoapOut">
+    <wsdl:part name="parameters" element="tns:AbilitazioniSedeStringaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ForzatureDLSoapIn">
+    <wsdl:part name="parameters" element="tns:ForzatureDL" />
+  </wsdl:message>
+  <wsdl:message name="ForzatureDLSoapOut">
+    <wsdl:part name="parameters" element="tns:ForzatureDLResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgenzieCollegateSoapIn">
+    <wsdl:part name="parameters" element="tns:AgenzieCollegate" />
+  </wsdl:message>
+  <wsdl:message name="AgenzieCollegateSoapOut">
+    <wsdl:part name="parameters" element="tns:AgenzieCollegateResponse" />
+  </wsdl:message>
+  <wsdl:message name="TabellaAgenzieCollegateSoapIn">
+    <wsdl:part name="parameters" element="tns:TabellaAgenzieCollegate" />
+  </wsdl:message>
+  <wsdl:message name="TabellaAgenzieCollegateSoapOut">
+    <wsdl:part name="parameters" element="tns:TabellaAgenzieCollegateResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgenziaBloccataSoapIn">
+    <wsdl:part name="parameters" element="tns:AgenziaBloccata" />
+  </wsdl:message>
+  <wsdl:message name="AgenziaBloccataSoapOut">
+    <wsdl:part name="parameters" element="tns:AgenziaBloccataResponse" />
+  </wsdl:message>
+  <wsdl:message name="TipologiaAgenziaSoapIn">
+    <wsdl:part name="parameters" element="tns:TipologiaAgenzia" />
+  </wsdl:message>
+  <wsdl:message name="TipologiaAgenziaSoapOut">
+    <wsdl:part name="parameters" element="tns:TipologiaAgenziaResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgenziaBloccataAspSoapIn">
+    <wsdl:part name="parameters" element="tns:AgenziaBloccataAsp" />
+  </wsdl:message>
+  <wsdl:message name="AgenziaBloccataAspSoapOut">
+    <wsdl:part name="parameters" element="tns:AgenziaBloccataAspResponse" />
+  </wsdl:message>
+  <wsdl:message name="CercaAggiornamentoSoapIn">
+    <wsdl:part name="parameters" element="tns:CercaAggiornamento" />
+  </wsdl:message>
+  <wsdl:message name="CercaAggiornamentoSoapOut">
+    <wsdl:part name="parameters" element="tns:CercaAggiornamentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListinoSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListinoSms" />
+  </wsdl:message>
+  <wsdl:message name="ListinoSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListinoSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProvinceSoapIn">
+    <wsdl:part name="parameters" element="tns:Province" />
+  </wsdl:message>
+  <wsdl:message name="ProvinceSoapOut">
+    <wsdl:part name="parameters" element="tns:ProvinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatiVersioneSoapIn">
+    <wsdl:part name="parameters" element="tns:DatiVersione" />
+  </wsdl:message>
+  <wsdl:message name="DatiVersioneSoapOut">
+    <wsdl:part name="parameters" element="tns:DatiVersioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatiVersioneLivelloSoapIn">
+    <wsdl:part name="parameters" element="tns:DatiVersioneLivello" />
+  </wsdl:message>
+  <wsdl:message name="DatiVersioneLivelloSoapOut">
+    <wsdl:part name="parameters" element="tns:DatiVersioneLivelloResponse" />
+  </wsdl:message>
+  <wsdl:message name="VersioneLivelloSoapIn">
+    <wsdl:part name="parameters" element="tns:VersioneLivello" />
+  </wsdl:message>
+  <wsdl:message name="VersioneLivelloSoapOut">
+    <wsdl:part name="parameters" element="tns:VersioneLivelloResponse" />
+  </wsdl:message>
+  <wsdl:message name="Assicoop2CodiceSoapIn">
+    <wsdl:part name="parameters" element="tns:Assicoop2Codice" />
+  </wsdl:message>
+  <wsdl:message name="Assicoop2CodiceSoapOut">
+    <wsdl:part name="parameters" element="tns:Assicoop2CodiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CodiciSubSoapIn">
+    <wsdl:part name="parameters" element="tns:CodiciSub" />
+  </wsdl:message>
+  <wsdl:message name="CodiciSubSoapOut">
+    <wsdl:part name="parameters" element="tns:CodiciSubResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfigAgenziaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfigAgenzia" />
+  </wsdl:message>
+  <wsdl:message name="ConfigAgenziaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfigAgenziaResponse" />
+  </wsdl:message>
+  <wsdl:message name="AbilitazioniSoapIn">
+    <wsdl:part name="parameters" element="tns:Abilitazioni" />
+  </wsdl:message>
+  <wsdl:message name="AbilitazioniSoapOut">
+    <wsdl:part name="parameters" element="tns:AbilitazioniResponse" />
+  </wsdl:message>
+  <wsdl:message name="InviaProdottiSoapIn">
+    <wsdl:part name="parameters" element="tns:InviaProdotti" />
+  </wsdl:message>
+  <wsdl:message name="InviaProdottiSoapOut">
+    <wsdl:part name="parameters" element="tns:InviaProdottiResponse" />
+  </wsdl:message>
+  <wsdl:message name="InviaDatiSinistriSoapIn">
+    <wsdl:part name="parameters" element="tns:InviaDatiSinistri" />
+  </wsdl:message>
+  <wsdl:message name="InviaDatiSinistriSoapOut">
+    <wsdl:part name="parameters" element="tns:InviaDatiSinistriResponse" />
+  </wsdl:message>
+  <wsdl:message name="InvioProdottiEffettuatoSoapIn">
+    <wsdl:part name="parameters" element="tns:InvioProdottiEffettuato" />
+  </wsdl:message>
+  <wsdl:message name="InvioProdottiEffettuatoSoapOut">
+    <wsdl:part name="parameters" element="tns:InvioProdottiEffettuatoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InvioDatiSinistriSoapIn">
+    <wsdl:part name="parameters" element="tns:InvioDatiSinistri" />
+  </wsdl:message>
+  <wsdl:message name="InvioDatiSinistriSoapOut">
+    <wsdl:part name="parameters" element="tns:InvioDatiSinistriResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLogUsoSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistraLogUso" />
+  </wsdl:message>
+  <wsdl:message name="RegistraLogUsoSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistraLogUsoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReferentiSoapIn">
+    <wsdl:part name="parameters" element="tns:Referenti" />
+  </wsdl:message>
+  <wsdl:message name="ReferentiSoapOut">
+    <wsdl:part name="parameters" element="tns:ReferentiResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ConfiguraSedeSoap">
+    <wsdl:operation name="CodiciDownloadEx">
+      <wsdl:input message="tns:CodiciDownloadExSoapIn" />
+      <wsdl:output message="tns:CodiciDownloadExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AbilitazioniSedeStringa">
+      <wsdl:input message="tns:AbilitazioniSedeStringaSoapIn" />
+      <wsdl:output message="tns:AbilitazioniSedeStringaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ForzatureDL">
+      <wsdl:input message="tns:ForzatureDLSoapIn" />
+      <wsdl:output message="tns:ForzatureDLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgenzieCollegate">
+      <wsdl:input message="tns:AgenzieCollegateSoapIn" />
+      <wsdl:output message="tns:AgenzieCollegateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TabellaAgenzieCollegate">
+      <wsdl:input message="tns:TabellaAgenzieCollegateSoapIn" />
+      <wsdl:output message="tns:TabellaAgenzieCollegateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgenziaBloccata">
+      <wsdl:input message="tns:AgenziaBloccataSoapIn" />
+      <wsdl:output message="tns:AgenziaBloccataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TipologiaAgenzia">
+      <wsdl:input message="tns:TipologiaAgenziaSoapIn" />
+      <wsdl:output message="tns:TipologiaAgenziaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgenziaBloccataAsp">
+      <wsdl:input message="tns:AgenziaBloccataAspSoapIn" />
+      <wsdl:output message="tns:AgenziaBloccataAspSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CercaAggiornamento">
+      <wsdl:input message="tns:CercaAggiornamentoSoapIn" />
+      <wsdl:output message="tns:CercaAggiornamentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListinoSms">
+      <wsdl:input message="tns:ListinoSmsSoapIn" />
+      <wsdl:output message="tns:ListinoSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Province">
+      <wsdl:input message="tns:ProvinceSoapIn" />
+      <wsdl:output message="tns:ProvinceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatiVersione">
+      <wsdl:input message="tns:DatiVersioneSoapIn" />
+      <wsdl:output message="tns:DatiVersioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatiVersioneLivello">
+      <wsdl:input message="tns:DatiVersioneLivelloSoapIn" />
+      <wsdl:output message="tns:DatiVersioneLivelloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VersioneLivello">
+      <wsdl:input message="tns:VersioneLivelloSoapIn" />
+      <wsdl:output message="tns:VersioneLivelloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Assicoop2Codice">
+      <wsdl:input message="tns:Assicoop2CodiceSoapIn" />
+      <wsdl:output message="tns:Assicoop2CodiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CodiciSub">
+      <wsdl:input message="tns:CodiciSubSoapIn" />
+      <wsdl:output message="tns:CodiciSubSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfigAgenzia">
+      <wsdl:input message="tns:ConfigAgenziaSoapIn" />
+      <wsdl:output message="tns:ConfigAgenziaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Abilitazioni">
+      <wsdl:input message="tns:AbilitazioniSoapIn" />
+      <wsdl:output message="tns:AbilitazioniSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InviaProdotti">
+      <wsdl:input message="tns:InviaProdottiSoapIn" />
+      <wsdl:output message="tns:InviaProdottiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InviaDatiSinistri">
+      <wsdl:input message="tns:InviaDatiSinistriSoapIn" />
+      <wsdl:output message="tns:InviaDatiSinistriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InvioProdottiEffettuato">
+      <wsdl:input message="tns:InvioProdottiEffettuatoSoapIn" />
+      <wsdl:output message="tns:InvioProdottiEffettuatoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InvioDatiSinistri">
+      <wsdl:input message="tns:InvioDatiSinistriSoapIn" />
+      <wsdl:output message="tns:InvioDatiSinistriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogUso">
+      <wsdl:input message="tns:RegistraLogUsoSoapIn" />
+      <wsdl:output message="tns:RegistraLogUsoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Referenti">
+      <wsdl:input message="tns:ReferentiSoapIn" />
+      <wsdl:output message="tns:ReferentiSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConfiguraSedeSoap" type="tns:ConfiguraSedeSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CodiciDownloadEx">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/CodiciDownloadEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AbilitazioniSedeStringa">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AbilitazioniSedeStringa" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForzatureDL">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/ForzatureDL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgenzieCollegate">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AgenzieCollegate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TabellaAgenzieCollegate">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/TabellaAgenzieCollegate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgenziaBloccata">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AgenziaBloccata" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TipologiaAgenzia">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/TipologiaAgenzia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgenziaBloccataAsp">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AgenziaBloccataAsp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CercaAggiornamento">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/CercaAggiornamento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListinoSms">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/ListinoSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Province">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Province" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatiVersione">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/DatiVersione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatiVersioneLivello">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/DatiVersioneLivello" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VersioneLivello">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/VersioneLivello" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Assicoop2Codice">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Assicoop2Codice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CodiciSub">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/CodiciSub" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfigAgenzia">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/ConfigAgenzia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Abilitazioni">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Abilitazioni" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaProdotti">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InviaProdotti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaDatiSinistri">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InviaDatiSinistri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioProdottiEffettuato">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InvioProdottiEffettuato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioDatiSinistri">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InvioDatiSinistri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogUso">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/RegistraLogUso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Referenti">
+      <soap:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Referenti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConfiguraSedeSoap12" type="tns:ConfiguraSedeSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CodiciDownloadEx">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/CodiciDownloadEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AbilitazioniSedeStringa">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AbilitazioniSedeStringa" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForzatureDL">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/ForzatureDL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgenzieCollegate">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AgenzieCollegate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TabellaAgenzieCollegate">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/TabellaAgenzieCollegate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgenziaBloccata">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AgenziaBloccata" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TipologiaAgenzia">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/TipologiaAgenzia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgenziaBloccataAsp">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/AgenziaBloccataAsp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CercaAggiornamento">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/CercaAggiornamento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListinoSms">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/ListinoSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Province">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Province" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatiVersione">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/DatiVersione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatiVersioneLivello">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/DatiVersioneLivello" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VersioneLivello">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/VersioneLivello" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Assicoop2Codice">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Assicoop2Codice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CodiciSub">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/CodiciSub" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfigAgenzia">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/ConfigAgenzia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Abilitazioni">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Abilitazioni" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaProdotti">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InviaProdotti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaDatiSinistri">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InviaDatiSinistri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioProdottiEffettuato">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InvioProdottiEffettuato" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioDatiSinistri">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/InvioDatiSinistri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraLogUso">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/RegistraLogUso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Referenti">
+      <soap12:operation soapAction="http://www.utools.it/asp/SettingAgenzia/Referenti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConfiguraSede">
+    <wsdl:port name="ConfiguraSedeSoap" binding="tns:ConfiguraSedeSoap">
+      <soap:address location="http://www.utools.it/asp/SettingAgenzia/SettingAgenzia.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ConfiguraSedeSoap12" binding="tns:ConfiguraSedeSoap12">
+      <soap12:address location="http://www.utools.it/asp/SettingAgenzia/SettingAgenzia.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

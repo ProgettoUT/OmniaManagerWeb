@@ -1,0 +1,203 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+UnigestUp
+</name>
+</assembly>
+<members>
+<member name="T:UnigestUp.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:UnigestUp.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:UnigestUp.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="T:UnigestUp.UnicontUpload.IcoUniDataExchangeservice">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.#ctor">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.OpenSessionCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.CloseSessionCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetFileListCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.DownloadFileCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileAndTimeCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetMaxDateCompleted">
+<remarks/>
+</member>
+<member name="E:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.SetDownloadedCompleted">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.OpenSession(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.OpenSessionAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.OpenSessionAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.CloseSession(System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.CloseSessionAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.CloseSessionAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetFileList(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetFileListAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetFileListAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFile(System.String,System.String,System.String,System.Byte[])">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileAsync(System.String,System.String,System.String,System.Byte[])">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileAsync(System.String,System.String,System.String,System.Byte[],System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.DownloadFile(System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.DownloadFileAsync(System.String,System.Int32)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.DownloadFileAsync(System.String,System.Int32,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileAndTime(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Byte[])">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileAndTimeAsync(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Byte[])">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.UploadFileAndTimeAsync(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Byte[],System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetMaxDate(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetMaxDateAsync(System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.GetMaxDateAsync(System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.SetDownloaded(System.String,System.Int32,System.DateTime)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.SetDownloadedAsync(System.String,System.Int32,System.DateTime)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.SetDownloadedAsync(System.String,System.Int32,System.DateTime,System.Object)">
+<remarks/>
+</member>
+<member name="M:UnigestUp.UnicontUpload.IcoUniDataExchangeservice.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.OpenSessionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.OpenSessionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.OpenSessionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.CloseSessionCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.CloseSessionCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.CloseSessionCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.GetFileListCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.GetFileListCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.GetFileListCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.UploadFileCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.UploadFileCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.UploadFileCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.DownloadFileCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.DownloadFileCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.DownloadFileCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.UploadFileAndTimeCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.UploadFileAndTimeCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.UploadFileAndTimeCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.GetMaxDateCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.GetMaxDateCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.GetMaxDateCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.SetDownloadedCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:UnigestUp.UnicontUpload.SetDownloadedCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:UnigestUp.UnicontUpload.SetDownloadedCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

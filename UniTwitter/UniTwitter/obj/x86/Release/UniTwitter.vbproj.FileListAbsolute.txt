@@ -1,0 +1,14 @@
+C:\ApplicazioniDirezione\UTW\SETUP\Utwitt.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\Utwitt.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Utwitt.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Utwitt.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\UniTwitter.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\Utwitt.FormBanner.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\Utwitt.FormNotifica.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\Utwitt.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\UniTwitter.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\UniTwitter.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\UniTwitter.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\Utwitt.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\Utwitt.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniTwitter\UniTwitter\obj\x86\Release\Utwitt.pdb

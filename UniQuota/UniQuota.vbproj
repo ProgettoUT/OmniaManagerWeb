@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22E1E762-7199-4ABF-846C-AE633261AEC4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>UniQuota.My.MyApplication</StartupObject>
+    <RootNamespace>UniQuota</RootNamespace>
+    <AssemblyName>UniQuota</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>Resources\quota.ico</ApplicationIcon>
+    <ManifestCertificateThumbprint>5100838C4E061F5006FA0070EB3B698EC1375406</ManifestCertificateThumbprint>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Sviluppo\UniTools\BinTest\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DefineDebug>true</DefineDebug>
+    <Optimize>false</Optimize>
+    <DefineConstants>GESIASS=1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DefineConstants>RELEASE=True</DefineConstants>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+    <Optimize>true</Optimize>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Valutazione|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DefineConstants>VALUTAZIONE=True</DefineConstants>
+    <RemoveIntegerChecks>true</RemoveIntegerChecks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Lab|x86'">
+    <OutputPath>..\..\..\compile\Lab\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Essig\Browser.Designer.vb">
+      <DependentUpon>Browser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Essig\Browser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Essig\Cruscotto.vb" />
+    <Compile Include="Essig\Esito.vb" />
+    <Compile Include="Essig\EssigForm.Designer.vb">
+      <DependentUpon>EssigForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Essig\EssigForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Essig\Funzioni.vb" />
+    <Compile Include="Essig\Elemento.vb" />
+    <Compile Include="Essig\Lista.vb" />
+    <Compile Include="Essig\Navigatore.vb" />
+    <Compile Include="Essig\Elenchi.vb" />
+    <Compile Include="Essig\EmailLog.vb" />
+    <Compile Include="Essig\WebEngine.vb" />
+    <Compile Include="Fascicolo.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="P00000\P00000ES.vb" />
+    <Compile Include="P00000\P00000TG.vb" />
+    <Compile Include="P01204\P01204DE.vb" />
+    <Compile Include="P01204\P01204EN.vb" />
+    <Compile Include="P01204\P01204FE.designer.vb">
+      <DependentUpon>P01204FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01204\P01204FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01204\P01204PR.vb" />
+    <Compile Include="P01204\P01204PU.vb" />
+    <Compile Include="P01204\P01204SM.vb" />
+    <Compile Include="P01204\P01204ST.vb" />
+    <Compile Include="P01204\P01204TG.vb" />
+    <Compile Include="P01204\P01204UF.designer.vb">
+      <DependentUpon>P01204UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01204\P01204UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01261\P01261DE.vb" />
+    <Compile Include="P01261\P01261EN.vb" />
+    <Compile Include="P01261\P01261FE.Designer.vb">
+      <DependentUpon>P01261FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01261\P01261FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01261\P01261PR.vb" />
+    <Compile Include="P01261\P01261PU.vb" />
+    <Compile Include="P01261\P01261ST.vb" />
+    <Compile Include="P01261\P01261UF.Designer.vb">
+      <DependentUpon>P01261UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01261\P01261UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01261\P01261TR.vb" />
+    <Compile Include="P01262\P01262TR.vb" />
+    <Compile Include="P01262\P01262DE.vb" />
+    <Compile Include="P01262\P01262EN.vb" />
+    <Compile Include="P01262\P01262FE.Designer.vb">
+      <DependentUpon>P01262FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01262\P01262FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01262\P01262PR.vb" />
+    <Compile Include="P01262\P01262PU.vb" />
+    <Compile Include="P01262\P01262ST.vb" />
+    <Compile Include="P01262\P01262UF.Designer.vb">
+      <DependentUpon>P01262UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01262\P01262UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01263\P01263TR.vb" />
+    <Compile Include="P01263\P01263DE.vb" />
+    <Compile Include="P01263\P01263EN.vb" />
+    <Compile Include="P01263\P01263FE.Designer.vb">
+      <DependentUpon>P01263FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01263\P01263FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01263\P01263PR.vb" />
+    <Compile Include="P01263\P01263PU.vb" />
+    <Compile Include="P01263\P01263ST.vb" />
+    <Compile Include="P01263\P01263UF.Designer.vb">
+      <DependentUpon>P01263UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01263\P01263UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P07261\P07261ES.vb" />
+    <Compile Include="P07263\P07263TA.vb" />
+    <Compile Include="P07263\P07263TR.vb" />
+    <Compile Include="P07263\P07263DE.vb" />
+    <Compile Include="P07263\P07263EN.vb" />
+    <Compile Include="P07263\P07263ES.vb" />
+    <Compile Include="P07263\P07263FE.Designer.vb">
+      <DependentUpon>P07263FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P07263\P07263FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P07263\P07263PR.vb" />
+    <Compile Include="P07263\P07263PU.vb" />
+    <Compile Include="P07263\P07263ST.vb" />
+    <Compile Include="P07263\P07263UF.Designer.vb">
+      <DependentUpon>P07263UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P07263\P07263UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PSMART\PSMARTES.vb" />
+    <Compile Include="Sconti.vb" />
+    <Compile Include="Sconto.vb" />
+    <Compile Include="Subagenzia.vb" />
+    <Compile Include="Tests\Test01.vb" />
+    <Compile Include="Tests\Test02.vb" />
+    <Compile Include="Tests\Essig.vb" />
+    <Compile Include="Convenzione.vb" />
+    <Compile Include="CoperturaStampa.vb" />
+    <Compile Include="Licenza.vb" />
+    <Compile Include="NetLog.vb" />
+    <Compile Include="P01201\P01201DE.vb" />
+    <Compile Include="P01201\P01201EN.vb" />
+    <Compile Include="P01201\P01201FE.Designer.vb">
+      <DependentUpon>P01201FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01201\P01201FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01201\P01201PR.vb" />
+    <Compile Include="P01201\P01201ST.vb" />
+    <Compile Include="P01203\P01203DE.vb" />
+    <Compile Include="P01203\P01203EN.vb" />
+    <Compile Include="P01203\P01203FE.Designer.vb">
+      <DependentUpon>P01203FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P01203\P01203FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P01203\P01203PR.vb" />
+    <Compile Include="P01203\P01203ST.vb" />
+    <Compile Include="P01203\P01203TR.vb" />
+    <Compile Include="P02229\P02229DE.vb" />
+    <Compile Include="P02229\P02229EN.vb" />
+    <Compile Include="P02229\P02229FE.Designer.vb">
+      <DependentUpon>P02229FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P02229\P02229FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P02229\P02229PR.vb" />
+    <Compile Include="P02229\P02229ST.vb" />
+    <Compile Include="P00000\P00000TR.vb" />
+    <Compile Include="P04226\P04226TR.vb" />
+    <Compile Include="P07260\P07260TR.vb" />
+    <Compile Include="P07261\P07261TR.vb" />
+    <Compile Include="P07261\P07261DE.vb" />
+    <Compile Include="P07261\P07261EN.vb" />
+    <Compile Include="P07261\P07261FE.Designer.vb">
+      <DependentUpon>P07261FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P07261\P07261FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P07261\P07261PR.vb" />
+    <Compile Include="P07261\P07261PU.vb" />
+    <Compile Include="P07261\P07261ST.vb" />
+    <Compile Include="P07261\P07261UF.Designer.vb">
+      <DependentUpon>P07261UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P07261\P07261UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PSMART\PSMARTDE.vb" />
+    <Compile Include="PSMART\PSMARTEN.vb" />
+    <Compile Include="PSMART\PSMARTFE.Designer.vb">
+      <DependentUpon>PSMARTFE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PSMART\PSMARTFE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PSMART\PSMARTPR.vb" />
+    <Compile Include="PSMART\PSMARTST.vb" />
+    <Compile Include="Shared\Dominio.vb" />
+    <Compile Include="Shared\Dizionario.vb" />
+    <Compile Include="Unilog.vb" />
+    <Compile Include="P00000\P00000DE.vb" />
+    <Compile Include="P00000\P00000EN.vb" />
+    <Compile Include="P00000\P00000FE.Designer.vb">
+      <DependentUpon>P00000FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P00000\P00000FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P04226\P04226DE.vb" />
+    <Compile Include="P04226\P04226EN.vb" />
+    <Compile Include="P04226\P04226FE.Designer.vb">
+      <DependentUpon>P04226FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P04226\P04226FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P04226\P04226PR.vb" />
+    <Compile Include="P04226\P04226ST.vb" />
+    <Compile Include="P04226\P04226UF.Designer.vb">
+      <DependentUpon>P04226UF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P04226\P04226UF.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P04226\P04226UP.vb" />
+    <Compile Include="P00000\P00000ST.vb" />
+    <Compile Include="P07260\P07260EN.vb" />
+    <Compile Include="P07260\P07260PR.vb" />
+    <Compile Include="P07260\P07260DE.vb" />
+    <Compile Include="P07260\P07260FE.Designer.vb">
+      <DependentUpon>P07260FE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P07260\P07260FE.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="P07260\P07260ST.vb" />
+    <Compile Include="Agenzia.vb" />
+    <Compile Include="Cliente.vb" />
+    <Compile Include="Copertura.vb" />
+    <Compile Include="CoperturaSingola.vb" />
+    <Compile Include="CoperturaComposta.vb" />
+    <Compile Include="Email.vb" />
+    <Compile Include="ErroreBox.Designer.vb">
+      <DependentUpon>ErroreBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ErroreBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Messaggio.vb" />
+    <Compile Include="Note.Designer.vb">
+      <DependentUpon>Note.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Note.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database.vb" />
+    <Compile Include="DataManager.vb" />
+    <Compile Include="Dettaglio.Designer.vb">
+      <DependentUpon>Dettaglio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dettaglio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Globale.vb" />
+    <Compile Include="HelpClass.vb" />
+    <Compile Include="Intermediario.vb" />
+    <Compile Include="NoteBox.Designer.vb">
+      <DependentUpon>NoteBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NoteBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PDF.vb" />
+    <Compile Include="Premio.vb" />
+    <Compile Include="Shared\Luogo.vb" />
+    <Compile Include="Quotatore.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Quotatore.Designer.vb">
+      <DependentUpon>Quotatore.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Garanzia.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QuotatorePremio.Designer.vb">
+      <DependentUpon>QuotatorePremio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="QuotatorePremio.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tariffa.vb" />
+    <Compile Include="Partita.vb" />
+    <Compile Include="P00000\P00000PR.vb" />
+    <Compile Include="Sezione.vb" />
+    <Compile Include="Web References\Uniarea\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Essig\Browser.resx">
+      <DependentUpon>Browser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErroreBox.resx">
+      <DependentUpon>ErroreBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Essig\EssigForm.resx">
+      <DependentUpon>EssigForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Note.resx">
+      <DependentUpon>Note.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dettaglio.resx">
+      <DependentUpon>Dettaglio.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoteBox.resx">
+      <DependentUpon>NoteBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P00000\P00000FE.resx">
+      <DependentUpon>P00000FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01201\P01201FE.resx">
+      <DependentUpon>P01201FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01203\P01203FE.resx">
+      <DependentUpon>P01203FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01204\P01204FE.resx">
+      <DependentUpon>P01204FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01204\P01204UF.resx">
+      <DependentUpon>P01204UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01261\P01261FE.resx">
+      <DependentUpon>P01261FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01261\P01261UF.resx">
+      <DependentUpon>P01261UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01262\P01262FE.resx">
+      <DependentUpon>P01262FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01262\P01262UF.resx">
+      <DependentUpon>P01262UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01263\P01263FE.resx">
+      <DependentUpon>P01263FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P01263\P01263UF.resx">
+      <DependentUpon>P01263UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P02229\P02229FE.resx">
+      <DependentUpon>P02229FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P04226\P04226FE.resx">
+      <DependentUpon>P04226FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P04226\P04226UF.resx">
+      <DependentUpon>P04226UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P07260\P07260FE.resx">
+      <DependentUpon>P07260FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P07261\P07261FE.resx">
+      <DependentUpon>P07261FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P07261\P07261UF.resx">
+      <DependentUpon>P07261UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P07263\P07263FE.resx">
+      <DependentUpon>P07263FE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P07263\P07263UF.resx">
+      <DependentUpon>P07263UF.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PSMART\PSMARTFE.resx">
+      <DependentUpon>PSMARTFE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Quotatore.resx">
+      <DependentUpon>Quotatore.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuotatorePremio.resx">
+      <DependentUpon>QuotatorePremio.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Help\P07263.chm" />
+    <None Include="My Project\app.manifest" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Resources\P01202ES.xml.gz" />
+    <None Include="Resources\P01203TR.gz" />
+    <None Include="Resources\P01204TG.gz" />
+    <None Include="Resources\P01261TR.gz" />
+    <None Include="Resources\P01262TR.gz" />
+    <None Include="Resources\P01263TR.gz" />
+    <None Include="Resources\P07261ES.xml.gz" />
+    <None Include="Resources\P07263ES.xml.gz" />
+    <None Include="Resources\P07263TA.gz" />
+    <None Include="Resources\P07263TR.gz" />
+    <None Include="Resources\PSMARTTP.gz" />
+    <None Include="Web References\Uniarea\Esito.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Uniarea\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Uniarea\ws_uniquota.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\P03221TR.gz" />
+    <None Include="Resources\P04226.png" />
+    <None Include="Resources\P01201.png" />
+    <None Include="Resources\P04226TR.gz" />
+    <None Include="Resources\P07260.png" />
+    <None Include="Resources\P07260TR.gz" />
+    <None Include="Resources\P07261TR.gz" />
+    <None Include="Resources\PSMARTTR.gz" />
+    <None Include="Resources\YouIng&amp;Arch.ico" />
+    <None Include="Resources\P02229.png" />
+    <None Include="Resources\youCasa.ico" />
+    <None Include="Resources\YouCommercio.ico" />
+    <Content Include="Resources\cmdRemove.png" />
+    <None Include="Resources\YouInfortuni.ico" />
+    <None Include="Resources\unipolSai.bmp" />
+    <None Include="Resources\PSMART.png" />
+    <None Include="Resources\smart.ico" />
+    <None Include="Resources\P0120332.ico" />
+    <None Include="Resources\P01203.png" />
+    <None Include="Resources\P0126232.ico" />
+    <None Include="Resources\P01262.png" />
+    <None Include="Resources\P0126332.ico" />
+    <None Include="Resources\P01263.png" />
+    <None Include="Resources\P01261.png" />
+    <None Include="Resources\P0126132.ico" />
+    <None Include="Resources\P01204.png" />
+    <None Include="Resources\essig.png" />
+    <Content Include="Resources\YouCondominio.ico" />
+    <None Include="Resources\quota.ico" />
+    <None Include="app.config" />
+    <None Include="Resources\help32.png" />
+    <None Include="Resources\help16.png" />
+    <None Include="Resources\P07261.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://sso.uniarea.it/ws/ws_uniquota.php%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Uniarea\</RelPath>
+      <UpdateFromURL>http://sso.uniarea.it/ws/ws_uniquota.php%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UniQuota_Uniarea_Uniquota</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MSHTML">
+      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Globale\UtUtility.vbproj">
+      <Project>{7affa253-9962-4aff-b530-cd998b973905}</Project>
+      <Name>UtUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

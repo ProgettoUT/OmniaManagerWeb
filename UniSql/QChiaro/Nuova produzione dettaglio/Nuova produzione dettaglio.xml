@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Nuova produzione</pacchetto>
+        <nome>Nuova produzione dettaglio</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+sono riportati i dati sugli incassi
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Tipo Carico uguale a 1 e 5
+]]></note>
+        <ultagg>21/06/2010</ultagg>
+        <scadenza>01/01/2001</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseDa" etichetta="Anno mese da" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="40" nuovariga="true">
+	    <elencovalori>SELECT DISTINCT AnnoMeseCompetenza, format(AnnoMeseCompetenza,'0000-00') FROM Incassi where not Delegataria = 'XXX' ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseA" etichetta="a" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="53">
+	    <elencovalori>SELECT DISTINCT AnnoMeseCompetenza, format(AnnoMeseCompetenza,'0000-00') FROM Incassi WHERE not Delegataria = 'XXX' ORDER BY 1 DESC</elencovalori>
+        </parametro>
+    </parametri>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		    IC.CodiceSubAgente  AS Subagenzia,
+		    IC.CodiceProduttore AS Produttore,
+		    IC.CodiceFiscInc    AS [Codice Fiscale], 
+		    IC.Contraente,
+		    IC.Polizza,
+		    IC.Ramo,
+		    IC.DataFoglioCassa      AS [Foglio Cassa],
+		    IC.Frazionamento        AS [Frazionamento],
+		    IC.TipoCarico           AS [Carico],
+		    IC.TotaleTitolo         AS [Totale Titolo],
+		    IC.TotaleProvvigioni    AS [Provvigioni],
+		    IC.PREMIONETTO          AS [Premio Netto],
+		    IC.INTERESSIFRAZ        AS [Interessi],
+		    IC.ACCESSORI            AS [Accessori],
+		    IC.PREMIOTASS           AS [Premio Tassabile],
+		    IC.PREMIOTASSO          AS [Premio Precedente],
+		    IC.PREMIOTASS - IC.PREMIOTASSO AS [Incremento]	
+		 FROM [Incassi] AS IC
+		WHERE @subagenzia IN (-1, IC.CodiceSubAgente)
+		  AND @produttore IN (-1, IC.CodiceProduttore)
+		  AND IC.TipoCarico IN ('1', '5')
+		  AND IC.AnnoMeseCompetenza >= @annoMeseDa
+		  AND IC.AnnoMeseCompetenza <= @annoMeseA
+		  AND IC.DELEGATARIA <> 'XXX'
+		ORDER BY 2,9
+	]]></sql>
+    </estrazione>
+</oggetto>

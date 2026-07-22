@@ -1,0 +1,17 @@
+C:\ApplicazioniDirezione\UTW\SETUP\Patto.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\Patto.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Patto.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Patto.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.FormPattoRca.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.FormProdotti.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.FormProvvigioni.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.FormRappel.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Patto\Patto\obj\x86\Release\Patto.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll

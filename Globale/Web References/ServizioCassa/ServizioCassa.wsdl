@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="jExq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comando" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="jExqResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jExqResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScaricaEsitati">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Dominio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScaricaEsitatiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ScaricaEsitatiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="jExqSoapIn">
+    <wsdl:part name="parameters" element="tns:jExq" />
+  </wsdl:message>
+  <wsdl:message name="jExqSoapOut">
+    <wsdl:part name="parameters" element="tns:jExqResponse" />
+  </wsdl:message>
+  <wsdl:message name="ScaricaEsitatiSoapIn">
+    <wsdl:part name="parameters" element="tns:ScaricaEsitati" />
+  </wsdl:message>
+  <wsdl:message name="ScaricaEsitatiSoapOut">
+    <wsdl:part name="parameters" element="tns:ScaricaEsitatiResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServizioCassaSoap">
+    <wsdl:operation name="jExq">
+      <wsdl:input message="tns:jExqSoapIn" />
+      <wsdl:output message="tns:jExqSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ScaricaEsitati">
+      <wsdl:input message="tns:ScaricaEsitatiSoapIn" />
+      <wsdl:output message="tns:ScaricaEsitatiSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServizioCassaSoap" type="tns:ServizioCassaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="jExq">
+      <soap:operation soapAction="http://utools.auaonline.it/jExq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScaricaEsitati">
+      <soap:operation soapAction="http://utools.auaonline.it/ScaricaEsitati" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServizioCassaSoap12" type="tns:ServizioCassaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="jExq">
+      <soap12:operation soapAction="http://utools.auaonline.it/jExq" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScaricaEsitati">
+      <soap12:operation soapAction="http://utools.auaonline.it/ScaricaEsitati" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServizioCassa">
+    <wsdl:port name="ServizioCassaSoap" binding="tns:ServizioCassaSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioCassa.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServizioCassaSoap12" binding="tns:ServizioCassaSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioCassa.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

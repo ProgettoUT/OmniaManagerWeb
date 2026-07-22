@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sso.uniarea.it/ws/" xmlns:s="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sso.uniarea.it/ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema targetNamespace="http://sso.uniarea.it/ws/">
+      <s:complexType name="Esito">
+        <s:annotation>
+          <s:documentation>
+                        Classe per la restituzione dell'esito di chiamata al web service
+                    </s:documentation>
+        </s:annotation>
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Errore" nillable="true" type="s:string">
+            <s:annotation>
+              <s:documentation>
+                                0: Success - 1: Warning - 2,3,4,5,9: Error
+                            </s:documentation>
+            </s:annotation>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="Messaggio" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Stato" nillable="true" type="s:string">
+            <s:annotation>
+              <s:documentation>
+                                101: Attivo - 102: Disattivo - 103: Demo - 104: Bloccato
+                            </s:documentation>
+            </s:annotation>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="DataAcquisto" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataAttivazione" nillable="true" type="s:string">
+            <s:annotation>
+              <s:documentation>
+                                E' la data di attivazione presso Emmedi
+                            </s:documentation>
+            </s:annotation>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="DataScadenza" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RagioneSociale" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Email" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="verificaReteSoapIn" />
+  <wsdl:message name="verificaReteSoapOut">
+    <wsdl:part name="return" type="s:string">
+      <s:documentation>
+                Restituisce True se la chiamata va a buon fne
+            </s:documentation>
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetTableSoapIn" />
+  <wsdl:message name="resetTableSoapOut">
+    <wsdl:part name="return" type="tns:Esito">
+      <s:documentation>
+                Classe per la restituzione dell'esito di chiamata al web service
+            </s:documentation>
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="controllaLicenzaSoapIn">
+    <wsdl:part name="codAgenzia" type="s:string">
+      <s:documentation>
+                Il codice di agenzia a 5 cifre
+            </s:documentation>
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="controllaLicenzaSoapOut">
+    <wsdl:part name="return" type="tns:Esito">
+      <s:documentation>
+                Classe per la restituzione dell'esito di chiamata al web service
+            </s:documentation>
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="attivaLicenzaSoapIn">
+    <wsdl:part name="codAgenzia" type="s:string">
+      <s:documentation>
+                Il codice di agenzia a 5 cifre
+            </s:documentation>
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="attivaLicenzaSoapOut">
+    <wsdl:part name="return" type="tns:Esito">
+      <s:documentation>
+                Classe per la restituzione dell'esito di chiamata al web service
+            </s:documentation>
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AssegniSoap">
+    <wsdl:operation name="verificaRete">
+      <wsdl:documentation>
+                Controlla se il servizio e' raggiungibile
+            </wsdl:documentation>
+      <wsdl:input message="tns:verificaReteSoapIn" />
+      <wsdl:output message="tns:verificaReteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="resetTable">
+      <wsdl:documentation>
+                Controlla se il servizio e' raggiungibile
+            </wsdl:documentation>
+      <wsdl:input message="tns:resetTableSoapIn" />
+      <wsdl:output message="tns:resetTableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="controllaLicenza">
+      <wsdl:documentation>
+                Controlla se l'agenzia ha acquistato l'applicazione
+            </wsdl:documentation>
+      <wsdl:input message="tns:controllaLicenzaSoapIn" />
+      <wsdl:output message="tns:controllaLicenzaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="attivaLicenza">
+      <wsdl:documentation>
+                Imposta l'attivazione della licenza su richiesta
+            </wsdl:documentation>
+      <wsdl:input message="tns:attivaLicenzaSoapIn" />
+      <wsdl:output message="tns:attivaLicenzaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AssegniSoap" type="tns:AssegniSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="verificaRete">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/verificaRete" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="resetTable">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/resetTable" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="controllaLicenza">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/controllaLicenza" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="codAgenzia" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="attivaLicenza">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/attivaLicenza" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="codAgenzia" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Assegni">
+    <wsdl:port name="AssegniSoap" binding="tns:AssegniSoap">
+      <soap:address location="http://sso.uniarea.it/ws/ws_assegni.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

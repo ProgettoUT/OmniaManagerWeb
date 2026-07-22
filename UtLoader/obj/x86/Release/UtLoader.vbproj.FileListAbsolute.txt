@@ -1,0 +1,10 @@
+C:\ApplicazioniDirezione\UTW\SETUP\UtLoader.exe.config
+C:\ApplicazioniDirezione\UTW\SETUP\UtLoader.exe
+C:\ApplicazioniDirezione\UTW\SETUP\UtLoader.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\UtLoader.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtLoader\obj\x86\Release\UtLoader.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtLoader\obj\x86\Release\UtLoader.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtLoader\obj\x86\Release\UtLoader.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtLoader\obj\x86\Release\UtLoader.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtLoader\obj\x86\Release\UtLoader.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UtLoader\obj\x86\Release\UtLoader.pdb

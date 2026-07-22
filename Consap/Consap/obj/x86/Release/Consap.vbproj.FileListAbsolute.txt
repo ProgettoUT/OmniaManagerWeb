@@ -1,0 +1,17 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Consap.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\Consap.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Consap.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Consap.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.FormAttivita.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.FormConsap.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.FormRichiesta.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.FormRichiestaSito.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Consap\Consap\obj\x86\Release\Consap.pdb

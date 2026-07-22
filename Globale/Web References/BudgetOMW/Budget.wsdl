@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="CreaVistaIncassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListaCodici" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreaVistaIncassiResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="DatiAnalisi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DatiAnalisiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DatiAnalisiResult" type="tns:DatiAnalisiIncassi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DatiAnalisiIncassi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Dati">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="PrimoAnno" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataAnalisi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FigureProduttive">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="Gruppi">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="Agenzie">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SettingBudget">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SettingBudgetResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SettingBudgetEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListaCodici" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SettingBudgetExResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SettingBudgetAnnuo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SettingBudgetAnnuoResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreaVistaIncassiSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaVistaIncassi" />
+  </wsdl:message>
+  <wsdl:message name="CreaVistaIncassiSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaVistaIncassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="DatiAnalisiSoapIn">
+    <wsdl:part name="parameters" element="tns:DatiAnalisi" />
+  </wsdl:message>
+  <wsdl:message name="DatiAnalisiSoapOut">
+    <wsdl:part name="parameters" element="tns:DatiAnalisiResponse" />
+  </wsdl:message>
+  <wsdl:message name="SettingBudgetSoapIn">
+    <wsdl:part name="parameters" element="tns:SettingBudget" />
+  </wsdl:message>
+  <wsdl:message name="SettingBudgetSoapOut">
+    <wsdl:part name="parameters" element="tns:SettingBudgetResponse" />
+  </wsdl:message>
+  <wsdl:message name="SettingBudgetExSoapIn">
+    <wsdl:part name="parameters" element="tns:SettingBudgetEx" />
+  </wsdl:message>
+  <wsdl:message name="SettingBudgetExSoapOut">
+    <wsdl:part name="parameters" element="tns:SettingBudgetExResponse" />
+  </wsdl:message>
+  <wsdl:message name="SettingBudgetAnnuoSoapIn">
+    <wsdl:part name="parameters" element="tns:SettingBudgetAnnuo" />
+  </wsdl:message>
+  <wsdl:message name="SettingBudgetAnnuoSoapOut">
+    <wsdl:part name="parameters" element="tns:SettingBudgetAnnuoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServizioBudgetSoap">
+    <wsdl:operation name="CreaVistaIncassi">
+      <wsdl:input message="tns:CreaVistaIncassiSoapIn" />
+      <wsdl:output message="tns:CreaVistaIncassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DatiAnalisi">
+      <wsdl:input message="tns:DatiAnalisiSoapIn" />
+      <wsdl:output message="tns:DatiAnalisiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudget">
+      <wsdl:input message="tns:SettingBudgetSoapIn" />
+      <wsdl:output message="tns:SettingBudgetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudgetEx">
+      <wsdl:input message="tns:SettingBudgetExSoapIn" />
+      <wsdl:output message="tns:SettingBudgetExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudgetAnnuo">
+      <wsdl:input message="tns:SettingBudgetAnnuoSoapIn" />
+      <wsdl:output message="tns:SettingBudgetAnnuoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServizioBudgetSoap" type="tns:ServizioBudgetSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreaVistaIncassi">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaVistaIncassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatiAnalisi">
+      <soap:operation soapAction="http://utools.auaonline.it/DatiAnalisi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudget">
+      <soap:operation soapAction="http://utools.auaonline.it/SettingBudget" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudgetEx">
+      <soap:operation soapAction="http://utools.auaonline.it/SettingBudgetEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudgetAnnuo">
+      <soap:operation soapAction="http://utools.auaonline.it/SettingBudgetAnnuo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServizioBudgetSoap12" type="tns:ServizioBudgetSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreaVistaIncassi">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaVistaIncassi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DatiAnalisi">
+      <soap12:operation soapAction="http://utools.auaonline.it/DatiAnalisi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudget">
+      <soap12:operation soapAction="http://utools.auaonline.it/SettingBudget" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudgetEx">
+      <soap12:operation soapAction="http://utools.auaonline.it/SettingBudgetEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBudgetAnnuo">
+      <soap12:operation soapAction="http://utools.auaonline.it/SettingBudgetAnnuo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServizioBudget">
+    <wsdl:port name="ServizioBudgetSoap" binding="tns:ServizioBudgetSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServizioBudgetSoap12" binding="tns:ServizioBudgetSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Budget.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

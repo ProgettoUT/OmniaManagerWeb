@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="sms" targetNamespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <documentation><![CDATA[API SOAP servizi SMS.]]></documentation>
+  <wsdl:types>
+    <xs:schema targetNamespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/">
+      <xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xs:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+      <xs:complexType name="ArrayOfNumber">
+        <xs:complexContent mixed="false">
+          <xs:restriction base="soap-enc:Array">
+            <xs:attribute wsdl:arrayType="tns:smsNUMBER[]" ref="soap-enc:arrayType" />
+          </xs:restriction>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="smsNUMBER">
+        <xs:all>
+          <xs:element minOccurs="1" maxOccurs="1" name="number" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="tokens" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="id" nillable="true" type="xs:integer" />
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="smsOPTIONS">
+        <xs:all>
+          <xs:element minOccurs="0" maxOccurs="1" name="gateway" nillable="true" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="date" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="charset" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="wappush" nillable="true" type="xs:integer" />
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="smsDELIVERYFILTERS">
+        <xs:all>
+          <xs:element minOccurs="0" maxOccurs="1" name="status" nillable="true" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="details" nillable="true" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="receivers" nillable="true" type="xs:string" />
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="subaccountINFO">
+        <xs:all>
+          <xs:element minOccurs="0" maxOccurs="1" name="username" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="lastname" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="tel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="cel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="fax" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="city" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="cap" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="province" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="notes" nillable="true" type="xs:string" />
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="subaccountUpdateINFO">
+        <xs:all>
+          <xs:element minOccurs="0" maxOccurs="1" name="username" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="lastname" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="tel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="cel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="fax" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="city" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="cap" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="province" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="notes" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="status" nillable="true" type="xs:boolean" />
+        </xs:all>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="createSessionRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="expirySeconds" type="xs:integer" />
+    <wsdl:part nillable="true" name="deleteOtherSessions" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="createSessionResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="sessionKey" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="aliveSessionRequest">
+    <wsdl:part nillable="true" name="sessionKey" type="xs:string" />
+    <wsdl:part nillable="true" name="expirySeconds" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="aliveSessionResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="expiryTimestamp" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="isValidSessionRequest">
+    <wsdl:part nillable="true" name="sessionKey" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="isValidSessionResponse">
+    <wsdl:part name="isValid" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="deleteSessionRequest">
+    <wsdl:part nillable="true" name="sessionKey" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="deleteSessionResponse">
+    <wsdl:part name="error" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="deleteAllSessionUserRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="deleteAllSessionUserResponse">
+    <wsdl:part name="error" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getErrorDescrRequest">
+    <wsdl:part nillable="true" name="errorCode" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getErrorDescrResponse">
+    <wsdl:part name="errorDescr" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsSimpleRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="numbers" type="xs:string" />
+    <wsdl:part nillable="true" name="text" type="xs:string" />
+    <wsdl:part nillable="true" name="sender" type="xs:string" />
+    <wsdl:part nillable="true" name="gateway" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsSimpleResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="sendingID" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsAdvancedRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="numbers" type="tns:ArrayOfNumber" />
+    <wsdl:part nillable="true" name="text" type="xs:string" />
+    <wsdl:part nillable="true" name="sender" type="xs:string" />
+    <wsdl:part nillable="true" name="options" type="tns:smsOPTIONS" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsAdvancedResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="sendingID" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="getDeliveryRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="sendingID" type="xs:string" />
+    <wsdl:part nillable="true" name="responseType" type="xs:string" />
+    <wsdl:part nillable="true" name="filters" type="tns:smsDELIVERYFILTERS" />
+  </wsdl:message>
+  <wsdl:message name="getDeliveryResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="list" type="xs:string" />
+    <wsdl:part name="format" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="getCreditRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="getCreditResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="credit" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getCreditAsTotSmsRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="number" type="xs:string" />
+    <wsdl:part nillable="true" name="gateway" type="xs:integer" />
+    <wsdl:part nillable="true" name="wapPush" type="xs:integer" />
+    <wsdl:part nillable="true" name="delivery" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getCreditAsTotSmsResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="sms" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getCreditSubaccountRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountName" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="getCreditSubaccountResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="credit" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getCreditSubaccountAsTotSmsRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountName" type="xs:string" />
+    <wsdl:part nillable="true" name="number" type="xs:string" />
+    <wsdl:part nillable="true" name="gateway" type="xs:integer" />
+    <wsdl:part nillable="true" name="wapPush" type="xs:integer" />
+    <wsdl:part nillable="true" name="delivery" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="getCreditSubaccountAsTotSmsResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="sms" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="addTransactionSubaccountRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountName" type="xs:string" />
+    <wsdl:part nillable="true" name="transactionValue" type="xs:integer" />
+    <wsdl:part nillable="true" name="costSMS" type="xs:integer" />
+    <wsdl:part nillable="true" name="transactionDescr" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="addTransactionSubaccountResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="newCredit" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="addSubaccountRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountInfo" type="tns:subaccountINFO" />
+  </wsdl:message>
+  <wsdl:message name="addSubaccountResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="id" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="updateSubaccountRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountName" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountInfo" type="tns:subaccountUpdateINFO" />
+  </wsdl:message>
+  <wsdl:message name="updateSubaccountResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="id" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:message name="deleteSubaccountRequest">
+    <wsdl:part nillable="true" name="username" type="xs:string" />
+    <wsdl:part nillable="true" name="password" type="xs:string" />
+    <wsdl:part nillable="true" name="subaccountName" type="xs:string" />
+  </wsdl:message>
+  <wsdl:message name="deleteSubaccountResponse">
+    <wsdl:part name="error" type="xs:integer" />
+    <wsdl:part name="id" type="xs:integer" />
+  </wsdl:message>
+  <wsdl:portType name="smsPortType">
+    <wsdl:operation name="createSession">
+      <wsdl:input message="tns:createSessionRequest" />
+      <wsdl:output message="tns:createSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="aliveSession">
+      <wsdl:input message="tns:aliveSessionRequest" />
+      <wsdl:output message="tns:aliveSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="isValidSession">
+      <wsdl:input message="tns:isValidSessionRequest" />
+      <wsdl:output message="tns:isValidSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteSession">
+      <wsdl:input message="tns:deleteSessionRequest" />
+      <wsdl:output message="tns:deleteSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteAllSessionUser">
+      <wsdl:input message="tns:deleteAllSessionUserRequest" />
+      <wsdl:output message="tns:deleteAllSessionUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getErrorDescr">
+      <wsdl:input message="tns:getErrorDescrRequest" />
+      <wsdl:output message="tns:getErrorDescrResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendSmsSimple">
+      <wsdl:input message="tns:sendSmsSimpleRequest" />
+      <wsdl:output message="tns:sendSmsSimpleResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendSmsAdvanced">
+      <documentation>Invio avanzato di SMS</documentation>
+      <wsdl:input message="tns:sendSmsAdvancedRequest" />
+      <wsdl:output message="tns:sendSmsAdvancedResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDelivery">
+      <wsdl:input message="tns:getDeliveryRequest" />
+      <wsdl:output message="tns:getDeliveryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCredit">
+      <wsdl:input message="tns:getCreditRequest" />
+      <wsdl:output message="tns:getCreditResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCreditAsTotSms">
+      <wsdl:input message="tns:getCreditAsTotSmsRequest" />
+      <wsdl:output message="tns:getCreditAsTotSmsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCreditSubaccount">
+      <wsdl:input message="tns:getCreditSubaccountRequest" />
+      <wsdl:output message="tns:getCreditSubaccountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCreditSubaccountAsTotSms">
+      <wsdl:input message="tns:getCreditSubaccountAsTotSmsRequest" />
+      <wsdl:output message="tns:getCreditSubaccountAsTotSmsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="addTransactionSubaccount">
+      <wsdl:input message="tns:addTransactionSubaccountRequest" />
+      <wsdl:output message="tns:addTransactionSubaccountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="addSubaccount">
+      <wsdl:input message="tns:addSubaccountRequest" />
+      <wsdl:output message="tns:addSubaccountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="updateSubaccount">
+      <wsdl:input message="tns:updateSubaccountRequest" />
+      <wsdl:output message="tns:updateSubaccountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteSubaccount">
+      <wsdl:input message="tns:deleteSubaccountRequest" />
+      <wsdl:output message="tns:deleteSubaccountResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="smsBinding" type="tns:smsPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="createSession">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_createSession" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="aliveSession">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_aliveSession" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isValidSession">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_isValidSession" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSession">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_deleteSession" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAllSessionUser">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_deleteAllSessionUser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getErrorDescr">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_getErrorDescr" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendSmsSimple">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_sendSmsSimple" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendSmsAdvanced">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_sendSmsAdvanced" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDelivery">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_getDelivery" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCredit">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_getCredit" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCreditAsTotSms">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_getCreditAsTotSms" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCreditSubaccount">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_getCreditSubaccount" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCreditSubaccountAsTotSms">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_getCreditSubaccountAsTotSms" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addTransactionSubaccount">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_addTransactionSubaccount" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addSubaccount">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_addSubaccount" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateSubaccount">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_updateSubaccount" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteSubaccount">
+      <soap:operation soapAction="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/#action_deleteSubaccount" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="smsService">
+    <wsdl:port name="smsPort" binding="tns:smsBinding">
+      <soap:address location="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

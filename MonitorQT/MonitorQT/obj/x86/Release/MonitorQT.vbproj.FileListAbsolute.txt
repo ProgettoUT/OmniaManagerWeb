@@ -1,0 +1,17 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\MonitorQT.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\MonitorQT.dll
+C:\ApplicazioniDirezione\UTW\SETUP\MonitorQT.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\MonitorQT.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.FormArd.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.FormArdKMS.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.FormMain.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.FormMainKMS.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\MonitorQT\MonitorQT\obj\x86\Release\MonitorQT.pdb

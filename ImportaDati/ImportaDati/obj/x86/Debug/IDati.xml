@@ -1,0 +1,46 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+IDati
+</name>
+</assembly>
+<members>
+<member name="T:ImportaDati.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:ImportaDati.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:ImportaDati.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="P:ImportaDati.My.Resources.Resources.Notifica">
+<summary>
+  Cerca una risorsa localizzata di tipo System.IO.UnmanagedMemoryStream simile a System.IO.MemoryStream.
+</summary>
+</member>
+<member name="M:ImportaDati.Funzioni.ContaRecordTxt(System.String,System.Boolean)">
+ <summary>
+ Conta i record (righe) in un file di testo (txt,csv)
+ </summary>
+ <param name="NomeFile">Path completo del file</param>
+ <param name="RigaTitoli">Nome dei campi nella proma riga</param>
+ <returns>Numero record/righe</returns>
+ <remarks></remarks>
+</member>
+<member name="M:ImportaDati.PrimaNota.InviaFile2Sia">
+ <summary>
+ Invia i file di prima nota a Unicont
+ </summary>
+ <remarks></remarks>
+</member>
+</members>
+</doc>

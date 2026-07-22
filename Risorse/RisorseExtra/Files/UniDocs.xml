@@ -1,0 +1,214 @@
+<UniDocs>
+        <TipoAttivita>
+                <TipoAttivita KeyTipoAttivita="EP" DesTipoAttivita="Emissione Polizza"/>
+        </TipoAttivita>
+
+        <FascicoloPerTipoAttivita>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="21"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="28"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="30"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="36"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="38"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="43"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="44"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="45"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="47"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="48"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="49"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="54"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="55"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="56"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="60"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="61"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="63"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="65"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="71"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="74"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="77"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="78"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="80"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="87"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="88"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="89"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="90"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="92"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="96"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="99"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="108"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="110"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="111"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="117"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="118"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="119"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="122"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="130"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="131"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="132"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="135"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="148"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="154"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="155"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="156"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="157"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="158"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="168"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="161"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="174"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="179"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="180"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="188"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="190"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="230"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CM" KeyRamo="231"/>
+
+                <!-- adeguatezza: tutti tranne ramo 96 -->
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="21"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="28"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="30"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="36"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="38"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="43"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="44"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="45"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="47"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="48"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="49"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="54"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="55"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="56"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="60"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="61"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="63"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="65"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="71"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="74"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="77"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="78"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="80"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="87"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="88"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="89"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="90"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="92"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="96"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="99"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="108"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="110"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="111"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="117"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="118"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="119"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="122"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="130"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="131"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="132"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="135"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="148"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="154"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="155"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="156"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="157"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="158"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="161"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="168"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="174"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="179"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="180"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="188"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="190"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="230"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="AD" KeyRamo="231"/>
+
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="RA" KeyRamo="30"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="RA" KeyRamo="130"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="RA" KeyRamo="230"/>
+
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="CO" KeyRamo="96"/>
+
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QA" KeyRamo="61"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QA" KeyRamo="63"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QA" KeyRamo="122"/>
+
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QB" KeyRamo="80"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QB" KeyRamo="89"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QB" KeyRamo="110"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QB" KeyRamo="111"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QB" KeyRamo="117"/>
+                <FascicoloPerTipoAttivita KeyTipoAttivita="EP" KeyFascicolo="QB" KeyRamo="118"/>
+        </FascicoloPerTipoAttivita>
+
+        <TipoDocumentoPerFascicolo>
+                <!--TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="FP"/-->
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="CF"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="DI"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="PR"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="7X"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="7A"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="CN"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="AP"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="7B"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="TC"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="AL"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="RP"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="MI"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="SF"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="CP"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="BP"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="CM" KeyTipoDocumento="MF"/>
+
+                <TipoDocumentoPerFascicolo KeyFascicolo="AD" KeyTipoDocumento="AD"/>
+
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="LA"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="LR"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="AR"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="AC"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="CV"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="PM"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="PP"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="AV"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="RA" KeyTipoDocumento="PC"/>
+
+                <TipoDocumentoPerFascicolo KeyFascicolo="CO" KeyTipoDocumento="CO"/>
+
+                <TipoDocumentoPerFascicolo KeyFascicolo="QA" KeyTipoDocumento="Q1"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="QA" KeyTipoDocumento="D1"/>
+
+                <TipoDocumentoPerFascicolo KeyFascicolo="QB" KeyTipoDocumento="Q2"/>
+                <TipoDocumentoPerFascicolo KeyFascicolo="QB" KeyTipoDocumento="D2"/>
+        </TipoDocumentoPerFascicolo>
+
+        <TipoDocumento>
+                <!--TipoDocumento KeyTipoDocumento="FP" Scadenza="1" TipoDestinatario="S" DesTipoDocumento="Fascicolo polizza/altro da subagente"       SmsTipoDocumento="il fascicolo della polizza"/-->
+                <TipoDocumento KeyTipoDocumento="CF" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Codice Fiscale"                                SmsTipoDocumento="la copia fronte-retro del codice fiscale"/>
+                <TipoDocumento KeyTipoDocumento="DI" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Documento Identita (CI, Patente, Passaporto)"  SmsTipoDocumento="la copia fronte-retro del documento d'identita"/>
+                <TipoDocumento KeyTipoDocumento="PR" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Privacy"                                       SmsTipoDocumento="la privacy"/>
+                <TipoDocumento KeyTipoDocumento="7X" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="7A e 7B"                                       SmsTipoDocumento="7a e 7b"/>
+                <TipoDocumento KeyTipoDocumento="7A" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="7A (per compatibilita')"                       SmsTipoDocumento="7a"/>
+                <TipoDocumento KeyTipoDocumento="CN" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Contratto" SmsTipoDocumento="il contratto"/>
+                <TipoDocumento KeyTipoDocumento="AP" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Appendice" SmsTipoDocumento="l' appendice firmata in originale"/>
+                <TipoDocumento KeyTipoDocumento="CO" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Coobbligazioni" SmsTipoDocumento="le coobbligazioni"/>
+                <TipoDocumento KeyTipoDocumento="7B" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="7B (per compatibilita')" SmsTipoDocumento="7b"/>
+                <TipoDocumento KeyTipoDocumento="AD" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Adeguatezza" SmsTipoDocumento="l adeguatezza"/>
+                <TipoDocumento KeyTipoDocumento="TC" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Tessera convenzione" SmsTipoDocumento="la copia fronte-retro della tessera convenzione"/>
+                <TipoDocumento KeyTipoDocumento="Q1" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Questionario (solo per alcuni rischi)" SmsTipoDocumento="il questionario"/>
+                <TipoDocumento KeyTipoDocumento="D1" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Dichiarazioni (solo per alcuni rischi)" SmsTipoDocumento="le dichiarazioni"/>
+                <TipoDocumento KeyTipoDocumento="Q2" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Questionario" SmsTipoDocumento="il questionario"/>
+                <TipoDocumento KeyTipoDocumento="D2" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Dichiarazioni" SmsTipoDocumento="le dichiarazioni"/>
+                <TipoDocumento KeyTipoDocumento="LA" Scadenza="60" TipoDestinatario="C" DesTipoDocumento="Libretto autoveicolo" SmsTipoDocumento="la copia fronte-retro del libretto dell'autoveicolo"/>
+                <TipoDocumento KeyTipoDocumento="LR" Scadenza="60" TipoDestinatario="C" DesTipoDocumento="Libretto per cambio residenza" SmsTipoDocumento="la copia fronte-retro del libretto dell'autoveicolo"/>
+                <TipoDocumento KeyTipoDocumento="AR" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Attestato di rischio" SmsTipoDocumento="l attestato di rischio"/>
+                <TipoDocumento KeyTipoDocumento="AC" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Autocertificazione" SmsTipoDocumento="l autocertificazione"/>
+                <TipoDocumento KeyTipoDocumento="CV" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Contrassegno certificato vecchio" SmsTipoDocumento="il vecchio contrassegno certificato"/>
+                <TipoDocumento KeyTipoDocumento="AL" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Altro" SmsTipoDocumento="altro"/>
+                <TipoDocumento KeyTipoDocumento="PM" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Pattuizione massimali" SmsTipoDocumento="la pattuizione massimali"/>
+                <TipoDocumento KeyTipoDocumento="RP" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Regolazione premio" SmsTipoDocumento="la regolazione premio"/>
+                <TipoDocumento KeyTipoDocumento="MI" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Migrazione" SmsTipoDocumento="la migrazione"/>
+                <TipoDocumento KeyTipoDocumento="SF" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Stato di famiglia" SmsTipoDocumento="lo stato di famiglia"/>
+                <TipoDocumento KeyTipoDocumento="AV" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Atto di vendita vecchio autoveicolo" SmsTipoDocumento="l atto di vendita del vecchio autoveicolo"/>
+                <TipoDocumento KeyTipoDocumento="PP" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Passaggio di proprieta" SmsTipoDocumento="il passaggio di proprieta"/>
+                <TipoDocumento KeyTipoDocumento="CP" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Copia polizza firmata" SmsTipoDocumento="la copia firmata della polizza"/>
+                <TipoDocumento KeyTipoDocumento="PC" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Certificato di proprieta" SmsTipoDocumento="il certificato di proprieta"/>
+                <TipoDocumento KeyTipoDocumento="BP" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Busta paga" SmsTipoDocumento="la busta paga"/>
+                <TipoDocumento KeyTipoDocumento="MF" Scadenza="5" TipoDestinatario="C" DesTipoDocumento="Modulo FinItalia" SmsTipoDocumento="il modulo FinItalia"/>       
+        </TipoDocumento>
+</UniDocs>

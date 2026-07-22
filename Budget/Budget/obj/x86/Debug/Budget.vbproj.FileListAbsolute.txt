@@ -1,0 +1,33 @@
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.FormDettaglioPolizza.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.FormDettaglioRg.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.frmAttivazione.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.frmInserimento.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.FormBudget.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\Budget\Budget\obj\x86\Debug\Budget.vbproj.CopyComplete
+C:\ApplicazioniDirezione\UT\Budget.dll
+C:\ApplicazioniDirezione\UT\Budget.pdb
+C:\ApplicazioniDirezione\UT\Budget.xml
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\Budget.dll
+C:\ApplicazioniDirezione\UTW\Budget.pdb
+C:\ApplicazioniDirezione\UTW\Budget.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.FormDettaglioPolizza.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.FormDettaglioRg.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.frmAttivazione.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.frmInserimento.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.FormBudget.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Budget\Budget\obj\x86\Debug\Budget.pdb

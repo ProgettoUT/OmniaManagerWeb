@@ -1,0 +1,46 @@
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut40.dll.config
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut40.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut40.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut40.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\UniCom.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\WinSCPnet.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Telerik.WinControls.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Microsoft.Web.Services3.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Risorse.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Select.HtmlToPdf.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Newtonsoft.Json.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\GestioneDocumenti.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\TelerikCommon.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\DynamicDotNetTWAIN.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\AxInterop.AcroPDFLib.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Interop.AcroPDFLib.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Ut.dll.config
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\UniCom.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\UniCom.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\UniCom.dll.config
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Telerik.WinControls.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Risorse.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Risorse.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Newtonsoft.Json.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\GestioneDocumenti.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\GestioneDocumenti.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\GestioneDocumenti.dll.config
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\UniCom.XmlSerializers.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\GestioneDocumenti.XmlSerializers.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\bin\x86\Release\Select.Html.dep
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Ut40.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\Ut40.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Ut40.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Ut40.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Ut40\obj\x86\Release\Ut40.pdb

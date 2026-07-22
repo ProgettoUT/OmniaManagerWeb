@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>In scadenza</pacchetto>
+        <nome>Polizze in scadenza - rca senza infortuni</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae tutte le polizze auto senza garanzia infortuni conducente.
+]]></descrizione>
+<note><![CDATA[
+Elemento di filtro:
+ - polizza auto (ramo gestione 1 o 2)
+ - senza infortuni conducente
+ - polizza non stornata
+]]></note>
+        <ultagg>07/02/2013</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Convenzione, format(Convenzione,'00000')
+	    		           FROM Polizze
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@anno" etichetta="Anno" tipo="integer" valore="=year(Date())" larghezza="5" sinistra="32" nuovariga="true"/>
+        <parametro nome="@mese" etichetta="Mese" tipo="integer" valore="=month(Date())" larghezza="20" sinistra="54">
+            <elencovalori>1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>
+        </parametro>
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="" obbligatorio="true" larghezza="09" sinistra="84">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy
+	    		           FROM Clienti
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+	    <elencovalori>SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy FROM Clienti ORDER BY 1</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.ConsensoPrivacy AS [Privacy],
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS Cellulare, 
+		    C.TelReferente AS [Per sms], 
+		    C.Email AS Email, 
+		    P.DataScadenza AS DataScadenza, 
+		    Month(P.DataScadenza) AS [mese di DataScadenza], 
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.Targa AS [Numero targa], 
+		    C.Sinistriprecedente AS [Sinistro precedente]
+		FROM 
+		    [Clienti] AS C INNER JOIN [Polizze] AS P ON (C.CodiceFiscale = P.CodiceFiscale)
+		WHERE P.RamoGestione in (1, 2)
+		  AND P.codicegaranziainfortuni = 0
+		  AND (P.DataStorno Is Null OR P.DataStorno = 0)
+		  AND @subagenzia  IN (-1, P.CodiceSubAgente)
+		  AND @produttore  IN (-1, P.CodiceProduttore)
+		  AND @mese IN (-1, month(P.DataScadenza)) 
+		  AND @anno = year(P.DataScadenza) 
+		  AND @convenzione IN (-1, P.Convenzione)
+		  AND @prodotto    IN ('#', format(P.CodiceProdotto,'00000'))
+		  AND @privacy     IN ('#', C.ConsensoPrivacy)
+	]]></sql>
+    </estrazione>
+</oggetto>

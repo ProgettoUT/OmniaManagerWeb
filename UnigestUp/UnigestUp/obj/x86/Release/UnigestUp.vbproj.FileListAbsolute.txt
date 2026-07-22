@@ -1,0 +1,15 @@
+C:\ApplicazioniDirezione\UTW\SETUP\UnigestUp.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\UnigestUp.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UnigestUp.XmlSerializers.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UnigestUp.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\UnigestUp.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.FormDebug.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UnigestUp\UnigestUp\obj\x86\Release\UnigestUp.XmlSerializers.dll

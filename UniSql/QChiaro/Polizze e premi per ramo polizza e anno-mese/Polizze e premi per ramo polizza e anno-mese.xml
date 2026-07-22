@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Polizze e premi per ramo polizza e anno-mese (escluse collettive)</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Mostra il totale del numero delle polizze e il totale dei premi ragruppati per ramo polizza e filtrati per anno mese.
+Sono escluse le polizze collettive (Ramo 130, 131 e 132)
+]]></descrizione>
+        <ultagg>25/06/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@annomese" etichetta="Anno - mese" tipo="integer" obbligatorio="true" larghezza="10" sinistra="40">
+	    <elencovalori><![CDATA[SELECT DISTINCT Anno * 100 + Mese, Anno & '-' & format(mese, '00')
+	    		           FROM StoricoPolizze
+	    		           ORDER BY 1 Desc
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@ramopolizza" etichetta="Ramo" tipo="integer" valore="-1" multivalore="true" altezza="8" larghezza="40" sinistra="60">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+				   UNION SELECT DISTINCT P.Ramo, format(P.Ramo,'000') & ' - ' & TR.Ramo 
+				   FROM Polizze P left join [TipoRami] AS TR on (P.ramo=TR.CodiceRamo)
+				   WHERE P.ramo NOT IN (130, 131, 132)
+				   ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@subagenzia" etichetta="Subagenzie" tipo="integer" valore="-1" multivalore="true" altezza="8" larghezza="40" sinistra="110" >
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive
+	    		           WHERE tipofigura='P' 
+	    		           AND IDFiguraProduttiva < 1000
+	    		           AND Year(DataDisattivazione) > Year(Now) - 2
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga2" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga3" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80"  nuovariga="true" nascosto="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT format(Ramo, '000') AS [Ramo]
+		     , sum(Polizze)        AS [Numero Polizze] 
+		     , sum(Premi)          AS [Totale Premi] 
+		  FROM StoricoPolizze
+		 WHERE @annomese  = (Anno * 100 + Mese)
+		   AND (Ramo NOT IN (130, 131, 132))
+		   AND (Ramo IN (@ramopolizza) OR -1 IN (@ramopolizza))
+		   AND (CodiceSubAgente IN (@subagenzia) OR -1 IN (@subagenzia))
+		 GROUP BY format(Ramo, '000')
+		UNION
+		SELECT 'TOTALE'        AS [Ramo]
+		     , sum(Polizze)    AS [Totale Polizze] 
+		     , sum(Premi)      AS [Totale Premi] 
+		  FROM StoricoPolizze
+		 WHERE @annomese  = (Anno * 100 + Mese)
+		   AND (Ramo NOT IN (130, 131, 132))
+		   AND (Ramo IN (@ramopolizza) OR -1 IN (@ramopolizza))
+		   AND (CodiceSubAgente IN (@subagenzia) OR -1 IN (@subagenzia))
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Polizze stornate ramo 30 - netto targhe</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae tutte le polizze ramo 30 stornate (A3, AA e A6) e targa non presente in portafoglio attivo, filtrando per produttore, convenzione, privacy e data scadenza polizza.
+]]></descrizione>
+        <ultagg>13/01/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@scadenzadeca" etichetta="Scadenza" tipo="integer" larghezza="10" sinistra="84" obbligatorio="false" multivalore="true" altezza="6">
+            <elencovalori>-1;TUTTI;1, 2, 3, 4, 5, 6, 7, 8, 9, 10;1 decade;11, 12, 13, 14, 15, 16, 17, 18, 19, 20;2 decade;21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31;3 decade</elencovalori>        
+        </parametro>
+        
+        <parametro nome="@scadenzamese" etichetta="" tipo="integer" larghezza="13" sinistra="95" obbligatorio="false" multivalore="true" altezza="6">
+            <elencovalori>-1;TUTTI;1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>        
+        </parametro>
+        
+        <parametro nome="@scadenzaanno" etichetta="" tipo="integer" larghezza="10" sinistra="109" obbligatorio="false" multivalore="true" altezza="6">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+				   UNION SELECT DISTINCT year(DataScadenza), year(DataScadenza)
+	    		           FROM MovPolizze
+	    		           WHERE NOT DataScadenza IS NULL
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="string" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT format(Convenzione,'00000'), format(Convenzione,'00000')
+	    		           FROM Incassi
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="#" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy FROM Clienti 
+	    ]]></elencovalori>
+	</parametro>
+
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    MP.CodiceFiscale AS [Codice fiscale], 
+		    Trim(C.Cognome & " " & C.Nome) AS [Contraente], 
+		    C.Indirizzo,
+		    C.Cap,
+		    C.Localita,
+		    C.Provincia,
+		    format(MP.RamoGestione,'00') & ' - ' & TRG.DescRamoGest AS [Ramo gestione], 
+		    format(MP.Ramo,'000') AS [Ramo], 
+		    TR.Ramo AS [Descrizione Ramo], 
+		    MP.Polizza AS Polizza, 
+		    MP.DataEffetto AS [Data Effetto], 
+		    MP.DataScadenza AS [Data Scadenza], 
+		    day(MP.DataScadenza) AS [giorno Data Scadenza], 
+		    month(MP.DataScadenza) AS [Mese Data Scadenza], 
+		    year(MP.DataScadenza) AS [Anno Data Scadenza], 
+		    MP.Frazionamento AS [Frazionamento Polizze], 
+		    MP.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    MP.CodiceProduttore AS [Codice produttore Polizze], 
+		    format(MP.CodiceProdotto,'00000') AS [Prodotto Polizza], 
+		    format(MP.Convenzione,'00000')    AS [Convenzione], 
+		    MP.TotalePremioAnnuo AS [Ultimo premio annuo],
+		    MP.ValoreIncendioFurto as [Valore Incendio Furto],
+		    MP.Targa          AS [targa], 
+		    MP.ClasseRCA      AS [Classe RCA],
+		    MP.Convenzione    AS [Convenzione Polizze], 		    
+		    MP.IDStorno       AS [Codice storno], 
+		    TS.Storno         AS [storno], 
+		    MP.DataStorno     AS [Data storno], 
+		    C.IDStatoCliente  AS [Codice stato cliente],
+		    TSC.StatoCliente  AS [Stato del cliente], 
+		    C.ConsensoPrivacy AS [Privacy],
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono],
+		    C.Cellulare AS [Cellulare],
+		    C.Email
+		  , MP.CodiceFiscaleCF
+		  , MP.CodiceFiscaleEA
+		  , MP.Agenzia
+		  , MP.DataPrimaQuietanza
+		  , MP.Canale
+		  , MP.CodiceProduttore
+		  , MP.CavalliFiscali
+		  , MP.TipoCarico
+		  , MP.Clausole
+		  , MP.TipoTariffa
+		  , MP.ClasseBonusMalus
+		  , MP.CombinazioneMassimali
+		  , MP.SettoreTariffario
+		  , MP.ValoreIncendioFurto
+		  , MP.CodiceGaranzieAccessorie
+		  , MP.CodiceGaranziaInfortuni
+		  , MP.DiariaRitiroPatente
+		  , MP.CodiceUtilizzoVeicolo
+		  , MP.AlimentazioneVeicolo
+		  , MP.ProfessioneRCA
+		  , MP.CodicePagamento
+		  , MP.Delegataria
+		  , MP.Quota
+		  , MP.UsoRca
+		  , MP.CodiceProdottoOld
+		  , MP.TipoPolProd
+		  , MP.ImmatricVeicolo
+		  , MP.CompagniaSost
+		  , MP.AgenziaSost
+		  , MP.RamoSost
+		  , MP.PolizzaSost
+		  , MP.AnnoMeseCompetenza		    
+		FROM ((((((MovPolizze AS MP
+		     LEFT JOIN [Clienti]  AS C   ON (MP.CodiceFiscale = C.CodiceFiscale))
+		     LEFT JOIN [RamoGest] AS TRG ON (MP.RamoGestione = TRG.RamoGestione))
+		     LEFT JOIN [TipoRami] AS TR  ON (MP.Ramo = TR.CodiceRamo))
+		     LEFT JOIN [TipoStorni]  TS  ON (MP.IDStorno = TS.IDStorno AND TS.Settore = 'D'))
+		     LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente))
+		     LEFT JOIN (SELECT Targa FROM Polizze WHERE Targa>'') AS TG ON (MP.TARGA = TG.TARGA))
+		WHERE @produttore  IN (-1, MP.CodiceSubAgente, MP.CodiceProduttore)
+		  AND MP.Ramo = 30 
+		  AND year(DataScadenza)  IN (@scadenzaanno)
+		  AND month(DataScadenza) IN (@scadenzamese)
+		  AND day(DataScadenza)   IN (@scadenzadeca)
+		  AND @convenzione   IN ('#', format(Convenzione,'00000'))
+		  AND @privacy       IN ('#', C.ConsensoPrivacy)
+		  AND MP.IDStorno    IN ('A3', 'AA', 'A6')
+		  AND TG.TARGA IS NULL 
+		ORDER BY 6 DESC
+	]]></sql>
+    </estrazione>
+</oggetto>

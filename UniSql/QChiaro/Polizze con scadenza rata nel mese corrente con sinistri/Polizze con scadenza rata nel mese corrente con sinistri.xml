@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Quietanzamento</pacchetto>
+        <nome>Polizze con scadenza rata nel mese corrente con sinistri</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco polizze con quietanze in scadenza nel corrente mese</descrizione>
+        <note></note>
+        <ultagg>02/07/2013</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="95">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="40" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Convenzione, format(Convenzione,'00000')
+	    		           FROM Polizze
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" obbligatorio="true" larghezza="42" sinistra="95">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@professione" etichetta="Professione" tipo="integer" valore="-1" obbligatorio="true" larghezza="42" sinistra="40" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT 100, '100 - PENSIONATI E IMPIEGATI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 200, '200 - LIBERI PROFESSIONISTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 300, '300 - AGRICOLTORI E PESCATORI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 400, '400 - COMMERCIANTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 500, '500 - ARTIGIANI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 600, '600 - INDUSTRISTRIALI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 700, '700 - COOPERATIVE' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 800, '800 - ENTI PUBBLICI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 900, '900 - ASSOCIAZIONI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IdProfessione, '    ' & format(IDProfessione,'000') & ' - ' & Professione 
+	    		           FROM Professioni
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@mercato" etichetta="Merc.pref." tipo="integer" valore="-1" obbligatorio="true" larghezza="42" sinistra="95">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Codice, format(Codice,'00') & ' - ' & SegmentoMercato 
+	    		           FROM MercatoPreferenziale
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@scadenza" etichetta="Scadenza annuale"  tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="40" nuovariga="true">
+	    <elencovalori>#;TUTTI;S;SI;N;NO</elencovalori>
+        </parametro>
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="58">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy 
+	    		           FROM Clienti
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+	    <elencovalori>SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy FROM Clienti ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@cap" etichetta="Cap" tipo="string" valore="" obbligatorio="false" larghezza="8" sinistra="74"/>
+        
+        <parametro nome="@segmentazione" etichetta="Segmento " tipo="integer" obbligatorio="true" valore="-1" larghezza="42" sinistra="95">
+	    <elencovalori>
+	    	-1;TUTTI;
+	    	-2;  DANNI;
+	    		-4;    AUTO;
+					 1;        RESPONSABILITA' CIVILE AUTO;
+					 2;        AUTO RISCHI DIVERSI;
+	    		-5;    RAMI ELEMENTARI;
+	    			-6;      PERSONE;
+					 3;        INFORTUNI;
+					 4;        MALATTIE;
+					 5;        RISCHI DIVERSI PERSONE;
+	    			-7;      AZIENDE;
+					 6;        INCENDIO RISCHI ORDINARI;
+					 7;        INCENDIO RISCHI INDUSTRIALI;
+					 8;        RISCHI TECNOLOGICI;
+					 9;        FURTO;
+					10;        RESPONSABILITA' CIVILE GENERALE;
+	    			-8;      ALTRI RAMI;
+					11;        TRASPORTI;
+					12;        AERONAUTICA;
+					13;        CAUZIONI;
+					14;        CREDITO;
+					15;        RISCHIO IMPIEGO;
+					16;        GRANDINE;
+					17;        BESTIAME;
+	    	-3;  VITA;
+					18;        VITA INDIVIDUALI;
+					19;        VITA COLLETTIVE;
+					20;        VITA FONDI PENSIONE
+	    </elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		     A.SubAgenzia
+		    ,(Switch([A.Sesso]="S","Spettabile",[A.Sesso]="F","Gentile Signora",[A.Sesso]="M","Egregio Signor")) AS [Titolo]
+		    ,A.CodiceFiscale as [Codice Fiscale]
+		    ,A.Contraente
+		    ,A.Indirizzo
+		    ,A.Cap
+		    ,A.Localita
+		    ,A.Provincia
+		    ,C.ConsensoPrivacy AS [Privacy]
+		    ,C.Telefono1 AS [Primo telefono]
+		    ,C.Fax AS Fax
+		    ,C.Cellulare AS Cellulare
+		    ,C.Email AS EMail
+		    ,Format(A.Ramo,'000')          AS Ramo
+		    ,Format(A.Polizza,'000000000') AS [Polizza]
+		    ,TR.Ramo                       AS [Ramo Polizza]
+		    ,A.Targa
+		    ,A.EffettoRata
+		    ,A.ScadenzaRata
+		    ,A.FlagScadenzaAnnuale
+		    ,A.PremioRataLordo
+		    ,A.StampaDirezione as [Stampa Direzione]
+		    ,IIF(S.SxTot,S.SxTot, 0)  AS [Sinistri totale]
+		    ,CINT(IIF(S.SxApe, S.SxApe, 0)) AS [Sinistri aperti]
+		 FROM ((([AVVISI] AS A
+		INNER JOIN CLIENTI C ON A.CodiceFiscale = C.CodiceFiscale)
+		INNER JOIN Polizze P ON a.agenzia=p.agenzia and a.ramo = p.ramo and a.Polizza = p.Polizza)
+		 LEFT JOIN [TipoRami] AS TR ON TR.CodiceRamo = A.Ramo)
+		 LEFT JOIN ( SELECT AgenziaPolizza           AS Agenzia
+		                  , RamoPolizza              AS Ramo
+		                  , Polizza                  AS Polizza
+		                  , COUNT(*)                 AS SxTot
+		                  , -SUM(TipoChiusura='..')  AS SxApe
+		               FROM SINISTRI
+		              GROUP BY AgenziaPolizza, RamoPolizza, Polizza
+		           ) S ON a.agenzia=s.agenzia and a.ramo = s.ramo and a.Polizza = s.Polizza
+		WHERE @subagenzia  IN (-1, A.SubAgenzia)
+		  AND @produttore  IN (-1, A.Produttore)
+		  AND @convenzione IN (-1, A.Convenzione)
+		  AND @prodotto    IN ('#', format(A.Prodotto,'00000'))
+		  AND @scadenza    IN ('#', A.FlagScadenzaAnnuale)
+		  AND @segmentazione IN (-1,
+			iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+			iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+			iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+			iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+			iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+			iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+			iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+			RamoGestione)
+		  AND A.cap LIKE TRIM(@cap) & '%'
+		  AND @professione IN (-1, 100*(C.TipoCliente\10000),C.TipoCliente\100)
+		  AND @mercato     IN (-1, C.TipoCliente mod 100)
+		  AND @privacy     IN ('#', C.ConsensoPrivacy)
+		  AND FORMAT(EffettoRata,'YYYYMM') IN (FORMAT(Date(),'YYYYMM'), '201201')
+		ORDER BY 3
+	]]></sql>
+	<!-- per modifica di avvisi
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		     [Sub Agenzia]
+		    ,(Switch([A.Sesso]="S","Spettabile",[A.Sesso]="F","Gentile Signora",[A.Sesso]="M","Egregio Signor")) AS [Titolo]
+		    ,A.[Codice Fiscale]
+		    ,A.Contraente
+		    ,A.Indirizzo
+		    ,A.Cap
+		    ,A.Localita
+		    ,A.Provincia
+		    ,C.Telefono1 AS [Primo telefono]
+		    ,C.Fax AS Fax
+		    ,C.Cellulare AS Cellulare
+		    ,C.Email AS EMail
+		    ,Format(A.Ramo,'000')          AS Ramo
+		    ,Format(A.Polizza,'000000000') AS [Polizza]
+		    ,TR.Ramo                       AS [Ramo Polizza]
+		    ,[Effetto Rata]
+		    ,[Scadenza Rata]
+		    ,[Scadenza annuale]
+		    ,[Premio di Rata]
+		 FROM (([AVVISI] AS A
+		INNER JOIN CLIENTI C ON A.[Codice Fiscale] = C.CodiceFiscale)
+		INNER JOIN Polizze P ON CLng(A.Polizza) = P.Polizza and a.ramo = p.ramo)
+		 LEFT JOIN [TipoRami] AS TR ON TR.CodiceRamo = A.Ramo
+		WHERE @subagenzia  IN (-1, P.CodiceSubAgente)
+		  AND @produttore  IN (-1, P.CodiceProduttore)
+		  AND @convenzione IN (-1, P.Convenzione)
+		  AND @prodotto    IN ('#', format(P.CodiceProdotto,'00000'))
+		  AND @scadenza IN ('#', [Scadenza Annuale])
+		  AND @segmentazione IN (-1,
+			iif(RamoGestione >=  1 and RamoGestione <= 17, -2, 0),
+			iif(RamoGestione >= 18 and RamoGestione <= 20, -3, 0),
+			iif(RamoGestione >=  1 and RamoGestione <=  2, -4, 0),
+			iif(RamoGestione >=  3 and RamoGestione <= 17, -5, 0),
+			iif(RamoGestione >=  3 and RamoGestione <=  5, -6, 0),
+			iif(RamoGestione >=  6 and RamoGestione <= 10, -7, 0),
+			iif(RamoGestione >= 11 and RamoGestione <= 17, -8, 0),
+			RamoGestione)
+		  AND @cap IN ('', '' & c.cap)
+		  AND @professione IN (-1, 100*(C.TipoCliente\10000),C.TipoCliente\100)
+		  AND @mercato     IN (-1, C.TipoCliente mod 100)
+		  AND @privacy IN ('#', C.ConsensoPrivacy)
+		  AND FORMAT([Effetto Rata],'YYYYMM') = FORMAT(Date(),'YYYYMM')
+		ORDER BY 3
+	]]></sql>
+	-->
+    </estrazione>
+</oggetto>

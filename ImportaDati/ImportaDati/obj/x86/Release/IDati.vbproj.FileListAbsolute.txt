@@ -1,0 +1,14 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\IDati.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\IDati.dll
+C:\ApplicazioniDirezione\UTW\SETUP\IDati.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\IDati.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\ImportaDati.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\ImportaDati.frmNotifiche.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ImportaDati\ImportaDati\obj\x86\Release\IDati.pdb

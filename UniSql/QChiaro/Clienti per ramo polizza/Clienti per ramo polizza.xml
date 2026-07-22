@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti per ramo polizza</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono riportati i dati anagrafici dei clienti.
+]]></descrizione>
+        <ultagg>07/01/2016</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@ramopolizza" etichetta="Ramo" tipo="integer" valore="-1" multivalore="true" altezza="8" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+				   UNION SELECT DISTINCT P.Ramo, format(P.Ramo,'000') & ' - ' & TR.Ramo 
+				   FROM Polizze P left join [TipoRami] AS TR on (P.ramo=TR.CodiceRamo)
+				   ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>        
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="32" larghezza="27" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>        
+        <parametro nome="@cap" etichetta="Cap" tipo="string" valore="" obbligatorio="false" larghezza="8" sinistra="32" nuovariga="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.DataNascita AS [Data di nascita], 
+		    (Year(Now())-Year([DataNascita])) AS [Eta del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Sesso AS Sesso, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione, 
+		    (Year(Now())-Year([DataInserimento])) AS [Cliente da anni], 
+		    C.PolizzeVigore as [Numero polizze],
+		    iif(C.PolizzeVigore,C.Premicorrente/C.PolizzeVigore,0) AS [Premio medio]
+		 FROM ((((SELECT DISTINCT CodiceFiscale 
+		         FROM POLIZZE
+		      	WHERE @subagenzia  IN (-1, CodiceSubAgente)
+		      	  AND @produttore  IN (-1, CodiceProduttore)
+		      	  AND (DataStorno IS NULL OR DataStorno = 0)
+		  	  AND (Ramo IN (@ramopolizza) OR -1 IN (@ramopolizza))
+		      ) AS P		         
+		INNER JOIN Clienti          AS C   ON (C.CodiceFiscale = P.CodiceFiscale))
+		 LEFT JOIN Professioni      AS PR  ON (PR.IDProfessione = C.TipoCliente\100))
+		 LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente))
+		WHERE @cap IN('', '' & c.cap)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+
+		ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

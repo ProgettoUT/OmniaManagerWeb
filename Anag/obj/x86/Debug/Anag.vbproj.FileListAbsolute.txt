@@ -1,0 +1,19 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\Anag.dll.config
+C:\ApplicazioniDirezione\UTW\Anag.dll
+C:\ApplicazioniDirezione\UTW\Anag.pdb
+C:\ApplicazioniDirezione\UTW\Anag.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.FormAnagrafiche.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.FormLegami.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.ModelloPrivacy.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.ucClienti.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.ucDettaglio.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.ucSintesi.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anag\obj\x86\Debug\Anag.pdb

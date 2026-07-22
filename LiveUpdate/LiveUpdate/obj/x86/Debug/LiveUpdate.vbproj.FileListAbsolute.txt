@@ -1,0 +1,23 @@
+C:\ApplicazioniDirezione\UT\LiveUpdate.exe.config
+C:\ApplicazioniDirezione\UT\LiveUpdate.exe
+C:\ApplicazioniDirezione\UT\LiveUpdate.pdb
+C:\ApplicazioniDirezione\UT\LiveUpdate.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManager\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.pdb
+C:\ApplicazioniDirezione\UTW\LiveUpdate.dll.config
+C:\ApplicazioniDirezione\UTW\LiveUpdate.dll
+C:\ApplicazioniDirezione\UTW\LiveUpdate.pdb
+C:\ApplicazioniDirezione\UTW\LiveUpdate.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\LiveUpdate\LiveUpdate\obj\x86\Debug\LiveUpdate.vbproj.AssemblyReference.cache

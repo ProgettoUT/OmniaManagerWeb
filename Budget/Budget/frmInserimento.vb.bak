@@ -1,0 +1,718 @@
+
+Public Class frmInserimento
+
+    Public Agenzia As String
+    Public FigureProduttive As List(Of FiguraProduttiva)
+
+    Friend FigureModificate As New ArrayList
+
+    Private BudgetAgenzia As BudgetFigura
+    Private BudgetCodice As BudgetFigura
+    Private Rami As New InsiemeRamiGestione
+    Private Comparti As New InsiemeComparti
+    Private cPerc As New Collection
+    Private Const Formato As String = "###,###,##0.00"
+
+    Sub New()
+
+        ' Chiamata richiesta dalla finestra di progettazione.
+        InitializeComponent()
+
+        ' Aggiungere le eventuali istruzioni di inizializzazione dopo la chiamata a InitializeComponent().
+        Me.Size = New Size(930, 720)
+        Me.StartPosition = FormStartPosition.CenterScreen
+        Me.Font = Utx.AppFont.Normal
+
+        ImpostaControlli()
+    End Sub
+
+    Private Sub ImpostaControlli()
+        tlpBudget.Font = Me.Font
+
+        btnEsci.Image = Risorse.Immagini.Bitmap("esci")
+        btnAnnulla.Image = Risorse.Immagini.Bitmap("esci")
+
+        ImpostaRG()
+        ImpostaComparti()
+        ImpostaPercentuali()
+        ImpostaAnni()
+
+        With LabelHelp
+            .Margin = New Padding(3)
+            .Padding = New Padding(10)
+            .BackColor = Color.Gainsboro
+            .BorderStyle = BorderStyle.Fixed3D
+            .Text = String.Format("Si può inserire il budget per singolo ramo gestione oppure per comparto.{0}{0}" +
+                                  "Per inserire il budget per comparto, sovrascrivere l'importo visualizzato e tale importo verrà proporzionalmente suddiviso per ogni singolo ramo gestione.{0}{0}" +
+                                  "E' comunque sempre possibile effettuare correzioni manuali per ogni singolo ramo gestione.",
+                                  Environment.NewLine)
+            .TextAlign = ContentAlignment.MiddleLeft
+        End With
+    End Sub
+
+    Private Sub frmInserimento_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Me.Text = String.Format("Inserimento budget incassi - Codice {0}", Agenzia)
+        ImpostaFigure()
+        gbImporti.Enabled = False
+    End Sub
+
+    Private Sub LeggiBudget()
+        Try
+            Me.Cursor = Cursors.WaitCursor
+
+            SganciaEventiRG()
+            SganciaEventiCom()
+
+            'leggo il budget totale dell'agenzia. figura=0
+            If BudgetAgenzia Is Nothing OrElse BudgetAgenzia.Anno <> cboAnno.Text Then
+                BudgetAgenzia = New BudgetFigura(0, cboAnno.Text)
+            End If
+
+            'e ora il budget della figura selezionata
+            If FiguraSelezionata() = 0 Then
+                BudgetCodice = BudgetAgenzia
+            Else
+                BudgetCodice = New BudgetFigura(FiguraSelezionata(), cboAnno.Text)
+            End If
+
+            For rg As Integer = 1 To 23
+                If rg <> 15 Then
+                    Rami.Controllo(rg).Importo = BudgetCodice.BudgetRamo(rg)
+                End If
+            Next
+
+            AgganciaEventiRG()
+            AgganciaEventiCom()
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        Finally
+            Me.Cursor = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub btnModifica_Click(sender As System.Object, e As System.EventArgs) Handles btnModifica.Click
+
+        LeggiBudget()
+        CalcolaTotali()
+
+        gbImporti.Enabled = True
+        gbFigura.Enabled = False
+        btnEsci.Enabled = False
+
+        'cambio la descrizione al bottone di calcolo
+        If FiguraSelezionata() = 0 Then
+            btnCalcolaBudget.Text = String.Format("Riporto saldo{0}anno precedente", Environment.NewLine)
+        Else
+            btnCalcolaBudget.Text = "Calcola budget"
+        End If
+
+        TextBoxRG1.Focus()
+    End Sub
+
+    Private Sub gbImporti_Leave(sender As Object, e As System.EventArgs) Handles gbImporti.Leave
+        gbFigura.Enabled = True
+        btnEsci.Enabled = True
+    End Sub
+
+    Private Sub btnSalva_Click(sender As System.Object, e As System.EventArgs) Handles btnSalva.Click
+
+        SganciaEventiRG()
+        SganciaEventiCom()
+
+        'scrivo i dati della figura modificata/anno
+        FigureModificate.Add({FiguraSelezionata(), cboAnno.Text})
+        'salva i dati
+        BudgetCodice.SalvaBudget()
+
+        BudgetCodice = Nothing
+
+        gbFigura.Enabled = True
+        gbImporti.Enabled = False
+        cboAnno.Focus()
+    End Sub
+
+    Private Sub btnEsci_Click(sender As System.Object, e As System.EventArgs) Handles btnEsci.Click
+        Me.Close()
+    End Sub
+
+    Private Sub CalcolaTotali()
+
+        SganciaEventiCom()
+
+        Try
+            'calcola percentuale
+            For rg As Integer = 1 To 23
+
+                If cPerc.Contains(rg.ToString) Then
+
+                    Dim br As Double = BudgetAgenzia.BudgetRamo(rg)
+                    Dim bc As Double = BudgetCodice.BudgetRamo(rg)
+
+                    If br > 0 Then
+                        cPerc.Item(rg.ToString).Text = Format((bc / br) * 100, "##0.0")
+                    Else
+                        cPerc.Item(rg.ToString).Text = 0
+                    End If
+                End If
+            Next
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        End Try
+
+        Try
+            'comparti
+            TextBoxComparto1.Importo = BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.AUTO)
+            TextBoxComparto2.Importo = BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.RP)
+            TextBoxComparto4.Importo = BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.AZIENDE)
+            TextBoxComparto6.Importo = BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.ALTRIRAMI)
+            TextBoxComparto7.Importo = BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.VITA)
+            TextBoxComparto5.Importo = BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.RCG)
+            'settori
+            txtSet1.Text = Format(BudgetCodice.TotaleSettore(Utx.Enumerazioni.Settori.AUTO), Formato)
+            txtSet2.Text = Format(BudgetCodice.TotaleSettore(Utx.Enumerazioni.Settori.RE), Formato)
+            txtSet3.Text = Format(BudgetCodice.TotaleSettore(Utx.Enumerazioni.Settori.VITA), Formato)
+            'aggregati
+            txtAgg1.Text = Format(BudgetCodice.TotaleAggregato(Utx.Enumerazioni.Aggregati.DANNI), Formato)
+            txtAgg2.Text = Format(BudgetCodice.TotaleAggregato(Utx.Enumerazioni.Aggregati.VITA), Formato)
+            'generale
+            txtGenerale.Text = Format(BudgetCodice.TotaleGenerale, Formato)
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        End Try
+
+        AgganciaEventiCom()
+    End Sub
+
+    Private Sub ImpostaFigure()
+        Try
+            With cboFigura
+                .DataSource = FigureProduttive
+                .DisplayMember = "DescrizioneEstesa"
+                .SelectedIndex = 0
+            End With
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ImpostaAnni()
+        Try
+            'riempie il combo con gli anni
+            cboAnno.Items.Clear()
+
+            For k As Integer = AnnoInizioIncassi() To Year(Now)
+                cboAnno.Items.Add(k)
+            Next
+
+            cboAnno.SelectedIndex = cboAnno.Items.Count - 1
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ImpostaRG()
+        Rami.Add(1, TextBoxRG1)
+        Rami.Add(2, TextBoxRG2)
+        Rami.Add(3, TextBoxRG3)
+        Rami.Add(4, TextBoxRG4)
+        Rami.Add(5, TextBoxRG5)
+        Rami.Add(6, TextBoxRG6)
+        Rami.Add(7, TextBoxRG7)
+        Rami.Add(8, TextBoxRG8)
+        Rami.Add(9, TextBoxRG9)
+        Rami.Add(10, TextBoxRG10)
+        Rami.Add(11, TextBoxRG11)
+        Rami.Add(12, TextBoxRG12)
+        Rami.Add(13, TextBoxRG13)
+        Rami.Add(14, TextBoxRG14)
+        Rami.Add(16, TextBoxRG16)
+        Rami.Add(17, TextBoxRG17)
+        Rami.Add(18, TextBoxRG18)
+        Rami.Add(19, TextBoxRG19)
+        Rami.Add(20, TextBoxRG20)
+        Rami.Add(21, TextBoxRG21)
+        Rami.Add(22, TextBoxRG22)
+        Rami.Add(23, TextBoxRG23)
+    End Sub
+
+    Private Sub ImpostaPercentuali()
+        'viene utilizzata una key poichè non tutti i rg fra 1 e 23 sono presenti
+        Try
+            For Each t As Object In tlpBudget.Controls
+
+                If TypeOf (t) Is TextBox Then
+
+                    If t.Name.StartsWith("txtPerc", StringComparison.InvariantCultureIgnoreCase) Then
+                        'le percentuali
+                        cPerc.Add(t, t.Name.Substring(7))
+                        t.Tag = CInt(t.Name.Substring(7))
+                    End If
+                End If
+            Next
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub ImpostaComparti()
+        With Comparti
+            .Add(1, TextBoxComparto1)
+            .Add(2, TextBoxComparto2)
+            .Add(3, TextBoxComparto4)
+            .Add(4, TextBoxComparto6)
+            .Add(5, TextBoxComparto7)
+            .Add(6, TextBoxComparto5)
+        End With
+    End Sub
+
+    Private Sub btnCalcolaBudget_Click(sender As System.Object, e As System.EventArgs) Handles btnCalcolaBudget.Click
+        If FiguraSelezionata() = 0 Then
+            If MsgBox(String.Format("Poiché avete selezionato il budget totale d'agenzia (codice 0),{0}" +
+                                    "il calcolo riporterà come budget il totale incassato l'anno precedente.{0}" +
+                                    "In questo modo il saldo incassi dell'anno precedente costituisce la base{0}" +
+                                    "per la definizione del budget dell'anno selezionato.{0}{0}" +
+                                    "I valori già presenti verranno sostituiti. Continuare?",
+                                    Environment.NewLine), MsgBoxStyle.Question + MsgBoxStyle.DefaultButton2 + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+                RiportoIncassiAnnoPrecedente()
+            End If
+        Else
+            CalcolaBudgetFigura()
+        End If
+    End Sub
+
+    Private Sub RiportoIncassiAnnoPrecedente()
+        Try
+            Me.Cursor = Cursors.WaitCursor
+
+            Dim Sfondo As Color
+
+            For rg As Integer = 1 To 23
+
+                If rg <> 15 Then
+
+                    Sfondo = Rami.Controllo(rg).BackColor
+
+                    Rami.Controllo(rg).BackColor = Color.NavajoWhite
+                    Rami.Controllo(rg).Refresh()
+
+                    'calcolo totali anno precedente x ramo gestione
+                    Dim TotaleRgAgenzia As Double = Math.Round(IncassiAgenzia(cboAnno.Text - 1, rg), 2)
+
+                    BudgetCodice.BudgetRamo(rg) = TotaleRgAgenzia
+                    BudgetAgenzia.BudgetRamo(rg) = TotaleRgAgenzia
+
+                    Rami.Controllo(rg).Importo = TotaleRgAgenzia
+                    Rami.Controllo(rg).Refresh()
+
+                    'le percentuali
+                    cPerc.Item(rg.ToString).Text = Format(100, "##0.0")
+                    cPerc.Item(rg.ToString).Refresh()
+
+                    Rami.Controllo(rg).BackColor = Sfondo
+                    Rami.Controllo(rg).Refresh()
+                End If
+            Next
+
+            CalcolaTotali()
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        Finally
+            Me.Cursor = Cursors.Arrow
+        End Try
+    End Sub
+
+    Private Sub CalcolaBudgetFigura()
+        Try
+            Me.Cursor = Cursors.WaitCursor
+
+            Dim Figura As Integer = FiguraSelezionata()
+            Dim Sfondo As Color
+
+            For rg As Integer = 1 To 23
+
+                If rg <> 15 Then
+
+                    If BudgetAgenzia.BudgetRamo(rg) > 0 Then
+
+                        Sfondo = Rami.Controllo(rg).BackColor
+
+                        Rami.Controllo(rg).BackColor = Color.NavajoWhite
+                        Rami.Controllo(rg).Refresh()
+
+                        'calcolo totali anno precedente x ramo gestione
+                        Dim TotaleRgFigura As Double = IncassiFigura(Agenzia, Figura, cboAnno.Text - 1, rg)
+                        Dim TotaleRgAgenzia As Double = IncassiAgenzia(cboAnno.Text - 1, rg)
+
+                        If TotaleRgAgenzia > 0 Then
+                            Dim PercentualeFigura As Double = TotaleRgFigura / TotaleRgAgenzia
+
+                            Dim BudgetRgFigura As Double = Math.Round(BudgetAgenzia.BudgetRamo(rg) *
+                                                                      PercentualeFigura, 2)
+
+                            BudgetCodice.BudgetRamo(rg) = BudgetRgFigura
+
+                            Rami.Controllo(rg).Importo = BudgetRgFigura
+                            Rami.Controllo(rg).Refresh()
+
+                            'le percentuali
+                            cPerc.Item(rg.ToString).Text = Format(PercentualeFigura * 100, "##0.0")
+                            cPerc.Item(rg.ToString).Refresh()
+                        Else
+                            cPerc.Item(rg.ToString).Text = Format(0, "##0.0")
+                        End If
+                    Else
+                        cPerc.Item(rg.ToString).Text = Format(0, "##0.0")
+                    End If
+
+                    Rami.Controllo(rg).BackColor = Sfondo
+                    Rami.Controllo(rg).Refresh()
+                End If
+            Next
+
+            CalcolaTotali()
+
+        Catch ex As Exception
+            Log.Errore(ex)
+        Finally
+            Me.Cursor = Cursors.Arrow
+        End Try
+    End Sub
+
+    Private Sub btnAnnulla_Click_1(sender As System.Object, e As System.EventArgs) Handles btnAnnulla.Click
+        SganciaEventiCom()
+        'azzero i campi rg e comparto
+        For rg As Integer = 1 To 23
+            If rg <> 15 Then
+                Rami.Controllo(rg).Importo = 0
+            End If
+        Next
+
+        BudgetAgenzia = Nothing
+        BudgetCodice = Nothing
+
+        gbFigura.Enabled = True
+        gbImporti.Enabled = False
+        cboFigura.Focus()
+    End Sub
+
+    Private Sub btnStampa_Click(sender As System.Object, e As System.EventArgs) Handles btnStampa.Click
+        Try
+            Dim Report As New Utx.PaginaHtml(String.Format("Budget_{0}_{1}", cboAnno.Text, "xxx"))
+            With Report
+                .Titolo = String.Format("Budget anno {0} codice {1}", cboAnno.Text, "xxx")
+                .Size = Utx.PaginaHtml.TextSize.x_large
+                .AddHtml("<div style=""font-family:Calibri;font-size: medium"">")
+                .AddHtml("<table>")
+
+                'intestazione
+                .AddHtml("<tr style=""font-weight: bold"">")
+                .AddHtml("<td>&nbsp</td>", 2) '2 righe bianche
+                .AddHtml(String.Format("<tr style=""font-weight: bold""><td colspan=6 style=""text-align: left""><p>Figura: {0}</p></td></tr>", "xxx"))
+                .AddHtml(String.Format("<tr style=""font-weight: bold""><td colspan=6 style=""text-align: left""><p>Anno: {0}</p></td></tr>", cboAnno.Text))
+                .AddHtml(String.Format("<tr><td colspan=6 style=""text-align: left""><p>Stampa del: {0}</p></td></tr>", Now))
+
+                .AddHtml("<tr><td colspan=6 style=""text-align: left""><p>&nbsp</p></td></tr>", 2)
+
+                'riga intestazione
+                .AddHtml("<tr bgcolor=""CCCCCC"" style=""font-weight: bold"">")
+                .AddHtml("<td style=""text-align: left""><p>Rami gestione</p></td>")
+                .AddHtml("<td style=""text-align: center""><p>Budget ramo</p></td>")
+                .AddHtml("<td style=""text-align: center""><p>Totali comparto</p></td>")
+                .AddHtml("<td style=""text-align: center""><p>Totali settore</p></td>")
+                .AddHtml("<td style=""text-align: center""><p>Totali aggregato</p></td>")
+                .AddHtml("<td style=""text-align: center""><p>Totale generale</p></td>")
+                .AddHtml("</tr>")
+                'rg1
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>1-2: Rca+Ard</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG1.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore2#"" style=""text-align: right""><p>{0}</p></td>", TextBoxComparto1.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore3#"" style=""text-align: right""><p>{0}</p></td>", txtSet1.Text))
+                .AddHtml("</tr>")
+                'rg3
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>3: Infortuni</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG3.Text))
+                .AddHtml("</tr>")
+                'rg4
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>4: Malattia</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG4.Text))
+                .AddHtml("</tr>")
+                'rg5
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>5: Rischi Diversi Persone</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG5.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore2#"" style=""text-align: right""><p>{0}</p></td>", TextBoxComparto2.Text))
+                .AddHtml("</tr>")
+                'rg6
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>6: Incendio Rischi Ordinari</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG6.Text))
+                .AddHtml("</tr>")
+                'rg7
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>7: Incendio Rischi Industriali</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG7.Text))
+                .AddHtml("</tr>")
+                'rg8
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>8: Rischi Tecnologici</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG8.Text))
+                .AddHtml("</tr>")
+                'rg9
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>9: Furto</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG9.Text))
+                .AddHtml("</tr>")
+                'rg21
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>21: Tutela legale</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG21.Text))
+                .AddHtml("</tr>")
+                'rg22
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>22: Assistenza</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG22.Text))
+                .AddHtml("</tr>")
+                'rg23
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>23: Turismo</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG23.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore2#"" style=""text-align: right""><p>{0}</p></td>", TextBoxComparto4.Text))
+                .AddHtml("</tr>")
+                'rg10
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>9: RCG</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG10.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore2#"" style=""text-align: right""><p>{0}</p></td>", TextBoxComparto5.Text))
+                .AddHtml("</tr>")
+                'rg11
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>11: Trasporti</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG11.Text))
+                .AddHtml("</tr>")
+                'rg12
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>12: Aeronautica</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG12.Text))
+                .AddHtml("</tr>")
+                'rg13
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>13: Cauzioni</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG13.Text))
+                .AddHtml("</tr>")
+                'rg14
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>14: Credito</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG14.Text))
+                .AddHtml("</tr>")
+                'rg16
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>16: Grandine</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG16.Text))
+                .AddHtml("</tr>")
+                'rg17
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>17: Bestiame</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG17.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore2#"" style=""text-align: right""><p>{0}</p></td>", TextBoxComparto6.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore3#"" style=""text-align: right""><p>{0}</p></td>", txtSet2.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore4#"" style=""text-align: right""><p>{0}</p></td>", txtAgg1.Text))
+                .AddHtml("</tr>")
+                'rg18
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>18: Vita individuali</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG18.Text))
+                .AddHtml("</tr>")
+                'rg19
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>19: Vita collettive</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG19.Text))
+                .AddHtml("</tr>")
+                'rg20
+                .AddHtml("<tr>")
+                .AddHtml("<td style=""text-align: left""><p>20: Vita fondi pensione</p></td>")
+                .AddHtml(String.Format("<td bgcolor=""#colore1#"" style=""text-align: right""><p>{0}</p></td>", TextBoxRG20.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore2#"" style=""text-align: right""><p>{0}</p></td>", TextBoxComparto7.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore3#"" style=""text-align: right""><p>{0}</p></td>", txtSet3.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore4#"" style=""text-align: right""><p>{0}</p></td>", txtAgg2.Text))
+                .AddHtml(String.Format("<td bgcolor=""#colore5#"" style=""text-align: right""><p>{0}</p></td>", txtGenerale.Text))
+                .AddHtml("</tr>")
+
+                .AddHtml("</table>")
+                .AddHtml("</div>")
+
+                .Sostituisci("#colore1#", "FFFF99")
+                .Sostituisci("#colore2#", "99FF99")
+                .Sostituisci("#colore3#", "FFCC66")
+                .Sostituisci("#colore4#", "FFC0CB")
+                .Sostituisci("#colore5#", "CCCCFF")
+
+                .CreaFileHtml()
+            End With
+            'visualizzo anteprima
+            Using Anteprima As New UtControls.FormAnteprima
+                Anteprima.ControlloBottoni()
+                Anteprima.NomeFile = Report.NomeFile
+                Anteprima.ShowDialog()
+                'cancello il file di anteprima
+                IO.File.Delete(Anteprima.NomeFile)
+            End Using
+
+        Catch ex As Exception
+            Globale.Log.Errore(ex)
+        End Try
+    End Sub
+
+    Private Sub AgganciaEventiRG()
+        For rg As Integer = 1 To 23
+            If rg <> 15 Then
+                AddHandler Rami.Controllo(rg).ModificaImportoRamo, AddressOf ModificaImportoRamo
+            End If
+        Next
+    End Sub
+
+    Private Sub SganciaEventiRG()
+        For rg As Integer = 1 To 23
+            If rg <> 15 Then
+                RemoveHandler Rami.Controllo(rg).ModificaImportoRamo, AddressOf ModificaImportoRamo
+            End If
+        Next
+    End Sub
+
+    Private Sub AgganciaEventiCom()
+        For com As Integer = 1 To 6
+            AddHandler Comparti.Controllo(com).ModificaImportoComparto, AddressOf ModificaImportoComparto
+        Next
+    End Sub
+
+    Private Sub SganciaEventiCom()
+        For com As Integer = 1 To 6
+            RemoveHandler Comparti.Controllo(com).ModificaImportoComparto, AddressOf ModificaImportoComparto
+        Next
+    End Sub
+
+    Private Sub AgganciaTotali()
+        For rg As Integer = 1 To 23
+            If rg <> 15 Then
+                Rami.Controllo(rg).CalcoloTotali = True
+            End If
+        Next
+    End Sub
+
+    Private Sub SganciaTotali()
+        For rg As Integer = 1 To 23
+            If rg <> 15 Then
+                Rami.Controllo(rg).CalcoloTotali = False
+            End If
+        Next
+    End Sub
+
+    Private Function FiguraSelezionata() As String
+        Return cboFigura.SelectedItem.Codice
+    End Function
+
+    Private Sub ModificaImportoRamo(ByRef Controllo As TextBoxRG)
+        BudgetCodice.BudgetRamo(Controllo.RamoGestione) = Controllo.Importo
+        If Controllo.CalcoloTotali = True Then CalcolaTotali()
+    End Sub
+
+    Private Sub ModificaImportoComparto(ByRef Controllo As TextBoxComparto)
+
+        If String.IsNullOrEmpty(txtGenerale.Text) OrElse CDbl(txtGenerale.Text) = 0 Then
+            MsgBox("Prima di modificare gli importi di comparto è necessario avere un budget base effettuando il calcolo, per le sub, o il riporto dall'anno precedente per l'agenzia",
+                   MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+            Exit Sub
+        End If
+
+        SganciaEventiCom()
+        SganciaTotali()
+
+        Dim Incremento As Single
+
+        Select Case Controllo.Comparto
+            Case 1
+                Incremento = Controllo.Importo / BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.AUTO)
+            Case 2
+                Incremento = Controllo.Importo / BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.RP)
+            Case 3
+                Incremento = Controllo.Importo / BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.AZIENDE)
+            Case 4
+                Incremento = Controllo.Importo / BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.ALTRIRAMI)
+            Case 5
+                Incremento = Controllo.Importo / BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.VITA)
+            Case 6
+                Incremento = Controllo.Importo / BudgetCodice.TotaleComparto(Utx.Enumerazioni.Comparti.RCG)
+        End Select
+
+        For Each rg As Integer In Comparto.RamiGestione(Controllo.Comparto)
+            Rami.Controllo(rg).Importo = Math.Round(Rami.Controllo(rg).Importo * Incremento, 2, MidpointRounding.AwayFromZero)
+        Next
+
+        CalcolaTotali()
+
+        AgganciaTotali()
+        AgganciaEventiCom()
+    End Sub
+
+    Private Sub cboFigura_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFigura.SelectedIndexChanged
+        Dim Figura As FiguraProduttiva = cboFigura.SelectedItem
+        If Figura.Tipo <> FiguraProduttiva.TipoFigura.CIP Then
+            MsgBox("E' possibile inserire il budget solo per figure singole e non per gruppi.", MsgBoxStyle.Information, Utx.Globale.TitoloApp)
+            cboFigura.SelectedIndex = 0
+        End If
+    End Sub
+
+#Region "paint label"
+    Private Sub Label33_Paint(sender As Object, e As PaintEventArgs) Handles Label33.Paint
+        With e.Graphics
+            .TranslateTransform(2, Label33.Height - 10)
+            .RotateTransform(270)
+            .DrawString("RCA", Utx.AppFont.Extra(9, FontStyle.Bold), Brushes.Black, 0, 1)
+        End With
+    End Sub
+    Private Sub Label31_Paint(sender As Object, e As PaintEventArgs) Handles Label31.Paint
+        With e.Graphics
+            .TranslateTransform(2, Label31.Height - 10)
+            .RotateTransform(270)
+            .DrawString("RDP", Utx.AppFont.Extra(9, FontStyle.Bold), Brushes.White, 0, 1)
+        End With
+    End Sub
+    Private Sub Label32_Paint(sender As Object, e As PaintEventArgs) Handles Label32.Paint
+        With e.Graphics
+            .TranslateTransform(2, Label32.Height - 10)
+            .RotateTransform(270)
+            .DrawString("Aziende", Utx.AppFont.Extra(9, FontStyle.Bold), Brushes.Black, 0, 1)
+        End With
+    End Sub
+    Private Sub Label40_Paint(sender As Object, e As PaintEventArgs) Handles Label40.Paint
+        With e.Graphics
+            .TranslateTransform(4, Label40.Height - 2)
+            .RotateTransform(270)
+            .DrawString("RCG", Utx.AppFont.Extra(7, FontStyle.Bold), Brushes.Black, 0, 1)
+        End With
+    End Sub
+    Private Sub Label34_Paint(sender As Object, e As PaintEventArgs) Handles Label34.Paint
+        With e.Graphics
+            .TranslateTransform(2, Label34.Height - 10)
+            .RotateTransform(270)
+            .DrawString("Altri Rami", Utx.AppFont.Extra(9, FontStyle.Bold), Brushes.Black, 0, 1)
+        End With
+    End Sub
+    Private Sub Label35_Paint(sender As Object, e As PaintEventArgs) Handles Label35.Paint
+        With e.Graphics
+            .TranslateTransform(2, Label35.Height - 10)
+            .RotateTransform(270)
+            .DrawString("Vita", Utx.AppFont.Extra(9, FontStyle.Bold), Brushes.Black, 0, 1)
+        End With
+    End Sub
+#End Region
+End Class

@@ -1,0 +1,104 @@
+<layout>
+  <grid name="COMPLETO">
+    <font name="Tahoma" size="9" />
+    <property edit="False" />
+    <column name="AnnoMeseCompetenza" text="Aggiornato al" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="0" alignment="32" format="" />
+    <column name="IdGestione" text="Ref. agenzia" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="1" alignment="32" format="" />
+    <column name="FlagUtente" text="Flag utente" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="2" alignment="32" format="" />
+    <column name="MaxAnnoMeseCompetenza" text="Ultima modifica" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="3" alignment="32" format="" />
+    <column name="AgenziaSinistro" text="Ente" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="-8323073" displayindex="4" alignment="32" format="" />
+    <column name="EsercizioSinistro" text="Esercizio" hide="False" visible="True" width="58" argbforecolor="0" argbbackcolor="0" displayindex="5" alignment="32" format="" />
+    <column name="NumeroSinistro" text="Numero sinistro" hide="False" visible="True" width="62" argbforecolor="0" argbbackcolor="0" displayindex="6" alignment="32" format="" />
+    <column name="Assicurato" text="Assicurato" hide="False" visible="True" width="160" argbforecolor="0" argbbackcolor="0" displayindex="7" alignment="16" format="" />
+    <column name="RamoSinistro" text="Ramo sinistro" hide="False" visible="True" width="48" argbforecolor="0" argbbackcolor="-128" displayindex="8" alignment="32" format="" />
+    <column name="DesRamoSinistro" text="Desc.Ramo sinistro" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="9" alignment="16" format="" />
+    <column name="Ispettorato" text="Ispettorato" hide="False" visible="True" width="76" argbforecolor="0" argbbackcolor="-32768" displayindex="10" alignment="32" format="" />
+    <column name="DescIspettorato" text="Desc. Ispettorato" hide="False" visible="True" width="247" argbforecolor="0" argbbackcolor="0" displayindex="11" alignment="16" format="" />
+    <column name="Comparto" text="Comparto" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="12" alignment="32" format="" />
+    <column name="TblComparto.Descrizione" text="Desc.Comparto" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="13" alignment="32" format="" />
+    <column name="RamoGestione" text="Ramo gestione" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="-32513" displayindex="14" alignment="32" format="" />
+    <column name="AgenziaPolizza" text="Agenzia" hide="False" visible="True" width="74" argbforecolor="0" argbbackcolor="0" displayindex="15" alignment="32" format="" />
+    <column name="RamoPolizza" text="Ramo polizza" hide="False" visible="True" width="55" argbforecolor="0" argbbackcolor="0" displayindex="16" alignment="32" format="" />
+    <column name="Polizza" text="Polizza" hide="False" visible="True" width="72" argbforecolor="0" argbbackcolor="0" displayindex="17" alignment="32" format="" />
+    <column name="CodiceSubAgenteSima" text="Sub" hide="False" visible="True" width="53" argbforecolor="0" argbbackcolor="0" displayindex="18" alignment="32" format="" />
+    <column name="CodiceProduttoreSima" text="Prod" hide="True" visible="False" width="57" argbforecolor="0" argbbackcolor="0" displayindex="19" alignment="32" format="" />
+    <column name="DataSinistro" text="Data sinistro" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="20" alignment="32" format="" />
+    <column name="DataDenuncia" text="Data denuncia" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="21" alignment="32" format="" />
+    <column name="DataProtocollo" text="Data protocollo" hide="True" visible="False" width="78" argbforecolor="0" argbbackcolor="0" displayindex="22" alignment="32" format="" />
+    <column name="TipoCid" text="Tipo Cid" hide="False" visible="True" width="40" argbforecolor="0" argbbackcolor="0" displayindex="23" alignment="32" format="" />
+    <column name="DeskCid" text="Desc.Cid" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="24" alignment="16" format="" />
+    <column name="TipoChiusura" text="Chiusura" hide="True" visible="False" width="58" argbforecolor="0" argbbackcolor="0" displayindex="25" alignment="32" format="" />
+    <column name="CodiceChiusura" text="Codice chiusura" hide="True" visible="False" width="60" argbforecolor="0" argbbackcolor="0" displayindex="26" alignment="32" format="" />
+    <column name="TipoSx" text="Tipo sinistro" hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="27" alignment="32" format="" />
+    <column name="DescTipoSin" text="DescTipoSin" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="28" alignment="0" format="" />
+    <column name="StatoTecnico" text="Stato tecnico" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="29" alignment="32" format="" />
+    <column name="DataStatoTecnico" text="Data stato tecnico" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="30" alignment="32" format="" />
+    <column name="StatoBilancistico" text="Stato bilancistico" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="31" alignment="32" format="" />
+    <column name="DataStatoBilancistico" text="Data stato bilancistico" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="32" alignment="32" format="" />
+    <column name="FlagCosePersone" text="Cose Persone" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="33" alignment="32" format="" />
+    <column name="NostraQuota" text="Nostra quota" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="34" alignment="32" format="" />
+    <column name="PrimoPreventivo" text="Primo preventivo" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="35" alignment="64" format="###,###,##0.00" />
+    <column name="PagatoDel" text="Pagato del" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="36" alignment="64" format="###,###,##0.00" />
+    <column name="PagatoAl" text="Pagato al" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="-669083" displayindex="37" alignment="64" format="###,###,##0.00" />
+    <column name="RecuperoDel" text="Recupero del" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="38" alignment="64" format="###,###,##0.00" />
+    <column name="RecuperoAl" text="Recupero al" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="39" alignment="64" format="###,###,##0.00" />
+    <column name="FranchigiaPtf" text="Franchigia Ptf" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="40" alignment="64" format="###,###,##0.00" />
+    <column name="Convenzione" text="Conv." hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="41" alignment="32" format="" />
+    <column name="ConvDesk" text="Desc.Conv." hide="False" visible="True" width="106" argbforecolor="0" argbbackcolor="0" displayindex="42" alignment="32" format="" />
+    <column name="CodiceProdotto" text="Prodotto" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="43" alignment="32" format="" />
+    <column name="TargaAssicurato" text="Targa assicurato" hide="False" visible="True" width="81" argbforecolor="0" argbbackcolor="0" displayindex="44" alignment="32" format="" />
+    <column name="CognomeDanneggiato" text="Danneggiato" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="45" alignment="16" format="" />
+    <column name="TargaDanneggiato" text="Targa danneggiato" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="46" alignment="32" format="" />
+    <column name="Compagnia" text="Compagnia" hide="True" visible="False" width="69" argbforecolor="0" argbbackcolor="0" displayindex="47" alignment="32" format="" />
+    <column name="AgenziaPolizzaArrivo" text="AgenziaPolizzaArrivo" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="48" alignment="0" format="" />
+    <column name="CodiceLiquidatore" text="Liquidatore" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="-32513" displayindex="49" alignment="32" format="" />
+    <column name="NomeLiquidatore" text="Liquidatore" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="50" alignment="0" format="" />
+    <column name="CodicePerito" text="Codice perito" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="-1908516" displayindex="51" alignment="16" format="" />
+    <column name="NomePerito" text="Perito" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="-1908516" displayindex="52" alignment="16" format="" />
+    <column name="TipoDelega" text="Delega" hide="True" visible="False" width="50" argbforecolor="0" argbbackcolor="0" displayindex="53" alignment="32" format="" />
+    <column name="CODICEFISCCONTRPOL" text="CF contraente" hide="False" visible="True" width="129" argbforecolor="0" argbbackcolor="0" displayindex="54" alignment="16" format="" />
+    <column name="DataUltPagam" text="Ultimo pagamento" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="55" alignment="32" format="" />
+    <column name="DataDenCliente" text="Data denuncia cliente" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="56" alignment="32" format="" />
+    <column name="CompControparte" text="Compagnia controparte" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="57" alignment="32" format="" />
+    <column name="TipoApplicativo" text="Tipo applicativo" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="58" alignment="32" format="" />
+    <column name="TblApp.Descrizione" text="Desc.applicativo" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="59" alignment="32" format="" />
+    <column name="NrPosizioni" text="Posizioni" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="60" alignment="32" format="" />
+    <column name="TipoApertura" text="Tipo apertura" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="61" alignment="32" format="" />
+    <column name="Presentatore" text="Presentatore" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="62" alignment="32" format="" />
+    <column name="Denunciante" text="Denunciante" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="63" alignment="32" format="" />
+    <column name="IdCartella" text="Cartella" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="64" alignment="32" format="" />
+    <column name="CodProf" text="Prof." hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="65" alignment="32" format="" />
+    <column name="CarrozzProv" text="Prov.Carroz." hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="66" alignment="32" format="" />
+    <column name="CarrozzCAnia" text="Carrozz.Ania" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="67" alignment="32" format="" />
+    <column name="LegaleData" text="Intervento legale" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="68" alignment="32" format="" />
+    <column name="CarrozzPrior" text="Carr.Prioritaria" hide="True" visible="False" width="94" argbforecolor="0" argbbackcolor="0" displayindex="69" alignment="0" format="" />
+    <column name="DataMemo" text="Ultima nota" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="70" alignment="0" format="" />
+    <column name="Unibox" text="Unibox" hide="True" visible="False" width="51" argbforecolor="0" argbbackcolor="0" displayindex="71" alignment="32" format="" />
+    <column name="CardGest" text="Card Gest." hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="72" alignment="32" format="" />
+    <column name="CardDebito" text="Card Debito" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="73" alignment="32" format="" />
+    <column name="CardNo" text="No Card" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="74" alignment="32" format="" />
+    <column name="PagatoNoCardAl" text="Pagato NoCard Al" hide="True" visible="False" width="90" argbforecolor="0" argbbackcolor="0" displayindex="75" alignment="64" format="###,###,##0.00" />
+    <column name="PagatoNoCardDel" text="Pagato NoCard Del" hide="True" visible="False" width="90" argbforecolor="0" argbbackcolor="0" displayindex="76" alignment="64" format="###,###,##0.00" />
+    <column name="PagatoCardAl" text="Pagato Card Al" hide="True" visible="False" width="90" argbforecolor="0" argbbackcolor="0" displayindex="77" alignment="64" format="###,###,##0.00" />
+    <column name="PagatoCardDel" text="Pagato Card Del" hide="True" visible="False" width="90" argbforecolor="0" argbbackcolor="0" displayindex="78" alignment="64" format="###,###,##0.00" />
+    <column name="AgenziaMadre" text="Agenzia madre" hide="True" visible="False" width="80" argbforecolor="0" argbbackcolor="0" displayindex="79" alignment="64" format="###,###,##0.00" />
+    <column name="DataApertura" text="Data apertura" hide="False" visible="True" width="78" argbforecolor="0" argbbackcolor="0" displayindex="80" alignment="32" format="" />
+    <column name="FlagLegale" text="Legale" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="81" alignment="32" format="" />
+    <column name="TipoDenuncia" text="Tipo denuncia" hide="True" visible="False" width="70" argbforecolor="0" argbbackcolor="0" displayindex="82" alignment="32" format="" />
+    <column name="Canalizzato" text="Canalizzato" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="83" alignment="32" format="" />
+    <column name="CodCarrPagato" text="Cod.Carr. Pagato" hide="True" visible="False" width="70" argbforecolor="0" argbbackcolor="0" displayindex="84" alignment="32" format="" />
+    <column name="CodCarrCanalizzato" text="Cod.Carr. Canalizzato" hide="True" visible="False" width="70" argbforecolor="0" argbbackcolor="0" displayindex="85" alignment="32" format="" />
+    <column name="PrevStat" text="Prev.Stat." hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="86" alignment="64" format="###,###,##0.00" />
+    <column name="SetTariffa" text="Settore tariffa" hide="True" visible="False" width="70" argbforecolor="0" argbbackcolor="0" displayindex="87" alignment="32" format="" />
+    <column name="TipoRamo" text="Tipo ramo" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="88" alignment="32" format="" />
+    <column name="Lesioni" text="Lesioni" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="89" alignment="32" format="" />
+    <column name="Morti" text="Morti" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="90" alignment="32" format="" />
+    <column name="Franchigie" text="Franchigie" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="91" alignment="64" format="###,###,##0.00" />
+    <column name="Rivalse" text="Rivalse" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="92" alignment="64" format="###,###,##0.00" />
+    <column name="Riserva" text="Riserva" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="93" alignment="64" format="###,###,##0.00" />
+    <column name="RiservaBilancio" text="Riserva bilancio" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="94" alignment="64" format="###,###,##0.00" />
+    <column name="Lira" text="Lira" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="95" alignment="0" format="" />
+    <column name="IdStatoCliente" text="Stato cliente" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="96" alignment="32" format="" />
+    <column name="Modifica" text="Modifica" hide="True" visible="False" width="60" argbforecolor="0" argbbackcolor="0" displayindex="97" alignment="32" format="" />
+  </grid>
+</layout>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+LiveUpdate
+</name>
+</assembly>
+<members>
+<member name="T:LiveUpdate.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:LiveUpdate.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:LiveUpdate.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="P:LiveUpdate.My.Resources.Resources.liveupdate">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="M:LiveUpdate.ApplicationLog.#ctor(System.String,System.String,System.String,System.Boolean,System.Boolean)">
+ <summary>
+ Istanzia classe per la creazione di un log dell'applicazione
+ </summary>
+ <param name="NomeLogFile">Nome del file di log senza path (cartella logs predefinita)</param>
+ <remarks></remarks>
+</member>
+<member name="M:LiveUpdate.Componente.VersioneOk(System.String)">
+ <summary>
+ Confronta la versione del file installato con quella di riferimento
+ </summary>
+</member>
+<member name="M:LiveUpdate.Manutenzione.CancellaFileOld(System.Data.DataTable@)">
+ <summary>
+ cancella file obsoleti
+ </summary>
+ <param name="dtFile">datatable con i dati sui file da cancellare</param>
+ <remarks></remarks>
+</member>
+<member name="M:LiveUpdate.Manutenzione.CancellaCartelleOld(System.Data.DataTable@)">
+ <summary>
+ cancella cartelle obsolete anche se piene
+ </summary>
+ <param name="dtCartelle">datatable con i dati sulle cartelle da cancellare</param>
+ <remarks></remarks>
+</member>
+</members>
+</doc>

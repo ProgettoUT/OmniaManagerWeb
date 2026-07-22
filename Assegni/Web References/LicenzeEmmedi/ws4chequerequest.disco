@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://www.emmedilicense.com/ws4chequerequest/ws4chequerequest.asmx?wsdl" docRef="http://www.emmedilicense.com/ws4chequerequest/ws4chequerequest.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://www.emmedilicense.com/ws4chequerequest/ws4chequerequest.asmx" xmlns:q1="Emmedi Ws4ChequeRequest Web Service" binding="q1:Ws4ChequeRequest_x005F_x0020_Web_x005F_x0020_ServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://www.emmedilicense.com/ws4chequerequest/ws4chequerequest.asmx" xmlns:q2="Emmedi Ws4ChequeRequest Web Service" binding="q2:Ws4ChequeRequest_x005F_x0020_Web_x005F_x0020_ServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

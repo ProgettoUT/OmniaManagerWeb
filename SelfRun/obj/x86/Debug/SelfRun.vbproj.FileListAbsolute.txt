@@ -1,0 +1,16 @@
+C:\ApplicazioniDirezione\UT\SelfRun.exe.config
+C:\ApplicazioniDirezione\UT\SelfRun.exe
+C:\ApplicazioniDirezione\UT\SelfRun.pdb
+C:\ApplicazioniDirezione\UT\SelfRun.xml
+C:\ApplicazioniDirezione\UTW\SelfRun.exe.config
+C:\ApplicazioniDirezione\UTW\SelfRun.exe
+C:\ApplicazioniDirezione\UTW\SelfRun.pdb
+C:\ApplicazioniDirezione\UTW\SelfRun.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.FormRiavvio.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\SelfRun\obj\x86\Debug\SelfRun.pdb

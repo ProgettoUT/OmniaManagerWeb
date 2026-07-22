@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Riforme</pacchetto>
+        <nome>Polizze R.E. con effetto oltre 4 anni fa</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Polizze R.E.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Polizze attive (Data Storno non valorizzato)
+ - Ramo polizza R.E. (Ramo diverso da 30 , 51 , 53 , 55 , 130 , 300 , 72 , 79 , 131 , 132 , 179 , 301 ,89 , 110 , 111 , 114 , 189, 310 , 54 , 57 , 155 , 156)
+]]></note>
+        <ultagg>23/09/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="35">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@anno"  etichetta="Anno effetto polizza minore o uguale a" tipo="integer"  valore="=year(Date())-3" obbligatorio="true" larghezza="5" sinistra="100"/>
+        <parametro nome="@data"  etichetta="Scadenza annuale successivo a" tipo="date" valore="=format(Date(), 'dd/mm/yyyy')" obbligatorio="true" larghezza="13" sinistra="135"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS [Cellulare],
+		    format(P.RamoGestione,'00')      AS [Ramo gestione codice], 
+		    TG.DescRamoGest                  AS [Ramo gestione], 
+		    format(P.Ramo,'000')             AS [Ramo Polizza codice],
+		    TR.Ramo                          AS [Ramo Polizza],
+		    format(P.CodiceProdotto,'00000') AS [Prodotto], 
+		    P.Convenzione,
+		    P.Polizza                        AS Polizza, 
+		    P.DataEffetto AS [Data Effetto], 
+		    P.DataScadenza AS [Data scadenza], 
+		    P.Frazionamento AS [Frazionamento Polizze],
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.CodiceProduttore AS [Codice produttore Polizze]
+		 FROM (((  [Clienti]  AS C
+		INNER JOIN [Polizze]  AS P   ON (C.CodiceFiscale = P.CodiceFiscale))
+		 LEFT JOIN [TipoRami] AS TR  ON (TR.CodiceRamo = P.Ramo))
+		 LEFT JOIN [RamoGest] AS TG  ON (TG.RamoGestione = P.RamoGestione))
+		
+		WHERE @produttore  IN (-1, P.CodiceSubAgente, P.CodiceProduttore)
+                     AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+		     AND P.Frazionamento >0
+		     AND P.frazionamento in (1,2,3,4,6,12)
+		     AND not p.ramo in (30, 51, 53, 55, 130, 300, 72, 79, 131, 132, 179, 301,
+		                        89, 110, 111, 114, 189, 310, 54, 57, 155, 156)
+		     AND year(P.DataEffetto)  <= @anno
+		     AND P.DataScadenza >= @data
+		     AND format(P.DataScadenza, 'MMdd') >= format(@data, 'MMdd')
+		ORDER BY 2, 3
+	]]></sql>
+	<oldsql profili="tutti"><![CDATA[ 3-9-2013: tolto avvisi dall'estrazione
+		SELECT DISTINCT
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS [Cellulare],
+		    format(P.RamoGestione,'00')      AS [Ramo gestione codice], 
+		    TG.DescRamoGest                  AS [Ramo gestione], 
+		    format(P.Ramo,'000')             AS [Ramo Polizza codice],
+		    TR.Ramo                          AS [Ramo Polizza],
+		    format(P.CodiceProdotto,'00000') AS [Prodotto], 
+		    P.Convenzione,
+		    P.Polizza                        AS Polizza, 
+		    P.DataEffetto AS [Data Effetto], 
+		    P.DataScadenza AS [Data scadenza], 
+		    P.Frazionamento AS [Frazionamento Polizze],
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.CodiceProduttore AS [Codice produttore Polizze]
+		FROM (((([Avvisi] AS V 
+		INNER JOIN [Clienti] AS C    ON (V.CodiceFiscale = C.CodiceFiscale))
+		INNER JOIN [Polizze] AS P    ON (C.CodiceFiscale = P.CodiceFiscale))
+		LEFT  JOIN [TipoRami] AS TR  ON (TR.CodiceRamo = P.Ramo))
+		LEFT  JOIN [RamoGest] AS TG  ON (TG.RamoGestione = P.RamoGestione))
+		
+		WHERE @produttore  IN (-1, P.CodiceSubAgente, P.CodiceProduttore)
+                     AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+		     AND P.Frazionamento >0
+		     AND P.frazionamento in (1,2,3,4,6,12)
+		     AND not p.ramo in (30, 51, 53, 55, 130, 300, 72, 79, 131, 132, 179, 301,
+		                        89, 110, 111, 114, 189, 310, 54, 57, 155, 156)
+		     AND year(P.DataEffetto) <= @anno
+		     AND year(P.DataScadenza) <= 1 + year(@data)
+		     AND c.PolizzeVigore >= 1
+		     AND [V].[ScadenzaRata] >= @data
+		ORDER BY 2, 3
+	]]></oldsql>
+    </estrazione>
+</oggetto>

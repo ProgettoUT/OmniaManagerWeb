@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://utools.auaonline.it/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s4="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s5="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio" xmlns:s1="http://sx.unipol.it/webservice/serviziagenzia/service/domain" xmlns:s6="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro" xmlns:s2="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s7="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo" xmlns:s3="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:import namespace="http://sx.unipol.it/webservice/serviziagenzia/service/domain" />
+      <s:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult" />
+      <s:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult" />
+      <s:element name="ListaSinistri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaSinistriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaSinistriResult" type="tns:InfoSinistriRisposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="InfoSinistriRisposta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="InfoSinistri" type="tns:ArrayOfDettaglioSinistro" />
+          <s:element minOccurs="1" maxOccurs="1" name="Esito" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDettaglioSinistro">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DettaglioSinistro" nillable="true" type="s1:DettaglioSinistro" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListaSinistri_2024">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaSinistri_2024Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaSinistri_2024Result" type="tns:EsitoChiamata" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EsitoChiamata">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Esito" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListaDocumenti" type="s2:DocumentiAgenziaResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posizioni" type="s4:SinistriAgenziaResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListaInfoSinistri" type="tns:ArrayOfDettaglioSinistro" />
+          <s:element minOccurs="0" maxOccurs="1" name="Documento" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListaDocumentiLiquido">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaDocumentiLiquidoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaDocumentiLiquidoResult" type="tns:EsitoChiamata" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaDocumentiSinistro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdSinistro" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaDocumentiSinistroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaDocumentiSinistroResult" type="tns:EsitoChiamata" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScaricaDocumentoSinistro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdDocumento" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScaricaDocumentoSinistroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ScaricaDocumentoSinistroResult" type="tns:EsitoChiamata" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiPosizioniSinistro">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IdSinistro" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiPosizioniSinistroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiPosizioniSinistroResult" type="tns:EsitoChiamata" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaDocumento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Documento" type="tns:DocumentoLiquido" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocumentoLiquido">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdSinistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EstensioneFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeDocumento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mittente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataArrivoDocumento" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataDocSpecificata" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Documento" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Posizione" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InviaDocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InviaDocumentoResult" type="tns:EsitoChiamata" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsensoMigrazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsensoMigrazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsensoMigrazioneResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://sx.unipol.it/webservice/serviziagenzia/service/domain">
+      <s:complexType name="DettaglioSinistro">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceClg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscaleContraente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodicePerito" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceSubAgenzia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Convenzione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataAccadimento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataAperturaSinistro" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataDenuncia" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataInterventoLegale" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FlagLegale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LiquidatoreAssegnatario" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeContraente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeControparte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NostraQuota" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroPolizza" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroPosizioni" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumeroSinistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PresenzaCoseLesioni" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Prodotto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProfiloSinistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RamoPolizza" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RamoSinistro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RiservaTecnica" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatoTecnico" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TargaAssicurato" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TargaControparte" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult">
+      <s:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo" />
+      <s:complexType name="DocumentiAgenziaResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentoInfoList" type="s2:ArrayOfDocumentoInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentoInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Entry" nillable="true" type="s3:DocumentoInfo" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo">
+      <s:complexType name="DocumentoInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataCaricamento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataInvio" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataPervenimento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descrizione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdCartella" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdFile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Migrato" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mittente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistriAgenziaResult">
+      <s:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio" />
+      <s:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo" />
+      <s:complexType name="SinistriAgenziaResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SinistroDettaglio" type="s5:SinistroDettaglio" />
+          <s:element minOccurs="0" maxOccurs="1" name="SinistroInfoList" type="s4:ArrayOfSinistroInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="errorCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSinistroInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Entry" nillable="true" type="s7:SinistroInfo" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroDettaglio">
+      <s:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro" />
+      <s:complexType name="SinistroDettaglio">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ElencoPosizioni" type="s5:ArrayOfPosizioneSinistro" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPosizioneSinistro">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Entry" nillable="true" type="s6:PosizioneSinistro" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/PosizioneSinistro">
+      <s:complexType name="PosizioneSinistro">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nomePosizione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="progrPosizione" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/SinistroInfo">
+      <s:complexType name="SinistroInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataAccadimento" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListaSinistriSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaSinistri" />
+  </wsdl:message>
+  <wsdl:message name="ListaSinistriSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaSinistriResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaSinistri_2024SoapIn">
+    <wsdl:part name="parameters" element="tns:ListaSinistri_2024" />
+  </wsdl:message>
+  <wsdl:message name="ListaSinistri_2024SoapOut">
+    <wsdl:part name="parameters" element="tns:ListaSinistri_2024Response" />
+  </wsdl:message>
+  <wsdl:message name="ListaDocumentiLiquidoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaDocumentiLiquido" />
+  </wsdl:message>
+  <wsdl:message name="ListaDocumentiLiquidoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaDocumentiLiquidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaDocumentiSinistroSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaDocumentiSinistro" />
+  </wsdl:message>
+  <wsdl:message name="ListaDocumentiSinistroSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaDocumentiSinistroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ScaricaDocumentoSinistroSoapIn">
+    <wsdl:part name="parameters" element="tns:ScaricaDocumentoSinistro" />
+  </wsdl:message>
+  <wsdl:message name="ScaricaDocumentoSinistroSoapOut">
+    <wsdl:part name="parameters" element="tns:ScaricaDocumentoSinistroResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiPosizioniSinistroSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiPosizioniSinistro" />
+  </wsdl:message>
+  <wsdl:message name="LeggiPosizioniSinistroSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiPosizioniSinistroResponse" />
+  </wsdl:message>
+  <wsdl:message name="InviaDocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:InviaDocumento" />
+  </wsdl:message>
+  <wsdl:message name="InviaDocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:InviaDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsensoMigrazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsensoMigrazione" />
+  </wsdl:message>
+  <wsdl:message name="ConsensoMigrazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsensoMigrazioneResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DirezioneSoap">
+    <wsdl:operation name="ListaSinistri">
+      <wsdl:input message="tns:ListaSinistriSoapIn" />
+      <wsdl:output message="tns:ListaSinistriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaSinistri_2024">
+      <wsdl:input message="tns:ListaSinistri_2024SoapIn" />
+      <wsdl:output message="tns:ListaSinistri_2024SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaDocumentiLiquido">
+      <wsdl:input message="tns:ListaDocumentiLiquidoSoapIn" />
+      <wsdl:output message="tns:ListaDocumentiLiquidoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaDocumentiSinistro">
+      <wsdl:input message="tns:ListaDocumentiSinistroSoapIn" />
+      <wsdl:output message="tns:ListaDocumentiSinistroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ScaricaDocumentoSinistro">
+      <wsdl:input message="tns:ScaricaDocumentoSinistroSoapIn" />
+      <wsdl:output message="tns:ScaricaDocumentoSinistroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiPosizioniSinistro">
+      <wsdl:input message="tns:LeggiPosizioniSinistroSoapIn" />
+      <wsdl:output message="tns:LeggiPosizioniSinistroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InviaDocumento">
+      <wsdl:input message="tns:InviaDocumentoSoapIn" />
+      <wsdl:output message="tns:InviaDocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsensoMigrazione">
+      <wsdl:input message="tns:ConsensoMigrazioneSoapIn" />
+      <wsdl:output message="tns:ConsensoMigrazioneSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DirezioneSoap" type="tns:DirezioneSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListaSinistri">
+      <soap:operation soapAction="http://utools.auaonline.it/ListaSinistri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaSinistri_2024">
+      <soap:operation soapAction="http://utools.auaonline.it/ListaSinistri_2024" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDocumentiLiquido">
+      <soap:operation soapAction="http://utools.auaonline.it/ListaDocumentiLiquido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDocumentiSinistro">
+      <soap:operation soapAction="http://utools.auaonline.it/ListaDocumentiSinistro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScaricaDocumentoSinistro">
+      <soap:operation soapAction="http://utools.auaonline.it/ScaricaDocumentoSinistro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiPosizioniSinistro">
+      <soap:operation soapAction="http://utools.auaonline.it/LeggiPosizioniSinistro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaDocumento">
+      <soap:operation soapAction="http://utools.auaonline.it/InviaDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsensoMigrazione">
+      <soap:operation soapAction="http://utools.auaonline.it/ConsensoMigrazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DirezioneSoap12" type="tns:DirezioneSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListaSinistri">
+      <soap12:operation soapAction="http://utools.auaonline.it/ListaSinistri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaSinistri_2024">
+      <soap12:operation soapAction="http://utools.auaonline.it/ListaSinistri_2024" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDocumentiLiquido">
+      <soap12:operation soapAction="http://utools.auaonline.it/ListaDocumentiLiquido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaDocumentiSinistro">
+      <soap12:operation soapAction="http://utools.auaonline.it/ListaDocumentiSinistro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScaricaDocumentoSinistro">
+      <soap12:operation soapAction="http://utools.auaonline.it/ScaricaDocumentoSinistro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiPosizioniSinistro">
+      <soap12:operation soapAction="http://utools.auaonline.it/LeggiPosizioniSinistro" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaDocumento">
+      <soap12:operation soapAction="http://utools.auaonline.it/InviaDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsensoMigrazione">
+      <soap12:operation soapAction="http://utools.auaonline.it/ConsensoMigrazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Direzione">
+    <wsdl:port name="DirezioneSoap" binding="tns:DirezioneSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Direzione.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DirezioneSoap12" binding="tns:DirezioneSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Direzione.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--  Generated WSDL for it.unipol.sx.webservice.unitools.DocumentiAgenziaAPI web service  -->
+<wsdl:definitions xmlns:gwsoap="http://guidewire.com/ws/soapheaders" xmlns:gwwsdl="http://guidewire.com/pl/wsdl" xmlns:pogo="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult" xmlns:pogo2="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://guidewire.com/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI" name="DocumentiAgenziaAPI">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/ws/soapheaders" schemaLocation="soapheaders.xsd.xml"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo"/>
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult"/>
+			<!--  getDocumentoInfoList(String, String) : DocumentiAgenziaResult  -->
+			<xs:element name="getDocumentoInfoList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="aNumeroSinistro" type="xs:string" minOccurs="0"/>
+						<xs:element name="aCodiceAgenzia" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDocumentoInfoListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="pogo:DocumentiAgenziaResult" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WsiAuthenticationException">
+				<xs:complexType/>
+			</xs:element>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo"/>
+			<xs:complexType name="DocumentiAgenziaResult">
+				<xs:sequence>
+					<xs:element xmlns:gw="http://guidewire.com/xsd" name="DocumentoInfoList" minOccurs="0" gw:viewas="list">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Entry" type="pogo2:DocumentoInfo" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="ErrorDescription" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:gw="http://guidewire.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentoInfo" elementFormDefault="qualified">
+			<xs:import namespace="http://guidewire.com/it/unipol/sx/webservice/unitools/entities/DocumentiAgenziaResult"/>
+			<xs:complexType name="DocumentoInfo">
+				<xs:sequence>
+					<xs:element name="DataCaricamento" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+					<xs:element name="DataInvio" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+					<xs:element name="DataPervenimento" type="xs:dateTime" minOccurs="0" gw:type="java.util.Date"/>
+					<xs:element name="Descrizione" type="xs:string" minOccurs="0"/>
+					<xs:element name="DocUID" type="xs:string" minOccurs="0"/>
+					<xs:element name="FileExt" type="xs:string" minOccurs="0"/>
+					<xs:element name="IdCartella" type="xs:string" minOccurs="0"/>
+					<xs:element name="IdFile" type="xs:string" minOccurs="0"/>
+					<xs:element name="Migrato" type="xs:boolean" minOccurs="0"/>
+					<xs:element name="Mittente" type="xs:string" minOccurs="0"/>
+					<xs:element name="Nome" type="xs:string" minOccurs="0"/>
+					<xs:element name="Tipo" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:portType name="DocumentiAgenziaAPIPortType">
+		<wsdl:operation name="getDocumentoInfoList">
+			<wsdl:input name="getDocumentoInfoList" message="tns:getDocumentoInfoList"/>
+			<wsdl:output name="getDocumentoInfoListResponse" message="tns:getDocumentoInfoListResponse"/>
+			<wsdl:fault name="WsiAuthenticationException" message="tns:WsiAuthenticationException"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DocumentiAgenziaAPISoap12Binding" type="tns:DocumentiAgenziaAPIPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="getDocumentoInfoList">
+			<soap12:operation soapActionRequired="false" style="document"/>
+			<wsdl:input name="getDocumentoInfoList">
+				<soap12:body use="literal"/>
+				<soap12:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap12:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap12:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap12:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDocumentoInfoListResponse">
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap12:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="DocumentiAgenziaAPISoap11Binding" type="tns:DocumentiAgenziaAPIPortType">
+		<soap11:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="getDocumentoInfoList">
+			<soap11:operation style="document"/>
+			<wsdl:input name="getDocumentoInfoList">
+				<soap11:body use="literal"/>
+				<soap11:header message="tns:gw-authentication" part="gw-authentication" use="literal"/>
+				<soap11:header message="tns:gw-language-only" part="gw-language-only" use="literal"/>
+				<soap11:header message="tns:gw-locale-only" part="gw-locale-only" use="literal"/>
+				<soap11:header message="tns:gw-traceability-id" part="gw-traceability-id" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDocumentoInfoListResponse">
+				<soap11:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="WsiAuthenticationException">
+				<soap11:fault name="WsiAuthenticationException" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DocumentiAgenziaAPI">
+		<wsdl:port name="DocumentiAgenziaAPISoap12Port" binding="tns:DocumentiAgenziaAPISoap12Binding">
+			<soap12:address location="http://lxfmjbliqcc.servizi.gr-u.it/essigSXCC/ws/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI"/>
+			<gwwsdl:address location="${cc}/ws/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI"/>
+		</wsdl:port>
+		<wsdl:port name="DocumentiAgenziaAPISoap11Port" binding="tns:DocumentiAgenziaAPISoap11Binding">
+			<soap11:address location="http://lxfmjbliqcc.servizi.gr-u.it/essigSXCC/ws/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI/soap11"/>
+			<gwwsdl:address location="${cc}/ws/it/unipol/sx/webservice/unitools/DocumentiAgenziaAPI/soap11"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:message name="getDocumentoInfoList">
+		<wsdl:part name="parameters" element="tns:getDocumentoInfoList"/>
+	</wsdl:message>
+	<wsdl:message name="getDocumentoInfoListResponse">
+		<wsdl:part name="parameters" element="tns:getDocumentoInfoListResponse"/>
+	</wsdl:message>
+	<wsdl:message name="WsiAuthenticationException">
+		<wsdl:part name="WsiAuthenticationException" element="tns:WsiAuthenticationException"/>
+	</wsdl:message>
+	<wsdl:message name="gw-authentication">
+		<wsdl:part name="gw-authentication" element="gwsoap:authentication"/>
+	</wsdl:message>
+	<wsdl:message name="gw-locale-only">
+		<wsdl:part name="gw-locale-only" element="gwsoap:gw_locale"/>
+	</wsdl:message>
+	<wsdl:message name="gw-language-only">
+		<wsdl:part name="gw-language-only" element="gwsoap:gw_language"/>
+	</wsdl:message>
+	<wsdl:message name="gw-transaction-id">
+		<wsdl:part name="gw-transaction-id" element="gwsoap:transaction_id"/>
+	</wsdl:message>
+	<wsdl:message name="gw-traceability-id">
+		<wsdl:part name="gw-traceability-id" element="gwsoap:traceability_id"/>
+	</wsdl:message>
+</wsdl:definitions>

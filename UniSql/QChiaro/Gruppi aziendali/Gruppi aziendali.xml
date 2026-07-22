@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Gruppi aziendali</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono riportati i dati anagrafici degli enti che hanno dei collaboratori in anagrafica.
+]]></descrizione>
+        <ultagg>20/03/2020</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="-1" obbligatorio="true" larghezza="2" sinistra="80" nascosto="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+        <sql profili="tutti"><![CDATA[
+                SELECT 
+                    C.CodiceFiscale AS [Partita IVA dell azienda], 
+                    C.Cognome       AS [Denominazione], 
+                    C.Indirizzo AS Indirizzo, 
+                    C.Cap       AS Cap, 
+                    C.Localita  AS Localita, 
+                    C.Provincia AS [Codice Provincia], 
+                    C.ConsensoPrivacy AS [Consenso alla privacy], 
+                    C.Email           AS EMail, 
+                    C.Fax             AS Fax, 
+                    C.Cellulare       AS Cellulare, 
+                    C.TelReferente    AS [Telefono Referente], 
+                    C.NomeReferente   AS [Nome Referente], 
+                    C.TelAziendale    AS [Telefono Aziendale],
+                    C.Telefono1       AS [Primo telefono], 
+                    C.Telefono2       AS [Secondo telefono], 
+                    (PR.IDProfessione & " - " & PR.Professione) AS Professione, 
+                    (Year(Now())-Year([DataInserimento])) AS [Cliente da anni], 
+                    C.PolizzeVigore as [Numero polizze],
+                    iif(C.PolizzeVigore,C.Premicorrente/C.PolizzeVigore,0) AS [Premio medio]
+                  , [1_CodiceFiscale], [1_Cognome], [1_Nome]
+                  , [2_CodiceFiscale], [2_Cognome], [2_Nome]
+                  , [3_CodiceFiscale], [3_Cognome], [3_Nome]
+                  , [4_CodiceFiscale], [4_Cognome], [4_Nome]
+                  , [5_CodiceFiscale], [5_Cognome], [5_Nome]
+                 FROM (((clienti C
+                INNER JOIN (
+                        SELECT CodiceFiscaleEA
+                             , Max(iif(prg = 1, codicefiscale, null)) as [1_CodiceFiscale]
+                             , Max(iif(prg = 1, cognome, null))       as [1_Cognome]
+                             , Max(iif(prg = 1, nome, null))          as [1_Nome]
+                             , Max(iif(prg = 2, codicefiscale, null)) as [2_CodiceFiscale]
+                             , Max(iif(prg = 2, cognome, null))       as [2_Cognome]
+                             , Max(iif(prg = 2, nome, null))          as [2_Nome]
+                             , Max(iif(prg = 3, codicefiscale, null)) as [3_CodiceFiscale]
+                             , Max(iif(prg = 3, cognome, null))       as [3_Cognome]
+                             , Max(iif(prg = 3, nome, null))          as [3_Nome]
+                             , Max(iif(prg = 4, codicefiscale, null)) as [4_CodiceFiscale]
+                             , Max(iif(prg = 4, cognome, null))       as [4_Cognome]
+                             , Max(iif(prg = 4, nome, null))          as [4_Nome]
+                             , Max(iif(prg = 5, codicefiscale, null)) as [5_CodiceFiscale]
+                             , Max(iif(prg = 5, cognome, null))       as [5_Cognome]
+                             , Max(iif(prg = 5, nome, null))          as [5_Nome]
+                        FROM (
+                                SELECT CF1.CodiceFiscaleEA
+                                     , CF1.CodiceFiscale
+                                     , CF1.Cognome
+                                     , CF1.Nome
+                                     , count(CF2.CodiceFiscale) as prg
+                                FROM Clienti CF1
+                                INNER JOIN Clienti CF2
+                                   ON CF1.CodiceFiscaleEA = CF2.CodiceFiscaleEA
+                                  AND CF1.CodiceFiscale >= CF2.CodiceFiscale
+                                WHERE CF1.CodiceFiscaleEA > ''
+                                  AND CF1.CodiceFiscale <> CF1.CodiceFiscaleEA
+                                  AND CF2.CodiceFiscale <> CF2.CodiceFiscaleEA
+                                GROUP BY CF1.CodiceFiscaleEA, CF1.CodiceFiscale, CF1.Cognome, CF1.Nome) X
+                        Group by CodiceFiscaleEA) Y
+                   ON c.CodiceFiscale = y.CodiceFiscaleEA)
+                 LEFT JOIN Professioni      AS PR  ON (PR.IDProfessione = C.TipoCliente\100))
+                 LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente))
+                ORDER BY Cognome, Nome
+        ]]></sql>
+    </estrazione>
+</oggetto>

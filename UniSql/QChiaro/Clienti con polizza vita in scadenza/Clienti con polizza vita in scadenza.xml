@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti con polizza vita in scadenza</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono riportati i dati anagrafici dei clienti.
+]]></descrizione>
+        <ultagg>07/01/2016</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="88">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@professione" etichetta="Professione" tipo="integer" valore="-1" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT 100, '100 - PENSIONATI E IMPIEGATI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 200, '200 - LIBERI PROFESSIONISTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 300, '300 - AGRICOLTORI E PESCATORI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 400, '400 - COMMERCIANTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 500, '500 - ARTIGIANI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 600, '600 - INDUSTRISTRIALI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 700, '700 - COOPERATIVE' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 800, '800 - ENTI PUBBLICI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 900, '900 - ASSOCIAZIONI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IdProfessione, '    ' & format(IDProfessione,'000') & ' - ' & Professione 
+	    		           FROM Professioni
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@mercato" etichetta="Merc.pref." tipo="integer" valore="-1" obbligatorio="true" larghezza="42" sinistra="88">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Codice, format(Codice,'00') & ' - ' & SegmentoMercato 
+	    		           FROM MercatoPreferenziale
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+ 	<parametro nome="@datamin" etichetta="scadenza dal" tipo="date" larghezza="13" nuovariga="true"  sinistra="32" valore="=(format(DateAdd('M', -1, Date()), 'dd/MM/yyyy'))" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al"           tipo="date" larghezza="13" nuovariga="false" sinistra="48" valore="=(format(DateAdd('M', +1, Date()), 'dd/MM/yyyy'))" obbligatorio="true"/>
+
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="#" obbligatorio="true" larghezza="8" sinistra="88">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy
+	    		           FROM Clienti
+	    ]]></elencovalori>
+        </parametro>
+        
+
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    P.datascadenza as [Scadenza],
+		    P.Ramo,
+		    P.Polizza,
+		    P.TotalePremioAnnuo as [Premio annuo],
+		    P.CodiceSubAgente as Subagenzia,
+		    P.CodiceProduttore as Produttore,
+		    C.Cognome       AS [Cognome del cliente], 
+		    C.Nome          AS [Nome del cliente], 
+		    C.DataNascita   AS [Data di nascita], 
+		    (Year(Now())-Year([DataNascita])) AS [Eta del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap       AS Cap, 
+		    C.Localita  AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.ConsensoPrivacy AS [Consenso alla privacy], 
+		    C.Email           AS EMail, 
+		    C.Fax             AS Fax, 
+		    C.Cellulare       AS Cellulare, 
+		    C.TelReferente    AS [Telefono Referente], 
+		    C.NomeReferente   AS [Nome Referente], 
+		    C.TelAziendale    AS [Telefono Aziendale],
+		    C.Telefono1       AS [Primo telefono], 
+		    C.Telefono2       AS [Secondo telefono], 
+		    C.Sesso AS Sesso, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione, 
+		    (Year(Now())-Year([DataInserimento])) AS [Cliente da anni], 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente]
+		 FROM (((POLIZZE P 
+		INNER JOIN Clienti          AS C   ON (C.CodiceFiscale = P.CodiceFiscale))
+		 LEFT JOIN Professioni      AS PR  ON (PR.IDProfessione = C.TipoCliente\100))
+		 LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente))
+		WHERE @subagenzia  IN (-1, P.CodiceSubAgente)
+		  AND @produttore  IN (-1, P.CodiceProduttore)
+		  AND P.Ramogestione in (18, 19, 20)
+		  AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+		  AND P.datascadenza >= @datamin
+		  AND P.datascadenza <= @datamax
+		  AND @professione  IN (-1, 100*(C.TipoCliente\10000),C.TipoCliente\100)
+		  AND @mercato      IN (-1, C.TipoCliente mod 100)
+		  AND @privacy      IN ('#',C.ConsensoPrivacy)
+		ORDER BY 1, 7, 8
+	]]></sql>
+    </estrazione>
+</oggetto>

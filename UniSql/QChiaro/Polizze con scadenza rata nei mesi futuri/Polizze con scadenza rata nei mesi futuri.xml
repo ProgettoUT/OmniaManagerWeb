@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Quietanzamento</pacchetto>
+        <nome>Polizze con scadenza rata nei mesi futuri</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco delle polizze con quietanze in scadenza nel mese indicato dall'utente</descrizione>
+        <note></note>
+        <ultagg>18/10/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@siSx"   etichetta="Solo con sinistri aperti" tipo="boolean" valore="false" sinistra="128"/>
+        <parametro nome="@mese" etichetta="Mese" tipo="integer" valore="1" larghezza="20" nuovariga="true" sinistra="40">
+            <elencovalori>1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>
+        </parametro>
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="80">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy 
+	    		           FROM Clienti
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+	    <elencovalori>SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy FROM Clienti ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@siAuto" etichetta="Includi i rami auto" tipo="boolean" valore="true" sinistra="108"/>
+        <parametro nome="@siVita" etichetta="vita" tipo="boolean" valore="true" sinistra="118"/>
+        <parametro nome="@siRe"   etichetta="re"   tipo="boolean" valore="true" sinistra="128"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    (Switch([Sesso]="N","Spettabile",[Sesso]="F","Gentile Signora",[Sesso]="M","Egregio Signor")) AS [Titolo],
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    format(P.Ramo,'000') as Ramo,
+		    P.Polizza AS Polizza, 
+		    TR.Ramo AS [Descrizione Ramo], 
+		    P.Targa,
+		    P.DataEffetto AS [Data Effetto], 
+		    P.DataScadenza AS [Data scadenza], 
+		    P.Frazionamento AS [Frazionamento Polizze],
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.CodiceProduttore AS [Codice produttore Polizze],
+		    P.TotalePremioAnnuo AS [Totale premio annuo],
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.ConsensoPrivacy AS [Privacy],		    
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS [Cellulare]
+		    ,C.Email
+		    ,IIF(S.SxTot,S.SxTot, 0)        AS [Sinistri totale]
+		    ,CINT(IIF(S.SxApe, S.SxApe, 0)) AS [Sinistri aperti]
+		    ,C.CodAvvisoScadenza AS [Tipo Avviso]
+		FROM  (([Clienti] AS C
+		INNER JOIN Polizze P ON C.CodiceFiscale = P.CodiceFiscale)
+		 LEFT JOIN [TipoRami] AS TR ON TR.CodiceRamo = P.Ramo)
+		 LEFT JOIN ( SELECT AgenziaPolizza           AS Agenzia
+		                  , RamoPolizza              AS Ramo
+		                  , Polizza                  AS Polizza
+		                  , COUNT(*)                 AS SxTot
+		                  , -SUM(TipoChiusura='..')  AS SxApe
+		               FROM SINISTRI
+		              GROUP BY AgenziaPolizza, RamoPolizza, Polizza
+		           ) S ON p.agenzia=s.agenzia and p.ramo = s.ramo and p.Polizza = s.Polizza
+		WHERE @subagenzia  IN (-1, P.CodiceSubAgente)
+		     AND @privacy     IN ('#', C.ConsensoPrivacy)
+		     AND @produttore  IN (-1, P.CodiceProduttore)
+		     AND (P.DataStorno Is Null OR P.DataStorno = 0)
+		     AND p.frazionamento > 0 
+		     AND p.frazionamento in (1,2,3,4,6,12) 
+		     AND (((12+month(p.datascadenza)-(@mese)) Mod (12/p.frazionamento)) = 0)
+		     AND ((@siAuto AND p.ramo in (30, 51, 53, 55, 130, 300, 72, 79, 131, 132, 179, 301))
+		     OR   (@siVita AND p.ramo in (89, 110, 111, 114, 189, 310, 54, 57, 155, 156))
+		     OR   (@siRe   AND not p.ramo in (30, 51, 53, 55, 130, 300, 72, 79, 131, 132, 179, 301,
+		                                      89, 110, 111, 114, 189, 310, 54, 57, 155, 156)))
+		     AND IIF(S.SxApe, S.SxApe, 0) >= IIF(@siSx, 1, 0)
+		ORDER BY 3, 4
+	]]></sql>
+    </estrazione>
+</oggetto>

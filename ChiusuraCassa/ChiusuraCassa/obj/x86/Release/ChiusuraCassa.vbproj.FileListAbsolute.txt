@@ -1,0 +1,21 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\ChiusuraCassa.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\ChiusuraCassa.dll
+C:\ApplicazioniDirezione\UTW\SETUP\ChiusuraCassa.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\ChiusuraCassa.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.FormChiusura.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmCodiciSub.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmRiporto.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmScanner.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmVersamento.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmMovimento.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmPuntoIncasso.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.frmVersamentoSub.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ChiusuraCassa\ChiusuraCassa\obj\x86\Release\ChiusuraCassa.pdb

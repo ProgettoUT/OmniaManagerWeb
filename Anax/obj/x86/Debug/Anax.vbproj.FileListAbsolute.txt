@@ -1,0 +1,14 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\Anax.dll.config
+C:\ApplicazioniDirezione\UTW\Anax.dll
+C:\ApplicazioniDirezione\UTW\Anax.pdb
+C:\ApplicazioniDirezione\UTW\Anax.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.frmAnag.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Anax\obj\x86\Debug\Anax.pdb

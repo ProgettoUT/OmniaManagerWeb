@@ -1,0 +1,15 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Export.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\Export.dll
+C:\ApplicazioniDirezione\UTW\SETUP\Export.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\Export.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\ExportLib.FormArretrati.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\ExportLib.FormImportaIncassi.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\ExportLib.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Export\Export\obj\x86\Release\Export.pdb

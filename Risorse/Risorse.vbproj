@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08E0A688-F575-410E-943E-74FD0B0B261E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Risorse</RootNamespace>
+    <AssemblyName>Risorse</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>Risorse.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>Risorse.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Immagini.vb" />
+    <Compile Include="Suoni.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\100.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\account.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addsinistro.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aggiorna.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aggiorna2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\anteprima.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\assegno.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\books.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\budget.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\busta.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cai.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cambiaagenzia.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerca16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerca32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cliente.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clienti.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connetti.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\consap.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\csv.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disconnetti.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\essig.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\estrai.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\evidenza.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\excel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\first.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\importa.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kermit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\last.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_uniarea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_unisinistri.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_unitools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meno.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menuextra.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monitor.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\next.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\notifica.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\piu.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\previous.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\quota.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ricevuta.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rss.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salva.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scandoc.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sincro.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sinistro.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\somma.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sospendi.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spunta.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ueba.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uniarea.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unitools.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\update_red.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\utwitt.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\webdoc.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\allega.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\firma.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\invia32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rubrica.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rubrica2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\at.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\az.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\za.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colonna.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\color.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salva16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\converti.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logoa4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pdf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redim.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scan24.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spillo16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\storico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\upload.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\opzioni.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\owa.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sistema.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\link.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\esci.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copia.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\referenti.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\send16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scanrete.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_unitools_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_uniarea_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_aau.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\euro.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doccheck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\docclock.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\evidenze.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\coin.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pie_chart blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trasparente.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\legami.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agenzia.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\telefono.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aci.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\strumenti.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ripristina.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comunica.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ania.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lettera.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\conn_off.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unicoop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_blu.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_verde.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_giallo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\estrai_com.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wapp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\web.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\formazione.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\word.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\torta.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\proprieta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\favorite.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\history.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\favoriteplus.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attenzione.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connect.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\busy.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\boing.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cash.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\update_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\update_blu.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel16-2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\conn_on.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cornetta.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\posta.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\posizione.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rubik.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filtrocliente.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uncheck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uncheck16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\precedente32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\prossimo32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ut_wait.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smile2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clessidra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ads.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\contabilita.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_aua_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aua.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_aua_info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\occhio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_splash.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

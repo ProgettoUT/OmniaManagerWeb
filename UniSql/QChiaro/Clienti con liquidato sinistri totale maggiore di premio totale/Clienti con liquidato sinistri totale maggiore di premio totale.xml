@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti con liquidato sinistri totale maggiore di premio totale</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni cliente con liquidato sinistri totale maggiore di premio totale sono riportati:
+ - i dati anagrafici;
+ - il premio, i sinistri e il totale 
+   liquidato nel mese corrente;
+ - il premio, i sinistri e il totale
+   complessivamente liquidato 
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Premi totale < Liquidato Totale
+]]></note>
+        <ultagg>06/09/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="32" larghezza="42" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Premicorrente AS [Premio corrente], 
+		    C.Sinistricorrente AS [Sinistro corrente], 
+		    C.Liquidatocorrente AS [Liquidato corrente], 
+		    C.Premitotale AS [Premio totale], 
+		    C.Sinistritotale AS [Sinistro totale], 
+		    C.Liquidatototale AS [Liquidato totale],
+		    C.TipoCliente AS [Tipo Cliente], 
+		    (right(str(TipoCliente),2)) AS Mercato, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione
+		 FROM Clienti C
+		 LEFT JOIN Professioni      AS PR  ON PR.IDProfessione = C.TipoCliente\100
+		WHERE @subagenzia   IN (-1, C.SubAgenzia)
+		  AND @produttore   IN (-1, C.Produttore)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+		  AND C.Premitotale < C.Liquidatototale
+		ORDER BY 16 DESC
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,12 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\UniFeed.dll
+C:\ApplicazioniDirezione\UTW\UniFeed.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.CercaInFiles.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.frmNotifiche.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniFeed\obj\x86\Debug\UniFeed.pdb

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Visure
+</name>
+</assembly>
+<members>
+<member name="T:Visure.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:Visure.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:Visure.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="T:Visure.VisureOMW.Visure">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.#ctor">
+<remarks/>
+</member>
+<member name="E:Visure.VisureOMW.Visure.VisuraPraCompleted">
+<remarks/>
+</member>
+<member name="E:Visure.VisureOMW.Visure.ElencoVisureCompleted">
+<remarks/>
+</member>
+<member name="E:Visure.VisureOMW.Visure.ReportVisureCompleted">
+<remarks/>
+</member>
+<member name="E:Visure.VisureOMW.Visure.RegistraLottoAvvisiCompleted">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.VisuraPra(System.String,System.String,System.String,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.VisuraPraAsync(System.String,System.String,System.String,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.VisuraPraAsync(System.String,System.String,System.String,System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.ElencoVisure(System.DateTime,System.DateTime,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.ElencoVisureAsync(System.DateTime,System.DateTime,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.ElencoVisureAsync(System.DateTime,System.DateTime,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.ReportVisure(System.DateTime,System.DateTime,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.ReportVisureAsync(System.DateTime,System.DateTime,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.ReportVisureAsync(System.DateTime,System.DateTime,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.RegistraLottoAvvisi(System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.RegistraLottoAvvisiAsync(System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32,System.Int32,System.String)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.RegistraLottoAvvisiAsync(System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.Int32,System.Int32,System.Int32,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:Visure.VisureOMW.Visure.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.Visura">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.Visura.CodiceEsito">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.Visura.Errore">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.Visura.VisuraRichiesta">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.VisuraPraCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.VisuraPraCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.VisuraPraCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.ElencoVisureCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.ElencoVisureCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.ElencoVisureCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.ReportVisureCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.ReportVisureCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.ReportVisureCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.RegistraLottoAvvisiCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:Visure.VisureOMW.RegistraLottoAvvisiCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:Visure.VisureOMW.RegistraLottoAvvisiCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

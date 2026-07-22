@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti per età</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+I clienti "effettivi" sono filtrati per età
+Sono riportati i dati anagrafici.
+]]></descrizione>
+        <ultagg>06/09/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@etaMin" etichetta="eta compresa tra" tipo="integer" valore="50" obbligatorio="true" larghezza="7" sinistra="40" nuovariga="true">
+            <elencovalori>1;1;2;2;3;3;4;4;5;5;6;6;7;7;8;8;9;9;10;10;11;11;12;12;13;13;14;14;15;15;16;16;17;17;18;18;19;19;20;20;21;21;22;22;23;23;24;24;25;25;26;26;27;27;28;28;29;29;30;30;31;31;32;32;33;33;34;34;35;35;36;36;37;37;38;38;39;39;40;40;41;41;42;42;43;43;44;44;45;45;46;46;47;47;48;48;49;49;50;50;51;51;52;52;53;53;54;54;55;55;56;56;57;57;58;58;59;59;60;60;61;61;62;62;63;63;64;64;65;65;66;66;67;67;68;68;69;69;70;70;71;71;72;72;73;73;74;74;75;75;76;76;77;77;78;78;79;79;80;80;81;81;82;82;83;83;84;84;85;85;86;86;87;87;88;88;89;89;90;90;91;91;92;92;93;93;94;94;95;95;96;96;97;97;98;98;99;99;100;100;101;101;102;102;103;103;104;104;105;105;106;106;107;107;108;108;109;109;110;110;111;111;112;112;113;113;114;114;115;115;116;116;117;117;118;118;119;119;120;120</elencovalori>
+        </parametro>
+        <parametro nome="@etaMax" etichetta="e " tipo="integer" valore="120" obbligatorio="true" larghezza="7" sinistra="50">
+            <elencovalori>1;1;2;2;3;3;4;4;5;5;6;6;7;7;8;8;9;9;10;10;11;11;12;12;13;13;14;14;15;15;16;16;17;17;18;18;19;19;20;20;21;21;22;22;23;23;24;24;25;25;26;26;27;27;28;28;29;29;30;30;31;31;32;32;33;33;34;34;35;35;36;36;37;37;38;38;39;39;40;40;41;41;42;42;43;43;44;44;45;45;46;46;47;47;48;48;49;49;50;50;51;51;52;52;53;53;54;54;55;55;56;56;57;57;58;58;59;59;60;60;61;61;62;62;63;63;64;64;65;65;66;66;67;67;68;68;69;69;70;70;71;71;72;72;73;73;74;74;75;75;76;76;77;77;78;78;79;79;80;80;81;81;82;82;83;83;84;84;85;85;86;86;87;87;88;88;89;89;90;90;91;91;92;92;93;93;94;94;95;95;96;96;97;97;98;98;99;99;100;100;101;101;102;102;103;103;104;104;105;105;106;106;107;107;108;108;109;109;110;110;111;111;112;112;113;113;114;114;115;115;116;116;117;117;118;118;119;119;120;120</elencovalori>
+        </parametro>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="80" larghezza="30">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.DataNascita AS [Data di nascita], 
+		    (Year(Now())-Year([DataNascita])) AS [Eta del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.ComuneCAB AS [Comune CAB], 
+		    C.StatoCAB AS [Stato CAB], 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Sesso AS Sesso, 
+		    (Switch([Sesso]="N","Spettabile",[Sesso]="F","Gentile Signora",[Sesso]="M","Egregio Signor")) AS [Titolo], 
+		    C.Capofamiglia AS [Capo famiglia], 
+		    C.CodiceFiscaleCF AS [Codice fiscale capo famiglia], 
+		    C.CodiceFiscaleEA AS [Codice fiscale ente appartenenza], 
+		    C.ClienteTop AS [Cliente Top], 
+		    C.DataTop AS [Data Top], 
+		    C.Produttore AS Produttore, 
+		    C.StatoCivile AS [Stato Civile], 
+		    C.NucleoFamiliare AS [N° Componenti nucleo familiare], 
+		    C.PrimaCasa AS [Prima casa], 
+		    C.AltriImmobili AS [Altri immobili], 
+		    C.TitoliStato AS [Titoli di stato], 
+		    C.FasciaReddito AS [Fascia di reddito], 
+		    C.Sindacati AS [Appartenenza a sindacati], 
+		    C.PolizzeAltreComp AS [Polizze in altre compagnie], 
+		    C.CartaCredito AS [Carta di credito], 
+		    C.EsclusioneAttivita AS [Esclusione attivita], 
+		    C.Ente AS Ente, 
+		    C.TipoCliente AS [Tipo Cliente], 
+		    (right(str(TipoCliente),2)) AS Mercato, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione, 
+		    C.IDSegmentoCorrente AS [Identificativo segmento corrente], 
+		    C.IDSegmentoPrecedente AS [Identificativo segmento precedente], 
+		    TSC.StatoCliente AS [Stato del cliente], 
+		    C.IDZona AS [Identificativo zona], 
+		    C.DataInserimento AS [Data Inserimento], 
+		    C.DataCessazione AS [Data Cessazione], 
+		    C.AgenziaPrevalente AS [Agenzia prevalente], 
+		    C.SubAgenzia AS [Codice subagenzia], 
+		    C.SubAgenziaSIMA AS [Codice subagenzia Sima], 
+		    C.DataUltimaVisita AS [Data ultima visita], 
+		    C.DataProssimaVisita AS [Data prossima visita], 
+		    C.PolizzeVigore AS [Numero di polizze in vigore], 
+		    C.PolizzeStoriche AS [Numero di polizze storiche], 
+		    C.Premicorrente AS [Premio corrente], 
+		    C.Sinistricorrente AS [Sinistro corrente], 
+		    C.Liquidatocorrente AS [Liquidato corrente], 
+		    C.Premiprecedente AS [Premio precedente], 
+		    C.Sinistriprecedente AS [Sinistro precedente], 
+		    C.Liquidatoprecedente AS [Liquidato precedente], 
+		    C.Premitotale AS [Premio totale], 
+		    C.Sinistritotale AS [Sinistro totale], 
+		    C.Liquidatototale AS [Liquidato totale], 
+		    C.ConsensoPrivacy AS [Consenso alla privacy], 
+		    C.RilascioPatente AS [Data rilascio patente], 
+		    C.Email AS EMail, 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.TelReferente AS [Telefono Referente], 
+		    C.NomeReferente AS [Nome Referente], 
+		    C.TelAziendale AS [Telefono Aziendale]
+		 FROM ((Clienti          AS C
+		 LEFT JOIN Professioni      AS PR  ON PR.IDProfessione = C.TipoCliente\100)
+		 LEFT JOIN TipoStatiCliente AS TSC ON TSC.IDStatoCliente = C.IDStatoCliente)
+		WHERE @subagenzia   IN (-1, C.SubAgenzia)
+		  AND @produttore   IN (-1, C.Produttore)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+		  AND (Year(Now())-Year([DataNascita])) between @etaMin AND @etaMax
+		ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

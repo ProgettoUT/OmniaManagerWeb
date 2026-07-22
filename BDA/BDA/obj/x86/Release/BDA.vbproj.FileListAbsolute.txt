@@ -1,0 +1,15 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\BDA.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\BDA.dll
+C:\ApplicazioniDirezione\UTW\SETUP\BDA.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\BDA.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.FormBDAOpzioni.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.FormBDAMain.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\BDA\BDA\obj\x86\Release\BDA.pdb

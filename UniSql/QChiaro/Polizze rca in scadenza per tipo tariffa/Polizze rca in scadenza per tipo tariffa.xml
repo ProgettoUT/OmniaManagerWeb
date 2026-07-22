@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Quietanzamento</pacchetto>
+        <nome>Polizze rca in scadenza per tipo tariffa</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Elenco delle polizze RCA con quietanze in scadenza per tipo tariffa</descrizione>
+        <note></note>
+        <ultagg>07/02/2013</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="95">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="40" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Convenzione, format(Convenzione,'00000')
+	    		           FROM Polizze
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" obbligatorio="true" larghezza="42" sinistra="95">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@professione" etichetta="Professione" tipo="integer" valore="-1" obbligatorio="true" larghezza="42" sinistra="40" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT 100, '100 - PENSIONATI E IMPIEGATI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 200, '200 - LIBERI PROFESSIONISTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 300, '300 - AGRICOLTORI E PESCATORI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 400, '400 - COMMERCIANTI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 500, '500 - ARTIGIANI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 600, '600 - INDUSTRISTRIALI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 700, '700 - COOPERATIVE' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 800, '800 - ENTI PUBBLICI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT 900, '900 - ASSOCIAZIONI' FROM (SELECT MAX(1) FROM UTENTI)
+	    		           UNION SELECT DISTINCT IdProfessione, '    ' & format(IDProfessione,'000') & ' - ' & Professione 
+	    		           FROM Professioni
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@mercato" etichetta="Merc.pref." tipo="integer" valore="-1" obbligatorio="true" larghezza="42" sinistra="95">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Codice, format(Codice,'00') & ' - ' & SegmentoMercato 
+	    		           FROM MercatoPreferenziale
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        
+        <parametro nome="@scadenza" etichetta="Scadenza annuale"  tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="40" nuovariga="true">
+	    <elencovalori>#;TUTTI;S;SI;N;NO</elencovalori>
+        </parametro>
+        <parametro nome="@privacy" etichetta="Privacy" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="58">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy 
+	    		           FROM Clienti
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+	    <elencovalori>SELECT DISTINCT ConsensoPrivacy, ConsensoPrivacy FROM Clienti ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@cap" etichetta="Cap" tipo="string" valore="" obbligatorio="false" larghezza="8" sinistra="74"/>
+        
+        <parametro nome="@tipotariffa" etichetta="Tariffa" tipo="string" obbligatorio="true" valore="G" larghezza="42" sinistra="95">
+	    <elencovalori>SELECT DISTINCT TipoTariffa, TipoTariffa FROM Polizze WHERE TipoTariffa >= 'A' ORDER BY 1</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		     A.SubAgenzia
+		    ,(Switch([A.Sesso]="S","Spettabile",[A.Sesso]="F","Gentile Signora",[A.Sesso]="M","Egregio Signor")) AS [Titolo]
+		    ,A.CodiceFiscale as [Codice Fiscale]
+		    ,A.Contraente
+		    ,A.Indirizzo
+		    ,A.Cap
+		    ,A.Localita
+		    ,A.Provincia
+		    ,C.ConsensoPrivacy AS [Privacy]
+		    ,C.Telefono1 AS [Primo telefono]
+		    ,C.Fax AS Fax
+		    ,C.Cellulare AS Cellulare
+		    ,C.Email AS EMail
+		    ,Format(A.Ramo,'000')          AS Ramo
+		    ,Format(A.Polizza,'000000000') AS [Polizza]
+		    ,TR.Ramo                       AS [Ramo Polizza]
+		    ,A.EffettoRata
+		    ,A.ScadenzaRata
+		    ,A.FlagScadenzaAnnuale
+		    ,A.PremioRataLordo
+		    ,P.ClasseBonusMalus
+		 FROM (([AVVISI] AS A
+		INNER JOIN CLIENTI C ON A.CodiceFiscale = C.CodiceFiscale)
+		INNER JOIN Polizze P ON a.agenzia=p.agenzia and a.ramo = p.ramo and a.Polizza = p.Polizza)
+		 LEFT JOIN [TipoRami] AS TR ON TR.CodiceRamo = A.Ramo
+		WHERE @subagenzia  IN (-1, A.SubAgenzia)
+		  AND @produttore  IN (-1, A.Produttore)
+		  AND @convenzione IN (-1, A.Convenzione)
+		  AND @prodotto    IN ('#', format(A.Prodotto,'00000'))
+		  AND @scadenza    IN ('#', A.FlagScadenzaAnnuale)
+		  AND A.cap LIKE TRIM(@cap) & '%'
+		  AND @professione IN (-1, 100*(C.TipoCliente\10000),C.TipoCliente\100)
+		  AND @mercato     IN (-1, C.TipoCliente mod 100)
+		  AND @privacy     IN ('#', C.ConsensoPrivacy)
+		  AND FORMAT(EffettoRata,'YYYYMM') >= FORMAT(Date(),'YYYYMM')
+		  AND @tipotariffa = P.TipoTariffa
+		  AND RamoGestione = 1
+		ORDER BY EffettoRata, Contraente
+	]]></sql>
+    </estrazione>
+</oggetto>

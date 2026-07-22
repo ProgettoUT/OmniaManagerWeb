@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="ElaboraChiave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Chiave" type="tns:SettingItem" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SettingItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Sezione" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Chiave" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valore" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valori" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Modifica" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Esiste" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Operazione" type="tns:TipoOperazione" />
+          <s:element minOccurs="1" maxOccurs="1" name="Esito" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TipoOperazione">
+        <s:restriction base="s:string">
+          <s:enumeration value="NESSUNA" />
+          <s:enumeration value="SCRITTURA" />
+          <s:enumeration value="SCRITTURA_CON_VALORE" />
+          <s:enumeration value="LETTURA" />
+          <s:enumeration value="LETTURA_CON_VALORE" />
+          <s:enumeration value="CANCELLAZIONE" />
+          <s:enumeration value="CANCELLAZIONE_CON_VALORE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ElaboraChiaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElaboraChiaveResult" type="tns:SettingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteChiaveMigrazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteChiaveMigrazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EsisteChiaveMigrazioneResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DataLiveUp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DataLiveUpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DataLiveUpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaDataLiveUp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaDataLiveUpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AggiornaDataLiveUpResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ElaboraChiaveSoapIn">
+    <wsdl:part name="parameters" element="tns:ElaboraChiave" />
+  </wsdl:message>
+  <wsdl:message name="ElaboraChiaveSoapOut">
+    <wsdl:part name="parameters" element="tns:ElaboraChiaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="EsisteChiaveMigrazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:EsisteChiaveMigrazione" />
+  </wsdl:message>
+  <wsdl:message name="EsisteChiaveMigrazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:EsisteChiaveMigrazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="DataLiveUpSoapIn">
+    <wsdl:part name="parameters" element="tns:DataLiveUp" />
+  </wsdl:message>
+  <wsdl:message name="DataLiveUpSoapOut">
+    <wsdl:part name="parameters" element="tns:DataLiveUpResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaDataLiveUpSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaDataLiveUp" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaDataLiveUpSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaDataLiveUpResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GestioneSettingSoap">
+    <wsdl:operation name="ElaboraChiave">
+      <wsdl:input message="tns:ElaboraChiaveSoapIn" />
+      <wsdl:output message="tns:ElaboraChiaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EsisteChiaveMigrazione">
+      <wsdl:input message="tns:EsisteChiaveMigrazioneSoapIn" />
+      <wsdl:output message="tns:EsisteChiaveMigrazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DataLiveUp">
+      <wsdl:input message="tns:DataLiveUpSoapIn" />
+      <wsdl:output message="tns:DataLiveUpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaDataLiveUp">
+      <wsdl:input message="tns:AggiornaDataLiveUpSoapIn" />
+      <wsdl:output message="tns:AggiornaDataLiveUpSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GestioneSettingSoap" type="tns:GestioneSettingSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ElaboraChiave">
+      <soap:operation soapAction="http://utools.auaonline.it/ElaboraChiave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteChiaveMigrazione">
+      <soap:operation soapAction="http://utools.auaonline.it/EsisteChiaveMigrazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DataLiveUp">
+      <soap:operation soapAction="http://utools.auaonline.it/DataLiveUp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaDataLiveUp">
+      <soap:operation soapAction="http://utools.auaonline.it/AggiornaDataLiveUp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GestioneSettingSoap12" type="tns:GestioneSettingSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ElaboraChiave">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElaboraChiave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteChiaveMigrazione">
+      <soap12:operation soapAction="http://utools.auaonline.it/EsisteChiaveMigrazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DataLiveUp">
+      <soap12:operation soapAction="http://utools.auaonline.it/DataLiveUp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaDataLiveUp">
+      <soap12:operation soapAction="http://utools.auaonline.it/AggiornaDataLiveUp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GestioneSetting">
+    <wsdl:port name="GestioneSettingSoap" binding="tns:GestioneSettingSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/GestioneSetting.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GestioneSettingSoap12" binding="tns:GestioneSettingSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/GestioneSetting.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

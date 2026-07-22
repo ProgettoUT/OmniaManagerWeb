@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Evidenze</pacchetto>
+        <nome>Arretrati con evidenze</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>uniarea</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Elenco delle evidenze.
+]]></descrizione>
+        <applicazioni>*BDA*</applicazioni>
+        <ultagg>20/12/2019</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@datamin" etichetta="Effetto dal" tipo="date" larghezza="11" sinistra="36" valore="=format(DateSerial(year(Date()), month(Date()), 1), 'dd/mm/yyyy')" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al"          tipo="date" larghezza="11" sinistra="50" valore="=format(DateAdd('d', -1, DateSerial(year(Date()), 1 + month(Date()), 1)), 'dd/mm/yyyy')" obbligatorio="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT
+		     A.SubAgenzia
+		    ,A.CodiceFiscale as [Codice Fiscale]
+		    ,TRIM(A.Cognome & " " & A.Nome) AS Contraente
+		    ,C.DataNascita AS [Data di nascita]
+		    ,(Year(Now())-Year([C.DataNascita])) AS [Eta del cliente]
+		    ,C.Indirizzo
+		    ,C.Cap
+		    ,C.Localita
+		    ,C.Provincia
+		    ,C.ConsensoPrivacy AS [Privacy]
+		    ,C.Telefono1 AS [Primo telefono]
+		    ,C.Fax AS Fax
+		    ,C.Cellulare AS Cellulare
+		    ,C.Email AS EMail
+		    ,C.ClienteTop AS [ClienteTop]
+		    ,A.Convenzione
+		    ,Format(A.Ramo,'000')          AS Ramo
+		    ,Format(A.Polizza,'000000000') AS [Polizza]
+		    ,TR.Ramo                       AS [Descrizione Ramo]
+		    ,A.Targa                       AS [Targa]
+		    ,P.ClasseRCA                   AS [Classe RCA]
+		    ,A.EffettoTitolo               AS [Effetto titolo]
+		    ,A.RataIntermedia AS [Rata intermedia]
+		    ,IIF(Month(A.EffettoTitolo) = Month(P.DataScadenza),'S','N')
+		                                   AS [Scadenza annuale]
+		    ,IIF(INSTR('' & CA.Desc_compagnia, 'UNIPOL') > 0, '', CA.Desc_compagnia) as [Altra compagnia]
+		    ,A.Tassabile                   AS [Tassabile]
+		    ,(A.TotalePolizza)             AS [Premio polizza]
+		    ,A.Unibox                      AS [Unibox]
+		    ,A.TotaleTitolo                AS [Totale titolo]
+		    ,IIF(A.RataIntermedia='N',I.DataEffettoTitolo) AS [Data ultimo pagamento]
+		    ,(I.TotaleTitolo) * IIF(A.RataIntermedia='N',1) AS [Ultimo premio pagato]
+		    ,(A.TotalePolizza - I.TotaleTitolo) * IIF(A.RataIntermedia='N',1) AS [Incremento Premio]
+		    ,TRIM(C2.Cognome & " " & C2.Nome) AS Familiare
+		    ,E.DesEvidenza                 AS Evidenza
+		    ,E.DataApertura                AS Riferimento
+		    ,T.destipodocumento            AS Documento
+		    ,F.Note
+		 FROM (((((((((((  ARRETRATI A
+		 LEFT JOIN CLIENTI   C ON A.CodiceFiscale = C.CodiceFiscale)
+		 LEFT JOIN Polizze   P ON A.agenzia=p.agenzia and A.ramo = p.ramo and A.Polizza = p.Polizza)
+		 LEFT JOIN BDA      AS B  ON A.targa = B.targa)
+		 LEFT JOIN TipoRami AS TR ON TR.CodiceRamo = A.Ramo)
+		 LEFT JOIN CompagniaANIA AS CA ON CA.compagnia = B.CodiceCompagnia)
+		 LEFT JOIN CLIENTI  C2 ON C.CodiceFiscaleCF = C2.CodiceFiscaleCF)
+		 LEFT JOIN Unidocs_Evidenza   E ON E.CodiceFiscale = C2.CodiceFiscale )
+		 LEFT JOIN Unidocs_Promemoria F ON F.IdEvidenza = E.IdEvidenza)
+		 LEFT JOIN Unidocs_Documento  D ON D.IdEvidenza = E.IdEvidenza)
+		 LEFT JOIN unidocs_tipodocumento  T ON T.codtipodocumento = D.codtipodocumento)		
+		 LEFT JOIN (SELECT IA.Agenzia
+				     , IA.Ramo
+				     , IA.Polizza
+				     , IA.DataEffettoTitolo
+				     , IA.TotaleTitolo
+				  FROM Incassi IA
+				 INNER JOIN (
+					SELECT Agenzia
+					     , Ramo
+					     , Polizza
+					     , Max(DataEffettoTitolo) as MaxDataEffettoTitolo
+					      FROM Incassi
+					     WHERE TotaleTitolo > 0
+					       AND TipoCarico <> '9'
+					     GROUP BY Agenzia, Ramo, Polizza) AS IB
+				    ON IA.Agenzia = IB.Agenzia AND IA.Ramo = IB.Ramo AND IA.Polizza = IB.Polizza AND IA.DataEffettoTitolo = IB.MaxDataEffettoTitolo 
+				 WHERE IA.TotaleTitolo > 0
+				   AND IA.TipoCarico <> '9') I
+		   ON a.Agenzia = I.Agenzia AND a.Ramo = I.Ramo AND a.Polizza = I.Polizza)
+		WHERE A.EffettoTitolo >= @datamin
+		  AND A.EffettoTitolo <= @datamax
+		  AND (C2.CodiceFiscaleCF > 'A')
+		ORDER BY 3
+			]]></sql>
+    </estrazione>
+</oggetto>

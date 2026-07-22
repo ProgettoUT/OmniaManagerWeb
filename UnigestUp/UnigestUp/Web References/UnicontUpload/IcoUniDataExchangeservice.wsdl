@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="IcoUniDataExchangeservice" targetNamespace="http://tempuri.org/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types />
+  <message name="OpenSession0Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:string" />
+    <part name="A3" type="xs:string" />
+  </message>
+  <message name="OpenSession0Response">
+    <part name="return" type="xs:string" />
+  </message>
+  <message name="CloseSession1Request">
+    <part name="A1" type="xs:string" />
+  </message>
+  <message name="CloseSession1Response">
+    <part name="return" type="xs:int" />
+  </message>
+  <message name="GetFileList2Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:string" />
+  </message>
+  <message name="GetFileList2Response">
+    <part name="return" type="xs:string" />
+  </message>
+  <message name="UploadFile3Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:string" />
+    <part name="A3" type="xs:string" />
+    <part name="A4" type="xs:base64Binary" />
+  </message>
+  <message name="UploadFile3Response">
+    <part name="return" type="xs:int" />
+  </message>
+  <message name="DownloadFile4Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:int" />
+  </message>
+  <message name="DownloadFile4Response">
+    <part name="return" type="xs:base64Binary" />
+  </message>
+  <message name="UploadFileAndTime5Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:string" />
+    <part name="A3" type="xs:string" />
+    <part name="A4" type="xs:dateTime" />
+    <part name="A5" type="xs:dateTime" />
+    <part name="A6" type="xs:base64Binary" />
+  </message>
+  <message name="UploadFileAndTime5Response">
+    <part name="return" type="xs:int" />
+  </message>
+  <message name="GetMaxDate6Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:string" />
+  </message>
+  <message name="GetMaxDate6Response">
+    <part name="return" type="xs:dateTime" />
+  </message>
+  <message name="SetDownloaded7Request">
+    <part name="A1" type="xs:string" />
+    <part name="A2" type="xs:int" />
+    <part name="A3" type="xs:dateTime" />
+  </message>
+  <message name="SetDownloaded7Response">
+    <part name="return" type="xs:int" />
+  </message>
+  <portType name="IcoUniDataExchange">
+    <operation name="OpenSession">
+      <input message="tns:OpenSession0Request" />
+      <output message="tns:OpenSession0Response" />
+    </operation>
+    <operation name="CloseSession">
+      <input message="tns:CloseSession1Request" />
+      <output message="tns:CloseSession1Response" />
+    </operation>
+    <operation name="GetFileList">
+      <input message="tns:GetFileList2Request" />
+      <output message="tns:GetFileList2Response" />
+    </operation>
+    <operation name="UploadFile">
+      <input message="tns:UploadFile3Request" />
+      <output message="tns:UploadFile3Response" />
+    </operation>
+    <operation name="DownloadFile">
+      <input message="tns:DownloadFile4Request" />
+      <output message="tns:DownloadFile4Response" />
+    </operation>
+    <operation name="UploadFileAndTime">
+      <input message="tns:UploadFileAndTime5Request" />
+      <output message="tns:UploadFileAndTime5Response" />
+    </operation>
+    <operation name="GetMaxDate">
+      <input message="tns:GetMaxDate6Request" />
+      <output message="tns:GetMaxDate6Response" />
+    </operation>
+    <operation name="SetDownloaded">
+      <input message="tns:SetDownloaded7Request" />
+      <output message="tns:SetDownloaded7Response" />
+    </operation>
+  </portType>
+  <binding name="IcoUniDataExchangebinding" type="tns:IcoUniDataExchange">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="OpenSession">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#OpenSession" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="CloseSession">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#CloseSession" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="GetFileList">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#GetFileList" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="UploadFile">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#UploadFile" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="DownloadFile">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#DownloadFile" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="UploadFileAndTime">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#UploadFileAndTime" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="GetMaxDate">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#GetMaxDate" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="SetDownloaded">
+      <soap:operation soapAction="urn:coUniDataExchangeIntf-IcoUniDataExchange#SetDownloaded" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:coUniDataExchangeIntf-IcoUniDataExchange" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="IcoUniDataExchangeservice">
+    <port name="IcoUniDataExchangePort" binding="tns:IcoUniDataExchangebinding">
+      <soap:address location="https://unigest.uniarea.it:80/UniDataExchange/UniDataExchange.dll/soap/IcoUniDataExchange" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Nuova produzione</pacchetto>
+        <nome>Nuova produzione per produttore e ramo gestione</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>pivot</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni produttore-ramo gestione è riportato:
+ - il numero di polizze,
+ - l'incremento di produzione
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Tipo Carico diverso da 4
+]]></note>
+        <ultagg>17/02/2010</ultagg>
+        <scadenza>01/01/2001</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseDa" etichetta="Anno mese da" tipo="string" valore="" obbligatorio="true" larghezza="10">
+	    <elencovalori>SELECT DISTINCT AnnoMeseCompetenza, format(AnnoMeseCompetenza,'0000-00') FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseA" etichetta="Anno mese a" tipo="string" valore="" obbligatorio="true" larghezza="10">
+	    <elencovalori>SELECT DISTINCT AnnoMeseCompetenza, format(AnnoMeseCompetenza,'0000-00') FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    (format(TRG.RamoGestione,'00') & ' - ' & TRG.DescRamoGest) AS [Ramo di gestione], 
+		    IC.CodiceProduttore AS [Produttore], 
+		    COUNT(IIF(PremioTass > 0 and (IC.TipoCarico='1' OR IC.TipoCarico='5'),1,0)) AS [Numero di Polizze], 
+		    SUM(PremioTass-PremioTasso) AS [Incremento di Produzione]
+		FROM 
+		    [RamoGest] AS TRG RIGHT JOIN ([Polizze] AS P LEFT JOIN [Incassi] AS IC ON (P.Polizza = IC.Polizza)) ON (TRG.RamoGestione = P.RamoGestione)
+		WHERE 
+		      IC.TipoCarico <> '4'
+		  AND IC.AnnoMeseCompetenza >= @annoMeseDa
+		  AND IC.AnnoMeseCompetenza <= @annoMeseA
+		  AND @produttore  IN (-1, IC.CodiceSubAgente, IC.CodiceProduttore)
+		GROUP BY 
+		    (format(TRG.RamoGestione,'00') & ' - ' & TRG.DescRamoGest), 
+		    IC.CodiceProduttore
+
+		UNION
+		SELECT 
+		    (format(TRG.RamoGestione,'00') & ' - ' & TRG.DescRamoGest) AS [Ramo di gestione], 
+		    'TOTALI' AS [Produttore], 
+		    COUNT(IIF(PremioTass > 0 and (IC.TipoCarico='1' OR IC.TipoCarico='5'),1,0)) AS [Numero di Polizze], 
+		    SUM(PremioTass-PremioTasso) AS [Incremento di Produzione]
+		FROM 
+		    [RamoGest] AS TRG RIGHT JOIN ([Polizze] AS P LEFT JOIN [Incassi] AS IC ON (P.Polizza = IC.Polizza)) ON (TRG.RamoGestione = P.RamoGestione)
+		WHERE 
+		      IC.TipoCarico <> '4'
+		  AND IC.AnnoMeseCompetenza >= @annoMeseDa
+		  AND IC.AnnoMeseCompetenza <= @annoMeseA
+		  AND @produttore  IN (-1, IC.CodiceSubAgente, IC.CodiceProduttore)
+		GROUP BY 
+		    (format(TRG.RamoGestione,'00') & ' - ' & TRG.DescRamoGest), 
+		    'TOTALI'
+		ORDER BY 1, 2
+	]]></sql>
+    </estrazione>
+</oggetto>

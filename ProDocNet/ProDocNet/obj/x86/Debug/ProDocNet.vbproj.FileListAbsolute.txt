@@ -1,0 +1,17 @@
+C:\ApplicazioniDirezione\UT\ProDoc.exe
+C:\ApplicazioniDirezione\UT\ProDoc.pdb
+C:\ApplicazioniDirezione\UT\ProDoc.xml
+C:\ApplicazioniDirezione\UTW\ProDoc.exe
+C:\ApplicazioniDirezione\UTW\ProDoc.pdb
+C:\ApplicazioniDirezione\UTW\ProDoc.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.FormMain.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.frmPopup.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.Login.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDocNet.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDoc.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDoc.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\ProDocNet\ProDocNet\obj\x86\Debug\ProDoc.pdb

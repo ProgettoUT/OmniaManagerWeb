@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti per produttore</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+I clienti sono filtrati per produttore.
+Sono riportati i dati anagrafici.
+]]></descrizione>
+        <ultagg>10/03/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="40">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@statocliente" etichetta="Stato cliente" tipo="string" valore="EF" obbligatorio="true" sinistra="40" larghezza="30" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT IDStatoCliente, StatoCliente
+	    		           FROM TipoStatiCliente
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@sesso" etichetta="Tipo cliente" tipo="string" valore="#" obbligatorio="true" sinistra="80" larghezza="30">
+	    <elencovalori>#;TUTTI;F;Persona Fisica;G;Persona Giuridica</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.DataNascita AS [Data di nascita], 
+		    (Year(Now())-Year([DataNascita])) AS [Eta del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.ComuneCAB AS [Comune CAB], 
+		    C.StatoCAB AS [Stato CAB], 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Sesso AS Sesso, 
+		    (Switch([Sesso]="N","Spettabile",[Sesso]="F","Gentile Signora",[Sesso]="M","Egregio Signor")) AS [Titolo], 
+		    C.Capofamiglia AS [Capo famiglia], 
+		    C.CodiceFiscaleCF AS [Codice fiscale capo famiglia], 
+		    C.CodiceFiscaleEA AS [Codice fiscale ente appartenenza], 
+		    C.ClienteTop AS [Cliente Top], 
+		    C.DataTop AS [Data Top], 
+		    C.Produttore AS Produttore, 
+		    C.StatoCivile AS [Stato Civile], 
+		    C.NucleoFamiliare AS [N° Componenti nucleo familiare], 
+		    C.PrimaCasa AS [Prima casa], 
+		    C.AltriImmobili AS [Altri immobili], 
+		    C.TitoliStato AS [Titoli di stato], 
+		    C.FasciaReddito AS [Fascia di reddito], 
+		    C.Sindacati AS [Appartenenza a sindacati], 
+		    C.PolizzeAltreComp AS [Polizze in altre compagnie], 
+		    C.CartaCredito AS [Carta di credito], 
+		    C.EsclusioneAttivita AS [Esclusione attivita], 
+		    C.Ente AS Ente, 
+		    C.TipoCliente AS [Tipo Cliente], 
+		    (right(str(TipoCliente),2)) AS Mercato, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione, 
+		    C.IDSegmentoCorrente AS [Identificativo segmento corrente], 
+		    C.IDSegmentoPrecedente AS [Identificativo segmento precedente], 
+		    TSC.StatoCliente AS [Stato del cliente], 
+		    C.IDZona AS [Identificativo zona], 
+		    C.DataInserimento AS [Data Inserimento], 
+		    C.DataCessazione AS [Data Cessazione], 
+		    C.AgenziaPrevalente AS [Agenzia prevalente], 
+		    C.SubAgenzia AS [Codice subagenzia], 
+		    C.SubAgenziaSIMA AS [Codice subagenzia Sima], 
+		    C.DataUltimaVisita AS [Data ultima visita], 
+		    C.DataProssimaVisita AS [Data prossima visita], 
+		    C.PolizzeVigore AS [Numero di polizze in vigore], 
+		    C.PolizzeStoriche AS [Numero di polizze storiche], 
+		    C.Premicorrente AS [Premio corrente], 
+		    Round(P.PremioAnnuoPtf) AS [Premio esercizio precedente], 
+		    C.Sinistricorrente AS [Sinistro corrente], 
+		    C.Liquidatocorrente AS [Liquidato corrente], 
+		    C.Premiprecedente AS [Premio precedente], 
+		    C.Sinistriprecedente AS [Sinistro precedente], 
+		    C.Liquidatoprecedente AS [Liquidato precedente], 
+		    C.Premitotale AS [Premio totale], 
+		    C.Sinistritotale AS [Sinistro totale], 
+		    C.Liquidatototale AS [Liquidato totale], 
+		    C.ConsensoPrivacy AS [Consenso alla privacy], 
+		    C.RilascioPatente AS [Data rilascio patente], 
+		    C.Email AS EMail, 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.TelReferente AS [Telefono Referente], 
+		    C.NomeReferente AS [Nome Referente], 
+		    C.TelAziendale AS [Telefono Aziendale]
+		 FROM (((  Clienti          AS C
+		 LEFT JOIN Professioni      AS PR  ON PR.IDProfessione = C.TipoCliente\100)
+		 LEFT JOIN TipoStatiCliente AS TSC ON TSC.IDStatoCliente = C.IDStatoCliente)
+		 LEFT JOIN (SELECT CodiceFiscInc, SUM(Tassabile) AS PremioAnnuoPtf
+		              FROM Incassi
+		             WHERE year(DataFoglioCassa) = year(now) - 1
+		             GROUP BY CodiceFiscInc) AS P ON C.CodiceFiscale = P.CodiceFiscInc)
+		WHERE @subagenzia   IN (-1, C.SubAgenzia)
+		  AND @produttore   IN (-1, C.Produttore)
+		  AND @statocliente IN ('#',C.IDStatoCliente)
+		  AND @sesso        IN ('#',IIF(C.Sesso='N', 'G', 'F'))
+		ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

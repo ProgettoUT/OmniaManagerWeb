@@ -1,0 +1,25 @@
+C:\ApplicazioniDirezione\UTW\SETUP\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UniCom.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\UniCom.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UniCom.XmlSerializers.dll
+C:\ApplicazioniDirezione\UTW\SETUP\UniCom.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\UniCom.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCOM.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormFirma.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormGestioneAccount.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormNuovoAvviso.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormPostalizzazione.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormLettere.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormNotifiche.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormMail.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormRichiestaFile.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormRubrica.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.FormComunicazioni.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCOM.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCOM.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCOM.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniCOM\UniCOM\obj\x86\Release\UniCom.XmlSerializers.dll

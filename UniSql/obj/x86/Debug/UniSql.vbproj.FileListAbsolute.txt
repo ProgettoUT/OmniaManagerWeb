@@ -1,0 +1,17 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\UniSql.dll.config
+C:\ApplicazioniDirezione\UTW\UniSql.dll
+C:\ApplicazioniDirezione\UTW\UniSql.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.FormNota.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.frmEsplora.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.frmGrid.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.frmParametri.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.frmProprieta.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.frmWait.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniSql\obj\x86\Debug\UniSql.pdb

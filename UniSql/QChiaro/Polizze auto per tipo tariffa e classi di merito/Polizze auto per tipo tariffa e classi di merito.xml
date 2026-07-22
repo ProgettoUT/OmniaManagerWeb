@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Polizze auto per tipo tariffa e classi di merito</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>multisistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Dettagli delle polizza auto attive (non stornate)
+filtrate per produttore, classe bonus malus interna,
+Tipo tariffa e Cavalli fiscali.
+]]></descrizione>
+        <ultagg>25/07/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@ClasseBonusMalusMin" etichetta="Classe B/M da" tipo="integer" valore="52" obbligatorio="true" larghezza="7" sinistra="75">
+	    <elencovalori>SELECT DISTINCT ClasseBonusMalus, ClasseBonusMalus FROM Polizze ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@ClasseBonusMalusMax" etichetta="a" tipo="integer" valore="52" obbligatorio="true" larghezza="7" sinistra="85">
+	    <elencovalori>SELECT DISTINCT ClasseBonusMalus, ClasseBonusMalus FROM Polizze ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@TipoTariffa" etichetta="Tariffa" tipo="string" valore="E" obbligatorio="true" larghezza="5" sinistra="100">
+	    <elencovalori>SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) UNION SELECT DISTINCT TipoTariffa, TipoTariffa FROM Polizze ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@CavalliFiscaliMin" etichetta="Cv da" tipo="integer" valore="14" obbligatorio="true" larghezza="7" sinistra="114">
+	    <elencovalori>SELECT DISTINCT CavalliFiscali, CavalliFiscali FROM Polizze ORDER BY 1</elencovalori>
+        </parametro>
+        <parametro nome="@CavalliFiscaliMax" etichetta="a" tipo="integer" valore="20" obbligatorio="true" larghezza="7" sinistra="124">
+	    <elencovalori>SELECT DISTINCT CavalliFiscali, CavalliFiscali FROM Polizze ORDER BY 1</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Cellulare AS [Cellulare],
+		    (format(TRG.RamoGestione,'00') & ' - ' & TRG.DescRamoGest) AS [Ramo di gestione], 
+		    (format(TR.CodiceRamo,'000') & ' - ' & TR.Ramo) AS [Ramo Polizza], 
+		    P.Polizza AS Polizza, 
+		    P.DataEffetto AS [Data Effetto], 
+		    P.DataScadenza AS DataScadenza, 
+		    P.DataPrimaQuietanza AS [Data prima quietanza], 
+		    P.Frazionamento AS [Frazionamento Polizze], 
+		    P.Canale AS Canale, 
+		    P.CodiceSubAgente AS [Codice sub agente Polizze], 
+		    P.CodiceProduttore AS [Codice produttore Polizze], 
+		    (format(P.CodiceProdotto,'00000')) AS [Prodotto Polizza], 
+		    P.tipoPolProd AS [Tipo prodotto], 
+		    P.TotalePremioAnnuo AS [Totale premio annuo], 
+		    P.Targa AS [Numero targa], 
+		    P.CavalliFiscali AS [Cavalli fiscali], 
+		    P.Convenzione AS [Convenzione Polizze], 
+		    (TS.IDStorno & " - " & TS.Storno) AS [Tipo storno], 
+		    P.DataStorno AS [Data storno], 
+		    P.TipoCarico AS [Tipo carico polizze], 
+		    P.Clausole AS Clausole, 
+		    P.TipoTariffa AS [Tipo tariffa], 
+		    P.ClasseBonusMalus AS [Classe bonus malus], 
+		    P.CombinazioneMassimali AS [Combinazione massimali], 
+		    P.SettoreTariffario AS [Settore di tariffa], 
+		    P.ValoreincendioFurto AS [Valore incendio furto], 
+		    P.CodiceGaranzieAccessorie AS [Codice garanzie accessorie], 
+		    P.CodiceGaranziaInfortuni AS [Codice garanzia infortuni], 
+		    P.DiariaRitiroPatente AS [Diaria ritiro patente], 
+		    P.CodiceUtilizzoVeicolo AS [Codice utilizzo veicolo], 
+		    P.AlimentazioneVeicolo AS [Alimentazione veicolo], 
+		    P.ProfessioneRCA AS [Professione Rca], 
+		    P.CodicePagamento AS [Codice pagamento], 
+		    P.ImmatricVeicolo AS [Data immatricolazione veicolo]
+		FROM 
+		    [Clienti] AS C INNER JOIN ([RamoGest] AS TRG 
+		    RIGHT JOIN ([TipoRami] AS TR RIGHT JOIN (([TipoStorni] AS TS 
+		    RIGHT JOIN [Polizze] AS P ON (TS.IDStorno = P.IDStorno AND IIF(P.RamoGestione >=18 AND P.RamoGestione <=20, 'V', 'D')= TS.Settore))) ON (TR.CodiceRamo = P.Ramo)) ON (TRG.RamoGestione = P.RamoGestione)) ON (C.CodiceFiscale = P.CodiceFiscale)
+		WHERE P.ClasseBonusMalus >= @ClasseBonusMalusMin
+		  AND P.ClasseBonusMalus <= @ClasseBonusMalusMax
+		  AND @TipoTariffa IN ('#', P.TipoTariffa)
+		  AND @produttore  IN (-1, P.CodiceSubAgente, P.CodiceProduttore)
+                  AND (P.DataStorno IS NULL OR P.DataStorno = 0)
+                  AND P.ramoGestione = 1
+	]]></sql>
+    </estrazione>
+</oggetto>

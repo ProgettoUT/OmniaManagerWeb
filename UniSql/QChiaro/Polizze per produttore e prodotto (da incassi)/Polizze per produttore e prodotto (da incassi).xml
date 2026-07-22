@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Polizze per produttore e prodotto (da incassi)</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Estrae tutte le polizze filtrando per produttore e prodotto,
+partella dalla tabella incassi
+]]></descrizione>
+        <ultagg>10/10/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze I left join FigureProduttive as FP on (I.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           WHERE CodiceSubAgente > 0
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze I left join FigureProduttive as FP on (I.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           WHERE CodiceProduttore > 0
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@ramopolizza" etichetta="Ramo" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+				   UNION SELECT DISTINCT I.Ramo, format(I.Ramo,'000') & ' - ' & TR.Ramo 
+				   FROM Incassi I left join [TipoRami] AS TR on (I.ramo=TR.CodiceRamo)
+				   ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="string" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT format(Convenzione,'00000'), format(Convenzione,'00000')
+	    		           FROM Incassi
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@datamin" etichetta="Effetto dal" tipo="date" larghezza="20" nuovariga="true" sinistra="32" valore="01/01/1901" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al" tipo="date" larghezza="20" nuovariga="false" sinistra="54" valore="31/12/2099" obbligatorio="true"/>
+        
+        <parametro nome="@segmentazione" etichetta="Segmento" tipo="integer" obbligatorio="true" valore="-1" larghezza="42" sinistra="84">
+	    <elencovalori>
+	    -1;TUTTI;
+	    	-2;  DANNI;
+	    		-4;    AUTO;
+					 1;        RESPONSABILITA' CIVILE AUTO;
+					 2;        AUTO RISCHI DIVERSI;
+	    		-5;    RAMI ELEMENTARI;
+	    			-6;      PERSONE;
+					 3;        INFORTUNI;
+					 4;        MALATTIE;
+					 5;        RISCHI DIVERSI PERSONE;
+	    			-7;      AZIENDE;
+					 6;        INCENDIO RISCHI ORDINARI;
+					 7;        INCENDIO RISCHI INDUSTRIALI;
+					 8;        RISCHI TECNOLOGICI;
+					 9;        FURTO;
+					10;        RESPONSABILITA' CIVILE GENERALE;
+	    			-8;      ALTRI RAMI;
+					11;        TRASPORTI;
+					12;        AERONAUTICA;
+					13;        CAUZIONI;
+					14;        CREDITO;
+					15;        RISCHIO IMPIEGO;
+					16;        GRANDINE;
+					17;        BESTIAME;
+	    	-3;  VITA;
+                                        18;        VITA INDIVIDUALI;
+					19;        VITA COLLETTIVE;
+					20;        VITA FONDI PENSIONE
+	    </elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome       AS [Cognome del cliente], 
+		    C.Nome          AS [Nome del cliente], 
+		    C.Indirizzo     AS Indirizzo, 
+		    C.Cap           AS Cap, 
+		    C.Localita      AS Localita, 
+		    C.Provincia     AS [Codice Provincia], 
+		    C.Telefono1     AS [Primo telefono], 
+		    C.Telefono2     AS [Secondo telefono], 
+		    C.Cellulare     AS [Cellulare],
+		    (format(TRG.RamoGestione,'00') & ' - ' & TRG.DescRamoGest) AS [Ramo di gestione], 
+		    (format(TR.CodiceRamo,'000') & ' - ' & TR.Ramo) AS [Ramo Polizza], 
+		    I.Polizza       AS Polizza, 
+		    I.EffettoPolizza   AS [Data Effetto], 
+		    I.ScadenzaPolizza  AS [Data Scadenza], 
+		    I.CodiceSubAgente  AS [Codice sub agente], 
+		    I.CodiceProduttore AS [Codice produttore], 
+		    (format(I.CodiceProdotto,'00000')) AS [Prodotto], 
+		    I.Frazionamento,
+		    I.Targa         AS [Numero targa], 
+		    I.Convenzione   AS [Convenzione Polizze],
+		    C.Email         AS [Email],
+		    C.Fax AS Fax, 
+		    C.TelReferente AS [Telefono Referente], 
+		    C.NomeReferente AS [Nome Referente], 
+		    C.TelAziendale AS [Telefono Aziendale]
+		FROM ((([Clienti]   AS C 
+		INNER JOIN [Incassi]  AS I   ON C.CodiceFiscale = I.CodiceFiscInc)
+		 LEFT JOIN [RamoGest] AS TRG ON I.RamoGestione = TRG.RamoGestione)
+		 LEFT JOIN [TipoRami] AS TR  ON I.Ramo = TR.CodiceRamo)
+		WHERE @produttore  IN (-1, I.CodiceSubAgente, I.CodiceProduttore)
+		  AND I.EffettoPolizza >= @datamin
+		  AND I.EffettoPolizza <= @datamax
+		  AND (I.ScadenzaPolizza >= now or I.ScadenzaPolizza = #01/01/2001#)
+		  AND @ramopolizza IN (-1, I.Ramo) 
+		  AND @convenzione   IN ('#', format(I.Convenzione,'00000'))
+		  AND @prodotto      IN ('#', format(I.CodiceProdotto,'00000'))
+		  AND @segmentazione IN (-1,
+		  	iif(I.RamoGestione >=  1 and I.RamoGestione <= 17, -2, 0),
+		  	iif(I.RamoGestione >= 18 and I.RamoGestione <= 20, -3, 0),
+		  	iif(I.RamoGestione >=  1 and I.RamoGestione <=  2, -4, 0),
+		  	iif(I.RamoGestione >=  3 and I.RamoGestione <= 17, -5, 0),
+		  	iif(I.RamoGestione >=  3 and I.RamoGestione <=  5, -6, 0),
+		  	iif(I.RamoGestione >=  6 and I.RamoGestione <= 10, -7, 0),
+		  	iif(I.RamoGestione >= 11 and I.RamoGestione <= 17, -8, 0),
+		  	I.RamoGestione)
+
+	]]></sql>
+    </estrazione>
+</oggetto>

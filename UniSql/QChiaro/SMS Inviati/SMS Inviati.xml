@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Contatti</pacchetto>
+        <nome>SMS Inviati</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+        <descrizione>Estrae tutti gli sms inviati dal al</descrizione>
+        <note></note>
+        <ultagg>23/09/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <parametri>
+        <parametro nome="@datamin" etichetta="Inviato dal" tipo="date" larghezza="13" nuovariga="false" sinistra="36" valore="01/01/2010" obbligatorio="true"/>
+        <parametro nome="@datamax" etichetta="al"          tipo="date" larghezza="13" nuovariga="false" sinistra="52" valore="31/12/2099" obbligatorio="true"/>
+        <parametro nome="@stato" etichetta="Tipo Notifica" tipo="string" valore="#" larghezza="27" nuovariga="false" sinistra="84">
+            <elencovalori>#;TUTTI;S;consegnato;N;non consegnato;?;in attesa di notifica;*;notifica non pervenuta</elencovalori>
+        </parametro>
+    </parametri>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT * FROM SmsStorico
+		 WHERE DataInvio >= @datamin
+		   AND DataInvio <= @datamax
+		   AND @stato in ('#', Stato)
+		 ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

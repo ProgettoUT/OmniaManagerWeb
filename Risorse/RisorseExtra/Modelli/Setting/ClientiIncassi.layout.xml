@@ -1,0 +1,14 @@
+<layout>
+  <grid name="INCASSI">
+    <font name="Tahoma" size="9" />
+    <property edit="True" />
+    <column name="Agenzia" text="Agenzia" hide="True" visible="False" width="74" argbforecolor="0" argbbackcolor="0" displayindex="0" alignment="0" format="" />
+    <column name="Ramo" text="Ramo" hide="False" visible="True" width="55" argbforecolor="0" argbbackcolor="0" displayindex="1" alignment="32" format="" />
+    <column name="Polizza" text="Polizza" hide="False" visible="True" width="70" argbforecolor="0" argbbackcolor="0" displayindex="2" alignment="32" format="" />
+    <column name="Effetto" text="Effetto" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="3" alignment="32" format="" />
+    <column name="Esito" text="Esito" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="4" alignment="32" format="" />
+    <column name="DataFoglioCassa" text="Foglio cassa" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="5" alignment="32" format="" />
+    <column name="Totale Titolo" text="Totale Titolo" hide="False" visible="True" width="95" argbforecolor="0" argbbackcolor="0" displayindex="6" alignment="64" format="###,###,##0.00" />
+    <column name="Totale Provviggioni" text="Totale Provviggioni" hide="False" visible="True" width="95" argbforecolor="0" argbbackcolor="0" displayindex="7" alignment="64" format="###,###,##0.00" />
+  </grid>
+</layout>

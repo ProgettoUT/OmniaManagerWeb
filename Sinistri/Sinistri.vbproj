@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A6E90D9-8F6C-4394-A57F-AB6EECA42DC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Sinistri</RootNamespace>
+    <AssemblyName>Sinistri</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>Sinistri.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>Sinistri.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\AxInterop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.Base, Version=18.3.46.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\EO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="EO.WebBrowser, Version=18.3.46.0, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\EO.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Interop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Microsoft.mshtml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3485.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3485.44\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3485.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.3485.44\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2016.2.503.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\RCWF\2016.2.503.20\Telerik.WinControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.WinControls.ChartView, Version=2016.2.503.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\RCWF\2016.2.503.20\Telerik.WinControls.ChartView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2016.2.503.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\RCWF\2016.2.503.20\Telerik.WinControls.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2016.2.503.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\RCWF\2016.2.503.20\TelerikCommon.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventoLiquido.vb" />
+    <Compile Include="FormAzioni.Designer.vb">
+      <DependentUpon>FormAzioni.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormAzioni.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBaremes.Designer.vb">
+      <DependentUpon>FormBaremes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormBaremes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContatti.Designer.vb">
+      <DependentUpon>FormContatti.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormContatti.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditCell.Designer.vb">
+      <DependentUpon>FormEditCell.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormEditCell.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditSinistro.Designer.vb">
+      <DependentUpon>FormEditSinistro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormEditSinistro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEsercizi.Designer.vb">
+      <DependentUpon>FormEsercizi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormEsercizi.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFiltri.Designer.vb">
+      <DependentUpon>FormFiltri.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormFiltri.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLegenda.Designer.vb">
+      <DependentUpon>FormLegenda.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLegenda.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImportaSinistri.Designer.vb">
+      <DependentUpon>FormImportaSinistri.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormImportaSinistri.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRipristino.Designer.vb">
+      <DependentUpon>FormRipristino.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRipristino.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSinistri.Designer.vb">
+      <DependentUpon>FormSinistri.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSinistri.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSinistriControparte.Designer.vb">
+      <DependentUpon>FormSinistriControparte.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSinistriControparte.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStatistiche.Designer.vb">
+      <DependentUpon>FormStatistiche.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormStatistiche.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Funzioni.vb" />
+    <Compile Include="Globale.vb" />
+    <Compile Include="Incarichi.vb" />
+    <Compile Include="MixCosePersone.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Perito.vb" />
+    <Compile Include="QuerySinistri.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RicercaSinistro.vb" />
+    <Compile Include="RicercaSinistroLiquido.vb" />
+    <Compile Include="Sinistro.vb" />
+    <Compile Include="ucAndamento.Designer.vb">
+      <DependentUpon>ucAndamento.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucAndamento.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSinistri.Designer.vb">
+      <DependentUpon>ucSinistri.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucSinistri.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDettaglio.Designer.vb">
+      <DependentUpon>ucDettaglio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucDettaglio.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucStatistiche.Designer.vb">
+      <DependentUpon>ucStatistiche.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucStatistiche.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Vista.vb" />
+    <Compile Include="Web References\test\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormAzioni.resx">
+      <DependentUpon>FormAzioni.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBaremes.resx">
+      <DependentUpon>FormBaremes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormContatti.resx">
+      <DependentUpon>FormContatti.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditCell.resx">
+      <DependentUpon>FormEditCell.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditSinistro.resx">
+      <DependentUpon>FormEditSinistro.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEsercizi.resx">
+      <DependentUpon>FormEsercizi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFiltri.resx">
+      <DependentUpon>FormFiltri.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImportaSinistri.resx">
+      <DependentUpon>FormImportaSinistri.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLegenda.resx">
+      <DependentUpon>FormLegenda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRipristino.resx">
+      <DependentUpon>FormRipristino.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="FormSinistri.resx">
+      <DependentUpon>FormSinistri.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSinistriControparte.resx">
+      <DependentUpon>FormSinistriControparte.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStatistiche.resx">
+      <DependentUpon>FormStatistiche.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucAndamento.resx">
+      <DependentUpon>ucAndamento.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSinistri.resx">
+      <DependentUpon>ucSinistri.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucDettaglio.resx">
+      <DependentUpon>ucDettaglio.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucStatistiche.resx">
+      <DependentUpon>ucStatistiche.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Web References\test\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\test\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\test\SinistriServiceForAgenzieService.wsdl" />
+    <None Include="Web References\test\soapheaders.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Consap\Consap\Consap.vbproj">
+      <Project>{c18c3a8f-57c6-42e4-b116-fec2115dc85b}</Project>
+      <Name>Consap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GestioneDocumenti\GestioneDocumenti.vbproj">
+      <Project>{29efb97e-7b31-422b-825f-2bdcab4088b9}</Project>
+      <Name>GestioneDocumenti</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Globale\UtUtility.vbproj">
+      <Project>{7affa253-9962-4aff-b530-cd998b973905}</Project>
+      <Name>UtUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Referenti\Referenti\Referenti.vbproj">
+      <Project>{c5910612-f2ef-4963-9f2a-6e00627d7081}</Project>
+      <Name>Referenti</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Risorse\Risorse.vbproj">
+      <Project>{08e0a688-f575-410e-943e-74fd0b0b261e}</Project>
+      <Name>Risorse</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCOM\UniCOM\UniCOM.vbproj">
+      <Project>{13892855-5d87-4b3c-84e4-ecbf8fc5093e}</Project>
+      <Name>UniCOM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtControls\UtControls.vbproj">
+      <Project>{e659ff22-35a5-45b0-b459-26a28ea4f01a}</Project>
+      <Name>UtControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="C:\Users\guido\Desktop\prova servizio\SinistriServiceForAgenzieService\SinistriServiceForAgenzieService.xml">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\test\</RelPath>
+      <UpdateFromURL>C:\Users\guido\Desktop\prova servizio\SinistriServiceForAgenzieService\SinistriServiceForAgenzieService.xml</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Sinistri_test_SinistriServiceForAgenzieService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

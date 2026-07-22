@@ -1,0 +1,13 @@
+C:\ApplicazioniDirezione\UTW\Comunicazioni.exe.config
+C:\ApplicazioniDirezione\UTW\Comunicazioni.exe
+C:\ApplicazioniDirezione\UTW\Comunicazioni.pdb
+C:\ApplicazioniDirezione\UTW\Comunicazioni.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.FormComunicazioni.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Comunicazioni\Comunicazioni\obj\x86\Debug\Comunicazioni.vbproj.AssemblyReference.cache

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Incassi</pacchetto>
+        <nome>Confronto Incassi per cliente</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>in manutenzione</stato>
+<descrizione><![CDATA[
+Estrae gli incassi.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Nessuno
+]]></note>
+        <ultagg>07/10/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@data" etichetta="data di riferimento" tipo="date" larghezza="11" sinistra="90" valore="=format(DateAdd('d', -1, DateSerial(year(Date()), 1 + month(Date()), 1)), 'dd/mm/yyyy')" obbligatorio="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    IC.CodiceFiscInc      AS [Codice fiscale], 
+		    Trim(Trim(C.Cognome) & " " & Trim(C.Nome)) AS [Nominativo], 
+		    C.Indirizzo           AS Indirizzo, 
+		    C.Cap                 AS [Cap], 
+		    C.Localita            AS [Localita], 
+		    C.Provincia           AS [Provincia],
+		    IC.CodiceSubAgente    AS [Sub agente], 
+		    Sum(IIF(year(DataFoglioCassa) = year(@data), 0, IC.Tassabile)) AS [Totale anno-precedente],
+		    Sum(IIF(year(DataFoglioCassa) = year(@data), IC.Tassabile, 0)) AS [Totale anno-riferimento]
+		 FROM  ([Incassi]   AS IC 
+		 LEFT JOIN [Clienti]   AS C 
+		   ON IC.CodiceFiscInc = C.CodiceFiscale)
+		WHERE year(IC.DataFoglioCassa)  between year(@data) - 1 AND year(@data)
+		  AND month(IC.DataFoglioCassa) * 100 + day(IC.DataFoglioCassa)  <= month(@data) * 100 + day(@data)
+		  AND @subagenzia    IN (-1, IC.CodiceSubAgente)
+		  AND IC.DELEGATARIA <> 'XXX'
+		GROUP BY IC.CodiceFiscInc
+		       , Trim(Trim(C.Cognome) & " " & Trim(C.Nome))
+		       , C.Indirizzo
+		       , C.Cap
+		       , C.Localita
+		       , C.Provincia
+		       , IC.CodiceSubAgente
+		ORDER BY 1, 7
+			]]></sql>
+    </estrazione>
+</oggetto>

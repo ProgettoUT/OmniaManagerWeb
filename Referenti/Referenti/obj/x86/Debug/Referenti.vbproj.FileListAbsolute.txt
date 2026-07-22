@@ -1,0 +1,13 @@
+C:\ApplicazioniDirezione\UTW\Referenti.dll.config
+C:\ApplicazioniDirezione\UTW\Referenti.dll
+C:\ApplicazioniDirezione\UTW\Referenti.pdb
+C:\ApplicazioniDirezione\UTW\Referenti.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.FormReferenti.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Referenti\Referenti\obj\x86\Debug\Referenti.pdb

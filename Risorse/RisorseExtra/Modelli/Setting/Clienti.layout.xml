@@ -1,0 +1,41 @@
+<layout>
+  <grid name="COMPLETO">
+    <font name="Tahoma" size="9" />
+    <property edit="False" />
+    <column name="CodiceFiscale" text="Codice fiscale" hide="False" visible="False" width="120" argbforecolor="0" argbbackcolor="0" displayindex="0" alignment="0" format="" />
+    <column name="CodiceFiscaleCF" text="CF Capofamiglia" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="1" alignment="0" format="" />
+    <column name="CodiceFiscaleEA" text="CF ente" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="2" alignment="0" format="" />
+    <column name="Cliente" text="Cliente" hide="False" visible="True" width="250" argbforecolor="0" argbbackcolor="-128" displayindex="3" alignment="0" format="" />
+    <column name="Indirizzo" text="Indirizzo" hide="False" visible="True" width="200" argbforecolor="0" argbbackcolor="0" displayindex="4" alignment="0" format="" />
+    <column name="CAP" text="CAP" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="5" alignment="32" format="" />
+    <column name="Localita" text="Localita" hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="6" alignment="0" format="" />
+    <column name="Provincia" text="Provincia" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="0" displayindex="7" alignment="32" format="" />
+    <column name="DataNascita" text="Data di nascita" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="8" alignment="32" format="" />
+    <column name="Sesso" text="Sesso" hide="False" visible="True" width="40" argbforecolor="0" argbbackcolor="0" displayindex="9" alignment="32" format="" />
+    <column name="IDStatoCliente" text="Stato cliente" hide="False" visible="True" width="40" argbforecolor="-65536" argbbackcolor="0" displayindex="10" alignment="32" format="" />
+    <column name="SubAgenzia" text="Sub" hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="11" alignment="32" format="" />
+    <column name="Produttore" text="Prod." hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="12" alignment="32" format="" />
+    <column name="ConsensoPrivacy" text="Privacy" hide="False" visible="True" width="60" argbforecolor="-16744193" argbbackcolor="0" displayindex="13" alignment="32" format="" />
+    <column name="AutorizzazioneFEA" text="FEA" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="-404040" displayindex="14" alignment="32" format="" />
+    <column name="TipoCliente" text="Tipo cliente" hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="15" alignment="32" format="" />
+    <column name="TELEFONO1" text="Telefono1" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="-2105377" displayindex="16" alignment="32" format="" />
+    <column name="TELEFONO2" text="Telefono2" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="-2105377" displayindex="17" alignment="32" format="" />
+    <column name="EMAIL" text="e-mail" hide="False" visible="True" width="150" argbforecolor="0" argbbackcolor="-2105377" displayindex="18" alignment="0" format="" />
+    <column name="CELLULARE" text="Cellulare" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="19" alignment="32" format="" />
+    <column name="CodAvvisoScadenza" text="Tipo avviso" hide="False" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="20" alignment="0" format="" />
+    <column name="Mobile" text="Mobile" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="21" alignment="32" format="" />
+    <column name="FLAG1" text="Flag1" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="22" alignment="0" format="" />
+    <column name="FLAG2" text="Flag2" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="23" alignment="0" format="" />
+    <column name="FLAG3" text="Flag3" hide="True" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="24" alignment="0" format="" />
+    <column name="LiquidatoTotale" text="Liquidato totale" hide="False" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="25" alignment="64" format="###,###,##0.00" />
+    <column name="PremiTotale" text="Premi totali" hide="False" visible="False" width="100" argbforecolor="0" argbbackcolor="0" displayindex="26" alignment="64" format="###,###,##0.00" />
+    <column name="RisTelefono" text="Telefono ris." hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="27" alignment="32" format="" />
+    <column name="RisCellulare" text="Cellulare ris." hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="28" alignment="32" format="" />
+    <column name="RisMail" text="Mail ris." hide="False" visible="True" width="150" argbforecolor="0" argbbackcolor="0" displayindex="29" alignment="0" format="" />
+    <column name="RisTelefonoNota" text="Nota telefono ris." hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="30" alignment="0" format="" />
+    <column name="RisCellulareNota" text="Nota cellulare ris." hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="31" alignment="0" format="" />
+    <column name="RisMailNota" text="Nota mail ris." hide="False" visible="True" width="100" argbforecolor="0" argbbackcolor="0" displayindex="32" alignment="0" format="" />
+    <column name="ClienteTop" text="Cliente top" hide="False" visible="True" width="40" argbforecolor="0" argbbackcolor="0" displayindex="33" alignment="32" format="" />
+    <column name="DataInserimento" text="Data inserimento" hide="False" visible="True" width="80" argbforecolor="0" argbbackcolor="0" displayindex="34" alignment="32" format="" />
+  </grid>
+</layout>

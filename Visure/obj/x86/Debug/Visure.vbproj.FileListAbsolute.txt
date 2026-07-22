@@ -1,0 +1,14 @@
+C:\ApplicazioniDirezione\UTW\runtimes\win-x86\native\WebView2Loader.dll
+C:\ApplicazioniDirezione\UTW\Visure.dll.config
+C:\ApplicazioniDirezione\UTW\Visure.dll
+C:\ApplicazioniDirezione\UTW\Visure.pdb
+C:\ApplicazioniDirezione\UTW\Visure.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.FormVisure.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Visure\obj\x86\Debug\Visure.pdb

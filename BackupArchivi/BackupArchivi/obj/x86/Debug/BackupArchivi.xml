@@ -1,0 +1,257 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+BackupArchivi
+</name>
+</assembly>
+<members>
+<member name="T:BackupArchivi.My.Resources.Resources">
+<summary>
+  Classe di risorse fortemente tipizzata per la ricerca di stringhe localizzate e così via.
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.ResourceManager">
+<summary>
+  Restituisce l'istanza di ResourceManager nella cache utilizzata da questa classe.
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.Culture">
+<summary>
+  Esegue l'override della proprietà CurrentUICulture del thread corrente per tutte le
+  ricerche di risorse eseguite utilizzando questa classe di risorse fortemente tipizzata.
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.analisi">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.check16">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.Esci">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.ripristina">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.uncheck16">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="P:BackupArchivi.My.Resources.Resources.wizard">
+<summary>
+  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+</summary>
+</member>
+<member name="M:BackupArchivi.Flag.CancellaFlag">
+ <summary>
+ cancella il flag 
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:BackupArchivi.Flag.EsisteFlagWip(System.Int32)">
+ <summary>
+ controllo esistenza flag work in progress (wip) e se esiste se è scaduto
+ se è scaduto (dopo DurataInMinuti minuti) viene cancellato
+ </summary>
+ <returns>True se il flag esiste</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BackupArchivi.Funzioni.RipristinaTabella(System.String,System.String,System.Boolean@)">
+ <summary>
+ ripristina la tabella
+ </summary>
+ <param name="CodiceAgenzia">codice dell'agenzia</param>
+ <param name="NomeTabella">nome della tabella</param>
+ <returns>numero di record dopo il ripristino</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BackupArchivi.Funzioni.CancellaFileCorrotto">
+ <summary>
+ cancello eventuali file difettosi annotati nell'esecuzione precedente
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:BackupArchivi.Main.AvviaRecuperoAutomatico(System.String,System.Boolean)">
+ <summary>
+ Avvia procedura di recupero automatico
+ </summary>
+ <param name="Agenzia">agenzia da controllare (00000 per dati comuni)</param>
+ <param name="ModoSoloRecupero">in modalità ModoSoloRecupero (richiamata dal backup), il check
+ è stato già fatto e la finestra si chiude da sola</param>
+ <remarks></remarks>
+</member>
+<member name="M:BackupArchivi.Main.PuliziaFileTemp(System.String)">
+ <summary>
+ cancella i file temporanei creati per costruire lo zip e residuati da problemi nel processo
+ </summary>
+ <param name="Agenzia"></param>
+ <remarks></remarks>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.Service1">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.#ctor">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailCompleted">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLCompleted">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithAttachmentCompleted">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentCompleted">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentHTMLCompleted">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentCompleted">
+<remarks/>
+</member>
+<member name="E:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentMaxCompleted">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMail(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTML(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithAttachment(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithAttachmentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithAttachmentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachment(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentHTML(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentHTMLAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailWithMultiAttachmentHTMLAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachment(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentMax(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentMaxAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.SendMailHTMLWithEmbeddedAttachmentMaxAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Byte[],System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:BackupArchivi.UnipolSendMailWS.Service1.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailHTMLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailHTMLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailHTMLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailWithAttachmentCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailWithAttachmentCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailWithAttachmentCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailWithMultiAttachmentCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailWithMultiAttachmentCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailWithMultiAttachmentCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailWithMultiAttachmentHTMLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailWithMultiAttachmentHTMLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailWithMultiAttachmentHTMLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailHTMLWithEmbeddedAttachmentCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailHTMLWithEmbeddedAttachmentCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailHTMLWithEmbeddedAttachmentCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailHTMLWithEmbeddedAttachmentMaxCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:BackupArchivi.UnipolSendMailWS.SendMailHTMLWithEmbeddedAttachmentMaxCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:BackupArchivi.UnipolSendMailWS.SendMailHTMLWithEmbeddedAttachmentMaxCompletedEventArgs.Result">
+<remarks/>
+</member>
+</members>
+</doc>

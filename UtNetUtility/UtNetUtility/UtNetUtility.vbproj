@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{401142C3-757F-40D8-871C-F8CCD5219BA4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UtNetUtility</RootNamespace>
+    <AssemblyName>UtNetUtility33</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>UtNetUtility33.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>UtNetUtility33.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\Unitools\DLL\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationLog.vb" />
+    <Compile Include="ConfigSede.vb" />
+    <Compile Include="FormDettagioFiltro.Designer.vb">
+      <DependentUpon>FormDettagioFiltro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDettagioFiltro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEssig.Designer.vb">
+      <DependentUpon>FormEssig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormEssig.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGestioneFiltro.Designer.vb">
+      <DependentUpon>FormGestioneFiltro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormGestioneFiltro.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotifica.designer.vb">
+      <DependentUpon>FormNotifica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNotifica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.vb">
+      <DependentUpon>FormLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProgessBar.Designer.vb">
+      <DependentUpon>FormProgessBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormProgessBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestioneFlag.vb" />
+    <Compile Include="Globale.vb" />
+    <Compile Include="Login.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="NetFunc.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Notifica.vb" />
+    <Compile Include="Performance.vb" />
+    <Compile Include="ProfiloUtente.vb" />
+    <Compile Include="Proxy.vb" />
+    <Compile Include="SerializableDictionary.vb" />
+    <Compile Include="Setting.vb" />
+    <Compile Include="ApplicationSetting.vb" />
+    <Compile Include="Web References\SettingAgenzia\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormDettagioFiltro.resx">
+      <DependentUpon>FormDettagioFiltro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEssig.resx">
+      <DependentUpon>FormEssig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGestioneFiltro.resx">
+      <DependentUpon>FormGestioneFiltro.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNotifica.resx">
+      <DependentUpon>FormNotifica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProgessBar.resx">
+      <DependentUpon>FormProgessBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SettingAgenzia\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SettingAgenzia\SettingAgenzia.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.utools.it/asp/SettingAgenzia/SettingAgenzia.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SettingAgenzia\</RelPath>
+      <UpdateFromURL>http://www.utools.it/asp/SettingAgenzia/SettingAgenzia.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UtNetUtility_SettingAgenzia_ConfiguraSede</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\SettingAgenzia\SettingAgenzia.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\comment_rect.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chiavi.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\za.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\az.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\color.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colonna.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salva16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Esci.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

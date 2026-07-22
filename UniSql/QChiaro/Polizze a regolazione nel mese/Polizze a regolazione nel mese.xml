@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Polizze a regolazione nel mese</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono estratti tutte le polizze regolate nel mese.
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - TipoCarico = '6'
+]]></note>
+        <ultagg>20/05/2019</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30" sinistra="30">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P'
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseDa" etichetta="Anno mese da" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="80">
+	    <elencovalori>SELECT DISTINCT format(DataFoglioCassa,'yyyy-mm'), format(DataFoglioCassa,'yyyy-mm') FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseA" etichetta="a" tipo="string" valore="" obbligatorio="true" larghezza="10" sinistra="93">
+	    <elencovalori>SELECT DISTINCT format(DataFoglioCassa,'yyyy-mm'), format(DataFoglioCassa,'yyyy-mm') FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@IDZona"   etichetta="IdZona" tipo="integer" valore="0" obbligatorio="true" larghezza="4" sinistra="115"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT DISTINCT 
+		    C.SubAgenzia AS [Sub Agenzia],
+		    C.CodiceFiscale AS [Codice Fiscale], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.Provincia AS [Provincia], 
+		    format(IC.Ramo,'000') AS Ramo, 
+		    IC.Polizza AS Polizza, 
+		    IC.DataEffettoTitolo AS [Data effetto],
+		    IC.DataFoglioCassa   AS [Foglio cassa]
+		FROM 
+		    [Clienti] AS C INNER JOIN [Incassi] AS IC  ON C.CodiceFiscale = IC.CodiceFiscInc
+		WHERE @IDZona IN (0, C.IDZona)
+		  AND @produttore  IN (-1, IC.CodiceSubAgente, IC.CodiceProduttore)
+		  AND IC.TipoCarico = '6'
+		  AND format(IC.DataFoglioCassa,'yyyy-mm') >= @annoMeseDa
+		  AND format(IC.DataFoglioCassa,'yyyy-mm') <= @annoMeseA
+		ORDER BY 1
+	]]></sql>
+    </estrazione>
+</oggetto>

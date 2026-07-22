@@ -1,0 +1,4 @@
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\OmniaManagerDll\obj\Debug\OmniaManagerDll.csproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\OmniaManagerDll\obj\Debug\SplashUniarea.Form1.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\OmniaManagerDll\obj\Debug\OmniaManagerDll.csproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\OmniaManagerDll\obj\Debug\OmniaManagerDll.csproj.CoreCompileInputs.cache

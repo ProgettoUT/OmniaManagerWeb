@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti mono prodotto con scadenza polizza nel mese di</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono riportati i dati anagrafici dei clienti.
+]]></descrizione>
+        <ultagg>31/07/2012</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" editavalore="true" valore="09050" obbligatorio="true" larghezza="35" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT format(CodiceProdotto,'00000') AS CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = Format(B.CodiceProdotto,'00000')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@sesso" etichetta="Tipo cliente" tipo="integer" valore="0" obbligatorio="true" larghezza="42" sinistra="84">
+            <elencovalori>0;TUTTI;11;Persona giudirica;16;Persona Fisica</elencovalori>
+        </parametro>
+        <parametro nome="@effettoMax" etichetta="contratto emesso prima del" tipo="date" valore="" obbligatorio="true" larghezza="20" sinistra="32" nuovariga="true"/>
+        <parametro nome="@mese" etichetta="Mese scadenza rata" tipo="integer" valore="1" larghezza="27" sinistra="84">
+            <elencovalori>1;Gennaio;2;Febbraio;3;Marzo;4;Aprile;5;Maggio;6;Giugno;7;Luglio;8;Agosto;9;Settembre;10;Ottobre;11;Novembre;12;Dicembre</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    (Year(Now())-Year([C.DataNascita])) AS [Eta del cliente], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.email,
+		    P.CodiceSubAgente as [sub],
+		    P.ramo, 
+		    P.polizza, 
+		    p.CodiceProdotto as prodotto, 
+		    p.DataEffetto    as [emissione], 
+		    p.DataScadenza   as [scadenza], 
+		    s.NSINISTRI      as [numero sx],
+		    p1.npolizze       as [numero pl]
+		 FROM ((((((((
+		       SELECT DISTINCT CodiceFiscale, CodiceSubAgente, ramo, polizza, CodiceProdotto, DataEffetto, DataScadenza 
+		         FROM POLIZZE
+		      	WHERE @subagenzia  IN (-1, CodiceSubAgente)
+		      	  AND CodiceProdotto = @prodotto
+		      	  AND (DataStorno IS NULL OR DataStorno = 0)
+		      	  AND DataEffetto <= @effettoMax
+			  AND frazionamento > 0 
+		   	  AND frazionamento in (1,2,3,4,6,12) 
+		   	  AND (((12+month(datascadenza)-(@mese)) Mod (12/frazionamento)) = 0)
+		      ) AS P		         
+		INNER JOIN (
+		       SELECT CodiceFiscale 
+		         FROM POLIZZE
+		      	WHERE (DataStorno IS NULL OR DataStorno = 0)
+		      	GROUP BY CodiceFiscale 
+		       HAVING SUM(CodiceProdotto <> @prodotto)=0
+		      	) AS P0 
+		      	ON P0.CodiceFiscale = P.CodiceFiscale)
+		INNER JOIN Clienti          AS C   ON (C.CodiceFiscale = P.CodiceFiscale))
+		 LEFT JOIN (SELECT polizza, ramoPolizza as ramo, COUNT (*) AS NSINISTRI FROM SINISTRI GROUP BY POLIZZA, RAMOPOLIZZA) AS S
+		        ON s.ramo = p.ramo AND s.polizza = p.polizza)
+		 LEFT JOIN Clienti          AS CF  ON (C.CodiceFiscaleCF = CF.CodiceFiscaleCF AND C.CodiceFiscale <> CF.CodiceFiscale))
+		 LEFT JOIN (
+		       SELECT CodiceFiscale, count(*) as npolizze 
+		         FROM POLIZZE
+		      	WHERE (DataStorno IS NULL OR DataStorno = 0)
+		      	  AND frazionamento > 0 
+		   	  AND frazionamento in (1,2,3,4,6,12) 
+		   	  AND (((12+month(datascadenza)-(@mese)) Mod (12/frazionamento)) = 0)
+		      	GROUP BY CodiceFiscale 
+		      	) AS P1
+		      	ON P1.CodiceFiscale = CF.CodiceFiscale)
+		 LEFT JOIN Professioni      AS PR  ON (PR.IDProfessione = C.TipoCliente\100))
+		 LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente))
+		WHERE @sesso IN (0, len(C.CodiceFiscale))
+		ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

@@ -1,0 +1,13 @@
+C:\ApplicazioniDirezione\UTW\SETUP\InfoUt.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\InfoUt.dll
+C:\ApplicazioniDirezione\UTW\SETUP\InfoUt.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\InfoUt.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.FormInfo.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\InfoUt\InfoUt\obj\x86\Release\InfoUt.vbproj.AssemblyReference.cache

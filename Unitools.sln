@@ -1,0 +1,414 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Unitools", "Unitools\Unitools.vbproj", "{8D18BA03-D133-4F81-ABCE-313CF8991A67}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E659FF22-35A5-45B0-B459-26A28EA4F01A} = {E659FF22-35A5-45B0-B459-26A28EA4F01A}
+		{9A6E1172-D7E4-4DB4-8235-58CAB30080A0} = {9A6E1172-D7E4-4DB4-8235-58CAB30080A0}
+		{29EFB97E-7B31-422B-825F-2BDCAB4088B9} = {29EFB97E-7B31-422B-825F-2BDCAB4088B9}
+		{04E056B6-0D1E-4A88-BB51-55F43DC35EAC} = {04E056B6-0D1E-4A88-BB51-55F43DC35EAC}
+		{1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B} = {1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UtControls", "UtControls\UtControls.vbproj", "{E659FF22-35A5-45B0-B459-26A28EA4F01A}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UtUtility", "Globale\UtUtility.vbproj", "{7AFFA253-9962-4AFF-B530-CD998B973905}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GestioneDocumenti", "GestioneDocumenti\GestioneDocumenti.vbproj", "{29EFB97E-7B31-422B-825F-2BDCAB4088B9}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UMenu", "UMenu\UMenu.vbproj", "{CE915049-5B73-48D7-8242-D81822C8E14B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Visure", "Visure\Visure.vbproj", "{D3AC6CA3-51AE-4BC9-8243-AB5554D89AF8}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Anax", "Anax\Anax.vbproj", "{04E056B6-0D1E-4A88-BB51-55F43DC35EAC}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UniCai", "UniCai\UniCai.vbproj", "{6F75EE60-2A51-47A5-B117-9C1D408D18F6}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Anag", "Anag\Anag.vbproj", "{49BBD6C0-0CD9-4D2E-8F69-A6C7988DEDB4}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Consap", "Consap\Consap\Consap.vbproj", "{C18C3A8F-57C6-42E4-B116-FEC2115DC85B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Patto", "Patto\Patto\Patto.vbproj", "{ABF0C4A4-C3C6-4BAF-BC2B-95EC1F401221}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Assistenza", "Assistenza\Assistenza\Assistenza.vbproj", "{46A0D991-671F-47A1-994F-1B4C5603A96F}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UniTwitter", "UniTwitter\UniTwitter\UniTwitter.vbproj", "{C112277D-E754-40A9-9BB0-C27DDD66DCA0}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Export", "Export\Export\Export.vbproj", "{87A4DE56-EA76-471B-842D-2A665FE716EB}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Budget", "Budget\Budget\Budget.vbproj", "{2E7297AE-48E7-45FC-957F-34C7C2EA4435}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UniFeed", "UniFeed\UniFeed.vbproj", "{BA2172A3-B96C-45EC-A521-485FC3DBD76F}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "IDati", "ImportaDati\ImportaDati\IDati.vbproj", "{8DF590F1-6A6A-47DA-BEC9-39189F9F159B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LiveUpdate", "LiveUpdate\LiveUpdate\LiveUpdate.vbproj", "{E2E9620E-BA84-466E-A832-6292369F397B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UniEstra", "UniEstra\UniEstra.vbproj", "{F6D8D09F-4B8C-471B-9405-1430B9458A83}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UniSql", "UniSql\UniSql.vbproj", "{CD832E62-B420-4825-864A-2C2E17B2AD7B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Risorse", "Risorse\Risorse.vbproj", "{08E0A688-F575-410E-943E-74FD0B0B261E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MonitorQT", "MonitorQT\MonitorQT\MonitorQT.vbproj", "{99E5C028-BF75-4B4C-B874-50BB6EE3031A}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NuovaProduzione", "NuovaProduzione\NuovaProduzione.vbproj", "{640C6D35-EFCD-4A9C-8F60-403D67A36BA4}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BackupArchivi", "BackupArchivi\BackupArchivi\BackupArchivi.vbproj", "{39B5C873-A92F-4309-A7A7-B1F224DC2698}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Referenti", "Referenti\Referenti\Referenti.vbproj", "{C5910612-F2EF-4963-9F2A-6E00627D7081}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "InfoUt", "InfoUt\InfoUt\InfoUt.vbproj", "{F0B4547B-9D5D-41D1-842F-7FD9E5D68268}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Comunicazioni", "Comunicazioni\Comunicazioni\Comunicazioni.vbproj", "{4A334AC2-A4E7-480D-A959-EECB1D86B040}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ChiusuraCassa", "ChiusuraCassa\ChiusuraCassa\ChiusuraCassa.vbproj", "{1E9C505F-B302-4E1B-9C2A-06A8A15B1564}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UnigestUp", "UnigestUp\UnigestUp\UnigestUp.vbproj", "{E4F8A974-C46A-4EB8-A2E0-C6EA4CDF297C}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Adempimenti", "Adempimenti\Adempimenti\Adempimenti.vbproj", "{C0F0F2C2-6C30-4B3A-B2E6-8A2876BB39B0}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UniCOM", "UniCOM\UniCOM\UniCOM.vbproj", "{13892855-5D87-4B3C-84E4-ECBF8FC5093E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BridgeCom", "BridgeCom\BridgeCom.vbproj", "{FC24E8E0-5C1E-410F-8334-DAA9EAE69095}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Centralino", "Centralino\Centralino\Centralino.vbproj", "{229C56DF-634A-4861-AE7A-E531951D4364}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UtLoader", "UtLoader\UtLoader.vbproj", "{AC496D97-09EC-4D2F-92DE-BA371FAAC521}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BDA", "BDA\BDA\BDA.vbproj", "{EA8D4CB0-0EC8-48E1-ADB0-6917D50B40E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{456FDA7F-D25C-4681-894D-312677E6D551}"
+	ProjectSection(SolutionItems) = preProject
+		Risorse\Appunti.txt = Risorse\Appunti.txt
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SelfRun", "SelfRun\SelfRun.vbproj", "{27E09091-BB15-461B-9CAE-D791A9740BF9}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Regista", "Regista\Regista.vbproj", "{3F158542-C0D7-4091-BD6C-76FC29F3A710}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Regia", "Regia\Regia.vbproj", "{9A6E1172-D7E4-4DB4-8235-58CAB30080A0}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ProDocNet", "ProDocNet\ProDocNet\ProDocNet.vbproj", "{1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Ut40", "Ut40\Ut40.vbproj", "{A7732015-7F8D-47FD-8DB3-16825D754A28}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ScannerRDP", "ScannerRDP\SessioneRDP\ScannerRDP.vbproj", "{2313FD27-BD61-48E0-80C1-180F0BD7D869}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sinistri", "Sinistri\Sinistri.vbproj", "{3A6E90D9-8F6C-4394-A57F-AB6EECA42DC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D18BA03-D133-4F81-ABCE-313CF8991A67}.Debug|x86.ActiveCfg = Debug|x86
+		{8D18BA03-D133-4F81-ABCE-313CF8991A67}.Debug|x86.Build.0 = Debug|x86
+		{8D18BA03-D133-4F81-ABCE-313CF8991A67}.Release|x86.ActiveCfg = Release|x86
+		{8D18BA03-D133-4F81-ABCE-313CF8991A67}.Release|x86.Build.0 = Release|x86
+		{E659FF22-35A5-45B0-B459-26A28EA4F01A}.Debug|x86.ActiveCfg = Debug|x86
+		{E659FF22-35A5-45B0-B459-26A28EA4F01A}.Debug|x86.Build.0 = Debug|x86
+		{E659FF22-35A5-45B0-B459-26A28EA4F01A}.Release|x86.ActiveCfg = Release|x86
+		{E659FF22-35A5-45B0-B459-26A28EA4F01A}.Release|x86.Build.0 = Release|x86
+		{7AFFA253-9962-4AFF-B530-CD998B973905}.Debug|x86.ActiveCfg = Debug|x86
+		{7AFFA253-9962-4AFF-B530-CD998B973905}.Debug|x86.Build.0 = Debug|x86
+		{7AFFA253-9962-4AFF-B530-CD998B973905}.Release|x86.ActiveCfg = Release|x86
+		{7AFFA253-9962-4AFF-B530-CD998B973905}.Release|x86.Build.0 = Release|x86
+		{29EFB97E-7B31-422B-825F-2BDCAB4088B9}.Debug|x86.ActiveCfg = Debug|x86
+		{29EFB97E-7B31-422B-825F-2BDCAB4088B9}.Debug|x86.Build.0 = Debug|x86
+		{29EFB97E-7B31-422B-825F-2BDCAB4088B9}.Release|x86.ActiveCfg = Release|x86
+		{29EFB97E-7B31-422B-825F-2BDCAB4088B9}.Release|x86.Build.0 = Release|x86
+		{CE915049-5B73-48D7-8242-D81822C8E14B}.Debug|x86.ActiveCfg = Debug|x86
+		{CE915049-5B73-48D7-8242-D81822C8E14B}.Debug|x86.Build.0 = Debug|x86
+		{CE915049-5B73-48D7-8242-D81822C8E14B}.Release|x86.ActiveCfg = Release|x86
+		{CE915049-5B73-48D7-8242-D81822C8E14B}.Release|x86.Build.0 = Release|x86
+		{D3AC6CA3-51AE-4BC9-8243-AB5554D89AF8}.Debug|x86.ActiveCfg = Debug|x86
+		{D3AC6CA3-51AE-4BC9-8243-AB5554D89AF8}.Debug|x86.Build.0 = Debug|x86
+		{D3AC6CA3-51AE-4BC9-8243-AB5554D89AF8}.Release|x86.ActiveCfg = Release|x86
+		{D3AC6CA3-51AE-4BC9-8243-AB5554D89AF8}.Release|x86.Build.0 = Release|x86
+		{04E056B6-0D1E-4A88-BB51-55F43DC35EAC}.Debug|x86.ActiveCfg = Debug|x86
+		{04E056B6-0D1E-4A88-BB51-55F43DC35EAC}.Debug|x86.Build.0 = Debug|x86
+		{04E056B6-0D1E-4A88-BB51-55F43DC35EAC}.Release|x86.ActiveCfg = Release|x86
+		{04E056B6-0D1E-4A88-BB51-55F43DC35EAC}.Release|x86.Build.0 = Release|x86
+		{6F75EE60-2A51-47A5-B117-9C1D408D18F6}.Debug|x86.ActiveCfg = Debug|x86
+		{6F75EE60-2A51-47A5-B117-9C1D408D18F6}.Debug|x86.Build.0 = Debug|x86
+		{6F75EE60-2A51-47A5-B117-9C1D408D18F6}.Release|x86.ActiveCfg = Release|x86
+		{6F75EE60-2A51-47A5-B117-9C1D408D18F6}.Release|x86.Build.0 = Release|x86
+		{49BBD6C0-0CD9-4D2E-8F69-A6C7988DEDB4}.Debug|x86.ActiveCfg = Debug|x86
+		{49BBD6C0-0CD9-4D2E-8F69-A6C7988DEDB4}.Debug|x86.Build.0 = Debug|x86
+		{49BBD6C0-0CD9-4D2E-8F69-A6C7988DEDB4}.Release|x86.ActiveCfg = Release|x86
+		{49BBD6C0-0CD9-4D2E-8F69-A6C7988DEDB4}.Release|x86.Build.0 = Release|x86
+		{C18C3A8F-57C6-42E4-B116-FEC2115DC85B}.Debug|x86.ActiveCfg = Debug|x86
+		{C18C3A8F-57C6-42E4-B116-FEC2115DC85B}.Debug|x86.Build.0 = Debug|x86
+		{C18C3A8F-57C6-42E4-B116-FEC2115DC85B}.Release|x86.ActiveCfg = Release|x86
+		{C18C3A8F-57C6-42E4-B116-FEC2115DC85B}.Release|x86.Build.0 = Release|x86
+		{ABF0C4A4-C3C6-4BAF-BC2B-95EC1F401221}.Debug|x86.ActiveCfg = Debug|x86
+		{ABF0C4A4-C3C6-4BAF-BC2B-95EC1F401221}.Debug|x86.Build.0 = Debug|x86
+		{ABF0C4A4-C3C6-4BAF-BC2B-95EC1F401221}.Release|x86.ActiveCfg = Release|x86
+		{ABF0C4A4-C3C6-4BAF-BC2B-95EC1F401221}.Release|x86.Build.0 = Release|x86
+		{46A0D991-671F-47A1-994F-1B4C5603A96F}.Debug|x86.ActiveCfg = Debug|x86
+		{46A0D991-671F-47A1-994F-1B4C5603A96F}.Debug|x86.Build.0 = Debug|x86
+		{46A0D991-671F-47A1-994F-1B4C5603A96F}.Release|x86.ActiveCfg = Release|x86
+		{46A0D991-671F-47A1-994F-1B4C5603A96F}.Release|x86.Build.0 = Release|x86
+		{C112277D-E754-40A9-9BB0-C27DDD66DCA0}.Debug|x86.ActiveCfg = Debug|x86
+		{C112277D-E754-40A9-9BB0-C27DDD66DCA0}.Debug|x86.Build.0 = Debug|x86
+		{C112277D-E754-40A9-9BB0-C27DDD66DCA0}.Release|x86.ActiveCfg = Release|x86
+		{C112277D-E754-40A9-9BB0-C27DDD66DCA0}.Release|x86.Build.0 = Release|x86
+		{87A4DE56-EA76-471B-842D-2A665FE716EB}.Debug|x86.ActiveCfg = Debug|x86
+		{87A4DE56-EA76-471B-842D-2A665FE716EB}.Debug|x86.Build.0 = Debug|x86
+		{87A4DE56-EA76-471B-842D-2A665FE716EB}.Release|x86.ActiveCfg = Release|x86
+		{87A4DE56-EA76-471B-842D-2A665FE716EB}.Release|x86.Build.0 = Release|x86
+		{2E7297AE-48E7-45FC-957F-34C7C2EA4435}.Debug|x86.ActiveCfg = Debug|x86
+		{2E7297AE-48E7-45FC-957F-34C7C2EA4435}.Debug|x86.Build.0 = Debug|x86
+		{2E7297AE-48E7-45FC-957F-34C7C2EA4435}.Release|x86.ActiveCfg = Release|x86
+		{2E7297AE-48E7-45FC-957F-34C7C2EA4435}.Release|x86.Build.0 = Release|x86
+		{BA2172A3-B96C-45EC-A521-485FC3DBD76F}.Debug|x86.ActiveCfg = Debug|x86
+		{BA2172A3-B96C-45EC-A521-485FC3DBD76F}.Debug|x86.Build.0 = Debug|x86
+		{BA2172A3-B96C-45EC-A521-485FC3DBD76F}.Release|x86.ActiveCfg = Release|x86
+		{BA2172A3-B96C-45EC-A521-485FC3DBD76F}.Release|x86.Build.0 = Release|x86
+		{8DF590F1-6A6A-47DA-BEC9-39189F9F159B}.Debug|x86.ActiveCfg = Debug|x86
+		{8DF590F1-6A6A-47DA-BEC9-39189F9F159B}.Debug|x86.Build.0 = Debug|x86
+		{8DF590F1-6A6A-47DA-BEC9-39189F9F159B}.Release|x86.ActiveCfg = Release|x86
+		{8DF590F1-6A6A-47DA-BEC9-39189F9F159B}.Release|x86.Build.0 = Release|x86
+		{E2E9620E-BA84-466E-A832-6292369F397B}.Debug|x86.ActiveCfg = Debug|x86
+		{E2E9620E-BA84-466E-A832-6292369F397B}.Debug|x86.Build.0 = Debug|x86
+		{E2E9620E-BA84-466E-A832-6292369F397B}.Release|x86.ActiveCfg = Release|x86
+		{E2E9620E-BA84-466E-A832-6292369F397B}.Release|x86.Build.0 = Release|x86
+		{F6D8D09F-4B8C-471B-9405-1430B9458A83}.Debug|x86.ActiveCfg = Debug|x86
+		{F6D8D09F-4B8C-471B-9405-1430B9458A83}.Debug|x86.Build.0 = Debug|x86
+		{F6D8D09F-4B8C-471B-9405-1430B9458A83}.Release|x86.ActiveCfg = Release|x86
+		{F6D8D09F-4B8C-471B-9405-1430B9458A83}.Release|x86.Build.0 = Release|x86
+		{CD832E62-B420-4825-864A-2C2E17B2AD7B}.Debug|x86.ActiveCfg = Debug|x86
+		{CD832E62-B420-4825-864A-2C2E17B2AD7B}.Debug|x86.Build.0 = Debug|x86
+		{CD832E62-B420-4825-864A-2C2E17B2AD7B}.Release|x86.ActiveCfg = Release|x86
+		{CD832E62-B420-4825-864A-2C2E17B2AD7B}.Release|x86.Build.0 = Release|x86
+		{08E0A688-F575-410E-943E-74FD0B0B261E}.Debug|x86.ActiveCfg = Debug|x86
+		{08E0A688-F575-410E-943E-74FD0B0B261E}.Debug|x86.Build.0 = Debug|x86
+		{08E0A688-F575-410E-943E-74FD0B0B261E}.Release|x86.ActiveCfg = Release|x86
+		{08E0A688-F575-410E-943E-74FD0B0B261E}.Release|x86.Build.0 = Release|x86
+		{99E5C028-BF75-4B4C-B874-50BB6EE3031A}.Debug|x86.ActiveCfg = Debug|x86
+		{99E5C028-BF75-4B4C-B874-50BB6EE3031A}.Debug|x86.Build.0 = Debug|x86
+		{99E5C028-BF75-4B4C-B874-50BB6EE3031A}.Release|x86.ActiveCfg = Release|x86
+		{99E5C028-BF75-4B4C-B874-50BB6EE3031A}.Release|x86.Build.0 = Release|x86
+		{640C6D35-EFCD-4A9C-8F60-403D67A36BA4}.Debug|x86.ActiveCfg = Debug|x86
+		{640C6D35-EFCD-4A9C-8F60-403D67A36BA4}.Debug|x86.Build.0 = Debug|x86
+		{640C6D35-EFCD-4A9C-8F60-403D67A36BA4}.Release|x86.ActiveCfg = Release|x86
+		{640C6D35-EFCD-4A9C-8F60-403D67A36BA4}.Release|x86.Build.0 = Release|x86
+		{39B5C873-A92F-4309-A7A7-B1F224DC2698}.Debug|x86.ActiveCfg = Debug|x86
+		{39B5C873-A92F-4309-A7A7-B1F224DC2698}.Debug|x86.Build.0 = Debug|x86
+		{39B5C873-A92F-4309-A7A7-B1F224DC2698}.Release|x86.ActiveCfg = Release|x86
+		{39B5C873-A92F-4309-A7A7-B1F224DC2698}.Release|x86.Build.0 = Release|x86
+		{C5910612-F2EF-4963-9F2A-6E00627D7081}.Debug|x86.ActiveCfg = Debug|x86
+		{C5910612-F2EF-4963-9F2A-6E00627D7081}.Debug|x86.Build.0 = Debug|x86
+		{C5910612-F2EF-4963-9F2A-6E00627D7081}.Release|x86.ActiveCfg = Release|x86
+		{C5910612-F2EF-4963-9F2A-6E00627D7081}.Release|x86.Build.0 = Release|x86
+		{F0B4547B-9D5D-41D1-842F-7FD9E5D68268}.Debug|x86.ActiveCfg = Debug|x86
+		{F0B4547B-9D5D-41D1-842F-7FD9E5D68268}.Debug|x86.Build.0 = Debug|x86
+		{F0B4547B-9D5D-41D1-842F-7FD9E5D68268}.Release|x86.ActiveCfg = Release|x86
+		{F0B4547B-9D5D-41D1-842F-7FD9E5D68268}.Release|x86.Build.0 = Release|x86
+		{4A334AC2-A4E7-480D-A959-EECB1D86B040}.Debug|x86.ActiveCfg = Debug|x86
+		{4A334AC2-A4E7-480D-A959-EECB1D86B040}.Debug|x86.Build.0 = Debug|x86
+		{4A334AC2-A4E7-480D-A959-EECB1D86B040}.Release|x86.ActiveCfg = Release|x86
+		{4A334AC2-A4E7-480D-A959-EECB1D86B040}.Release|x86.Build.0 = Release|x86
+		{1E9C505F-B302-4E1B-9C2A-06A8A15B1564}.Debug|x86.ActiveCfg = Debug|x86
+		{1E9C505F-B302-4E1B-9C2A-06A8A15B1564}.Debug|x86.Build.0 = Debug|x86
+		{1E9C505F-B302-4E1B-9C2A-06A8A15B1564}.Release|x86.ActiveCfg = Release|x86
+		{1E9C505F-B302-4E1B-9C2A-06A8A15B1564}.Release|x86.Build.0 = Release|x86
+		{E4F8A974-C46A-4EB8-A2E0-C6EA4CDF297C}.Debug|x86.ActiveCfg = Debug|x86
+		{E4F8A974-C46A-4EB8-A2E0-C6EA4CDF297C}.Debug|x86.Build.0 = Debug|x86
+		{E4F8A974-C46A-4EB8-A2E0-C6EA4CDF297C}.Release|x86.ActiveCfg = Release|x86
+		{E4F8A974-C46A-4EB8-A2E0-C6EA4CDF297C}.Release|x86.Build.0 = Release|x86
+		{C0F0F2C2-6C30-4B3A-B2E6-8A2876BB39B0}.Debug|x86.ActiveCfg = Debug|x86
+		{C0F0F2C2-6C30-4B3A-B2E6-8A2876BB39B0}.Debug|x86.Build.0 = Debug|x86
+		{C0F0F2C2-6C30-4B3A-B2E6-8A2876BB39B0}.Release|x86.ActiveCfg = Release|x86
+		{C0F0F2C2-6C30-4B3A-B2E6-8A2876BB39B0}.Release|x86.Build.0 = Release|x86
+		{13892855-5D87-4B3C-84E4-ECBF8FC5093E}.Debug|x86.ActiveCfg = Debug|x86
+		{13892855-5D87-4B3C-84E4-ECBF8FC5093E}.Debug|x86.Build.0 = Debug|x86
+		{13892855-5D87-4B3C-84E4-ECBF8FC5093E}.Release|x86.ActiveCfg = Release|x86
+		{13892855-5D87-4B3C-84E4-ECBF8FC5093E}.Release|x86.Build.0 = Release|x86
+		{FC24E8E0-5C1E-410F-8334-DAA9EAE69095}.Debug|x86.ActiveCfg = Debug|x86
+		{FC24E8E0-5C1E-410F-8334-DAA9EAE69095}.Debug|x86.Build.0 = Debug|x86
+		{FC24E8E0-5C1E-410F-8334-DAA9EAE69095}.Release|x86.ActiveCfg = Release|x86
+		{FC24E8E0-5C1E-410F-8334-DAA9EAE69095}.Release|x86.Build.0 = Release|x86
+		{229C56DF-634A-4861-AE7A-E531951D4364}.Debug|x86.ActiveCfg = Debug|x86
+		{229C56DF-634A-4861-AE7A-E531951D4364}.Debug|x86.Build.0 = Debug|x86
+		{229C56DF-634A-4861-AE7A-E531951D4364}.Release|x86.ActiveCfg = Release|x86
+		{229C56DF-634A-4861-AE7A-E531951D4364}.Release|x86.Build.0 = Release|x86
+		{AC496D97-09EC-4D2F-92DE-BA371FAAC521}.Debug|x86.ActiveCfg = Debug|x86
+		{AC496D97-09EC-4D2F-92DE-BA371FAAC521}.Debug|x86.Build.0 = Debug|x86
+		{AC496D97-09EC-4D2F-92DE-BA371FAAC521}.Release|x86.ActiveCfg = Release|x86
+		{AC496D97-09EC-4D2F-92DE-BA371FAAC521}.Release|x86.Build.0 = Release|x86
+		{EA8D4CB0-0EC8-48E1-ADB0-6917D50B40E5}.Debug|x86.ActiveCfg = Debug|x86
+		{EA8D4CB0-0EC8-48E1-ADB0-6917D50B40E5}.Debug|x86.Build.0 = Debug|x86
+		{EA8D4CB0-0EC8-48E1-ADB0-6917D50B40E5}.Release|x86.ActiveCfg = Release|x86
+		{EA8D4CB0-0EC8-48E1-ADB0-6917D50B40E5}.Release|x86.Build.0 = Release|x86
+		{27E09091-BB15-461B-9CAE-D791A9740BF9}.Debug|x86.ActiveCfg = Debug|x86
+		{27E09091-BB15-461B-9CAE-D791A9740BF9}.Debug|x86.Build.0 = Debug|x86
+		{27E09091-BB15-461B-9CAE-D791A9740BF9}.Release|x86.ActiveCfg = Release|x86
+		{27E09091-BB15-461B-9CAE-D791A9740BF9}.Release|x86.Build.0 = Release|x86
+		{3F158542-C0D7-4091-BD6C-76FC29F3A710}.Debug|x86.ActiveCfg = Debug|x86
+		{3F158542-C0D7-4091-BD6C-76FC29F3A710}.Debug|x86.Build.0 = Debug|x86
+		{3F158542-C0D7-4091-BD6C-76FC29F3A710}.Release|x86.ActiveCfg = Release|x86
+		{3F158542-C0D7-4091-BD6C-76FC29F3A710}.Release|x86.Build.0 = Release|x86
+		{9A6E1172-D7E4-4DB4-8235-58CAB30080A0}.Debug|x86.ActiveCfg = Debug|x86
+		{9A6E1172-D7E4-4DB4-8235-58CAB30080A0}.Debug|x86.Build.0 = Debug|x86
+		{9A6E1172-D7E4-4DB4-8235-58CAB30080A0}.Release|x86.ActiveCfg = Release|x86
+		{9A6E1172-D7E4-4DB4-8235-58CAB30080A0}.Release|x86.Build.0 = Release|x86
+		{1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B}.Debug|x86.ActiveCfg = Debug|x86
+		{1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B}.Debug|x86.Build.0 = Debug|x86
+		{1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B}.Release|x86.ActiveCfg = Release|x86
+		{1742EFCC-6A6E-4C2F-90B8-1DD095F8A38B}.Release|x86.Build.0 = Release|x86
+		{A7732015-7F8D-47FD-8DB3-16825D754A28}.Debug|x86.ActiveCfg = Debug|x86
+		{A7732015-7F8D-47FD-8DB3-16825D754A28}.Debug|x86.Build.0 = Debug|x86
+		{A7732015-7F8D-47FD-8DB3-16825D754A28}.Release|x86.ActiveCfg = Release|x86
+		{A7732015-7F8D-47FD-8DB3-16825D754A28}.Release|x86.Build.0 = Release|x86
+		{2313FD27-BD61-48E0-80C1-180F0BD7D869}.Debug|x86.ActiveCfg = Debug|x86
+		{2313FD27-BD61-48E0-80C1-180F0BD7D869}.Debug|x86.Build.0 = Debug|x86
+		{2313FD27-BD61-48E0-80C1-180F0BD7D869}.Release|x86.ActiveCfg = Release|x86
+		{2313FD27-BD61-48E0-80C1-180F0BD7D869}.Release|x86.Build.0 = Release|x86
+		{3A6E90D9-8F6C-4394-A57F-AB6EECA42DC0}.Debug|x86.ActiveCfg = Debug|x86
+		{3A6E90D9-8F6C-4394-A57F-AB6EECA42DC0}.Debug|x86.Build.0 = Debug|x86
+		{3A6E90D9-8F6C-4394-A57F-AB6EECA42DC0}.Release|x86.ActiveCfg = Release|x86
+		{3A6E90D9-8F6C-4394-A57F-AB6EECA42DC0}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6A23E52-8414-4682-A949-F6B6C9488EA5}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 43
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://unitools.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = UtControls\\UtControls.vbproj
+		SccProjectName1 = UtControls
+		SccLocalPath1 = UtControls
+		SccProjectUniqueName2 = Globale\\UtUtility.vbproj
+		SccProjectName2 = Globale
+		SccLocalPath2 = Globale
+		SccProjectUniqueName3 = GestioneDocumenti\\GestioneDocumenti.vbproj
+		SccProjectName3 = GestioneDocumenti
+		SccLocalPath3 = GestioneDocumenti
+		SccProjectUniqueName4 = UMenu\\UMenu.vbproj
+		SccProjectName4 = UMenu
+		SccLocalPath4 = UMenu
+		SccProjectUniqueName5 = Unitools\\Unitools.vbproj
+		SccProjectName5 = Unitools
+		SccLocalPath5 = Unitools
+		SccProjectUniqueName6 = Visure\\Visure.vbproj
+		SccProjectName6 = Visure
+		SccLocalPath6 = Visure
+		SccProjectUniqueName7 = Anax\\Anax.vbproj
+		SccProjectName7 = Anax
+		SccLocalPath7 = Anax
+		SccProjectUniqueName8 = UniCai\\UniCai.vbproj
+		SccProjectName8 = UniCai
+		SccLocalPath8 = UniCai
+		SccProjectUniqueName9 = Anag\\Anag.vbproj
+		SccProjectName9 = Anag
+		SccLocalPath9 = Anag
+		SccProjectUniqueName10 = Consap\\Consap\\Consap.vbproj
+		SccProjectName10 = Consap/Consap
+		SccLocalPath10 = Consap\\Consap
+		SccProjectUniqueName11 = Patto\\Patto\\Patto.vbproj
+		SccProjectName11 = Patto/Patto
+		SccLocalPath11 = Patto\\Patto
+		SccProjectUniqueName12 = Assistenza\\Assistenza\\Assistenza.vbproj
+		SccProjectName12 = Assistenza/Assistenza
+		SccLocalPath12 = Assistenza\\Assistenza
+		SccProjectUniqueName13 = UniTwitter\\UniTwitter\\UniTwitter.vbproj
+		SccProjectName13 = UniTwitter/UniTwitter
+		SccLocalPath13 = UniTwitter\\UniTwitter
+		SccProjectUniqueName14 = Export\\Export\\Export.vbproj
+		SccProjectName14 = Export/Export
+		SccLocalPath14 = Export\\Export
+		SccProjectUniqueName15 = Budget\\Budget\\Budget.vbproj
+		SccProjectName15 = Budget/Budget
+		SccLocalPath15 = Budget\\Budget
+		SccProjectUniqueName16 = UniFeed\\UniFeed.vbproj
+		SccProjectName16 = UniFeed
+		SccLocalPath16 = UniFeed
+		SccProjectUniqueName17 = ImportaDati\\ImportaDati\\IDati.vbproj
+		SccProjectName17 = ImportaDati/ImportaDati
+		SccLocalPath17 = ImportaDati\\ImportaDati
+		SccProjectUniqueName18 = LiveUpdate\\LiveUpdate\\LiveUpdate.vbproj
+		SccProjectName18 = LiveUpdate/LiveUpdate
+		SccLocalPath18 = LiveUpdate\\LiveUpdate
+		SccProjectUniqueName19 = UniEstra\\UniEstra.vbproj
+		SccProjectName19 = UniEstra
+		SccLocalPath19 = UniEstra
+		SccProjectUniqueName20 = UniSql\\UniSql.vbproj
+		SccProjectName20 = UniSql
+		SccLocalPath20 = UniSql
+		SccProjectUniqueName21 = Risorse\\Risorse.vbproj
+		SccProjectName21 = Risorse
+		SccLocalPath21 = Risorse
+		SccProjectUniqueName22 = MonitorQT\\MonitorQT\\MonitorQT.vbproj
+		SccProjectName22 = MonitorQT/MonitorQT
+		SccLocalPath22 = MonitorQT\\MonitorQT
+		SccProjectUniqueName23 = NuovaProduzione\\NuovaProduzione.vbproj
+		SccProjectName23 = NuovaProduzione
+		SccLocalPath23 = NuovaProduzione
+		SccProjectUniqueName24 = BackupArchivi\\BackupArchivi\\BackupArchivi.vbproj
+		SccProjectName24 = BackupArchivi/BackupArchivi
+		SccLocalPath24 = BackupArchivi\\BackupArchivi
+		SccProjectUniqueName25 = Referenti\\Referenti\\Referenti.vbproj
+		SccProjectName25 = Referenti/Referenti
+		SccLocalPath25 = Referenti\\Referenti
+		SccProjectUniqueName26 = InfoUt\\InfoUt\\InfoUt.vbproj
+		SccProjectName26 = InfoUt/InfoUt
+		SccLocalPath26 = InfoUt\\InfoUt
+		SccProjectUniqueName27 = Comunicazioni\\Comunicazioni\\Comunicazioni.vbproj
+		SccProjectName27 = Comunicazioni/Comunicazioni
+		SccLocalPath27 = Comunicazioni\\Comunicazioni
+		SccProjectUniqueName28 = ChiusuraCassa\\ChiusuraCassa\\ChiusuraCassa.vbproj
+		SccProjectName28 = ChiusuraCassa/ChiusuraCassa
+		SccLocalPath28 = ChiusuraCassa\\ChiusuraCassa
+		SccProjectUniqueName29 = UnigestUp\\UnigestUp\\UnigestUp.vbproj
+		SccProjectName29 = UnigestUp/UnigestUp
+		SccLocalPath29 = UnigestUp\\UnigestUp
+		SccProjectUniqueName30 = Adempimenti\\Adempimenti\\Adempimenti.vbproj
+		SccProjectName30 = Adempimenti/Adempimenti
+		SccLocalPath30 = Adempimenti\\Adempimenti
+		SccProjectUniqueName31 = UniCOM\\UniCOM\\UniCOM.vbproj
+		SccProjectName31 = UniCOM/UniCOM
+		SccLocalPath31 = UniCOM\\UniCOM
+		SccProjectUniqueName32 = BridgeCom\\BridgeCom.vbproj
+		SccProjectName32 = BridgeCom
+		SccLocalPath32 = BridgeCom
+		SccProjectUniqueName33 = Centralino\\Centralino\\Centralino.vbproj
+		SccProjectName33 = Centralino/Centralino
+		SccLocalPath33 = Centralino\\Centralino
+		SccProjectUniqueName34 = UtLoader\\UtLoader.vbproj
+		SccProjectName34 = UtLoader
+		SccLocalPath34 = UtLoader
+		SccProjectUniqueName35 = BDA\\BDA\\BDA.vbproj
+		SccProjectName35 = BDA/BDA
+		SccLocalPath35 = BDA\\BDA
+		SccProjectUniqueName36 = SelfRun\\SelfRun.vbproj
+		SccProjectName36 = SelfRun
+		SccLocalPath36 = SelfRun
+		SccProjectUniqueName37 = Regista\\Regista.vbproj
+		SccProjectName37 = Regista
+		SccLocalPath37 = Regista
+		SccProjectUniqueName38 = Regia\\Regia.vbproj
+		SccProjectName38 = Regia
+		SccLocalPath38 = Regia
+		SccProjectUniqueName39 = ProDocNet\\ProDocNet\\ProDocNet.vbproj
+		SccProjectName39 = ProDocNet/ProDocNet
+		SccLocalPath39 = ProDocNet\\ProDocNet
+		SccProjectUniqueName40 = Ut40\\Ut40.vbproj
+		SccProjectName40 = Ut40
+		SccLocalPath40 = Ut40
+		SccProjectUniqueName41 = ScannerRDP\\SessioneRDP\\ScannerRDP.vbproj
+		SccProjectName41 = ScannerRDP/SessioneRDP
+		SccLocalPath41 = ScannerRDP\\SessioneRDP
+		SccProjectUniqueName42 = Sinistri\\Sinistri.vbproj
+		SccProjectName42 = Sinistri
+		SccLocalPath42 = Sinistri
+	EndGlobalSection
+EndGlobal

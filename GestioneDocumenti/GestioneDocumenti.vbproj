@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{29EFB97E-7B31-422B-825F-2BDCAB4088B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnitoolsDocumenti</RootNamespace>
+    <AssemblyName>GestioneDocumenti</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>GestioneDocumenti.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>false</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>GestioneDocumenti.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\AxInterop.AcroPDFLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicDotNetTWAIN, Version=5.2.508.25885, Culture=neutral, PublicKeyToken=298ad97013b423eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DynamicDotNetTWAIN.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Microsoft.Web.Services3.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clienti.vb" />
+    <Compile Include="Colori.vb" />
+    <Compile Include="DepositoPratica.vb" />
+    <Compile Include="Documenti.vb" />
+    <Compile Include="DocumentiSertel.vb" />
+    <Compile Include="DocumentiUpload.vb" />
+    <Compile Include="Formati.vb" />
+    <Compile Include="FormAttesa.Designer.vb">
+      <DependentUpon>FormAttesa.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormAttesa.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConteggioDoc.Designer.vb">
+      <DependentUpon>FormConteggioDoc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormConteggioDoc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDocPratica.Designer.vb">
+      <DependentUpon>FormDocPratica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDocPratica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDocumenti.Designer.vb">
+      <DependentUpon>FormDocumenti.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDocumenti.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRilevaScanner.Designer.vb">
+      <DependentUpon>FormRilevaScanner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRilevaScanner.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRinomina.Designer.vb">
+      <DependentUpon>FormRinomina.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRinomina.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormScannerRete.Designer.vb">
+      <DependentUpon>FormScannerRete.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormScannerRete.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDownloadLiquido.Designer.vb">
+      <DependentUpon>FormDownloadLiquido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDownloadLiquido.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUploadLiquido.Designer.vb">
+      <DependentUpon>FormUploadLiquido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormUploadLiquido.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fotocopia.Designer.vb">
+      <DependentUpon>Fotocopia.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Fotocopia.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Funzioni.vb" />
+    <Compile Include="GestioneRinomina.vb" />
+    <Compile Include="Globale.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Pratiche.vb" />
+    <Compile Include="Risoluzione.vb" />
+    <Compile Include="Scanners.vb" />
+    <Compile Include="Scansione.vb" />
+    <Compile Include="Sinistri.vb" />
+    <Compile Include="TipoDocumentiLiquido.vb" />
+    <Compile Include="Web References\test\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormAttesa.resx">
+      <DependentUpon>FormAttesa.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConteggioDoc.resx">
+      <DependentUpon>FormConteggioDoc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDocPratica.resx">
+      <DependentUpon>FormDocPratica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDocumenti.resx">
+      <DependentUpon>FormDocumenti.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRilevaScanner.resx">
+      <DependentUpon>FormRilevaScanner.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRinomina.resx">
+      <DependentUpon>FormRinomina.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormScannerRete.resx">
+      <DependentUpon>FormScannerRete.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDownloadLiquido.resx">
+      <DependentUpon>FormDownloadLiquido.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUploadLiquido.resx">
+      <DependentUpon>FormUploadLiquido.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fotocopia.resx">
+      <DependentUpon>Fotocopia.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Web References\test\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\test\soapheaders.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\test\UploaderUnitools.wsdl" />
+    <None Include="Web References\test\UploaderUnitoolsBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Globale\UtUtility.vbproj">
+      <Project>{7affa253-9962-4aff-b530-cd998b973905}</Project>
+      <Name>UtUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Risorse\Risorse.vbproj">
+      <Project>{08e0a688-f575-410e-943e-74fd0b0b261e}</Project>
+      <Name>Risorse</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\RisorseExtra\wsdl\Servizi2024\uploaderUnitools\UploaderUnitools.xml">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\test\</RelPath>
+      <UpdateFromURL>C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Risorse\RisorseExtra\wsdl\Servizi2024\uploaderUnitools\UploaderUnitools.xml</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>GestioneDocumenti_test_UploaderUnitools</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,12 @@
+C:\ApplicazioniDirezione\UTW\UniEstra.exe.config
+C:\ApplicazioniDirezione\UTW\UniEstra.exe
+C:\ApplicazioniDirezione\UTW\UniEstra.pdb
+C:\ApplicazioniDirezione\UTW\UniEstra.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.exe
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\UniEstra\obj\x86\Debug\UniEstra.pdb

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Segmentazione auto</pacchetto>
+        <nome>portafoglio auto per prodotto</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni segmento è riportato:
+ - il numero di polizze,
+ - il premio minimo,
+ - il premio medio,
+ - il premio massimo,
+ - la % sul n° di polizze,
+ - la % sul totale premi
+ ]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Ramo auto (Ramo gestione 1 e 2)
+]]></note>
+        <ultagg>17/02/2010</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+    		    format(CodiceProdotto,'00000') AS [prodotto], 
+		    COUNT(P.Polizza)         AS [n° polizze], 
+		    MIN(P.TotalePremioAnnuo) AS [premio mininmo], 
+		    AVG(P.TotalePremioAnnuo) AS [premio medio], 
+		    MAX(P.TotalePremioAnnuo) AS [premio massimo], 
+		    SUM(P.TotalePremioAnnuo) AS [totale premi],
+		    SUM(100 / TotaleCount)   AS [% Polizze],
+		    SUM(100 * P.TotalePremioAnnuo / TotaleSum) AS [% Premi]
+		FROM 
+		    [Polizze] AS P,
+			(SELECT 
+			    COUNT(Polizza) AS TotaleCount, 
+			    SUM(TotalePremioAnnuo) AS TotaleSum
+			FROM Polizze
+			WHERE RamoGestione in (1, 2)
+			  AND @produttore  IN (-1, CodiceSubAgente, CodiceProduttore)
+			) PT
+
+		WHERE 
+			 P.RamoGestione in (1, 2)
+		  AND @produttore  IN (-1, P.CodiceSubAgente, P.CodiceProduttore)
+		GROUP BY 
+		    format(CodiceProdotto,'00000')
+		UNION
+		SELECT 
+		    'TOTALI'                 AS [Totali], 
+		    COUNT(P.Polizza)         AS [n° polizze], 
+		    MIN(P.TotalePremioAnnuo) AS [premio mininmo], 
+		    AVG(P.TotalePremioAnnuo) AS [premio medio], 
+		    MAX(P.TotalePremioAnnuo) AS [premio massimo], 
+		    SUM(P.TotalePremioAnnuo) AS [totale premi],
+		    100.00 AS [% Polizze],
+		    100.00 AS [% Premi]
+		FROM 
+		    [Polizze] AS P
+		WHERE 
+			 P.RamoGestione in (1, 2)
+		  AND @produttore  IN (-1, P.CodiceSubAgente, P.CodiceProduttore)
+		ORDER BY 6
+	]]></sql>
+    </estrazione>
+</oggetto>

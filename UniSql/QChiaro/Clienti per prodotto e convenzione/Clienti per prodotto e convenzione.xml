@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Clienti</pacchetto>
+        <nome>Clienti per prodotto e convenzione</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Sono riportati i dati anagrafici dei clienti effettivi.
+Ci devono essere polizze in corso
+]]></descrizione>
+        <ultagg>28/03/2017</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva < 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@prodotto" etichetta="Prodotto" tipo="string" valore="#" editavalorex="true" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="84">
+	    <elencovalori><![CDATA[SELECT '#', 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT A.CodiceProdotto, A.CodiceProdotto & ' - ' & Prodotto 
+	    		           FROM (SELECT DISTINCT CodiceProdotto from polizze) A 
+	    		           LEFT JOIN Prodotti B ON A.CodiceProdotto = B.CodiceProdotto
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDFiguraProduttiva, format(IDFiguraProduttiva,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM FigureProduttive WHERE tipofigura='P' AND IDFiguraProduttiva >= 1000
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@convenzione" etichetta="Convenzione" tipo="integer" valore="" obbligatorio="true" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT Convenzione, format(Convenzione,'00000')
+	    		           FROM Polizze
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@professioneMin" etichetta="Professione (da/a)" tipo="integer" valore="" larghezza="21" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDProfessione, IDProfessione & '-' & Professione 
+	    		           FROM Professioni
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@professioneMax" etichetta="" tipo="integer" valore="" larghezza="21" sinistra="53">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT IDProfessione, IDProfessione & '-' & Professione 
+	    		           FROM Professioni
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@mercato" etichetta="Mercato prf." tipo="integer" valore="" larghezza="42" sinistra="32" nuovariga="true">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CINT(right(TipoCliente,2)), format(right(TipoCliente,2),'00')
+	    		           FROM Clienti WHERE TipoCliente IS NOT NULL
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    C.CodiceFiscale AS [Codice Fiscale del cliente], 
+		    C.Cognome AS [Cognome del cliente], 
+		    C.Nome AS [Nome del cliente], 
+		    C.DataNascita AS [Data di nascita], 
+		    (Year(Now())-Year([DataNascita])) AS [Eta del cliente], 
+		    C.Indirizzo AS Indirizzo, 
+		    C.Cap AS Cap, 
+		    C.Localita AS Localita, 
+		    C.ComuneCAB AS [Comune CAB], 
+		    C.StatoCAB AS [Stato CAB], 
+		    C.Provincia AS [Codice Provincia], 
+		    C.Telefono1 AS [Primo telefono], 
+		    C.Telefono2 AS [Secondo telefono], 
+		    C.Sesso AS Sesso, 
+		    (Switch([Sesso]="N","Spettabile",[Sesso]="F","Gentile Signora",[Sesso]="M","Egregio Signor")) AS [Titolo], 
+		    C.Capofamiglia AS [Capo famiglia], 
+		    C.CodiceFiscaleCF AS [Codice fiscale capo famiglia], 
+		    C.CodiceFiscaleEA AS [Codice fiscale ente appartenenza], 
+		    C.ClienteTop AS [Cliente Top], 
+		    C.DataTop AS [Data Top], 
+		    C.Produttore AS Produttore, 
+		    C.StatoCivile AS [Stato Civile], 
+		    C.NucleoFamiliare AS [N° Componenti nucleo familiare], 
+		    C.PrimaCasa AS [Prima casa], 
+		    C.AltriImmobili AS [Altri immobili], 
+		    C.TitoliStato AS [Titoli di stato], 
+		    C.FasciaReddito AS [Fascia di reddito], 
+		    C.Sindacati AS [Appartenenza a sindacati], 
+		    C.PolizzeAltreComp AS [Polizze in altre compagnie], 
+		    C.CartaCredito AS [Carta di credito], 
+		    C.EsclusioneAttivita AS [Esclusione attivita], 
+		    C.Ente AS Ente, 
+		    C.TipoCliente AS [Tipo Cliente], 
+		    (right(str(TipoCliente),2)) AS Mercato, 
+		    (PR.IDProfessione & " - " & PR.Professione) AS Professione, 
+		    C.IDSegmentoCorrente AS [Identificativo segmento corrente], 
+		    C.IDSegmentoPrecedente AS [Identificativo segmento precedente], 
+		    TSC.StatoCliente AS [Stato del cliente], 
+		    C.IDZona AS [Identificativo zona], 
+		    C.DataInserimento AS [Data Inserimento], 
+		    C.DataCessazione AS [Data Cessazione], 
+		    C.AgenziaPrevalente AS [Agenzia prevalente], 
+		    C.SubAgenzia AS [Codice subagenzia], 
+		    C.SubAgenziaSIMA AS [Codice subagenzia Sima], 
+		    C.DataUltimaVisita AS [Data ultima visita], 
+		    C.DataProssimaVisita AS [Data prossima visita], 
+		    C.PolizzeVigore AS [Numero di polizze in vigore], 
+		    C.PolizzeStoriche AS [Numero di polizze storiche], 
+		    C.Premicorrente AS [Premio corrente], 
+		    C.Sinistricorrente AS [Sinistro corrente], 
+		    C.Liquidatocorrente AS [Liquidato corrente], 
+		    C.Premiprecedente AS [Premio precedente], 
+		    C.Sinistriprecedente AS [Sinistro precedente], 
+		    C.Liquidatoprecedente AS [Liquidato precedente], 
+		    C.Premitotale AS [Premio totale], 
+		    C.Sinistritotale AS [Sinistro totale], 
+		    C.Liquidatototale AS [Liquidato totale], 
+		    C.ConsensoPrivacy AS [Consenso alla privacy], 
+		    C.RilascioPatente AS [Data rilascio patente], 
+		    C.Email AS EMail, 
+		    C.Fax AS Fax, 
+		    C.Cellulare AS Cellulare, 
+		    C.TelReferente AS [Telefono Referente], 
+		    C.NomeReferente AS [Nome Referente], 
+		    C.TelAziendale AS [Telefono Aziendale]
+		 FROM ((((SELECT DISTINCT CodiceFiscale 
+		         FROM POLIZZE
+		      	WHERE @subagenzia  IN (-1, CodiceSubAgente)
+		      	  AND @produttore  IN (-1, CodiceProduttore)
+		      	  AND @convenzione IN (-1, Convenzione)
+		      	  AND CodiceProdotto IN (@prodotto)
+		      	  AND (DataStorno IS NULL OR DataStorno = 0)
+		      ) AS P		         
+		INNER JOIN Clienti          AS C   ON (C.CodiceFiscale = P.CodiceFiscale))
+		 LEFT JOIN Professioni      AS PR  ON (PR.IDProfessione = C.TipoCliente\100))
+		 LEFT JOIN TipoStatiCliente AS TSC ON (TSC.IDStatoCliente = C.IDStatoCliente))
+		WHERE @mercato in (-1, Right(C.TipoCliente,2))
+		  AND ((@professioneMin <= C.TipoCliente \ 100) OR (@professioneMin=-1))
+		  AND ((@professioneMax >= C.TipoCliente \ 100) OR (@professioneMax=-1))
+		ORDER BY 2, 3
+	]]></sql>
+    </estrazione>
+</oggetto>

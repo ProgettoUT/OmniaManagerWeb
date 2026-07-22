@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://unitools.uniarea.it/accessocasa.asmx?wsdl" docRef="http://unitools.uniarea.it/accessocasa.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://unitools.uniarea.it/accessocasa.asmx" xmlns:q1="casa.org" binding="q1:accessoCasaSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://unitools.uniarea.it/accessocasa.asmx" xmlns:q2="casa.org" binding="q2:accessoCasaSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

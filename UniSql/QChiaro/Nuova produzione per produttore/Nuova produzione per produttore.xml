@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Nuova produzione</pacchetto>
+        <nome>Nuova produzione per produttore</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni produttore è riportato:
+ - il numero di polizze,
+ - l'incremento di produzione
+]]></descrizione>
+<note><![CDATA[
+Elementi di filtro:
+ - Tipo Carico diverso da 4
+]]></note>
+        <ultagg>17/02/2010</ultagg>
+        <scadenza>01/01/2001</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@produttore" etichetta="Produttore" tipo="integer" valore="" obbligatorio="true" larghezza="30">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceSubAgente=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           UNION SELECT DISTINCT CodiceProduttore, format(CodiceProduttore,'0000') & ' - ' & FiguraProduttiva 
+	    		           FROM Polizze P left join FigureProduttive as FP on (P.CodiceProduttore=FP.IDFiguraProduttiva and FP.tipofigura='P')
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseDa" etichetta="Anno mese da" tipo="string" valore="" obbligatorio="true" larghezza="10">
+	    <elencovalori>SELECT DISTINCT AnnoMeseCompetenza, format(AnnoMeseCompetenza,'0000-00') FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseA" etichetta="Anno mese a" tipo="string" valore="" obbligatorio="true" larghezza="10">
+	    <elencovalori>SELECT DISTINCT AnnoMeseCompetenza, format(AnnoMeseCompetenza,'0000-00') FROM Incassi ORDER BY 1 DESC</elencovalori>
+        </parametro>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT 
+		    IC.CodiceProduttore AS [Produttore], 
+		    COUNT(IIF(PremioTass > 0 and (IC.TipoCarico='1' OR IC.TipoCarico='5'),1,0)) AS [Numero di Polizze], 
+		    SUM(PremioTass-PremioTasso) AS [Incremento di Produzione]
+		FROM 
+		    [Incassi] AS IC
+		WHERE 
+		      IC.TipoCarico <> '4'
+		  AND IC.AnnoMeseCompetenza >= @annoMeseDa
+		  AND IC.AnnoMeseCompetenza <= @annoMeseA
+		  AND @produttore  IN (-1, IC.CodiceSubAgente, IC.CodiceProduttore)
+		GROUP BY 
+		    IC.CodiceProduttore
+		UNION
+		SELECT 
+		    'TOTALI' AS [Codice sub agente], 
+		    COUNT(IIF(PremioTass > 0 and (IC.TipoCarico='1' OR IC.TipoCarico='5'),1,0)) AS [Numero di Polizze], 
+		    SUM(PremioTass-PremioTasso) AS [Incremento di Produzione]
+		FROM 
+		    [Incassi] AS IC
+		WHERE 
+		      IC.TipoCarico <> '4'
+		  AND IC.AnnoMeseCompetenza >= @annoMeseDa
+		  AND IC.AnnoMeseCompetenza <= @annoMeseA
+		  AND @produttore  IN (-1, IC.CodiceSubAgente, IC.CodiceProduttore)
+		ORDER BY 1
+	]]></sql>
+    </estrazione>
+<!--
+CodTipoCarico = '2'       -> ImpTotaleLordoRata
+CodTipoCarico = '3'       -> ImpPremioNettoRata+ImpInteressiRata+ImpAccessoriRata
+CodTipoCarico = '6'       -> ImpPremioNettoRata+ImpInteressiRata+ImpAccessoriRata
+CodTipoCarico = '9'       ->-ImpPremioNetto-ImpInteressi-ImpAccessori
+
+
+Per NUOVE POLIZZE (DataEffettoPolizza=DataEffetto)
+  CodTipoPolizza =  1
+  CodTipoCarico  = '1'            -> ImpPremioNetto+ImpInteressi+ImpAccessori
+  
+  CodTipoPolizza = 2
+  CodTipoCarico = '1' 
+  	CodFrazionamento  = 8     -> ImpPremioNettoRata+ImpInteressiRata+ImpAccessoriRata
+        CodFrazionamento <> 8     -> ImpPremioNetto+ImpInteressi+ImpAccessori
+
+  CodTipoPolizza = 3
+  CodTipoCarico IN ('1','5')
+  	CodFrazionamento IN (5,8,0) -> ImpPremioNettoRata+ImpInteressiRata+ImpAccessoriRata
+  	ImpPremioNetto=0            -> ImpPremioNettoRata+ImpInteressiRata+ImpAccessoriRata
+	ImpPremioNetto<>0	    -> ImpPremioNetto+ImpInteressi+ImpAccessori
+
+-->
+</oggetto>

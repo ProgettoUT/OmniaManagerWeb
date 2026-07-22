@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Unitools" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="Unitools" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Unitools">
+      <s:element name="GetVersioneOggetti">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersioneOggettiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetVersioneOggettiResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileOggetti">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFileOggettiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFileOggettiResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetVersioneResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFileResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetVersioneOggettiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersioneOggetti" />
+  </wsdl:message>
+  <wsdl:message name="GetVersioneOggettiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersioneOggettiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFileOggettiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFileOggetti" />
+  </wsdl:message>
+  <wsdl:message name="GetFileOggettiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFileOggettiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersioneSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersione" />
+  </wsdl:message>
+  <wsdl:message name="GetVersioneSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFile" />
+  </wsdl:message>
+  <wsdl:message name="GetFileSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFileResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UniwebEsploSoap">
+    <wsdl:operation name="GetVersioneOggetti">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la versione del file oggetti</wsdl:documentation>
+      <wsdl:input message="tns:GetVersioneOggettiSoapIn" />
+      <wsdl:output message="tns:GetVersioneOggettiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileOggetti">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce il file contenente tutti gli oggetti</wsdl:documentation>
+      <wsdl:input message="tns:GetFileOggettiSoapIn" />
+      <wsdl:output message="tns:GetFileOggettiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersione">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce la versione del file</wsdl:documentation>
+      <wsdl:input message="tns:GetVersioneSoapIn" />
+      <wsdl:output message="tns:GetVersioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Restituisce l'ultima versione del file</wsdl:documentation>
+      <wsdl:input message="tns:GetFileSoapIn" />
+      <wsdl:output message="tns:GetFileSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UniwebEsploSoap" type="tns:UniwebEsploSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersioneOggetti">
+      <soap:operation soapAction="Unitools/GetVersioneOggetti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileOggetti">
+      <soap:operation soapAction="Unitools/GetFileOggetti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersione">
+      <soap:operation soapAction="Unitools/GetVersione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <soap:operation soapAction="Unitools/GetFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="UniwebEsploSoap12" type="tns:UniwebEsploSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersioneOggetti">
+      <soap12:operation soapAction="Unitools/GetVersioneOggetti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileOggetti">
+      <soap12:operation soapAction="Unitools/GetFileOggetti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersione">
+      <soap12:operation soapAction="Unitools/GetVersione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <soap12:operation soapAction="Unitools/GetFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UniwebEsplo">
+    <wsdl:port name="UniwebEsploSoap" binding="tns:UniwebEsploSoap">
+      <soap:address location="http://www.utools.it/asp/Estrattore/UniwebEsplo.asmx" />
+    </wsdl:port>
+    <wsdl:port name="UniwebEsploSoap12" binding="tns:UniwebEsploSoap12">
+      <soap12:address location="http://www.utools.it/asp/Estrattore/UniwebEsplo.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

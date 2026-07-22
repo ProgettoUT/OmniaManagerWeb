@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{13892855-5D87-4B3C-84E4-ECBF8FC5093E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UniCom</RootNamespace>
+    <AssemblyName>UniCom</AssemblyName>
+    <MyType>Windows</MyType>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\</OutputPath>
+    <DocumentationFile>UniCom.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\SETUP\</OutputPath>
+    <DocumentationFile>UniCom.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\AxInterop.AcroPDFLib.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.SHDocVw, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\AxInterop.SHDocVw.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\..\..\ApplicazioniDirezione\UTW\DLL\Interop.AcroPDFLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3485.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3485.44\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3485.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3485.44\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.WinControls, Version=2016.1.216.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ApplicazioniDirezione\UTW\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2016.1.216.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ApplicazioniDirezione\UTW\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2016.1.216.20, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ApplicazioniDirezione\UTW\TelerikCommon.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Destinatario.vb" />
+    <Compile Include="EsitoServizio.vb" />
+    <Compile Include="FormFirma.Designer.vb">
+      <DependentUpon>FormFirma.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormFirma.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGestioneAccount.Designer.vb">
+      <DependentUpon>FormGestioneAccount.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormGestioneAccount.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNuovoAvviso.Designer.vb">
+      <DependentUpon>FormNuovoAvviso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNuovoAvviso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPostalizzazione.Designer.vb">
+      <DependentUpon>FormPostalizzazione.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormPostalizzazione.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLettere.designer.vb">
+      <DependentUpon>FormLettere.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLettere.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotifiche.Designer.vb">
+      <DependentUpon>FormNotifiche.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNotifiche.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormComunicazioni.Designer.vb">
+      <DependentUpon>FormComunicazioni.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormComunicazioni.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRichiestaFile.Designer.vb">
+      <DependentUpon>FormRichiestaFile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRichiestaFile.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Globale.vb" />
+    <Compile Include="MessaggioSms.vb" />
+    <Compile Include="NetFun.vb" />
+    <Compile Include="Postalizzazione.vb" />
+    <Compile Include="Postino.vb" />
+    <Compile Include="Servizi.vb" />
+    <Compile Include="ServizioSms.vb" />
+    <Compile Include="Koine.vb" />
+    <Compile Include="Sms.vb" />
+    <Compile Include="FormMail.Designer.vb">
+      <DependentUpon>FormMail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormMail.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRubrica.Designer.vb">
+      <DependentUpon>FormRubrica.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormRubrica.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Funzioni.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SmsAccount.vb" />
+    <Compile Include="SmsBatch.vb" />
+    <Compile Include="Token.vb" />
+    <Compile Include="Web References\Netfun\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SiComunica\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormFirma.resx">
+      <DependentUpon>FormFirma.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGestioneAccount.resx">
+      <DependentUpon>FormGestioneAccount.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNuovoAvviso.resx">
+      <DependentUpon>FormNuovoAvviso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPostalizzazione.resx">
+      <DependentUpon>FormPostalizzazione.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLettere.resx">
+      <DependentUpon>FormLettere.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNotifiche.resx">
+      <DependentUpon>FormNotifiche.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMail.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormMail.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRichiestaFile.resx">
+      <DependentUpon>FormRichiestaFile.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRubrica.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormRubrica.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormComunicazioni.resx">
+      <DependentUpon>FormComunicazioni.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Web References\SiComunica\ConfigUni.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SiComunica\KoineWebService.wsdl" />
+    <None Include="Web References\SiComunica\Newlot.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SiComunica\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SiComunica\Tracking.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap%3fwsdl">
+      <UrlBehavior>Static</UrlBehavior>
+      <RelPath>Web References\Netfun\</RelPath>
+      <UpdateFromURL>http://v1.web-servizi.net/api/key/450df5a8661c451b8263ae7336b16035/unicosistema/soap%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UniCOM_Netfun_smsService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://ws.sicomunica.it/axis2/services/KoineWebService">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SiComunica\</RelPath>
+      <UpdateFromURL>https://ws.sicomunica.it/axis2/services/KoineWebService</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>UniCom_SiComunica_KoineWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\Netfun\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\Netfun\sms.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GestioneDocumenti\GestioneDocumenti.vbproj">
+      <Project>{29efb97e-7b31-422b-825f-2bdcab4088b9}</Project>
+      <Name>GestioneDocumenti</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Globale\UtUtility.vbproj">
+      <Project>{7affa253-9962-4aff-b530-cd998b973905}</Project>
+      <Name>UtUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Risorse\Risorse.vbproj">
+      <Project>{08e0a688-f575-410e-943e-74fd0b0b261e}</Project>
+      <Name>Risorse</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3485.44\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3485.44\build\Microsoft.Web.WebView2.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Questo progetto fa riferimento a uno o più pacchetti NuGet che non sono presenti in questo computer. Usare lo strumento di ripristino dei pacchetti NuGet per scaricarli. Per altre informazioni, vedere http://go.microsoft.com/fwlink/?LinkID=322105. Il file mancante è {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3485.44\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3485.44\build\Microsoft.Web.WebView2.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

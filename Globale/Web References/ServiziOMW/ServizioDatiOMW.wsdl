@@ -1,0 +1,2973 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="Exq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comando" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeTabella" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoEvento">
+        <s:restriction base="s:string">
+          <s:enumeration value="NESSUNO" />
+          <s:enumeration value="AGGIORNA_INCASSI" />
+          <s:enumeration value="MIGRA_DBUNO" />
+          <s:enumeration value="CONSOLIDA_MA" />
+          <s:enumeration value="CONSOLIDA_DOWNLOAD_AGENZIE" />
+          <s:enumeration value="AGGIORNA_ARRETRATI" />
+          <s:enumeration value="CIP" />
+          <s:enumeration value="SOGGETTI" />
+          <s:enumeration value="UTENZE" />
+          <s:enumeration value="PUNTI_VENDITA" />
+          <s:enumeration value="IMPORTA_SINISTRI_WS" />
+          <s:enumeration value="SMS_NOTIFICHE" />
+          <s:enumeration value="SMS_REGISTRA" />
+          <s:enumeration value="AGGIORNA_CHIUSURA_CASSA" />
+          <s:enumeration value="AGGIORNA_POSTALIZZAZIONE" />
+          <s:enumeration value="AGGIORNA_VARIAZIONI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ExqResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Risposta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataSet">
+            <s:complexType>
+              <s:sequence>
+                <s:element ref="s:schema" />
+                <s:any />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="DataTable">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="1" maxOccurs="1" name="Records" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valore" />
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Alert" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Errore" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Link" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DataZip" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExqNoMax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comando" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeTabella" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqNoMaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqNoMaxResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqStored">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="QueryFile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Parametri" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeTabella" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExqStoredResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqStoredResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqCmdRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comando" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Parametri" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqCmdRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqCmdRecordResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqMulti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comandi" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomiTabella" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqMultiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqMultiResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellaFileTemporaneo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeFile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellaFileTemporaneoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancellaFileTemporaneoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comando" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqRecordResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqScalar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comando" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqScalarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqScalarResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqMA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Comandi" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeTabella" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Evento" type="tns:TipoEvento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExqMAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExqMAResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeggiNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdNota" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="tns:TipoNota" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoNota">
+        <s:restriction base="s:string">
+          <s:enumeration value="NOTA" />
+          <s:enumeration value="ATTIVITA" />
+          <s:enumeration value="ATTIVITA_COMPLETATA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="LeggiNoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiNoteResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiNota">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdNota" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CF" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Utente" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DataModifica" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Allarme" />
+            <s:element minOccurs="0" maxOccurs="1" name="Testo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiungiNotaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AggiungiNotaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaNota">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DataModifica" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Allarme" />
+            <s:element minOccurs="0" maxOccurs="1" name="Testo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaNotaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AggiornaNotaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellaNota">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdRecord" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellaNotaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CancellaNotaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UltimaNota">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Dal" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UltimaNotaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UltimaNotaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ControlloAttivitaInScadenza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ControlloAttivitaInScadenzaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ControlloAttivitaInScadenzaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoNote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoNoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoNoteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoNoteClienti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoNoteClientiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoNoteClientiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoAttivitaInScadenza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoAttivitaInScadenzaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoAttivitaInScadenzaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoAttivitaInScadenzaClienti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoAttivitaInScadenzaClientiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoAttivitaInScadenzaClientiResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteTabella">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TipoDb" type="tns:TipoDatabase" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tabella" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoDatabase">
+        <s:restriction base="s:string">
+          <s:enumeration value="COMUNE" />
+          <s:enumeration value="AGENZIA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="EsisteTabellaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EsisteTabellaResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteDb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TipoDb" type="tns:TipoDatabase" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteDbResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EsisteDbResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDatabase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadZip" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeFile" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sovrascrivi" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDatabaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UploadDatabaseResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteMdb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeDb" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EsisteMdbResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EsisteMdbResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDatabaseChunk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadChunk" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChunkName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DbName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sovrascrivi" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadDatabaseChunkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UploadDatabaseChunkResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileChunk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadChunk" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChunkName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdCartella" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sovrascrivi" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadFileChunkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UploadFileChunkResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigraDatabase">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigraDatabaseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MigraDatabaseResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigraTutto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TipoDb" type="tns:TipoDatabase" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigraTuttoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MigraTuttoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TerminaMigrazione">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgenziaMadre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TerminaMigrazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TerminaMigrazioneResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaDatabaseVuoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaDatabaseVuotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreaDatabaseVuotoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaDatabaseAgenzia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaDatabaseAgenziaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreaDatabaseAgenziaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupMdb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeBackup" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupMdbResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BackupMdbResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupSqlServer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TipoDb" type="tns:TipoDatabase" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BackupSqlServerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="BackupSqlServerResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvioDati">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DatiTrasmessi">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InvioDatiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InvioDatiResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportMigrazione">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReportMigrazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReportMigrazioneResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VerificaMigrazione">
+        <s:complexType />
+      </s:element>
+      <s:element name="VerificaMigrazioneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="VerificaMigrazioneResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigrazioneStoricoNoteEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigrazioneStoricoNoteExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MigrazioneStoricoNoteExResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigrazioneSinistri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MigrazioneSinistriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MigrazioneSinistriResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoSinistri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoSinistriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoSinistriResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaMail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MailMittente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeMittente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviaA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviaCc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviaCcn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Testo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InviaMailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaMailEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MailMittente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeMittente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviaA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviaCc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InviaCcn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Oggetto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Testo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Allegati" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="EmailAutomatica" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaMailExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InviaMailExResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StrutturaIncassi">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="DatiIncassi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Giorni" type="tns:ArrayOfDateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errore" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDateTime">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="dateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="StrutturaIncassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StrutturaIncassiResult" type="tns:DatiIncassi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RichiestaDatiIncassi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgenziaMadre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Figlia" type="tns:ConfigFiglia" />
+            <s:element minOccurs="1" maxOccurs="1" name="InizioRichiesto" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfigFiglia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Codice" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Inizio" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fine" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RichiestaDatiIncassiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RichiestaDatiIncassiResult" type="tns:DatiIncassi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RichiestaDatiIncassi_0523">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Compagnia" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AgenziaMadre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Figlia" type="tns:ConfigFiglia" />
+            <s:element minOccurs="1" maxOccurs="1" name="InizioRichiesto" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RichiestaDatiIncassi_0523Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RichiestaDatiIncassi_0523Result" type="tns:DatiIncassi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaStored">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Stored" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="tns:TipoStored" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoStored">
+        <s:restriction base="s:string">
+          <s:enumeration value="FILE" />
+          <s:enumeration value="STRINGA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreaStoredResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreaVista">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NomeVista" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaVistaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreaViste">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListaViste" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaVisteResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InviaDataset">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InviaDatasetResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreaDataSetVuoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tabelle" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreaDataSetVuotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreaDataSetVuotoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Eval">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Espressione" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EvalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EvalResult" type="tns:Risposta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaBDA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Dati">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaBDAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AggiornaBDAResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TelefonateSospese">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzie" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TelefonateSospeseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TelefonateSospeseResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CfSospesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzie" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CfSospesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CfSospesiResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaTelefonateSospese">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Telefonate">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaTelefonateSospeseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AggiornaTelefonateSospeseResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoTelefonate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzie" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ElencoTelefonateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ElencoTelefonateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TelefonateCF">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzie" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TelefonateCFResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TelefonateCFResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApiAttive">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Agenzie" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApiAttiveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApiAttiveResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SettingBackup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Setting" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SettingBackupResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="LeggiProfilo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProfiloUtente">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Esiste" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codici">
+            <s:complexType>
+              <s:sequence>
+                <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element minOccurs="0" maxOccurs="1" name="Messaggio" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NomeUtente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruolo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CFValido" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProfiloUnipol" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ElencoAgenzie" type="tns:ArrayOfProfiloAgenzia" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceFiscale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeskRuolo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RUI" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataRUI" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="UtenzaUnisalute" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProfiloAgenzia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProfiloAgenzia" nillable="true" type="tns:ProfiloAgenzia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProfiloAgenzia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubGestite" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="tns:TipoProfilo" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbUtente" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TipoProfilo">
+        <s:restriction base="s:string">
+          <s:enumeration value="COMPLETO" />
+          <s:enumeration value="LIMITATO" />
+          <s:enumeration value="BLOCCATO" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="LeggiProfiloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeggiProfiloResult" type="tns:ProfiloUtente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaTabelleAgenzia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AggiornaTabelleAgenziaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AggiornaTabelleAgenziaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsensoGoogleFsCache">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsensoGoogleFsCacheResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConsensoGoogleFsCacheResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FlagGoogleFsCache">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FlagGoogleFsCacheResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ConsolidaDbUnoAgenzia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileBackup" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Query" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsolidaDbUnoAgenziaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsolidaDbUnoAgenziaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExqSoapIn">
+    <wsdl:part name="parameters" element="tns:Exq" />
+  </wsdl:message>
+  <wsdl:message name="ExqSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqNoMaxSoapIn">
+    <wsdl:part name="parameters" element="tns:ExqNoMax" />
+  </wsdl:message>
+  <wsdl:message name="ExqNoMaxSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqNoMaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqStoredSoapIn">
+    <wsdl:part name="parameters" element="tns:ExqStored" />
+  </wsdl:message>
+  <wsdl:message name="ExqStoredSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqStoredResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqCmdRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:ExqCmdRecord" />
+  </wsdl:message>
+  <wsdl:message name="ExqCmdRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqCmdRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqMultiSoapIn">
+    <wsdl:part name="parameters" element="tns:ExqMulti" />
+  </wsdl:message>
+  <wsdl:message name="ExqMultiSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqMultiResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancellaFileTemporaneoSoapIn">
+    <wsdl:part name="parameters" element="tns:CancellaFileTemporaneo" />
+  </wsdl:message>
+  <wsdl:message name="CancellaFileTemporaneoSoapOut">
+    <wsdl:part name="parameters" element="tns:CancellaFileTemporaneoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:ExqRecord" />
+  </wsdl:message>
+  <wsdl:message name="ExqRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqScalarSoapIn">
+    <wsdl:part name="parameters" element="tns:ExqScalar" />
+  </wsdl:message>
+  <wsdl:message name="ExqScalarSoapOut">
+    <wsdl:part name="parameters" element="tns:ExqScalarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExqMASoapIn">
+    <wsdl:part name="parameters" element="tns:ExqMA" />
+  </wsdl:message>
+  <wsdl:message name="ExqMASoapOut">
+    <wsdl:part name="parameters" element="tns:ExqMAResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiNote" />
+  </wsdl:message>
+  <wsdl:message name="LeggiNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiNotaSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiungiNota" />
+  </wsdl:message>
+  <wsdl:message name="AggiungiNotaSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiungiNotaResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaNotaSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaNota" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaNotaSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaNotaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancellaNotaSoapIn">
+    <wsdl:part name="parameters" element="tns:CancellaNota" />
+  </wsdl:message>
+  <wsdl:message name="CancellaNotaSoapOut">
+    <wsdl:part name="parameters" element="tns:CancellaNotaResponse" />
+  </wsdl:message>
+  <wsdl:message name="UltimaNotaSoapIn">
+    <wsdl:part name="parameters" element="tns:UltimaNota" />
+  </wsdl:message>
+  <wsdl:message name="UltimaNotaSoapOut">
+    <wsdl:part name="parameters" element="tns:UltimaNotaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ControlloAttivitaInScadenzaSoapIn">
+    <wsdl:part name="parameters" element="tns:ControlloAttivitaInScadenza" />
+  </wsdl:message>
+  <wsdl:message name="ControlloAttivitaInScadenzaSoapOut">
+    <wsdl:part name="parameters" element="tns:ControlloAttivitaInScadenzaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoNoteSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoNote" />
+  </wsdl:message>
+  <wsdl:message name="ElencoNoteSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoNoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoNoteClientiSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoNoteClienti" />
+  </wsdl:message>
+  <wsdl:message name="ElencoNoteClientiSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoNoteClientiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoAttivitaInScadenzaSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoAttivitaInScadenza" />
+  </wsdl:message>
+  <wsdl:message name="ElencoAttivitaInScadenzaSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoAttivitaInScadenzaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoAttivitaInScadenzaClientiSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoAttivitaInScadenzaClienti" />
+  </wsdl:message>
+  <wsdl:message name="ElencoAttivitaInScadenzaClientiSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoAttivitaInScadenzaClientiResponse" />
+  </wsdl:message>
+  <wsdl:message name="EsisteTabellaSoapIn">
+    <wsdl:part name="parameters" element="tns:EsisteTabella" />
+  </wsdl:message>
+  <wsdl:message name="EsisteTabellaSoapOut">
+    <wsdl:part name="parameters" element="tns:EsisteTabellaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EsisteDbSoapIn">
+    <wsdl:part name="parameters" element="tns:EsisteDb" />
+  </wsdl:message>
+  <wsdl:message name="EsisteDbSoapOut">
+    <wsdl:part name="parameters" element="tns:EsisteDbResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDatabaseSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDatabase" />
+  </wsdl:message>
+  <wsdl:message name="UploadDatabaseSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="EsisteMdbSoapIn">
+    <wsdl:part name="parameters" element="tns:EsisteMdb" />
+  </wsdl:message>
+  <wsdl:message name="EsisteMdbSoapOut">
+    <wsdl:part name="parameters" element="tns:EsisteMdbResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadDatabaseChunkSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadDatabaseChunk" />
+  </wsdl:message>
+  <wsdl:message name="UploadDatabaseChunkSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadDatabaseChunkResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileChunkSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadFileChunk" />
+  </wsdl:message>
+  <wsdl:message name="UploadFileChunkSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadFileChunkResponse" />
+  </wsdl:message>
+  <wsdl:message name="MigraDatabaseSoapIn">
+    <wsdl:part name="parameters" element="tns:MigraDatabase" />
+  </wsdl:message>
+  <wsdl:message name="MigraDatabaseSoapOut">
+    <wsdl:part name="parameters" element="tns:MigraDatabaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="MigraTuttoSoapIn">
+    <wsdl:part name="parameters" element="tns:MigraTutto" />
+  </wsdl:message>
+  <wsdl:message name="MigraTuttoSoapOut">
+    <wsdl:part name="parameters" element="tns:MigraTuttoResponse" />
+  </wsdl:message>
+  <wsdl:message name="TerminaMigrazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:TerminaMigrazione" />
+  </wsdl:message>
+  <wsdl:message name="TerminaMigrazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:TerminaMigrazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaDatabaseVuotoSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaDatabaseVuoto" />
+  </wsdl:message>
+  <wsdl:message name="CreaDatabaseVuotoSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaDatabaseVuotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaDatabaseAgenziaSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaDatabaseAgenzia" />
+  </wsdl:message>
+  <wsdl:message name="CreaDatabaseAgenziaSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaDatabaseAgenziaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BackupMdbSoapIn">
+    <wsdl:part name="parameters" element="tns:BackupMdb" />
+  </wsdl:message>
+  <wsdl:message name="BackupMdbSoapOut">
+    <wsdl:part name="parameters" element="tns:BackupMdbResponse" />
+  </wsdl:message>
+  <wsdl:message name="BackupSqlServerSoapIn">
+    <wsdl:part name="parameters" element="tns:BackupSqlServer" />
+  </wsdl:message>
+  <wsdl:message name="BackupSqlServerSoapOut">
+    <wsdl:part name="parameters" element="tns:BackupSqlServerResponse" />
+  </wsdl:message>
+  <wsdl:message name="InvioDatiSoapIn">
+    <wsdl:part name="parameters" element="tns:InvioDati" />
+  </wsdl:message>
+  <wsdl:message name="InvioDatiSoapOut">
+    <wsdl:part name="parameters" element="tns:InvioDatiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReportMigrazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:ReportMigrazione" />
+  </wsdl:message>
+  <wsdl:message name="ReportMigrazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:ReportMigrazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="VerificaMigrazioneSoapIn">
+    <wsdl:part name="parameters" element="tns:VerificaMigrazione" />
+  </wsdl:message>
+  <wsdl:message name="VerificaMigrazioneSoapOut">
+    <wsdl:part name="parameters" element="tns:VerificaMigrazioneResponse" />
+  </wsdl:message>
+  <wsdl:message name="MigrazioneStoricoNoteExSoapIn">
+    <wsdl:part name="parameters" element="tns:MigrazioneStoricoNoteEx" />
+  </wsdl:message>
+  <wsdl:message name="MigrazioneStoricoNoteExSoapOut">
+    <wsdl:part name="parameters" element="tns:MigrazioneStoricoNoteExResponse" />
+  </wsdl:message>
+  <wsdl:message name="MigrazioneSinistriSoapIn">
+    <wsdl:part name="parameters" element="tns:MigrazioneSinistri" />
+  </wsdl:message>
+  <wsdl:message name="MigrazioneSinistriSoapOut">
+    <wsdl:part name="parameters" element="tns:MigrazioneSinistriResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoSinistriSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoSinistri" />
+  </wsdl:message>
+  <wsdl:message name="ElencoSinistriSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoSinistriResponse" />
+  </wsdl:message>
+  <wsdl:message name="InviaMailSoapIn">
+    <wsdl:part name="parameters" element="tns:InviaMail" />
+  </wsdl:message>
+  <wsdl:message name="InviaMailSoapOut">
+    <wsdl:part name="parameters" element="tns:InviaMailResponse" />
+  </wsdl:message>
+  <wsdl:message name="InviaMailExSoapIn">
+    <wsdl:part name="parameters" element="tns:InviaMailEx" />
+  </wsdl:message>
+  <wsdl:message name="InviaMailExSoapOut">
+    <wsdl:part name="parameters" element="tns:InviaMailExResponse" />
+  </wsdl:message>
+  <wsdl:message name="StrutturaIncassiSoapIn">
+    <wsdl:part name="parameters" element="tns:StrutturaIncassi" />
+  </wsdl:message>
+  <wsdl:message name="StrutturaIncassiSoapOut">
+    <wsdl:part name="parameters" element="tns:StrutturaIncassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="RichiestaDatiIncassiSoapIn">
+    <wsdl:part name="parameters" element="tns:RichiestaDatiIncassi" />
+  </wsdl:message>
+  <wsdl:message name="RichiestaDatiIncassiSoapOut">
+    <wsdl:part name="parameters" element="tns:RichiestaDatiIncassiResponse" />
+  </wsdl:message>
+  <wsdl:message name="RichiestaDatiIncassi_0523SoapIn">
+    <wsdl:part name="parameters" element="tns:RichiestaDatiIncassi_0523" />
+  </wsdl:message>
+  <wsdl:message name="RichiestaDatiIncassi_0523SoapOut">
+    <wsdl:part name="parameters" element="tns:RichiestaDatiIncassi_0523Response" />
+  </wsdl:message>
+  <wsdl:message name="CreaStoredSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaStored" />
+  </wsdl:message>
+  <wsdl:message name="CreaStoredSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaStoredResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaVistaSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaVista" />
+  </wsdl:message>
+  <wsdl:message name="CreaVistaSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaVistaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaVisteSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaViste" />
+  </wsdl:message>
+  <wsdl:message name="CreaVisteSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaVisteResponse" />
+  </wsdl:message>
+  <wsdl:message name="InviaDatasetSoapIn">
+    <wsdl:part name="parameters" element="tns:InviaDataset" />
+  </wsdl:message>
+  <wsdl:message name="InviaDatasetSoapOut">
+    <wsdl:part name="parameters" element="tns:InviaDatasetResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreaDataSetVuotoSoapIn">
+    <wsdl:part name="parameters" element="tns:CreaDataSetVuoto" />
+  </wsdl:message>
+  <wsdl:message name="CreaDataSetVuotoSoapOut">
+    <wsdl:part name="parameters" element="tns:CreaDataSetVuotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EvalSoapIn">
+    <wsdl:part name="parameters" element="tns:Eval" />
+  </wsdl:message>
+  <wsdl:message name="EvalSoapOut">
+    <wsdl:part name="parameters" element="tns:EvalResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaBDASoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaBDA" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaBDASoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaBDAResponse" />
+  </wsdl:message>
+  <wsdl:message name="TelefonateSospeseSoapIn">
+    <wsdl:part name="parameters" element="tns:TelefonateSospese" />
+  </wsdl:message>
+  <wsdl:message name="TelefonateSospeseSoapOut">
+    <wsdl:part name="parameters" element="tns:TelefonateSospeseResponse" />
+  </wsdl:message>
+  <wsdl:message name="CfSospesiSoapIn">
+    <wsdl:part name="parameters" element="tns:CfSospesi" />
+  </wsdl:message>
+  <wsdl:message name="CfSospesiSoapOut">
+    <wsdl:part name="parameters" element="tns:CfSospesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaTelefonateSospeseSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaTelefonateSospese" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaTelefonateSospeseSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaTelefonateSospeseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ElencoTelefonateSoapIn">
+    <wsdl:part name="parameters" element="tns:ElencoTelefonate" />
+  </wsdl:message>
+  <wsdl:message name="ElencoTelefonateSoapOut">
+    <wsdl:part name="parameters" element="tns:ElencoTelefonateResponse" />
+  </wsdl:message>
+  <wsdl:message name="TelefonateCFSoapIn">
+    <wsdl:part name="parameters" element="tns:TelefonateCF" />
+  </wsdl:message>
+  <wsdl:message name="TelefonateCFSoapOut">
+    <wsdl:part name="parameters" element="tns:TelefonateCFResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApiAttiveSoapIn">
+    <wsdl:part name="parameters" element="tns:ApiAttive" />
+  </wsdl:message>
+  <wsdl:message name="ApiAttiveSoapOut">
+    <wsdl:part name="parameters" element="tns:ApiAttiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="SettingBackupSoapIn">
+    <wsdl:part name="parameters" element="tns:SettingBackup" />
+  </wsdl:message>
+  <wsdl:message name="SettingBackupSoapOut">
+    <wsdl:part name="parameters" element="tns:SettingBackupResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProfiloSoapIn">
+    <wsdl:part name="parameters" element="tns:LeggiProfilo" />
+  </wsdl:message>
+  <wsdl:message name="LeggiProfiloSoapOut">
+    <wsdl:part name="parameters" element="tns:LeggiProfiloResponse" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaTabelleAgenziaSoapIn">
+    <wsdl:part name="parameters" element="tns:AggiornaTabelleAgenzia" />
+  </wsdl:message>
+  <wsdl:message name="AggiornaTabelleAgenziaSoapOut">
+    <wsdl:part name="parameters" element="tns:AggiornaTabelleAgenziaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsensoGoogleFsCacheSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsensoGoogleFsCache" />
+  </wsdl:message>
+  <wsdl:message name="ConsensoGoogleFsCacheSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsensoGoogleFsCacheResponse" />
+  </wsdl:message>
+  <wsdl:message name="FlagGoogleFsCacheSoapIn">
+    <wsdl:part name="parameters" element="tns:FlagGoogleFsCache" />
+  </wsdl:message>
+  <wsdl:message name="FlagGoogleFsCacheSoapOut">
+    <wsdl:part name="parameters" element="tns:FlagGoogleFsCacheResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsolidaDbUnoAgenziaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsolidaDbUnoAgenzia" />
+  </wsdl:message>
+  <wsdl:message name="ConsolidaDbUnoAgenziaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsolidaDbUnoAgenziaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServizioDatiOMWSoap">
+    <wsdl:operation name="Exq">
+      <wsdl:input message="tns:ExqSoapIn" />
+      <wsdl:output message="tns:ExqSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqNoMax">
+      <wsdl:input message="tns:ExqNoMaxSoapIn" />
+      <wsdl:output message="tns:ExqNoMaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqStored">
+      <wsdl:input message="tns:ExqStoredSoapIn" />
+      <wsdl:output message="tns:ExqStoredSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqCmdRecord">
+      <wsdl:input message="tns:ExqCmdRecordSoapIn" />
+      <wsdl:output message="tns:ExqCmdRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqMulti">
+      <wsdl:input message="tns:ExqMultiSoapIn" />
+      <wsdl:output message="tns:ExqMultiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellaFileTemporaneo">
+      <wsdl:input message="tns:CancellaFileTemporaneoSoapIn" />
+      <wsdl:output message="tns:CancellaFileTemporaneoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqRecord">
+      <wsdl:input message="tns:ExqRecordSoapIn" />
+      <wsdl:output message="tns:ExqRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqScalar">
+      <wsdl:input message="tns:ExqScalarSoapIn" />
+      <wsdl:output message="tns:ExqScalarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExqMA">
+      <wsdl:input message="tns:ExqMASoapIn" />
+      <wsdl:output message="tns:ExqMASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiNote">
+      <wsdl:input message="tns:LeggiNoteSoapIn" />
+      <wsdl:output message="tns:LeggiNoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiNota">
+      <wsdl:input message="tns:AggiungiNotaSoapIn" />
+      <wsdl:output message="tns:AggiungiNotaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaNota">
+      <wsdl:input message="tns:AggiornaNotaSoapIn" />
+      <wsdl:output message="tns:AggiornaNotaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellaNota">
+      <wsdl:input message="tns:CancellaNotaSoapIn" />
+      <wsdl:output message="tns:CancellaNotaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UltimaNota">
+      <wsdl:input message="tns:UltimaNotaSoapIn" />
+      <wsdl:output message="tns:UltimaNotaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ControlloAttivitaInScadenza">
+      <wsdl:input message="tns:ControlloAttivitaInScadenzaSoapIn" />
+      <wsdl:output message="tns:ControlloAttivitaInScadenzaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoNote">
+      <wsdl:input message="tns:ElencoNoteSoapIn" />
+      <wsdl:output message="tns:ElencoNoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoNoteClienti">
+      <wsdl:input message="tns:ElencoNoteClientiSoapIn" />
+      <wsdl:output message="tns:ElencoNoteClientiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoAttivitaInScadenza">
+      <wsdl:input message="tns:ElencoAttivitaInScadenzaSoapIn" />
+      <wsdl:output message="tns:ElencoAttivitaInScadenzaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoAttivitaInScadenzaClienti">
+      <wsdl:input message="tns:ElencoAttivitaInScadenzaClientiSoapIn" />
+      <wsdl:output message="tns:ElencoAttivitaInScadenzaClientiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EsisteTabella">
+      <wsdl:input message="tns:EsisteTabellaSoapIn" />
+      <wsdl:output message="tns:EsisteTabellaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EsisteDb">
+      <wsdl:input message="tns:EsisteDbSoapIn" />
+      <wsdl:output message="tns:EsisteDbSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDatabase">
+      <wsdl:input message="tns:UploadDatabaseSoapIn" />
+      <wsdl:output message="tns:UploadDatabaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EsisteMdb">
+      <wsdl:input message="tns:EsisteMdbSoapIn" />
+      <wsdl:output message="tns:EsisteMdbSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadDatabaseChunk">
+      <wsdl:input message="tns:UploadDatabaseChunkSoapIn" />
+      <wsdl:output message="tns:UploadDatabaseChunkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileChunk">
+      <wsdl:input message="tns:UploadFileChunkSoapIn" />
+      <wsdl:output message="tns:UploadFileChunkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MigraDatabase">
+      <wsdl:input message="tns:MigraDatabaseSoapIn" />
+      <wsdl:output message="tns:MigraDatabaseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MigraTutto">
+      <wsdl:input message="tns:MigraTuttoSoapIn" />
+      <wsdl:output message="tns:MigraTuttoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TerminaMigrazione">
+      <wsdl:input message="tns:TerminaMigrazioneSoapIn" />
+      <wsdl:output message="tns:TerminaMigrazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaDatabaseVuoto">
+      <wsdl:input message="tns:CreaDatabaseVuotoSoapIn" />
+      <wsdl:output message="tns:CreaDatabaseVuotoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaDatabaseAgenzia">
+      <wsdl:input message="tns:CreaDatabaseAgenziaSoapIn" />
+      <wsdl:output message="tns:CreaDatabaseAgenziaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupMdb">
+      <wsdl:input message="tns:BackupMdbSoapIn" />
+      <wsdl:output message="tns:BackupMdbSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BackupSqlServer">
+      <wsdl:input message="tns:BackupSqlServerSoapIn" />
+      <wsdl:output message="tns:BackupSqlServerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InvioDati">
+      <wsdl:input message="tns:InvioDatiSoapIn" />
+      <wsdl:output message="tns:InvioDatiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportMigrazione">
+      <wsdl:input message="tns:ReportMigrazioneSoapIn" />
+      <wsdl:output message="tns:ReportMigrazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificaMigrazione">
+      <wsdl:input message="tns:VerificaMigrazioneSoapIn" />
+      <wsdl:output message="tns:VerificaMigrazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MigrazioneStoricoNoteEx">
+      <wsdl:input message="tns:MigrazioneStoricoNoteExSoapIn" />
+      <wsdl:output message="tns:MigrazioneStoricoNoteExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MigrazioneSinistri">
+      <wsdl:input message="tns:MigrazioneSinistriSoapIn" />
+      <wsdl:output message="tns:MigrazioneSinistriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoSinistri">
+      <wsdl:input message="tns:ElencoSinistriSoapIn" />
+      <wsdl:output message="tns:ElencoSinistriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InviaMail">
+      <wsdl:input message="tns:InviaMailSoapIn" />
+      <wsdl:output message="tns:InviaMailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InviaMailEx">
+      <wsdl:input message="tns:InviaMailExSoapIn" />
+      <wsdl:output message="tns:InviaMailExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StrutturaIncassi">
+      <wsdl:input message="tns:StrutturaIncassiSoapIn" />
+      <wsdl:output message="tns:StrutturaIncassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RichiestaDatiIncassi">
+      <wsdl:input message="tns:RichiestaDatiIncassiSoapIn" />
+      <wsdl:output message="tns:RichiestaDatiIncassiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RichiestaDatiIncassi_0523">
+      <wsdl:input message="tns:RichiestaDatiIncassi_0523SoapIn" />
+      <wsdl:output message="tns:RichiestaDatiIncassi_0523SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaStored">
+      <wsdl:input message="tns:CreaStoredSoapIn" />
+      <wsdl:output message="tns:CreaStoredSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaVista">
+      <wsdl:input message="tns:CreaVistaSoapIn" />
+      <wsdl:output message="tns:CreaVistaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaViste">
+      <wsdl:input message="tns:CreaVisteSoapIn" />
+      <wsdl:output message="tns:CreaVisteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InviaDataset">
+      <wsdl:input message="tns:InviaDatasetSoapIn" />
+      <wsdl:output message="tns:InviaDatasetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreaDataSetVuoto">
+      <wsdl:input message="tns:CreaDataSetVuotoSoapIn" />
+      <wsdl:output message="tns:CreaDataSetVuotoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Eval">
+      <wsdl:input message="tns:EvalSoapIn" />
+      <wsdl:output message="tns:EvalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaBDA">
+      <wsdl:input message="tns:AggiornaBDASoapIn" />
+      <wsdl:output message="tns:AggiornaBDASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TelefonateSospese">
+      <wsdl:input message="tns:TelefonateSospeseSoapIn" />
+      <wsdl:output message="tns:TelefonateSospeseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CfSospesi">
+      <wsdl:input message="tns:CfSospesiSoapIn" />
+      <wsdl:output message="tns:CfSospesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaTelefonateSospese">
+      <wsdl:input message="tns:AggiornaTelefonateSospeseSoapIn" />
+      <wsdl:output message="tns:AggiornaTelefonateSospeseSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ElencoTelefonate">
+      <wsdl:input message="tns:ElencoTelefonateSoapIn" />
+      <wsdl:output message="tns:ElencoTelefonateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TelefonateCF">
+      <wsdl:input message="tns:TelefonateCFSoapIn" />
+      <wsdl:output message="tns:TelefonateCFSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApiAttive">
+      <wsdl:input message="tns:ApiAttiveSoapIn" />
+      <wsdl:output message="tns:ApiAttiveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SettingBackup">
+      <wsdl:input message="tns:SettingBackupSoapIn" />
+      <wsdl:output message="tns:SettingBackupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProfilo">
+      <wsdl:input message="tns:LeggiProfiloSoapIn" />
+      <wsdl:output message="tns:LeggiProfiloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaTabelleAgenzia">
+      <wsdl:input message="tns:AggiornaTabelleAgenziaSoapIn" />
+      <wsdl:output message="tns:AggiornaTabelleAgenziaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsensoGoogleFsCache">
+      <wsdl:input message="tns:ConsensoGoogleFsCacheSoapIn" />
+      <wsdl:output message="tns:ConsensoGoogleFsCacheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FlagGoogleFsCache">
+      <wsdl:input message="tns:FlagGoogleFsCacheSoapIn" />
+      <wsdl:output message="tns:FlagGoogleFsCacheSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsolidaDbUnoAgenzia">
+      <wsdl:input message="tns:ConsolidaDbUnoAgenziaSoapIn" />
+      <wsdl:output message="tns:ConsolidaDbUnoAgenziaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServizioDatiOMWSoap" type="tns:ServizioDatiOMWSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Exq">
+      <soap:operation soapAction="http://utools.auaonline.it/Exq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqNoMax">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqNoMax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqStored">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqStored" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqCmdRecord">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqCmdRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqMulti">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqMulti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellaFileTemporaneo">
+      <soap:operation soapAction="http://utools.auaonline.it/CancellaFileTemporaneo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqRecord">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqScalar">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqScalar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqMA">
+      <soap:operation soapAction="http://utools.auaonline.it/ExqMA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiNote">
+      <soap:operation soapAction="http://utools.auaonline.it/LeggiNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiNota">
+      <soap:operation soapAction="http://utools.auaonline.it/AggiungiNota" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaNota">
+      <soap:operation soapAction="http://utools.auaonline.it/AggiornaNota" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellaNota">
+      <soap:operation soapAction="http://utools.auaonline.it/CancellaNota" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UltimaNota">
+      <soap:operation soapAction="http://utools.auaonline.it/UltimaNota" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ControlloAttivitaInScadenza">
+      <soap:operation soapAction="http://utools.auaonline.it/ControlloAttivitaInScadenza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoNote">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoNote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoNoteClienti">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoNoteClienti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoAttivitaInScadenza">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoAttivitaInScadenza" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoAttivitaInScadenzaClienti">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoAttivitaInScadenzaClienti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteTabella">
+      <soap:operation soapAction="http://utools.auaonline.it/EsisteTabella" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteDb">
+      <soap:operation soapAction="http://utools.auaonline.it/EsisteDb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDatabase">
+      <soap:operation soapAction="http://utools.auaonline.it/UploadDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteMdb">
+      <soap:operation soapAction="http://utools.auaonline.it/EsisteMdb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDatabaseChunk">
+      <soap:operation soapAction="http://utools.auaonline.it/UploadDatabaseChunk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileChunk">
+      <soap:operation soapAction="http://utools.auaonline.it/UploadFileChunk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigraDatabase">
+      <soap:operation soapAction="http://utools.auaonline.it/MigraDatabase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigraTutto">
+      <soap:operation soapAction="http://utools.auaonline.it/MigraTutto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TerminaMigrazione">
+      <soap:operation soapAction="http://utools.auaonline.it/TerminaMigrazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaDatabaseVuoto">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaDatabaseVuoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaDatabaseAgenzia">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaDatabaseAgenzia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupMdb">
+      <soap:operation soapAction="http://utools.auaonline.it/BackupMdb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupSqlServer">
+      <soap:operation soapAction="http://utools.auaonline.it/BackupSqlServer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioDati">
+      <soap:operation soapAction="http://utools.auaonline.it/InvioDati" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportMigrazione">
+      <soap:operation soapAction="http://utools.auaonline.it/ReportMigrazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificaMigrazione">
+      <soap:operation soapAction="http://utools.auaonline.it/VerificaMigrazione" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigrazioneStoricoNoteEx">
+      <soap:operation soapAction="http://utools.auaonline.it/MigrazioneStoricoNoteEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigrazioneSinistri">
+      <soap:operation soapAction="http://utools.auaonline.it/MigrazioneSinistri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoSinistri">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoSinistri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaMail">
+      <soap:operation soapAction="http://utools.auaonline.it/InviaMail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaMailEx">
+      <soap:operation soapAction="http://utools.auaonline.it/InviaMailEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StrutturaIncassi">
+      <soap:operation soapAction="http://utools.auaonline.it/StrutturaIncassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RichiestaDatiIncassi">
+      <soap:operation soapAction="http://utools.auaonline.it/RichiestaDatiIncassi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RichiestaDatiIncassi_0523">
+      <soap:operation soapAction="http://utools.auaonline.it/RichiestaDatiIncassi_0523" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaStored">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaStored" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaVista">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaVista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaViste">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaViste" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaDataset">
+      <soap:operation soapAction="http://utools.auaonline.it/InviaDataset" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaDataSetVuoto">
+      <soap:operation soapAction="http://utools.auaonline.it/CreaDataSetVuoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Eval">
+      <soap:operation soapAction="http://utools.auaonline.it/Eval" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaBDA">
+      <soap:operation soapAction="http://utools.auaonline.it/AggiornaBDA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TelefonateSospese">
+      <soap:operation soapAction="http://utools.auaonline.it/TelefonateSospese" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CfSospesi">
+      <soap:operation soapAction="http://utools.auaonline.it/CfSospesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaTelefonateSospese">
+      <soap:operation soapAction="http://utools.auaonline.it/AggiornaTelefonateSospese" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoTelefonate">
+      <soap:operation soapAction="http://utools.auaonline.it/ElencoTelefonate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TelefonateCF">
+      <soap:operation soapAction="http://utools.auaonline.it/TelefonateCF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApiAttive">
+      <soap:operation soapAction="http://utools.auaonline.it/ApiAttive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBackup">
+      <soap:operation soapAction="http://utools.auaonline.it/SettingBackup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProfilo">
+      <soap:operation soapAction="http://utools.auaonline.it/LeggiProfilo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaTabelleAgenzia">
+      <soap:operation soapAction="http://utools.auaonline.it/AggiornaTabelleAgenzia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsensoGoogleFsCache">
+      <soap:operation soapAction="http://utools.auaonline.it/ConsensoGoogleFsCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FlagGoogleFsCache">
+      <soap:operation soapAction="http://utools.auaonline.it/FlagGoogleFsCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsolidaDbUnoAgenzia">
+      <soap:operation soapAction="http://utools.auaonline.it/ConsolidaDbUnoAgenzia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServizioDatiOMWSoap12" type="tns:ServizioDatiOMWSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Exq">
+      <soap12:operation soapAction="http://utools.auaonline.it/Exq" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqNoMax">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqNoMax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqStored">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqStored" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqCmdRecord">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqCmdRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqMulti">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqMulti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellaFileTemporaneo">
+      <soap12:operation soapAction="http://utools.auaonline.it/CancellaFileTemporaneo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqRecord">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqScalar">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqScalar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExqMA">
+      <soap12:operation soapAction="http://utools.auaonline.it/ExqMA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiNote">
+      <soap12:operation soapAction="http://utools.auaonline.it/LeggiNote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiungiNota">
+      <soap12:operation soapAction="http://utools.auaonline.it/AggiungiNota" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaNota">
+      <soap12:operation soapAction="http://utools.auaonline.it/AggiornaNota" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellaNota">
+      <soap12:operation soapAction="http://utools.auaonline.it/CancellaNota" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UltimaNota">
+      <soap12:operation soapAction="http://utools.auaonline.it/UltimaNota" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ControlloAttivitaInScadenza">
+      <soap12:operation soapAction="http://utools.auaonline.it/ControlloAttivitaInScadenza" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoNote">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoNote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoNoteClienti">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoNoteClienti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoAttivitaInScadenza">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoAttivitaInScadenza" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoAttivitaInScadenzaClienti">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoAttivitaInScadenzaClienti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteTabella">
+      <soap12:operation soapAction="http://utools.auaonline.it/EsisteTabella" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteDb">
+      <soap12:operation soapAction="http://utools.auaonline.it/EsisteDb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDatabase">
+      <soap12:operation soapAction="http://utools.auaonline.it/UploadDatabase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsisteMdb">
+      <soap12:operation soapAction="http://utools.auaonline.it/EsisteMdb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadDatabaseChunk">
+      <soap12:operation soapAction="http://utools.auaonline.it/UploadDatabaseChunk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadFileChunk">
+      <soap12:operation soapAction="http://utools.auaonline.it/UploadFileChunk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigraDatabase">
+      <soap12:operation soapAction="http://utools.auaonline.it/MigraDatabase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigraTutto">
+      <soap12:operation soapAction="http://utools.auaonline.it/MigraTutto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TerminaMigrazione">
+      <soap12:operation soapAction="http://utools.auaonline.it/TerminaMigrazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaDatabaseVuoto">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaDatabaseVuoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaDatabaseAgenzia">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaDatabaseAgenzia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupMdb">
+      <soap12:operation soapAction="http://utools.auaonline.it/BackupMdb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BackupSqlServer">
+      <soap12:operation soapAction="http://utools.auaonline.it/BackupSqlServer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioDati">
+      <soap12:operation soapAction="http://utools.auaonline.it/InvioDati" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportMigrazione">
+      <soap12:operation soapAction="http://utools.auaonline.it/ReportMigrazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificaMigrazione">
+      <soap12:operation soapAction="http://utools.auaonline.it/VerificaMigrazione" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigrazioneStoricoNoteEx">
+      <soap12:operation soapAction="http://utools.auaonline.it/MigrazioneStoricoNoteEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigrazioneSinistri">
+      <soap12:operation soapAction="http://utools.auaonline.it/MigrazioneSinistri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoSinistri">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoSinistri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaMail">
+      <soap12:operation soapAction="http://utools.auaonline.it/InviaMail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaMailEx">
+      <soap12:operation soapAction="http://utools.auaonline.it/InviaMailEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StrutturaIncassi">
+      <soap12:operation soapAction="http://utools.auaonline.it/StrutturaIncassi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RichiestaDatiIncassi">
+      <soap12:operation soapAction="http://utools.auaonline.it/RichiestaDatiIncassi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RichiestaDatiIncassi_0523">
+      <soap12:operation soapAction="http://utools.auaonline.it/RichiestaDatiIncassi_0523" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaStored">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaStored" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaVista">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaVista" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaViste">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaViste" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InviaDataset">
+      <soap12:operation soapAction="http://utools.auaonline.it/InviaDataset" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreaDataSetVuoto">
+      <soap12:operation soapAction="http://utools.auaonline.it/CreaDataSetVuoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Eval">
+      <soap12:operation soapAction="http://utools.auaonline.it/Eval" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaBDA">
+      <soap12:operation soapAction="http://utools.auaonline.it/AggiornaBDA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TelefonateSospese">
+      <soap12:operation soapAction="http://utools.auaonline.it/TelefonateSospese" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CfSospesi">
+      <soap12:operation soapAction="http://utools.auaonline.it/CfSospesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaTelefonateSospese">
+      <soap12:operation soapAction="http://utools.auaonline.it/AggiornaTelefonateSospese" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ElencoTelefonate">
+      <soap12:operation soapAction="http://utools.auaonline.it/ElencoTelefonate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TelefonateCF">
+      <soap12:operation soapAction="http://utools.auaonline.it/TelefonateCF" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApiAttive">
+      <soap12:operation soapAction="http://utools.auaonline.it/ApiAttive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SettingBackup">
+      <soap12:operation soapAction="http://utools.auaonline.it/SettingBackup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeggiProfilo">
+      <soap12:operation soapAction="http://utools.auaonline.it/LeggiProfilo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AggiornaTabelleAgenzia">
+      <soap12:operation soapAction="http://utools.auaonline.it/AggiornaTabelleAgenzia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsensoGoogleFsCache">
+      <soap12:operation soapAction="http://utools.auaonline.it/ConsensoGoogleFsCache" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FlagGoogleFsCache">
+      <soap12:operation soapAction="http://utools.auaonline.it/FlagGoogleFsCache" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsolidaDbUnoAgenzia">
+      <soap12:operation soapAction="http://utools.auaonline.it/ConsolidaDbUnoAgenzia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServizioDatiOMW">
+    <wsdl:port name="ServizioDatiOMWSoap" binding="tns:ServizioDatiOMWSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioDatiOMW.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServizioDatiOMWSoap12" binding="tns:ServizioDatiOMWSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/ServizioDatiOMW.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

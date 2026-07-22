@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://utools.auaonline.it/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://utools.auaonline.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://utools.auaonline.it/">
+      <s:element name="SalvaFlagPuntiVendita">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dt">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalvaFlagPuntiVenditaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SalvaFlagSoggetti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dt">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalvaFlagSoggettiResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SalvaFlagUtenze">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dt">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalvaFlagUtenzeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SalvaFlagCip">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodiceAgenzia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dt">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalvaFlagCipResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SalvaFlagPuntiVenditaSoapIn">
+    <wsdl:part name="parameters" element="tns:SalvaFlagPuntiVendita" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagPuntiVenditaSoapOut">
+    <wsdl:part name="parameters" element="tns:SalvaFlagPuntiVenditaResponse" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagSoggettiSoapIn">
+    <wsdl:part name="parameters" element="tns:SalvaFlagSoggetti" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagSoggettiSoapOut">
+    <wsdl:part name="parameters" element="tns:SalvaFlagSoggettiResponse" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagUtenzeSoapIn">
+    <wsdl:part name="parameters" element="tns:SalvaFlagUtenze" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagUtenzeSoapOut">
+    <wsdl:part name="parameters" element="tns:SalvaFlagUtenzeResponse" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagCipSoapIn">
+    <wsdl:part name="parameters" element="tns:SalvaFlagCip" />
+  </wsdl:message>
+  <wsdl:message name="SalvaFlagCipSoapOut">
+    <wsdl:part name="parameters" element="tns:SalvaFlagCipResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GestioneReteSoap">
+    <wsdl:operation name="SalvaFlagPuntiVendita">
+      <wsdl:input message="tns:SalvaFlagPuntiVenditaSoapIn" />
+      <wsdl:output message="tns:SalvaFlagPuntiVenditaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagSoggetti">
+      <wsdl:input message="tns:SalvaFlagSoggettiSoapIn" />
+      <wsdl:output message="tns:SalvaFlagSoggettiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagUtenze">
+      <wsdl:input message="tns:SalvaFlagUtenzeSoapIn" />
+      <wsdl:output message="tns:SalvaFlagUtenzeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagCip">
+      <wsdl:input message="tns:SalvaFlagCipSoapIn" />
+      <wsdl:output message="tns:SalvaFlagCipSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GestioneReteSoap" type="tns:GestioneReteSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SalvaFlagPuntiVendita">
+      <soap:operation soapAction="http://utools.auaonline.it/SalvaFlagPuntiVendita" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagSoggetti">
+      <soap:operation soapAction="http://utools.auaonline.it/SalvaFlagSoggetti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagUtenze">
+      <soap:operation soapAction="http://utools.auaonline.it/SalvaFlagUtenze" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagCip">
+      <soap:operation soapAction="http://utools.auaonline.it/SalvaFlagCip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GestioneReteSoap12" type="tns:GestioneReteSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SalvaFlagPuntiVendita">
+      <soap12:operation soapAction="http://utools.auaonline.it/SalvaFlagPuntiVendita" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagSoggetti">
+      <soap12:operation soapAction="http://utools.auaonline.it/SalvaFlagSoggetti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagUtenze">
+      <soap12:operation soapAction="http://utools.auaonline.it/SalvaFlagUtenze" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalvaFlagCip">
+      <soap12:operation soapAction="http://utools.auaonline.it/SalvaFlagCip" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GestioneRete">
+    <wsdl:port name="GestioneReteSoap" binding="tns:GestioneReteSoap">
+      <soap:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Rete.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GestioneReteSoap12" binding="tns:GestioneReteSoap12">
+      <soap12:address location="https://utools.auaonline.it/asp/199999b2d6d2b43425a0ed4f919d6194/Rete.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

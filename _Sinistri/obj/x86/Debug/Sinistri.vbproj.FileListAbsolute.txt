@@ -1,0 +1,29 @@
+C:\ApplicazioniDirezione\UTW\Sinistri.dll.config
+C:\ApplicazioniDirezione\UTW\Sinistri.dll
+C:\ApplicazioniDirezione\UTW\Sinistri.pdb
+C:\ApplicazioniDirezione\UTW\Sinistri.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormAzioni.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormBaremes.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormContatti.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormEditCell.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormEditSinistro.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormEsercizi.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormFiltri.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormImportaSinistri.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormPopUp.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormRipristino.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormSinistri.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormSinistriControparte.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.FormStatistiche.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.ucAndamento.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.ucSinistri.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.ucDettaglio.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.ucStatistiche.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\Sinistri\obj\x86\Debug\Sinistri.pdb

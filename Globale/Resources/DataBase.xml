@@ -1,0 +1,4066 @@
+<script name="creazione database">
+  <database tipo="agenzia">
+    <sql operazione="drop">      IF EXISTS (SELECT name FROM sys.databases WHERE name = N'DB{agenzia}') DROP DATABASE DBagenzia</sql>
+    <sql operazione="use">USE MASTER</sql>
+    <sql operazione="use">USE DB{agenzia}</sql>
+    <sql operazione="set">ALTER DATABASE [DBagenzia] SET AUTO_CLOSE OFF</sql>
+    <sql operazione="create">
+      CREATE DATABASE DB{agenzia}  
+      ON   
+      (   NAME = DB{agenzia},  
+          FILENAME = '{path}\DB{agenzia}.mdf',  
+          SIZE = 100MB,  
+          MAXSIZE = 4GB,  
+          FILEGROWTH = 10MB )  
+      LOG ON  
+      (   NAME = LG{agenzia},  
+          FILENAME = '{path}\LG{agenzia}.log',  
+          SIZE = 50MB,  
+          MAXSIZE = 1GB,  
+          FILEGROWTH = 25MB )
+    </sql>
+    <tabelle>
+      <!-- AVVIO PROGRAMMA DI IMPORTAZIONE ... -->
+      <!-- creazione del database ... -->
+      <!-- Creazione tabella [Ana_Abitazione] -->
+      <sql tabella="[ana_abitazione]" operazione="drop">
+        IF OBJECT_ID('dbo.[Ana_Abitazione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Abitazione]
+      </sql>
+      <sql tabella="[ana_abitazione]" operazione="create">
+        CREATE TABLE dbo.[Ana_Abitazione]
+            (
+            [CodiceFiscale] CHAR(16) NOT NULL,
+            [IdAbitazione] INT NOT NULL,
+            [CodAbitazione] CHAR(1),
+            [mq] SMALLINT,
+            [ValoreCommerciale] MONEY,
+            [Proprietario] BIT NOT NULL,
+            [Mutuo] BIT NOT NULL,
+            [ImportoAnnuale] MONEY,
+			CONSTRAINT PK_ANA_ABITAZIONE PRIMARY KEY CLUSTERED (CodiceFiscale, IdAbitazione)
+            )
+      </sql>
+      <!-- Creazione tabella [Ana_AbitazioneTipo] -->
+      <sql tabella="[ana_abitazionetipo]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_AbitazioneTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AbitazioneTipo]
+</sql>
+      <sql tabella="[ana_abitazionetipo]" operazione="create">
+CREATE TABLE dbo.[Ana_AbitazioneTipo]
+    (
+    [CodAbitazione] CHAR(1) NOT NULL,
+    [DescAbitazione] VARCHAR(20),
+	CONSTRAINT PK_ANA_ABITAZIONETIPO PRIMARY KEY CLUSTERED (CodAbitazione)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_AnalisiRca] -->
+      <sql tabella="[ana_analisirca]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_AnalisiRca]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AnalisiRca]
+</sql>
+      <sql tabella="[ana_analisirca]" operazione="create">
+CREATE TABLE dbo.[Ana_AnalisiRca]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdPolizza] INT NOT NULL,
+    [Polizza] VARCHAR(50),
+    [Convenzione] VARCHAR(255),
+    [DataScadenza] DATE,
+    [TipoVeicolo] VARCHAR(20),
+    [Marca] VARCHAR(25),
+    [Modello] VARCHAR(25),
+    [Targa] VARCHAR(25),
+    [PremioOld] MONEY,
+    [PremioNew] MONEY,
+    [Unibox] CHAR(1),
+    [GuidaEsperta] CHAR(1),
+    [Finanziamento] CHAR(1),
+    [Riparazione] CHAR(1),
+    [FlexIncendioFurto] SMALLINT,
+    [SinistroData] DATE,
+    [SinistroMalus] CHAR(1),
+    [SinistroSoN] CHAR(1),
+	CONSTRAINT PK_ANA_ANALISIRCA PRIMARY KEY CLUSTERED (CodiceFiscale, IdPolizza)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_Attivita] -->
+      <sql tabella="[ana_attivita]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_Attivita]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Attivita]
+</sql>
+      <sql tabella="[ana_attivita]" operazione="create">
+CREATE TABLE dbo.[Ana_Attivita]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdAttivita] INT NOT NULL,
+    [TipoAttivita] CHAR(1),
+    [ImpresaPubblica] BIT NOT NULL,
+    [ImpresaSettore] VARCHAR(100),
+    [ImpresaDimensione] CHAR(1),
+    [ImpresaDenominazione] VARCHAR(100),
+    [ImpresaInizio] DATE,
+    [AttivitaFase] CHAR(1),
+    [AtivitaImporto] MONEY,
+	CONSTRAINT PK_ANA_ATTIVITA PRIMARY KEY CLUSTERED (CodiceFiscale, IdAttivita)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_AttivitaCeto] -->
+      <sql tabella="[ana_attivitaceto]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_AttivitaCeto]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaCeto]
+</sql>
+      <sql tabella="[ana_attivitaceto]" operazione="create">
+CREATE TABLE dbo.[Ana_AttivitaCeto]
+    (
+    [CetoAttivita] CHAR(1) NOT NULL,
+    [DesCeto] VARCHAR(25),
+	CONSTRAINT PK_ANA_ATTIVITACETO PRIMARY KEY CLUSTERED (CetoAttivita)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_AttivitaDimensione] -->
+      <sql tabella="[ana_attivitadimensione]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_AttivitaDimensione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaDimensione]
+</sql>
+      <sql tabella="[ana_attivitadimensione]" operazione="create">
+CREATE TABLE dbo.[Ana_AttivitaDimensione]
+    (
+    [CodDimensione] CHAR(1) NOT NULL,
+    [DesDimensione] VARCHAR(25),
+	CONSTRAINT PK_ANA_ATTIVITADIMENSIONE PRIMARY KEY CLUSTERED (CodDimensione)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_AttivitaFase] -->
+      <sql tabella="[ana_attivitafase]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_AttivitaFase]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaFase]
+</sql>
+      <sql tabella="[ana_attivitafase]" operazione="create">
+CREATE TABLE dbo.[Ana_AttivitaFase]
+    (
+    [CodFase] CHAR(1) NOT NULL,
+    [DesFase] VARCHAR(25),
+	CONSTRAINT PK_ANA_ATTIVITAFASE PRIMARY KEY CLUSTERED (CodFase)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_AttivitaTipo] -->
+      <sql tabella="[ana_attivitatipo]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_AttivitaTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_AttivitaTipo]
+</sql>
+      <sql tabella="[ana_attivitatipo]" operazione="create">
+CREATE TABLE dbo.[Ana_AttivitaTipo]
+    (
+    [TipoAttivita] CHAR(1) NOT NULL,
+    [CetoAttivita] CHAR(1),
+    [DesAttivita] VARCHAR(25),
+	CONSTRAINT PK_ANA_ATTIVITATIPO PRIMARY KEY CLUSTERED (TipoAttivita)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_Diario] -->
+      <sql tabella="[ana_diario]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_Diario]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Diario]
+</sql>
+      <sql tabella="[ana_diario]" operazione="create">
+CREATE TABLE dbo.[Ana_Diario]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [Progressivo] INT NOT NULL,
+    [TipoLogging] INT,
+    [DataInserimento] DATE,
+    [Utente] VARCHAR(255),
+    [Descrizione] TEXT,
+	CONSTRAINT PK_ANA_DIARIO PRIMARY KEY CLUSTERED (CodiceFiscale, Progressivo)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FasiVendita] -->
+      <sql tabella="[ana_fasivendita]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FasiVendita]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FasiVendita]
+</sql>
+      <sql tabella="[ana_fasivendita]" operazione="create">
+CREATE TABLE dbo.[Ana_FasiVendita]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [Fase] CHAR(1) NOT NULL,
+    [Data] DATE,
+    [Utente] VARCHAR(25),
+	CONSTRAINT PK_ANA_FASIVENDITA PRIMARY KEY CLUSTERED (CodiceFiscale, Fase)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FinanzaCose] -->
+      <sql tabella="[ana_finanzacose]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FinanzaCose]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaCose]
+</sql>
+      <sql tabella="[ana_finanzacose]" operazione="create">
+CREATE TABLE dbo.[Ana_FinanzaCose]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [CodServizio] CHAR(1) NOT NULL,
+    [CodSoddisfazione] CHAR(1),
+	CONSTRAINT PK_ANA_FINANZACOSE PRIMARY KEY CLUSTERED (CodiceFiscale, CodServizio)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FinanzaCoseSoddisfazione] -->
+      <sql tabella="[ana_finanzacosesoddisfazione]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FinanzaCoseSoddisfazione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaCoseSoddisfazione]
+</sql>
+      <sql tabella="[ana_finanzacosesoddisfazione]" operazione="create">
+CREATE TABLE dbo.[Ana_FinanzaCoseSoddisfazione]
+    (
+    [CodSoddisfazione] CHAR(1) NOT NULL,
+    [DesSoddisfazione] VARCHAR(25),
+	CONSTRAINT PK_ANA_FINANZACOSESODDISFAZIONE PRIMARY KEY CLUSTERED (CodSoddisfazione)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FinanzaCoseTipo] -->
+      <sql tabella="[ana_finanzacosetipo]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FinanzaCoseTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaCoseTipo]
+</sql>
+      <sql tabella="[ana_finanzacosetipo]" operazione="create">
+CREATE TABLE dbo.[Ana_FinanzaCoseTipo]
+    (
+    [CodServizio] CHAR(1) NOT NULL,
+    [DesServizio] VARCHAR(30),
+	CONSTRAINT PK_ANA_FINANZACOSETIPO PRIMARY KEY CLUSTERED (CodServizio)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FinanzaStrumento] -->
+      <sql tabella="[ana_finanzastrumento]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FinanzaStrumento]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaStrumento]
+</sql>
+      <sql tabella="[ana_finanzastrumento]" operazione="create">
+CREATE TABLE dbo.[Ana_FinanzaStrumento]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [CodStrumento] CHAR(1) NOT NULL,
+    [Importo] MONEY,
+    [Banca] VARCHAR(255),
+    [Sim] VARCHAR(255),
+    [Tipologia] VARCHAR(255),
+    [CodEsperienza] CHAR(1),
+    [CoperturaPolizza] BIT NOT NULL,
+	CONSTRAINT PK_ANA_FINANZASTRUMENTO PRIMARY KEY CLUSTERED (CodStrumento, CodiceFiscale)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FinanzaStrumentoEsperienza] -->
+      <sql tabella="[ana_finanzastrumentoesperienza]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FinanzaStrumentoEsperienza]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaStrumentoEsperienza]
+</sql>
+      <sql tabella="[ana_finanzastrumentoesperienza]" operazione="create">
+CREATE TABLE dbo.[Ana_FinanzaStrumentoEsperienza]
+    (
+    [CodEsperienza] CHAR(1) NOT NULL,
+    [DesEsperienza] VARCHAR(25),
+	CONSTRAINT PK_ANA_FINANZASTRUMENTOESPERIENZA PRIMARY KEY CLUSTERED (CodEsperienza)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_FinanzaStrumentoTipo] -->
+      <sql tabella="[ana_finanzastrumentotipo]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_FinanzaStrumentoTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_FinanzaStrumentoTipo]
+</sql>
+      <sql tabella="[ana_finanzastrumentotipo]" operazione="create">
+CREATE TABLE dbo.[Ana_FinanzaStrumentoTipo]
+    (
+    [CodStrumento] CHAR(1) NOT NULL,
+    [DesStrumento] VARCHAR(255),
+	CONSTRAINT PK_ANA_FINANZASTRUMENTOTIPO PRIMARY KEY CLUSTERED (CodStrumento)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_Hobby] -->
+      <sql tabella="[ana_hobby]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_Hobby]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Hobby]
+</sql>
+      <sql tabella="[ana_hobby]" operazione="create">
+CREATE TABLE dbo.[Ana_Hobby]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdHobby] INT NOT NULL,
+    [DesHobby] VARCHAR(100),
+    [Frequenza] VARCHAR(25),
+    [PericoloInfortuni] BIT NOT NULL,
+    [PericoloMorte] BIT NOT NULL,
+    [CoperturaHobby] BIT NOT NULL,
+	CONSTRAINT PK_ANA_HOBBY PRIMARY KEY CLUSTERED (CodiceFiscale, IdHobby)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_NucleoFamiliare] -->
+      <sql tabella="[ana_nucleofamiliare]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_NucleoFamiliare]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_NucleoFamiliare]
+</sql>
+      <sql tabella="[ana_nucleofamiliare]" operazione="create">
+CREATE TABLE dbo.[Ana_NucleoFamiliare]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdFamiliare] INT NOT NULL,
+    [CodiceFiscaleFamiliare] VARCHAR(16),
+    [CodRelazione] CHAR(1),
+    [Nome] VARCHAR(255),
+    [Eta] SMALLINT,
+    [Convivente] BIT NOT NULL,
+    [AttivitaSvolta] VARCHAR(255),
+    [AttivitaLuogo] VARCHAR(255),
+    [AttivitaInizio] DATE,
+    [RedditoAnnuo] MONEY,
+	CONSTRAINT PK_ANA_NUCLEOFAMILIARE PRIMARY KEY CLUSTERED (CodiceFiscale, IdFamiliare)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_NucleoFamiliareRelazione] -->
+      <sql tabella="[ana_nucleofamiliarerelazione]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_NucleoFamiliareRelazione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_NucleoFamiliareRelazione]
+</sql>
+      <sql tabella="[ana_nucleofamiliarerelazione]" operazione="create">
+CREATE TABLE dbo.[Ana_NucleoFamiliareRelazione]
+    (
+    [CodRelazione] CHAR(1) NOT NULL,
+    [DesRelazione] VARCHAR(25),
+	CONSTRAINT PK_ANA_NUCLEOFAMILIARERELAZIONE PRIMARY KEY CLUSTERED (CodRelazione)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_Opzione] -->
+      <sql tabella="[ana_opzione]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_Opzione]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Opzione]
+</sql>
+      <sql tabella="[ana_opzione]" operazione="create">
+CREATE TABLE dbo.[Ana_Opzione]
+    (
+    [Progressivo] INT NOT NULL,
+    [Tipo] VARCHAR(50),
+    [Parametro] VARCHAR(255),
+    [Valore] VARCHAR(255),
+	CONSTRAINT PK_ANA_OPZIONE PRIMARY KEY CLUSTERED (Progressivo)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_PianoCodici] -->
+      <sql tabella="[ana_pianocodici]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_PianoCodici]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_PianoCodici]
+</sql>
+      <sql tabella="[ana_pianocodici]" operazione="create">
+CREATE TABLE dbo.[Ana_PianoCodici]
+    (
+    [Tipologia] CHAR(1) NOT NULL,
+    [Codice] CHAR(1),
+    [Idioma] VARCHAR(25),
+    [Ordine] INT,
+	CONSTRAINT PK_ANA_PIANOCODICI PRIMARY KEY CLUSTERED (Tipologia, Codice)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_Polizza] -->
+      <sql tabella="[ana_polizza]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_Polizza]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Polizza]
+</sql>
+      <sql tabella="[ana_polizza]" operazione="create">
+CREATE TABLE dbo.[Ana_Polizza]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdPolizza] INT NOT NULL,
+    [Polizza] VARCHAR(50),
+    [Sezione] CHAR(1),
+    [Compagnia] VARCHAR(100),
+    [Targa] VARCHAR(25),
+    [Marca] VARCHAR(25),
+    [Modello] VARCHAR(25),
+    [Doc] VARCHAR(255),
+    [DataScadenza] DATE,
+    [DataDisdetta] DATE,
+    [DataPreventivo] DATE,
+    [DataPromemoria] DATE,
+	CONSTRAINT PK_ANA_POLIZZA PRIMARY KEY CLUSTERED (CodiceFiscale, IdPolizza)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_PolizzaRamo] -->
+      <sql tabella="[ana_polizzaramo]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_PolizzaRamo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_PolizzaRamo]
+</sql>
+      <sql tabella="[ana_polizzaramo]" operazione="create">
+CREATE TABLE dbo.[Ana_PolizzaRamo]
+    (
+    [CodRamo] CHAR(1) NOT NULL,
+    [DesRamo] VARCHAR(25),
+	CONSTRAINT PK_ANA_POLIZZARAMO PRIMARY KEY CLUSTERED (CodRamo)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_Soggetto] -->
+      <sql tabella="[ana_soggetto]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_Soggetto]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_Soggetto]
+</sql>
+      <sql tabella="[ana_soggetto]" operazione="create">
+CREATE TABLE dbo.[Ana_Soggetto]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [Agenzia] CHAR(5),
+    [Subagenzia] CHAR(4),
+    [Produttore] CHAR(3),
+    [Voip] VARCHAR(255),
+    [SocialNet] VARCHAR(255),
+    [SitoWeb] VARCHAR(255),
+    [BancaIban] VARCHAR(255),
+    [BancaNome] VARCHAR(255),
+    [Convenzione] CHAR(5),
+    [CasaIndirizzo] VARCHAR(50),
+    [CasaLocalita] VARCHAR(50),
+    [CasaCap] CHAR(5),
+    [CasaProvincia] CHAR(3),
+    [LavoroIndirizzo] VARCHAR(50),
+    [LavoroLocalita] VARCHAR(50),
+    [LavoroCap] CHAR(5),
+    [LavoroProvincia] CHAR(3),
+    [AgenziaPrivacy] VARCHAR(255),
+    [Referente] VARCHAR(255),
+    [CodStatoCivile] CHAR(1),
+    [CodPagamento] CHAR(1),
+    [CodProfiloRischio] CHAR(1),
+    [PrivacyInizio] DATE,
+    [PrivacyFine] DATE,
+    [DocumentoTipo] VARCHAR(255),
+    [DocumentoNumero] VARCHAR(255),
+    [DocumentoAutorita] VARCHAR(255),
+    [DocumentoLuogo] VARCHAR(255),
+    [DocumentoRilascio] DATE,
+    [DocumentoScadenza] DATE,
+    [DipendenteMatricola] VARCHAR(255),
+    [DipendenteAzienda] VARCHAR(255),
+    [DipendenteConvenzione] VARCHAR(255),
+    [DipendenteVariazione] VARCHAR(255),
+    [TipoFiguraContraente] VARCHAR(255),
+    [TipoFiguraPresentatore] VARCHAR(255),
+    [TipoFiguraBeneficiario] VARCHAR(255),
+    [TipoFiguraAssicurato] VARCHAR(255),
+    [TipoFiguraPerContoDi] VARCHAR(255),
+    [SAE] VARCHAR(255),
+    [ATECO] VARCHAR(255),
+    [TelNumero1] VARCHAR(20),
+    [TelNota1] VARCHAR(50),
+    [TelNumero2] VARCHAR(20),
+    [TelNota2] VARCHAR(50),
+    [TelNumero3] VARCHAR(20),
+    [TelNota3] VARCHAR(50),
+    [TelNumero4] VARCHAR(20),
+    [TelNota4] VARCHAR(50),
+    [EmailIndirizzo1] VARCHAR(255),
+    [EmailNota1] VARCHAR(50),
+    [EmailIndirizzo2] VARCHAR(255),
+    [EmailNota2] VARCHAR(50),
+    [AltroIndirizzo] VARCHAR(50),
+    [AltroLocalita] VARCHAR(50),
+    [AltroCap] CHAR(5),
+    [AltroProvincia] CHAR(3),
+    [Note] TEXT,
+    [destinatarioqualifica] VARCHAR(50),
+    [destinatarionominativo] VARCHAR(50),
+    [destinatariopresso] VARCHAR(50),
+    [destinatarioindirizzo] VARCHAR(50),
+    [destinatariocap] CHAR(5),
+    [destinatariolocalita] VARCHAR(50),
+    [destinatarioprovincia] CHAR(3),
+	CONSTRAINT PK_ANA_SOGGETTO PRIMARY KEY CLUSTERED (CodiceFiscale)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_SoggettoPagamento] -->
+      <sql tabella="[ana_soggettopagamento]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_SoggettoPagamento]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SoggettoPagamento]
+</sql>
+      <sql tabella="[ana_soggettopagamento]" operazione="create">
+CREATE TABLE dbo.[Ana_SoggettoPagamento]
+    (
+    [CodPagamento] CHAR(1) NOT NULL,
+    [DesPagamento] VARCHAR(25),
+	CONSTRAINT PK_ANA_SOGGETTOPAGAMENTO PRIMARY KEY CLUSTERED (CodPagamento)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_SoggettoProfiloRischio] -->
+      <sql tabella="[ana_soggettoprofilorischio]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_SoggettoProfiloRischio]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SoggettoProfiloRischio]
+</sql>
+      <sql tabella="[ana_soggettoprofilorischio]" operazione="create">
+CREATE TABLE dbo.[Ana_SoggettoProfiloRischio]
+    (
+    [CodProfiloRischio] CHAR(1) NOT NULL,
+    [DesProfiloRischio] VARCHAR(25),
+	CONSTRAINT PK_ANA_SOGGETTOPROFILORISCHIO PRIMARY KEY CLUSTERED (CodProfiloRischio)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_SoggettoStatoCivile] -->
+      <sql tabella="[ana_soggettostatocivile]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_SoggettoStatoCivile]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SoggettoStatoCivile]
+</sql>
+      <sql tabella="[ana_soggettostatocivile]" operazione="create">
+CREATE TABLE dbo.[Ana_SoggettoStatoCivile]
+    (
+    [CodStatoCivile] CHAR(1) NOT NULL,
+    [DesStatoCivile] VARCHAR(25),
+	CONSTRAINT PK_ANA_SOGGETTOSTATOCIVILE PRIMARY KEY CLUSTERED (CodStatoCivile)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_SpesaPiano] -->
+      <sql tabella="[ana_spesapiano]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_SpesaPiano]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SpesaPiano]
+</sql>
+      <sql tabella="[ana_spesapiano]" operazione="create">
+CREATE TABLE dbo.[Ana_SpesaPiano]
+    (
+    [CodiceFiscale] CHAR(16) NOT NULL,
+    [IdSpesa] INT NOT NULL,
+    [SpesaImporto] MONEY,
+	CONSTRAINT PK_ANA_SPESAPIANO PRIMARY KEY CLUSTERED (CodiceFiscale, IdSpesa)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ana_SpesaTipo] -->
+      <sql tabella="[ana_spesatipo]" operazione="drop">
+IF OBJECT_ID('dbo.[Ana_SpesaTipo]', 'U') IS NOT NULL DROP TABLE dbo.[Ana_SpesaTipo]
+</sql>
+      <sql tabella="[ana_spesatipo]" operazione="create">
+CREATE TABLE dbo.[Ana_SpesaTipo]
+    (
+    [IdSpesa] INT NOT NULL,
+    [Frequenza] CHAR(1),
+    [Descrizione] VARCHAR(255),
+    [Dettaglio] VARCHAR(255),
+	CONSTRAINT PK_ANA_SPESATIPO PRIMARY KEY CLUSTERED (IdSpesa)
+    )
+
+</sql>
+      <!-- Creazione tabella [Unidocs_Documento] -->
+      <sql tabella="[unidocs_documento]" operazione="drop">
+IF OBJECT_ID('dbo.[Unidocs_Documento]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Documento]
+</sql>
+      <sql tabella="[unidocs_documento]" operazione="create">
+CREATE TABLE dbo.[Unidocs_Documento]
+    (
+    [IdEvidenza] INT,
+    [CodTipoDocumento] CHAR(2),
+    [DataScadenza] DATE,
+    [DataRichiesta] DATE,
+    [DataRicevuta] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [Unidocs_Evidenza] -->
+      <sql tabella="[unidocs_evidenza]" operazione="drop">
+IF OBJECT_ID('dbo.[Unidocs_Evidenza]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Evidenza]
+</sql>
+      <sql tabella="[unidocs_evidenza]" operazione="create">
+CREATE TABLE dbo.[Unidocs_Evidenza]
+    (
+    [IdEvidenza] INT,
+    [CodCompagnia] SMALLINT,
+    [CodPuntoVendita] INT,
+    [DesEvidenza] VARCHAR(255),
+    [IdOggetto] VARCHAR(50),
+    [DesNote] TEXT,
+    [CodGravita] TINYINT,
+    [CodTipoEvidenza] TINYINT,
+    [CodTipoOggetto] TINYINT,
+    [DataApertura] DATE,
+    [DataChiusura] DATE,
+    [CodiceFiscale] CHAR(16),
+    [CodiceSubAgente] INT,
+    [DataRiferimento] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [Unidocs_Promemoria] -->
+      <sql tabella="[unidocs_promemoria]" operazione="drop">
+IF OBJECT_ID('dbo.[Unidocs_Promemoria]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Promemoria]
+</sql>
+      <sql tabella="[unidocs_promemoria]" operazione="create">
+		  CREATE TABLE dbo.[Unidocs_Promemoria]
+		  (
+		  [IdPromemoria] INT,
+		  [IdEvidenza] INT,
+		  [DataEffetto] DATE,
+		  [DataScadenza] DATE,
+		  [FlagDaInviare] BIT NOT NULL,
+		  [Data1InvioPrevisto] DATE,
+		  [Data2InvioPrevisto] DATE,
+		  [Data1InvioEffettivo] DATE,
+		  [Data2InvioEffettivo] DATE,
+		  [FlagInvioEmail] BIT NOT NULL,
+		  [IndirizzoEmail] VARCHAR(50),
+		  [FlagInvioSms] BIT NOT NULL,
+		  [NumeroSms] VARCHAR(15),
+		  [IdModello] SMALLINT,
+		  [TipoDestinatario] TINYINT,
+		  [Messaggio] TEXT,
+		  [Note] TEXT,
+		  [FlagInvioPosta] BIT NOT NULL,
+		  [Flags] INT,
+		  [ConsegnatoA] BYTE
+		  )
+
+	  </sql>
+      <!-- Creazione tabella [AndamentoSinistri] -->
+      <sql tabella="[andamentosinistri]" operazione="drop">
+IF OBJECT_ID('dbo.[AndamentoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[AndamentoSinistri]
+</sql>
+      <sql tabella="[andamentosinistri]" operazione="create">
+CREATE TABLE dbo.[AndamentoSinistri]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT NOT NULL,
+    [NumeroSinistro] INT NOT NULL,
+    [AgenziaSinistro] SMALLINT NOT NULL,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [DataUltPagam] DATE,
+    [NrPosizioni] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [RiservaBilancio] FLOAT,
+    [StatoTecnico] CHAR(2),
+    [StatoBilancistico] CHAR(2),
+    )
+
+</sql>
+      <!-- Creazione tabella [BudgetAnnuo] -->
+      <sql tabella="[budgetannuo]" operazione="drop">
+IF OBJECT_ID('dbo.[BudgetAnnuo]', 'U') IS NOT NULL DROP TABLE dbo.[BudgetAnnuo]
+</sql>
+      <sql tabella="[budgetannuo]" operazione="create">
+CREATE TABLE dbo.[BudgetAnnuo]
+    (
+    [CodiceFigura] INT,
+    [Anno] SMALLINT,
+    [RamoGestione] SMALLINT,
+    [Importo] FLOAT
+    )
+
+</sql>
+      <!-- Creazione tabella [Codici] -->
+      <sql tabella="[codici]" operazione="drop">
+IF OBJECT_ID('dbo.[Codici]', 'U') IS NOT NULL DROP TABLE dbo.[Codici]
+</sql>
+      <sql tabella="[codici]" operazione="create">
+CREATE TABLE dbo.[Codici]
+    (
+    [Tipo] VARCHAR(12),
+    [Codice] SMALLINT,
+    [Descrizione] VARCHAR(20)
+    )
+
+</sql>
+      <!-- Creazione tabella [FigureProduttive] -->
+      <sql tabella="[figureproduttive]" operazione="drop">
+IF OBJECT_ID('dbo.[FigureProduttive]', 'U') IS NOT NULL DROP TABLE dbo.[FigureProduttive]
+</sql>
+      <sql tabella="[figureproduttive]" operazione="create">
+CREATE TABLE dbo.[FigureProduttive]
+    (
+    [IDFiguraProduttiva] INT,
+    [FiguraProduttiva] VARCHAR(40),
+    [DataAttivazione] DATE,
+    [DataDisattivazione] DATE,
+    [Attiva] CHAR(1),
+    )
+
+</sql>
+      <!-- Creazione tabella [RgToComparto] -->
+      <sql tabella="[rgtocomparto]" operazione="drop">
+IF OBJECT_ID('dbo.[RgToComparto]', 'U') IS NOT NULL DROP TABLE dbo.[RgToComparto]
+</sql>
+      <sql tabella="[rgtocomparto]" operazione="create">
+CREATE TABLE dbo.[RgToComparto]
+    (
+    [RamoGestione] SMALLINT,
+    [Comparto] SMALLINT,
+    [Settore] SMALLINT,
+    [Aggregato] SMALLINT
+    )
+
+</sql>
+      <!-- Creazione tabella [Assegni] -->
+      <sql tabella="[assegni]" operazione="drop">
+IF OBJECT_ID('dbo.[Assegni]', 'U') IS NOT NULL DROP TABLE dbo.[Assegni]
+</sql>
+      <sql tabella="[assegni]" operazione="create">
+CREATE TABLE dbo.[Assegni]
+    (
+    [Contraente] VARCHAR(40),
+    [Ramo] INT,
+    [Polizza] INT,
+    [DataEffettoTitolo] DATE,
+    [DataFoglioCassa] DATE,
+    [IdAssegno] VARCHAR(22),
+    [ImportoIncassato] FLOAT,
+    [ImportoAssegno] FLOAT,
+    [Annotazioni] VARCHAR(100)
+    )
+
+</sql>
+<sql tabella="[Assegni]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_ASSEGNI ON ASSEGNI (IdAssegno)
+</sql>
+      <!-- Creazione tabella [Buste] -->
+      <sql tabella="[buste]" operazione="drop">
+IF OBJECT_ID('dbo.[Buste]', 'U') IS NOT NULL DROP TABLE dbo.[Buste]
+</sql>
+      <sql tabella="[buste]" operazione="create">
+CREATE TABLE dbo.[Buste]
+    (
+    [Inviato] BIT NOT NULL,
+    [DataBusta] DATE,
+    [TipoBusta] VARCHAR(10),
+    [Tipo] CHAR(1),
+    [Agenzia] CHAR(5) NOT NULL,
+    [Ramo] INT NOT NULL,
+    [Polizza] INT NOT NULL,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(40),
+    [Appendice] INT NOT NULL,
+    [EffettoAppendice] DATE NOT NULL,
+    [EffettoTitolo] DATE NOT NULL,
+    [TipoCarico] CHAR(1) NOT NULL,
+    [DataFoglioCassa] DATE NOT NULL,
+    [Esito] CHAR(2),
+    [TotaleTitolo] REAL,
+    [Prodotto] CHAR(5),
+    [SubAgenzia] INT,
+    [Stampato] CHAR(1),
+    [Targa] VARCHAR(9),
+    [Archivio] INT,
+    [RamoGestione] INT,
+    [Nota] VARCHAR(255),
+	CONSTRAINT PK_BUSTE PRIMARY KEY CLUSTERED (Agenzia, Ramo, Polizza, Appendice, EffettoAppendice, EffettoTitolo, TipoCarico, DataFoglioCassa)
+    )
+</sql>
+    <sql tabella="[buste]" operazione="createindex">
+		 CREATE NONCLUSTERED INDEX IX1_BUSTE ON BUSTE (CodiceFiscale)
+	</sql>
+
+      <!-- Creazione tabella [ChiusuraCassa] -->
+      <sql tabella="[chiusuracassa]" operazione="drop">
+IF OBJECT_ID('dbo.[ChiusuraCassa]', 'U') IS NOT NULL DROP TABLE dbo.[ChiusuraCassa]
+</sql>
+      <sql tabella="[chiusuracassa]" operazione="create">
+CREATE TABLE dbo.[ChiusuraCassa]
+    (
+    [Protocollo] INT NOT NULL,
+    [Id] VARCHAR(6),
+    [TipoRecord] SMALLINT,
+    [Tipo] CHAR(1),
+    [PuntoVendita] INT,
+    [Sezione] CHAR(2),
+    [Segno] CHAR(1),
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [EffettoPolizza] DATE,
+    [EffettoTitolo] DATE,
+    [TipoCarico] CHAR(1),
+    [Esito] CHAR(2),
+    [TipoPagamento] CHAR(2),
+    [DataEsito] DATE,
+    [CodiceCassa] CHAR(4),
+    [Contraente] VARCHAR(40),
+    [TotaleTitolo] FLOAT,
+    [SubAgenzia] INT,
+    [TipoMovimento] VARCHAR(20),
+    [Rientro] CHAR(1),
+    [Spunta] CHAR(1),
+    [ImportoIncassato] FLOAT,
+    [DecadeDoc] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [ContiCorrenti] -->
+      <sql tabella="[conticorrenti]" operazione="drop">
+IF OBJECT_ID('dbo.[ContiCorrenti]', 'U') IS NOT NULL DROP TABLE dbo.[ContiCorrenti]
+</sql>
+      <sql tabella="[conticorrenti]" operazione="create">
+CREATE TABLE dbo.[ContiCorrenti]
+    (
+    [Conto] VARCHAR(20),
+    [Banca] VARCHAR(50)
+    )
+
+</sql>
+      <!-- Creazione tabella [Legami] -->
+      <sql tabella="[legami]" operazione="drop">
+IF OBJECT_ID('dbo.[Legami]', 'U') IS NOT NULL DROP TABLE dbo.[Legami]
+</sql>
+      <sql tabella="[legami]" operazione="create">
+CREATE TABLE dbo.[Legami]
+    (
+    [CodicePrincipale] SMALLINT,
+    [CodiceLegato] INT
+    )
+
+</sql>
+      <!-- Creazione tabella [Pagamento] -->
+      <sql tabella="[pagamento]" operazione="drop">
+IF OBJECT_ID('dbo.[Pagamento]', 'U') IS NOT NULL DROP TABLE dbo.[Pagamento]
+</sql>
+      <sql tabella="[pagamento]" operazione="create">
+CREATE TABLE dbo.[Pagamento]
+    (
+    [TipoPagamento] CHAR(2),
+    [Desk] VARCHAR(40)
+    )
+
+</sql>
+      <!-- Creazione tabella [PuntiVendita] -->
+      <sql tabella="[puntivendita]" operazione="drop">
+IF OBJECT_ID('dbo.[PuntiVendita]', 'U') IS NOT NULL DROP TABLE dbo.[PuntiVendita]
+</sql>
+      <sql tabella="[puntivendita]" operazione="create">
+CREATE TABLE dbo.[PuntiVendita]
+    (
+    [Codice] INT,
+    [Descrizione] VARCHAR(50),
+    [CodiceEssigReti] INT
+    )
+
+</sql>
+<sql tabella="[PuntiVendita]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX1_PUNTIVENDITA ON PUNTIVENDITA (Codice)
+</sql>
+<sql tabella="[PuntiVendita]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX2_PUNTIVENDITA ON PUNTIVENDITA (CodiceEssigReti)
+</sql>
+      <!-- Creazione tabella [Quadrature] -->
+      <sql tabella="[quadrature]" operazione="drop">
+IF OBJECT_ID('dbo.[Quadrature]', 'U') IS NOT NULL DROP TABLE dbo.[Quadrature]
+</sql>
+      <sql tabella="[quadrature]" operazione="create">
+CREATE TABLE dbo.[Quadrature]
+    (
+    [Data] DATE,
+    [PuntoVendita] SMALLINT,
+    [CodiceCassa] CHAR(4),
+    [B500] SMALLINT,
+    [B200] SMALLINT,
+    [B100] SMALLINT,
+    [B50] SMALLINT,
+    [B20] SMALLINT,
+    [B10] SMALLINT,
+    [B5] SMALLINT,
+    [Moneta] FLOAT,
+    [NumeroAssegni] SMALLINT,
+    [TotaleAssegni] FLOAT
+    )
+
+</sql>
+      <!-- Creazione tabella [Sezioni] -->
+      <sql tabella="[sezioni]" operazione="drop">
+IF OBJECT_ID('dbo.[Sezioni]', 'U') IS NOT NULL DROP TABLE dbo.[Sezioni]
+</sql>
+      <sql tabella="[sezioni]" operazione="create">
+CREATE TABLE dbo.[Sezioni]
+    (
+    [Ordine] SMALLINT,
+    [Codice] CHAR(2),
+    [Sezione] VARCHAR(10)
+    )
+
+</sql>
+      <!-- Creazione tabella [Clienti] -->
+      <sql tabella="[clienti]" operazione="drop">
+IF OBJECT_ID('dbo.[Clienti]', 'U') IS NOT NULL DROP TABLE dbo.[Clienti]
+</sql>
+      <sql tabella="[clienti]" operazione="create">
+		  CREATE TABLE dbo.[Clienti]
+		  (
+		  [CodiceFiscale] CHAR(16) NOT NULL,
+		  [Cognome] VARCHAR(40),
+		  [Nome] VARCHAR(25),
+		  [DataNascita] DATE,
+		  [Indirizzo] VARCHAR(60),
+		  [Cap] CHAR(5),
+		  [Localita] VARCHAR(40),
+		  [ComuneCAB] INT,
+		  [StatoCAB] SMALLINT,
+		  [Provincia] CHAR(2),
+		  [Telefono1] VARCHAR(14),
+		  [Telefono2] VARCHAR(14),
+		  [Sesso] CHAR(1),
+		  [Capofamiglia] CHAR(1),
+		  [CodiceFiscaleCF] VARCHAR(16),
+		  [CodiceFiscaleEA] VARCHAR(16),
+		  [ClienteTop] CHAR(1),
+		  [DataTop] DATE,
+		  [Produttore] SMALLINT,
+		  [StatoCivile] CHAR(2),
+		  [NucleoFamiliare] SMALLINT,
+		  [PrimaCasa] CHAR(1),
+		  [AltriImmobili] CHAR(1),
+		  [TitoliStato] CHAR(1),
+		  [FasciaReddito] CHAR(1),
+		  [Sindacati] CHAR(1),
+		  [PolizzeAltreComp] CHAR(1),
+		  [CartaCredito] CHAR(1),
+		  [EsclusioneAttivita] CHAR(1),
+		  [Ente] CHAR(1),
+		  [TipoCliente] INT,
+		  [IDSegmentoCorrente] SMALLINT,
+		  [IDSegmentoPrecedente] SMALLINT,
+		  [IDStatoCliente] CHAR(2),
+		  [IDZona] SMALLINT,
+		  [DataInserimento] DATE,
+		  [DataCessazione] DATE,
+		  [AgenziaPrevalente] INT,
+		  [SubAgenzia] INT,
+		  [SubAgenziaSIMA] INT,
+		  [DataUltimaVisita] DATE,
+		  [DataProssimaVisita] DATE,
+		  [PolizzeVigore] SMALLINT,
+		  [PolizzeStoriche] SMALLINT,
+		  [PremiCorrente] FLOAT,
+		  [SinistriCorrente] SMALLINT,
+		  [LiquidatoCorrente] FLOAT,
+		  [PremiPrecedente] FLOAT,
+		  [SinistriPrecedente] SMALLINT,
+		  [LiquidatoPrecedente] FLOAT,
+		  [PremiTotale] FLOAT,
+		  [SinistriTotale] SMALLINT,
+		  [LiquidatoTotale] FLOAT,
+		  [ConsensoPrivacy] CHAR(2),
+		  [RilascioPatente] VARCHAR(6),
+		  [Email] VARCHAR(50),
+		  [Fax] VARCHAR(14),
+		  [Cellulare] VARCHAR(14),
+		  [TelReferente] VARCHAR(14),
+		  [NomeReferente] VARCHAR(40),
+		  [TelAziendale] VARCHAR(14),
+		  [CodAvvisoScadenza] CHAR(1),
+		  [AnnoMeseInizioEsclTemp] VARCHAR(6),
+		  [AnnoMeseFineEsclTemp] VARCHAR(6),
+		  [CodModalitaIncasso] CHAR(1),
+		  [Flag1] SMALLINT,
+		  [Flag2] SMALLINT,
+		  [Flag3] SMALLINT,
+		  [RisTelefono] VARCHAR(14),
+		  [RisTelefonoNota] VARCHAR(50),
+		  [RisCellulare] VARCHAR(14),
+		  [RisCellulareNota] VARCHAR(50),
+		  [RisMail] VARCHAR(50),
+		  [RisMailNota] VARCHAR(50),
+		  [AutorizzazioneFea] CHAR(1),
+		  [DataAutorizzazioneFea] DATE,
+		  CONSTRAINT PK_CLIENTI PRIMARY KEY CLUSTERED (CodiceFiscale)
+		  )
+	  </sql>
+<sql tabella="[Clienti]" operazione="createindex">
+	CREATE NONCLUSTERED INDEX IX1_CLIENTI ON CLIENTI (Cognome)
+</sql>
+
+      <!-- Creazione tabella [Clienti1] -->
+      <sql tabella="[clienti1]" operazione="drop">
+IF OBJECT_ID('dbo.[Clienti1]', 'U') IS NOT NULL DROP TABLE dbo.[Clienti1]
+</sql>
+      <sql tabella="[clienti1]" operazione="create">
+CREATE TABLE dbo.[Clienti1]
+    (
+    [Agenzia]                       INT,
+    [AgenziaMadre]                  INT,
+    [CodiceSubagenziaAnag]          INT,
+    [CodiceProduttoreAnag]          INT,
+    [CodiceFiscale]                 VARCHAR(16),
+    [Cognome]                       VARCHAR(40),
+    [Nome]                          VARCHAR(25),
+    [EntePubblico]                  CHAR(1),
+    [ToponimoResidenza]             VARCHAR(50),
+    [IndirizzoResidenza]            VARCHAR(50),
+    [NumCivicoResidenza]            VARCHAR(15),
+    [LocalitaResidenza]             VARCHAR(50),
+    [ComuneResidenza]               VARCHAR(50),
+    [CapResidenza]                  CHAR(5),
+    [ProvinciaResidenza]            VARCHAR(5),
+    [CodiceStatoResidenza]          CHAR(3),
+    [IndirizzoResidenzaBreve]       VARCHAR(35),
+    [LocalitaResidenzaBreve]        VARCHAR(35),
+    [ComuneResidenzaBreve]          VARCHAR(30),
+    [ToponimoDomicilio]             VARCHAR(50),
+    [IndirizzoDomicilio]            VARCHAR(50),
+    [NumCivicoDomicilio]            VARCHAR(15),
+    [LocalitaDomicilio]             VARCHAR(50),
+    [ComuneDomicilio]               VARCHAR(50),
+    [CapDomicilio]                  CHAR(5),
+    [ProvinciaDomicilio]            VARCHAR(5),
+    [CodiceStatoDomicilio]          CHAR(3),
+    [IndirizzoDomicilioBreve]       VARCHAR(35),
+    [LocalitaDomicilioBreve]        VARCHAR(35),
+    [ComuneDomicilioBreve]          VARCHAR(30),
+    [TelefonoPrincipale]            VARCHAR(14),
+    [Cellulare]                     VARCHAR(14),
+    [IndirizzoEMail]                VARCHAR(100),
+    [IndirizzoPec]                  VARCHAR(100),
+    [FaxPrincipale]                 VARCHAR(14),
+    [TelefonoSecondario]            VARCHAR(14),
+    [TelefonoUfficio]               VARCHAR(14),
+    [TelefonoReferente]             VARCHAR(14),
+    [NominativoReferente]           VARCHAR(40),
+    [TipoCliente]                   CHAR(5),
+    [FlagClienteTop]                CHAR(1),
+    [ClienteTopDal]                 DATE,
+    [Sesso]                         CHAR(1),
+    [DataNascita]                   DATE,
+    [LuogoNascita]                  VARCHAR(30),
+    [TipoConsenso]                  CHAR(2),
+    [DataConsenso]                  DATE,
+    [DataRevocaConsenso]            DATE,
+    [AutorizzazioneFea]             CHAR(1),
+    [DataAutorizzazioneFea]         DATE,
+    [TipoCodiceAtecoAnag]           CHAR(1),
+    [CodiceAtecoAnag]               CHAR(6),
+    [NumDipendentiAteco]            INT,
+    [FatturatoAteco]                FLOAT,
+    [StatoCivile]                   CHAR(1),
+    [Figli]                         CHAR(1),
+    [TitoloStudio]                  CHAR(1),
+    [CasaProprieta]                 CHAR(1),
+    [CasaAffitto]                   CHAR(1),
+    [CasaSeconda]                   CHAR(1),
+    [CasaMutuo]                     CHAR(1),
+    [TipoDocumento1]                CHAR(3),
+    [NumeroDocumento1]              VARCHAR(15),
+    [AutoritaRilascioDocumento1]    VARCHAR(30),
+    [ProvinciaRilascioDocumento1]   VARCHAR(05),
+    [LocalitaRilascioDocumento1]    VARCHAR(30),
+    [DataRilascioDocumento1]        DATE,
+    [DataScadenzaDocumento1]        DATE,
+    [PresenzaCapoFamiglia]          CHAR(1),
+    [CodiceFiscaleCapoFamiglia]     VARCHAR(16),
+    [NumeroComponentiNucleo]        INT,
+    [CodiceFiscaleEnteAppartenenza] VARCHAR(16),
+    [DataInserimentoCliente]        DATE,
+    [DataCessazioneCliente]         DATE,
+    [FES]                           VARCHAR(10),
+	CONSTRAINT PK_CLIENTI PRIMARY KEY CLUSTERED (CodiceFiscale)
+    )
+</sql>
+
+      <!-- Creazione tabella [Marcatori] -->
+      <sql tabella="[marcatori]" operazione="drop">
+IF OBJECT_ID('dbo.[Marcatori]', 'U') IS NOT NULL DROP TABLE dbo.[Marcatori]
+</sql>
+      <sql tabella="[marcatori]" operazione="create">
+CREATE TABLE dbo.[Marcatori]
+    (
+    [Codice] SMALLINT,
+    [Descrizione] VARCHAR(50)
+    )
+
+</sql>
+      <!-- Creazione tabella [Rubrica] -->
+      <sql tabella="[rubrica]" operazione="drop">
+IF OBJECT_ID('dbo.[Rubrica]', 'U') IS NOT NULL DROP TABLE dbo.[Rubrica]
+</sql>
+      <sql tabella="[rubrica]" operazione="create">
+CREATE TABLE dbo.[Rubrica]
+    (
+    [Email] VARCHAR(80)
+    )
+
+</sql>
+      <!-- Creazione tabella [Unidocs_Documento] -->
+      <sql tabella="[unidocs_documento]" operazione="drop">
+IF OBJECT_ID('dbo.[Unidocs_Documento]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Documento]
+</sql>
+      <sql tabella="[unidocs_documento]" operazione="create">
+CREATE TABLE dbo.[Unidocs_Documento]
+    (
+    [IdEvidenza] INT,
+    [CodTipoDocumento] CHAR(2),
+    [DataScadenza] DATE,
+    [DataRichiesta] DATE,
+    [DataRicevuta] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [Unidocs_Evidenza] -->
+      <sql tabella="[unidocs_evidenza]" operazione="drop">
+IF OBJECT_ID('dbo.[Unidocs_Evidenza]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Evidenza]
+</sql>
+      <sql tabella="[unidocs_evidenza]" operazione="create">
+CREATE TABLE dbo.[Unidocs_Evidenza]
+    (
+    [IdEvidenza] INT,
+    [CodCompagnia] SMALLINT,
+    [CodPuntoVendita] INT,
+    [DesEvidenza] VARCHAR(255),
+    [IdOggetto] VARCHAR(50),
+    [DesNote] TEXT,
+    [CodGravita] TINYINT,
+    [CodTipoEvidenza] TINYINT,
+    [CodTipoOggetto] TINYINT,
+    [DataApertura] DATE,
+    [DataChiusura] DATE,
+    [CodiceFiscale] CHAR(16),
+    [CodiceSubAgente] INT,
+    [DataRiferimento] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [Unidocs_Promemoria] -->
+      <sql tabella="[unidocs_promemoria]" operazione="drop">
+IF OBJECT_ID('dbo.[Unidocs_Promemoria]', 'U') IS NOT NULL DROP TABLE dbo.[Unidocs_Promemoria]
+</sql>
+      <sql tabella="[unidocs_promemoria]" operazione="create">
+CREATE TABLE dbo.[Unidocs_Promemoria]
+    (
+    [IdPromemoria] INT,
+    [IdEvidenza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [FlagDaInviare] BIT NOT NULL,
+    [Data1InvioPrevisto] DATE,
+    [Data2InvioPrevisto] DATE,
+    [Data1InvioEffettivo] DATE,
+    [Data2InvioEffettivo] DATE,
+    [FlagInvioEmail] BIT NOT NULL,
+    [IndirizzoEmail] VARCHAR(50),
+    [FlagInvioSms] BIT NOT NULL,
+    [NumeroSms] VARCHAR(15),
+    [IdModello] SMALLINT,
+    [TipoDestinatario] TINYINT,
+    [Messaggio] TEXT,
+    [Note] TEXT,
+    [FlagInvioPosta] BIT NOT NULL
+    )
+
+</sql>
+      <!-- Creazione tabella [unidocs_tipodocumento] -->
+      <sql tabella="[unidocs_tipodocumento]" operazione="drop">
+IF OBJECT_ID('dbo.[unidocs_tipodocumento]', 'U') IS NOT NULL DROP TABLE dbo.[unidocs_tipodocumento]
+</sql>
+      <sql tabella="[unidocs_tipodocumento]" operazione="create">
+CREATE TABLE dbo.[unidocs_tipodocumento]
+    (
+    [codtipodocumento] CHAR(2) NOT NULL,
+    [destipodocumento] VARCHAR(100) NOT NULL,
+	CONSTRAINT PK_UNIDOCS_TIPODOCUMENTO PRIMARY KEY CLUSTERED (codtipodocumento)
+    )
+</sql>
+      <!-- Creazione tabella [Arretrati] -->
+      <sql tabella="[arretrati]" operazione="drop">
+IF OBJECT_ID('dbo.[Arretrati]', 'U') IS NOT NULL DROP TABLE dbo.[Arretrati]
+</sql>
+      <sql tabella="[arretrati]" operazione="create">
+        CREATE TABLE dbo.[Arretrati]
+        (
+        [Agenzia] INT,
+        [Ramo] SMALLINT,
+        [Polizza] INT,
+        [EffettoAppendice] DATE,
+        [NumeroAppendice] SMALLINT,
+        [EffettoTitolo] DATE,
+        [Frazionamento] CHAR(1),
+        [TipoCarico] CHAR(1),
+        [TipoMat] CHAR(1),
+        [CodiceFiscale] CHAR(16),
+        [Cognome] VARCHAR(40),
+        [Nome] VARCHAR(25),
+        [Sesso] CHAR(1),
+        [Tassabile] FLOAT,
+        [TotaleTitolo] FLOAT,
+        [Prodotto] CHAR(5),
+        [Delegataria] CHAR(3),
+        [SubAgenzia] INT,
+        [Convenzione] INT,
+        [Targa] VARCHAR(20),
+        [Modello] VARCHAR(40),
+        [RamoGestione] SMALLINT,
+        [Comparto] SMALLINT,
+        [Incassabile] BIT NOT NULL,
+        [RID] CHAR(1),
+        [PrvAcq] FLOAT,
+        [PrvInc] FLOAT,
+        [PremioRc] FLOAT,
+        [PrIF] FLOAT,
+        [PrINF] FLOAT,
+        [PrKasko] FLOAT,
+        [PrAssistenza] FLOAT,
+        [ScadenzaVincolo] DATE,
+        [EffettoPolizza] DATE,
+        [ScadenzaPolizza] DATE,
+        [RataIntermedia] CHAR(1),
+        [CodiceProduttore] INT,
+        [TotalePolizza] FLOAT,
+        [Unibox] FLOAT,
+        [Nota] VARCHAR(255)
+        )
+
+      </sql>
+      <!-- Creazione tabella [Avvisi] -->
+      <sql tabella="[avvisi]" operazione="drop">
+IF OBJECT_ID('dbo.[Avvisi]', 'U') IS NOT NULL DROP TABLE dbo.[Avvisi]
+</sql>
+      <sql tabella="[avvisi]" operazione="create">
+CREATE TABLE dbo.[Avvisi]
+    (
+    [Compagnia] TINYINT,
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [SubAgenzia] INT,
+    [Produttore] INT,
+    [ConvenzioneProvv] INT,
+    [Convenzione] INT,
+    [Appendice] SMALLINT,
+    [Frazionamento] TINYINT,
+    [Prodotto] INT,
+    [TipoCliente] INT,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(40),
+    [Indirizzo] VARCHAR(50),
+    [Cap] CHAR(5),
+    [Localita] VARCHAR(30),
+    [Provincia] CHAR(2),
+    [Sesso] CHAR(1),
+    [Delegataria] SMALLINT,
+    [Quota] REAL,
+    [FlagMigrazione] CHAR(1),
+    [TipoQT] CHAR(1),
+    [NumeroQT] INT,
+    [EffettoRata] DATE,
+    [FlagScadenzaAnnuale] CHAR(1),
+    [PremioRataNetto] FLOAT,
+    [Accessori] FLOAT,
+    [PremioRataLordo] FLOAT,
+    [ProvvAcquisto] FLOAT,
+    [ProvvIncasso] FLOAT,
+    [ProvvIncassoSub] FLOAT,
+    [ProvvAcquistoSub] FLOAT,
+    [TipoPolArd] CHAR(1),
+    [ScadenzaRata] DATE,
+    [TipoOrd] CHAR(1),
+    [Targa] VARCHAR(20),
+    [Marca] CHAR(3),
+    [Modello] VARCHAR(40),
+    [TipoPagamento] SMALLINT,
+    [StampaDirezione] CHAR(1),
+    [IdCriterioSel] SMALLINT,
+    [PrioritaCriterioSel] SMALLINT,
+    [IdModelloStampa] SMALLINT,
+    [FranchigiaFruttuosa] CHAR(1),
+    [CauzioneFranFru] FLOAT,
+    [UniboxAurobox] CHAR(1),
+    [CanoneBox] FLOAT,
+    [TipoComunicazione] SMALLINT,
+    [CodMsgDirezione] SMALLINT,
+    [CodMsgAgenzia] SMALLINT,
+    [MassimaleSinistroPreqt] REAL,
+    [MassimalePersonePreqt] REAL,
+    [MassimaleCoseAnimaliPreqt] REAL,
+    [MassimaleSinistroPostqt] REAL,
+    [MassimalePersonePostqt] REAL,
+    [MassimaleCoseAnimaliPostqt] REAL,
+    [RiformaMassimali] CHAR(2)
+    )
+
+</sql>
+<sql tabella="[AVVISI]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_AVVISI ON AVVISI (NumeroQT)
+</sql>
+
+
+      <!-- Creazione tabella [ControlloIncassi] -->
+      <sql tabella="[controlloincassi]" operazione="drop">
+IF OBJECT_ID('dbo.[ControlloIncassi]', 'U') IS NOT NULL DROP TABLE dbo.[ControlloIncassi]
+</sql>
+      <sql tabella="[controlloincassi]" operazione="create">
+CREATE TABLE dbo.[ControlloIncassi]
+    (
+    [Agenzia] INT,
+    [DataFoglioCassa] DATE,
+    [NumeroRecord] INT,
+    [Tassabile] FLOAT,
+    [TotaleLordo] FLOAT,
+    [NumeroCorrezioni] INT,
+    [Ignora] BIT NOT NULL
+    )
+
+</sql>
+<sql tabella="[ControlloIncassi]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_CONTROLLOINCASSI ON CONTROLLOINCASSI (NumeroCorrezioni)
+</sql>
+<sql tabella="[ControlloIncassi]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX2_CONTROLLOINCASSI ON CONTROLLOINCASSI (NumeroRecord)
+</sql>
+      <!-- Creazione tabella [Incassi] -->
+      <sql tabella="[incassi]" operazione="drop">
+IF OBJECT_ID('dbo.[Incassi]', 'U') IS NOT NULL DROP TABLE dbo.[Incassi]
+</sql>
+      <sql tabella="[incassi]" operazione="create">
+CREATE TABLE dbo.[Incassi]
+    (
+    [Tipo] CHAR(1),
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [Ramo] INT,
+    [Polizza] INT,
+    [DataEffettoAppendice] DATE,
+    [NumeroAppendice] SMALLINT,
+    [DataEffettoTitolo] DATE,
+    [TipoCarico] CHAR(1),
+    [TipoMat] CHAR(1),
+    [Esito] CHAR(2),
+    [TipoPagamento] CHAR(2),
+    [DataFoglioCassa] DATE,
+    [EffettivoPagamento] DATE,
+    [CodiceCassa] CHAR(4),
+    [Contraente] VARCHAR(25),
+    [CodiceFiscInc] VARCHAR(16),
+    [Tassabile] FLOAT,
+    [TotaleTitolo] FLOAT,
+    [PrvAcq] FLOAT,
+    [PrvInc] FLOAT,
+    [Delegataria] CHAR(3),
+    [CodiceSubAgente] INT,
+    [Convenzione] CHAR(5),
+    [CodiceProduttore] INT,
+    [ConvProvv] INT,
+    [ScadenzaVincolo] DATE,
+    [CodiceProdotto] CHAR(5),
+    [Frazionamento] SMALLINT,
+    [IncrProduzione] FLOAT,
+    [DiCuiARD] FLOAT,
+    [DiCuiINF] FLOAT,
+    [TariffaVita] CHAR(5),
+    [RenditaPrevista] FLOAT,
+    [RamoGestione] SMALLINT,
+    [EffettoPolizza] DATE,
+    [ScadenzaPolizza] DATE,
+    [TipoMovimento] VARCHAR(255),
+    [AliqPrvAcq] FLOAT,
+    [AliqPrvInc] FLOAT,
+    [Tutela] FLOAT,
+    [Assistenza] FLOAT,
+    [PremioRC] FLOAT,
+    [PrvFisseRC] FLOAT,
+    [CavRCA] FLOAT,
+    [PrIF] FLOAT,
+    [PrvIF] FLOAT,
+    [PrINF] FLOAT,
+    [PrvINF] FLOAT,
+    [PrKasko] FLOAT,
+    [PrvKasko] FLOAT,
+    [PrAssistenza] FLOAT,
+    [PrvAssistenza] FLOAT,
+    [SSN] FLOAT,
+    [DataScadenzaTitolo] DATE,
+    [ImportoIncassato] FLOAT,
+    [ProdottoVita] VARCHAR(20),
+    [TipoUnibox] CHAR(1),
+    [Targa] VARCHAR(9),
+    [CanoneBox] FLOAT,
+    [Quota] FLOAT,
+    [DataRegolazione] VARCHAR(10),
+    [Cin] CHAR(1),
+    [Abi] INT,
+    [Cab] INT,
+    [ContoCorrente] VARCHAR(12),
+    [RataIntermedia] CHAR(1),
+    [PuntoVendita] INT,
+	[Psico] FLOAT
+    )
+
+</sql>
+<sql tabella="[INCASSI]" operazione="createindex">
+	CREATE NONCLUSTERED INDEX IX1_INCASSI ON INCASSI (Ramo, Polizza, DataFoglioCassa)
+</sql>
+<sql tabella="[INCASSI]" operazione="createindex">
+	CREATE NONCLUSTERED INDEX IX2_INCASSI ON INCASSI (DataFoglioCassa)
+</sql>
+      <!-- Creazione tabella [MonitorQT] -->
+      <sql tabella="[monitorqt]" operazione="drop">
+IF OBJECT_ID('dbo.[MonitorQT]', 'U') IS NOT NULL DROP TABLE dbo.[MonitorQT]
+</sql>
+      <sql tabella="[monitorqt]" operazione="create">
+CREATE TABLE dbo.[MonitorQT]
+    (
+    [Agenzia] INT,
+    [Polizza] INT,
+    [Sub] SMALLINT,
+    [Produttore] SMALLINT,
+    [Effetto] DATE,
+    [TipoQT] CHAR(1),
+    [InAumento] CHAR(1),
+    [InMalus] CHAR(1),
+    [SinCONSAP] INT,
+    [SatRca] CHAR(1),
+    [SatCvt] CHAR(1),
+    [BonusFedelta] FLOAT,
+    [BonusAIRcOld] FLOAT,
+    [BonusAIRcNew] FLOAT,
+    [ScontoSinistriComfort] FLOAT,
+    [DiffRataLordo] FLOAT,
+    [UniboxOld] FLOAT,
+    [UniboxNew] FLOAT,
+    [TipoOcto] CHAR(4),
+    [TariffaKm] CHAR(1),
+    [KmPercorsi] INT,
+    [ScontoOctoRcOld] REAL,
+    [ScontoOctoRcNew] REAL,
+    [Scivolo] CHAR(1),
+    [RiparazioneFS] CHAR(1),
+    [Tagliacarta] CHAR(1),
+    [CambioFraz] CHAR(1),
+    [TotRataLordoOld] FLOAT,
+    [TotRataLordoNew] FLOAT,
+    [PercDiffTotRata] REAL,
+    [RcaLordoRataNew100] FLOAT,
+    [RcaLordoRataOld] FLOAT,
+    [RcaLordoRataNew] FLOAT,
+    [PercDiffRcaRata] REAL,
+    [ArdLordoRataOld] FLOAT,
+    [ArdLordoRataNew] FLOAT,
+    [PercDiffArdRata] REAL,
+    [CodiceFiscale] CHAR(16),
+    [Contraente] VARCHAR(40),
+    [ProprietarioCF] VARCHAR(16),
+    [Proprietario] VARCHAR(40),
+    [FrazOld] TINYINT,
+    [FrazNew] TINYINT,
+    [Targa] VARCHAR(20),
+    [TipoVeicolo] VARCHAR(20),
+    [Marca] CHAR(3),
+    [Alimentazione] CHAR(1),
+    [Kw] INT,
+    [HP] SMALLINT,
+    [CC] INT,
+    [Quintali] SMALLINT,
+    [QuintaliRim] SMALLINT,
+    [Posti] SMALLINT,
+    [PostiRim] SMALLINT,
+    [TSL] SMALLINT,
+    [EdTariffaOld] DATE,
+    [FormaTariffaOld] VARCHAR(25),
+    [FormulaTariffaOld] VARCHAR(25),
+    [OpzioneTariffaOld] VARCHAR(25),
+    [EdTariffaNew] DATE,
+    [FormaTariffaNew] VARCHAR(25),
+    [FormulaTariffaNew] VARCHAR(25),
+    [OpzioneTariffaNew] VARCHAR(25),
+    [Convenzione] INT,
+    [PercScontoConvenzione] REAL,
+    [FlexOld] REAL,
+    [PercScontoPlaf] REAL,
+    [MeritoOld] SMALLINT,
+    [PercorsoOld] CHAR(1),
+    [CuOld] SMALLINT,
+    [MeritoNew] SMALLINT,
+    [PercorsoNew] CHAR(1),
+    [CuNew] SMALLINT,
+    [Protezione] CHAR(1),
+    [MaxOld] SMALLINT,
+    [MaxNew] SMALLINT,
+    [SaturazioneMax] CHAR(1),
+    [FspOld] CHAR(1),
+    [FspNew] CHAR(1),
+    [TariffaArd] INT,
+    [ProdottoCvt] VARCHAR(7),
+    [CodiceAIOld] VARCHAR(7),
+    [CodiceAINew] VARCHAR(7),
+    [ValoreIF] FLOAT,
+    [AGOld] TINYINT,
+    [AGNew] TINYINT,
+    [INCNettoOld] FLOAT,
+    [INCNettoNew] FLOAT,
+    [INCPercFlex] REAL,
+    [INCPercAIOld] REAL,
+    [INCPercAINew] REAL,
+    [FURNettoOld] FLOAT,
+    [FURNettoNew] FLOAT,
+    [FURPercFlex] REAL,
+    [FURPercAIOld] REAL,
+    [FURPercAINew] REAL,
+    [ATMNettoOld] FLOAT,
+    [ATMNettoNew] FLOAT,
+    [ATMPercFlex] REAL,
+    [ATMPercAIOld] REAL,
+    [ATMPercAINew] REAL,
+    [ESPNettoOld] FLOAT,
+    [ESPNettoNew] FLOAT,
+    [ESPPercFlex] REAL,
+    [ESPPercAIOld] REAL,
+    [ESPPercAINew] REAL,
+    [KASNettoOld] FLOAT,
+    [KASNettoNew] FLOAT,
+    [KASPercFlex] REAL,
+    [KASPercAIOld] REAL,
+    [KASPercAINew] REAL,
+    [COLNettoOld] FLOAT,
+    [COLNettoNew] FLOAT,
+    [COLPercFlex] REAL,
+    [COLPercAIOld] REAL,
+    [COLPercAINew] REAL,
+    [GANettoOld] FLOAT,
+    [GANettoNew] FLOAT,
+    [GAPercFlex] REAL,
+    [GAPercAIOld] REAL,
+    [GAPercAINew] REAL,
+    [GASaturazione] CHAR(1),
+    [CRINettoOld] FLOAT,
+    [CRINettoNew] FLOAT,
+    [CRIPercFlex] REAL,
+    [CRIPercAIOld] REAL,
+    [CRIPercAINew] REAL,
+    [TUTNettoOld] FLOAT,
+    [TUTNettoNew] FLOAT,
+    [TUTPercFlex] REAL,
+    [TUTPercAIOld] REAL,
+    [TUTPercAINew] REAL,
+    [TUTSaturazione] CHAR(1),
+    [ASSNettoOld] FLOAT,
+    [ASSNettoNew] FLOAT,
+    [ASSPercFlex] REAL,
+    [ASSPercAIOld] REAL,
+    [ASSPercAINew] REAL,
+    [ASSSaturazione] CHAR(1),
+    [RIMBOXNettoOld] FLOAT,
+    [RIMBOXNettoNew] FLOAT,
+    [RIMBOXPercFlex] REAL,
+    [UNISALNettoOld] FLOAT,
+    [UNISALNettoNew] FLOAT,
+    [UNISALPercFlex] REAL,
+    [UNISALPercAIOld] REAL,
+    [UNISALPercAINew] REAL,
+    [UNISALSaturazione] CHAR(1),
+    [ADINettoOld] FLOAT,
+    [ADINettoNew] FLOAT,
+    [INFNettoOld] FLOAT,
+    [INFNettoNew] FLOAT,
+    [INFPercFlex] REAL,
+    [INFPercAIOld] REAL,
+    [INFPercAINew] REAL,
+    [INFSaturazione] CHAR(1),
+    [RPNettoOld] FLOAT,
+    [RPNettoNew] FLOAT,
+    [RPPercFlex] REAL,
+    [RPPercAIOld] REAL,
+    [RPPercAINew] REAL,
+    [SAPNettoOld] FLOAT,
+    [SAPNettoNew] FLOAT,
+    [SAPPercFlex] REAL,
+    [SAPPercAIOld] REAL,
+    [SAPPercAINew] REAL,
+    [Flex] BIT NOT NULL,
+    [Disdetta] BIT NOT NULL,
+    [RcaLordoForzata] FLOAT,
+    [ImportoFlexRca] FLOAT,
+    [PercFlexRca] REAL,
+    [IFLordoForzata] FLOAT,
+    [ImportoFlexIF] FLOAT,
+    [PercFlexIF] REAL,
+    [KaskoLordoForzata] FLOAT,
+    [ImportoFlexKasko] FLOAT,
+    [PercFlexKasko] FLOAT,
+    [Annotazioni] NVARCHAR(max),
+    [Fatto] BIT NOT NULL,
+    [Sostituita] BIT NOT NULL,
+    [Variata] BIT NOT NULL,
+    [AliquotaRca] FLOAT
+    )
+
+</sql>
+<sql tabella="[MONITORQT]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX1_MONITORQT ON MONITORQT (CodiceAINew)
+</sql>
+<sql tabella="[MONITORQT]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX2_MONITORQT ON MONITORQT (CodiceAIOld) 
+</sql>
+<sql tabella="[MONITORQT]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX3_MONITORQT ON MONITORQT (Polizza)
+</sql>
+      <!-- Creazione tabella [MonitorQT_KMS] -->
+      <sql tabella="[monitorqt_kms]" operazione="drop">
+IF OBJECT_ID('dbo.[MonitorQT_KMS]', 'U') IS NOT NULL DROP TABLE dbo.[MonitorQT_KMS]
+</sql>
+      <sql tabella="[monitorqt_kms]" operazione="create">
+CREATE TABLE dbo.[MonitorQT_KMS]
+    (
+    [Agenzia] INT,
+    [Polizza] INT,
+    [Sub] INT,
+    [Produttore] INT,
+    [Effetto] DATE,
+    [SEGMENTO] CHAR(20),
+    [SinCONSAP] INT,
+    [DiffRataLordo] FLOAT,
+    [CanoneOffTelRataOld] FLOAT,
+    [CanoneOffTelRataNew] FLOAT,
+    [TipoDispoOffTel] VARCHAR(10),
+    [TariffaKm] CHAR(1),
+    [KmPercorsi] INT,
+    [ScontoOffTelRCOld] REAL, 
+    [ScontoOffTelRCNew] REAL, 
+    [ScontoOffTelINCOld] REAL,
+    [ScontoOffTelINCNew] REAL,
+    [ScontoOffTelFUROld] REAL,
+    [ScontoOffTelFURNew] REAL,
+    [ScontoOffTelATMOld] REAL,
+    [ScontoOffTelATMNew] REAL,
+    [ScontoOffTelTUTOld] REAL,
+    [ScontoOffTelTUTNew] REAL,
+    [ScontoOffTelKAS_COLOld] REAL,
+    [ScontoOffTelKAS_COLNew] REAL,
+    [RiparazioneDiretta] CHAR(1),
+    [TotRataLordoOld] FLOAT,
+    [TotRataLordoNew] FLOAT,
+    [PercDiffTotRata] REAL,
+    [RcaLordoRataNew100] FLOAT,
+    [RCaLordoRataOld] FLOAT,
+    [RCaLordoRataNew] FLOAT,
+    [PercDiffRcaRata] REAL,
+    [PremioTariffaOld] FLOAT,
+    [PremioTariffaNew] FLOAT,
+    [PercScontoTotRcaOld] REAL,
+    [PercScontoTotRcaNew] REAL,
+    [PercScontoTotRca] REAL, 
+    [PercFlexOld] REAL,
+    [ScSinistriComfortOld] REAL,
+    [CVTRataLordoOld] FLOAT,
+    [CVTRataLordoNew] FLOAT,
+    [CVTPercRata] REAL,
+    [CFContraente] CHAR(16),
+    [Contraente] VARCHAR(60),                                                  
+    [CFProprietario] CHAR(16),
+    [Proprietario] VARCHAR(60),
+    [MultiPro] CHAR(1),
+    [MultiCon] CHAR(1),
+    [IndCare] INT,
+    [FrazNew] INT,
+    [Targa] VARCHAR(20),               
+    [TipoVeicolo] VARCHAR(20),
+    [Marca] CHAR(3),
+    [Alimentazione] CHAR(1),
+    [KW] INT,   
+    [HP] INT,
+    [CC] INT,   
+    [Quintali] INT,  
+    [QuintaliRim] INT,
+    [Posti] INT,
+    [PostiRim] INT,
+    [TSL] INT,
+    [EdTariffaOld] DATE,
+    [EdTariffaNew] DATE,
+    [FormaTariffaNew] VARCHAR(25),
+    [OpzioneTariffaOld] CHAR(1),
+    [ConvOld] INT,
+    [ConvNew] INT,
+    [PercScontoConv] REAL,
+    [PercPlaf] REAL,
+    [MeritoOld] INT,
+    [CuOld] INT,       
+    [MeritoNew] INT,
+    [CuNew] INT,
+    [ProtezioneOld] CHAR(1),
+    [ProtezioneNew] CHAR(1),
+    [D01Old] CHAR(1),
+    [D01New] CHAR(1),
+    [D02Old] CHAR(1),
+    [D02New] CHAR(1),
+    [D03Old] CHAR(1),
+    [D03New] CHAR(1),
+    [D04Old] CHAR(1),
+    [D04New] CHAR(1),
+    [D05Old] CHAR(1),
+    [D05New] CHAR(1),
+    [D06Old] CHAR(1),
+    [D06New] CHAR(1),
+    [D07Old] CHAR(1),
+    [D07New] CHAR(1),
+    [D08Old] CHAR(1),
+    [D08New] CHAR(1),
+    [D10Old] CHAR(1),
+    [D10New] CHAR(1),
+    [FSPOld] CHAR(2),
+    [FSPNew] CHAR(2),
+    [ValoreIFOld] FLOAT,
+    [ValoreBloccato] FLOAT,
+    [AdeguamentoAuto] CHAR(1),
+    [AliquotaTasseOld] REAL,
+    [AliquotaTasseNew] REAL,
+    [TariffaCVTOld] DATE,
+    [TariffaCVTNew] DATE,
+    [INCFormaOld] VARCHAR(12),
+    [INCFormaNew] VARCHAR(12),
+    [INCNettoOld] FLOAT,
+    [INCNettoNew] FLOAT,
+    [INCFlex] REAL,
+    [INCScontoConv] REAL,
+    [FURFormaOld] VARCHAR(12),
+    [FURFormaNew] VARCHAR(12),
+    [FURNettoOld] FLOAT,
+    [FURNettoNew] FLOAT,
+    [FURFlex] REAL,
+    [FURScontoConv] REAL,
+    [COLNettoOld] FLOAT,
+    [COLNettoNew] FLOAT,
+    [COLFlex] REAL,
+    [COLScontoConv] REAL,
+    [KASNettoOld] FLOAT,
+    [KASNettoNew] FLOAT,
+    [KASFlex] REAL,
+    [KASScontoConv] REAL,
+    [ATMNettoOld] FLOAT,
+    [ATMNettoNew] FLOAT,
+    [ATMFlex] REAL,
+    [ATMScontoConv] REAL,
+    [ESPNettoOld] FLOAT,
+    [ESPNettoNew] FLOAT,
+    [ESPFlex] REAL,
+    [ESPScontoConv] REAL,
+    [INFFormaOld] VARCHAR(12),
+    [INFFormaNew] VARCHAR(12),
+    [INFNettoOld] FLOAT,
+    [INFNettoNew] FLOAT,
+    [INFFlex] REAL,
+    [INFScontoConv] REAL,
+    [RCAExtraNettoOld] FLOAT,
+    [RCAExtraNettoNew] FLOAT,
+    [RCAExtraScontoConv] REAL,
+    [CVTExtraNettoOld] FLOAT,
+    [CVTExtraNettoNew] FLOAT,
+    [CVTExtraScontoConv] REAL,
+    [CRIFormaOld] VARCHAR(12),
+    [CRIFormaNew] VARCHAR(12),
+    [CRINettoOld] FLOAT,
+    [CRINettoNew] FLOAT,
+    [CRIFlex] REAL,
+    [CRIScontoConv] REAL,
+    [ASSFormaOld] VARCHAR(12),
+    [ASSFormaNew] VARCHAR(12),
+    [ASSNettoOld] FLOAT,
+    [ASSNettoNew] FLOAT,
+    [ASSFlex] REAL,
+    [ASSScontoConv] REAL,
+    [TUTFormaOld] VARCHAR(12),
+    [TUTFormaNew] VARCHAR(12),
+    [TUTNettoOld] FLOAT,
+    [TUTNettoNew] FLOAT,
+    [TUTFlex] REAL,
+    [TUTScontoConv] REAL,
+    [DOMNettoOld] FLOAT,
+    [DOMNettoNew] FLOAT,
+    [DOMFlex] REAL,
+    [DOMScontoConv] REAL,
+    [BOXNettoOld] FLOAT,
+    [BOXNettoNew] FLOAT,
+    [BOXFlex] REAL,
+    [BOXScontoConv] REAL,
+    [GUANettoOld] FLOAT,
+    [GUANettoNew] FLOAT,
+    [GUAFlex] REAL,
+    [GUAScontoConv] REAL,
+    [MERFormaOld] VARCHAR(12),
+    [MERFormaNew] VARCHAR(12),
+    [MERNettoOld] FLOAT,
+    [MERNettoNew] FLOAT,
+    [MERFlex] REAL,
+    [MERScontoConv] REAL,
+    [SAPNettoOld] FLOAT,
+    [SAPNettoNew] FLOAT,
+    [SAPFlex] REAL,
+    [SAPScontoConv] REAL,
+    [PSINettoOld] FLOAT,
+    [PSINettoNew] FLOAT,
+    [PSIFlex] REAL,
+    [PSIScontoConv] REAL,
+    [ScontoSinistriComfort] REAL,
+    [OpzioneTariffaNew] CHAR(1),
+    [ValoreVeicoloNew] FLOAT,
+    [MaxOld] CHAR(50),
+    [MaxNew] CHAR(50),
+    [D11Old] CHAR(1),
+    [D11New] CHAR(1),
+    [D12Old] CHAR(1),
+    [D12New] CHAR(1),
+    [GiorniUtilizzo] INT,
+    [Flex] BIT,
+    [Disdetta] BIT,
+    [RcaLordoForzata] FLOAT,
+    [ImportoFlexRca] FLOAT,
+    [PercFlexRca] REAL,
+    [IFLordoForzata] FLOAT,
+    [ImportoFlexIF] FLOAT,
+    [PercFlexIF] REAL,
+    [KaskoLordoForzata] FLOAT,
+    [ImportoFlexKasko] FLOAT,
+    [PercFlexKasko] REAL,
+    [Annotazioni] NVARCHAR(max),
+    [Fatto] BIT,
+    [Sostituita] BIT,
+    [Variata] BIT,
+    [AliquotaRca] FLOAT
+    )
+
+</sql>
+<sql tabella="[MONITORQT_KMS]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX3_MONITORQT_KMS ON MONITORQT_KMS (Polizza)
+</sql>
+      <!-- Creazione tabella [Registro] -->
+      <sql tabella="[registro]" operazione="drop">
+IF OBJECT_ID('dbo.[Registro]', 'U') IS NOT NULL DROP TABLE dbo.[Registro]
+</sql>
+      <sql tabella="[registro]" operazione="create">
+CREATE TABLE dbo.[Registro]
+    (
+    [Errore] BIT NOT NULL,
+    [Importazione] DATE,
+    [Agenzia] INT,
+    [Giorno] DATE,
+    [Descrizione] VARCHAR(100),
+    [TotaleEssig] FLOAT,
+    [TotaleDownload] FLOAT,
+    [Differenza] FLOAT,
+    [Tipo] VARCHAR(10)
+    )
+
+</sql>
+      
+      <!-- Creazione tabella [StoricoPostalizzazione] -->
+      <sql tabella="[storicopostalizzazione]" operazione="drop">
+IF OBJECT_ID('dbo.[StoricoPostalizzazione]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoPostalizzazione]
+</sql>
+      <sql tabella="[storicopostalizzazione]" operazione="create">
+      CREATE TABLE dbo.[StoricoPostalizzazione]
+      (   
+      [DataInvio] DATETIME,
+      [FileDati] CHAR(30),
+      [IdCampagna] INT,
+      [Clienti] INT,
+      [Titoli] INT,
+      [Comunicazioni] INT,
+      [DataRevoca] DATETIME
+      )
+</sql>
+
+      <!-- Creazione tabella [Postalizzazione] -->
+      <sql tabella="[postalizzazione]" operazione="drop">
+IF OBJECT_ID('dbo.[Postalizzazione]', 'U') IS NOT NULL DROP TABLE dbo.[Postalizzazione]
+</sql>
+      <sql tabella="[postalizzazione]" operazione="create">
+      CREATE TABLE dbo.[Postalizzazione]
+      (
+      [Selezionato] YESNO,
+      [SenzaPremio] YESNO,
+      [Agenzia] INT,
+      [SubAgenzia] SMALLINT,
+      [Ramo] SMALLINT,
+      [Polizza] INT,
+      [EffettoTitolo] DATE,
+      [TipoCarico] CHAR(1),
+      [CodiceFiscale] CHAR(16),
+      [TotaleTitolo] FLOAT,
+      [Frazionamento] SMALLINT,
+      [Targa] VARCHAR(20),
+      [Prodotto] CHAR(5),
+      [Convenzione] INT,
+      [RamoGestione] SMALLINT,
+      [ScadenzaPolizza] DATE,
+      [Tipo] CHAR(1),
+      [Contraente] VARCHAR(40),
+      [Sesso] CHAR(1),
+      [RataIntermedia] CHAR(1),
+      [RID] CHAR(1),
+      [Delegataria] SMALLINT,
+      [Quota] SMALLINT,
+      [ImportoQuota] FLOAT
+   )
+</sql>
+
+      <!-- Creazione tabella [CalendarioDoc] -->
+      <sql tabella="[calendariodoc]" operazione="drop">
+IF OBJECT_ID('dbo.[CalendarioDoc]', 'U') IS NOT NULL DROP TABLE dbo.[CalendarioDoc]
+</sql>
+      <sql tabella="[calendariodoc]" operazione="create">
+CREATE TABLE dbo.[CalendarioDoc]
+    (
+    [Agenzia] CHAR(5),
+    [TipoFile] SMALLINT,
+    [Codice] SMALLINT,
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [NomeFile] VARCHAR(50),
+    [DataRicezione] DATE
+    )
+
+</sql>
+<sql tabella="[CALENDARIODOC]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX1_CALENDARIODOC ON CALENDARIODOC (Codice)
+</sql>
+      <!-- Creazione tabella [CalendarioOmnia] -->
+      <sql tabella="[calendarioomnia]" operazione="drop">
+IF OBJECT_ID('dbo.[CalendarioOmnia]', 'U') IS NOT NULL DROP TABLE dbo.[CalendarioOmnia]
+</sql>
+      <sql tabella="[calendarioomnia]" operazione="create">
+CREATE TABLE dbo.[CalendarioOmnia]
+    (
+    [TipoFile] CHAR(2),
+    [UltimoAggiornamento] DATE,
+    [Consolida] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [CalendarioUt] -->
+      <sql tabella="[calendariout]" operazione="drop">
+IF OBJECT_ID('dbo.[CalendarioUt]', 'U') IS NOT NULL DROP TABLE dbo.[CalendarioUt]
+</sql>
+      <sql tabella="[calendariout]" operazione="create">
+CREATE TABLE dbo.[CalendarioUt]
+    (
+    [Agenzia] CHAR(5),
+    [TipoFile] CHAR(2),
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [NomeFile] VARCHAR(50),
+    [DataRicezione] DATE,
+    [Consolida] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [Cip] -->
+      <sql tabella="[cip]" operazione="drop">
+IF OBJECT_ID('dbo.[Cip]', 'U') IS NOT NULL DROP TABLE dbo.[Cip]
+</sql>
+      <sql tabella="[cip]" operazione="create">
+CREATE TABLE dbo.[Cip]
+    (
+    [Selezionato] YESNO,
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [Cip] INT,
+    [DeskCip] VARCHAR(40),
+    [CognomeComponente] VARCHAR(40),
+    [NomeComponente] VARCHAR(20),
+    [PuntoVendita] INT,
+    [RegimeFiscale] INT,
+    [DeskRegimeFiscale] VARCHAR(20),
+    [EstrattoConto] CHAR(1),
+    [Flessibilita] CHAR(1),
+    [DerogaAgenzia] CHAR(1),
+    [DerogaPolizza] CHAR(1),
+    [CognomeSoggetto] VARCHAR(40),
+    [NomeSoggetto] VARCHAR(20),
+    [CfComponente] VARCHAR(16),
+    [CfSoggetto] VARCHAR(16),
+    [Ruolo] CHAR(5),
+    [DeskRuolo] VARCHAR(22),
+    [PD00] CHAR(1),
+    [EnteGestore] VARCHAR(16),
+    [AgenziaMadre] INT,
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [CaricoProvv] CHAR(1),
+    [TipoCip] VARCHAR(12),
+    [TipoSede] VARCHAR(20),
+    [NumeroRegistro] VARCHAR(10),
+    [DataRegistro] DATE,
+    [Flex] CHAR(1),
+    [FlexInizio] DATE,
+    [FlexFine] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [ContattiCip] -->
+      <sql tabella="[contatticip]" operazione="drop">
+IF OBJECT_ID('dbo.[ContattiCip]', 'U') IS NOT NULL DROP TABLE dbo.[ContattiCip]
+</sql>
+      <sql tabella="[contatticip]" operazione="create">
+CREATE TABLE dbo.[ContattiCip]
+    (
+    [Cip] INT NOT NULL,
+    [Email] VARCHAR(50),
+    [Cellulare] VARCHAR(15),
+	CONSTRAINT PK_CONTATTICIP PRIMARY KEY CLUSTERED (Cip)
+    )
+
+</sql>
+      <!-- Creazione tabella [GruppiCip] -->
+      <sql tabella="[gruppicip]" operazione="drop">
+IF OBJECT_ID('dbo.[GruppiCip]', 'U') IS NOT NULL DROP TABLE dbo.[GruppiCip]
+</sql>
+      <sql tabella="[gruppicip]" operazione="create">
+CREATE TABLE dbo.[GruppiCip]
+    (
+    [Gruppo] INT,
+    [Descrizione] VARCHAR(20),
+    [Cip] INT
+    )
+
+</sql>
+      <!-- Creazione tabella [InfoDatabase] -->
+      <sql tabella="[infodatabase]" operazione="drop">
+IF OBJECT_ID('dbo.[InfoDatabase]', 'U') IS NOT NULL DROP TABLE dbo.[InfoDatabase]
+</sql>
+      <sql tabella="[infodatabase]" operazione="create">
+CREATE TABLE dbo.[InfoDatabase]
+    (
+    [Proprieta] VARCHAR(100),
+    [Valore] VARCHAR(100)
+    )
+
+</sql>
+      <!-- Creazione tabella [Punti_Vendita] -->
+      <sql tabella="[punti_vendita]" operazione="drop">
+IF OBJECT_ID('dbo.[Punti_Vendita]', 'U') IS NOT NULL DROP TABLE dbo.[Punti_Vendita]
+</sql>
+      <sql tabella="[punti_vendita]" operazione="create">
+CREATE TABLE dbo.[Punti_Vendita]
+    (
+    [Selezionato] YESNO,
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [PuntoVenditaAgenzia] INT,
+    [PuntoVenditaLivello2] INT,
+    [PuntoVenditaLivello3] INT,
+    [DeskPuntoVendita] VARCHAR(40),
+    [TipoPuntoVendita] VARCHAR(20),
+    [Indirizzo] VARCHAR(40),
+    [CAP] CHAR(5),
+    [Localita] VARCHAR(30),
+    [Provincia] CHAR(5),
+    [DataInizio] DATE,
+    [DataFine] DATE,
+    [Meccanizzazione] VARCHAR(20),
+    [Telefono1] VARCHAR(15),
+    [Telefono2] VARCHAR(15),
+    [Telefono3] VARCHAR(15),
+    [Fax] VARCHAR(15)
+    )
+
+</sql>
+      <!-- Creazione tabella [RegistroAttivita] -->
+      <sql tabella="[registroattivita]" operazione="drop">
+IF OBJECT_ID('dbo.[RegistroAttivita]', 'U') IS NOT NULL DROP TABLE dbo.[RegistroAttivita]
+</sql>
+      <sql tabella="[registroattivita]" operazione="create">
+CREATE TABLE dbo.[RegistroAttivita]
+    (
+    [Data] DATE,
+    [TipoAttivita] INT,
+    [Utente] VARCHAR(15),
+    [Protocollo] VARCHAR(20)
+    )
+
+</sql>
+      <!-- Creazione tabella [Soggetti] -->
+      <sql tabella="[soggetti]" operazione="drop">
+IF OBJECT_ID('dbo.[Soggetti]', 'U') IS NOT NULL DROP TABLE dbo.[Soggetti]
+</sql>
+      <sql tabella="[soggetti]" operazione="create">
+CREATE TABLE dbo.[Soggetti]
+    (
+    [Selezionato] YESNO,
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [EnteGestore] VARCHAR(16),
+    [CfSoggetto] VARCHAR(16),
+    [CognomeSoggetto] VARCHAR(40),
+    [NomeSoggetto] VARCHAR(20),
+    [CfComponente] VARCHAR(16),
+    [CognomeComponente] VARCHAR(40),
+    [NomeComponente] VARCHAR(20),
+    [Sesso] CHAR(1),
+    [RuoloEssig] CHAR(5),
+    [DeskRuoloEssig] VARCHAR(100),
+    [DataInizioRuolo] DATE,
+    [IncaricoEssig] CHAR(1),
+    [DeskIncaricoEssig] VARCHAR(20),
+    [CodiceIsvap] INT,
+    [DeskCodiceIsvap] VARCHAR(100),
+    [RamoRca] CHAR(1),
+    [RamoPersone] CHAR(1),
+    [RamoAziende] CHAR(1),
+    [RamoVita] CHAR(1),
+    [ProdottiBancari] CHAR(1),
+    [InizioMandato] DATE,
+    [FineMandato] DATE,
+    [CausaleFineMandato] VARCHAR(20),
+    [EstrattoConto] CHAR(1),
+    [DerogaAgenzia] CHAR(1),
+    [FormaSoc] INT,
+    [DeskFormaSoc] VARCHAR(20),
+    [NumeroRegistro] VARCHAR(10),
+    [DataRegistro] DATE,
+    [OreFormazione] INT,
+    [Plurimandatario] CHAR(1),
+    [RegimeFiscale] INT,
+    [DeskRegimeFiscale] VARCHAR(20),
+    [Telefono1] VARCHAR(15),
+    [Telefono2] VARCHAR(15),
+    [Promotore] CHAR(1),
+    [GruppoUnipol] CHAR(1),
+    [PresenzaPD] CHAR(1),
+    [RuoloPD] CHAR(5),
+    [TipoOrario] CHAR(2),
+    [Email] VARCHAR(50),
+    [PrimoReferente] VARCHAR(30),
+    [NumeroIscrizione] VARCHAR(10),
+    [Incarico] VARCHAR(20),
+    [Contatti] VARCHAR(40)
+    )
+
+</sql>
+      <!-- Creazione tabella [TipoAttivita] -->
+      <sql tabella="[tipoattivita]" operazione="drop">
+IF OBJECT_ID('dbo.[TipoAttivita]', 'U') IS NOT NULL DROP TABLE dbo.[TipoAttivita]
+</sql>
+      <sql tabella="[tipoattivita]" operazione="create">
+CREATE TABLE dbo.[TipoAttivita]
+    (
+    [codtipoattivita] SMALLINT NOT NULL,
+    [destipoattivita] VARCHAR(50),
+	CONSTRAINT PK_TIPOATTIVITA PRIMARY KEY CLUSTERED (codtipoattivita)
+    )
+
+</sql>
+      <!-- Creazione tabella [Utenze] -->
+      <sql tabella="[utenze]" operazione="drop">
+IF OBJECT_ID('dbo.[Utenze]', 'U') IS NOT NULL DROP TABLE dbo.[Utenze]
+</sql>
+      <sql tabella="[utenze]" operazione="create">
+CREATE TABLE dbo.[Utenze]
+    (
+    [Selezionato] YESNO,
+    [Compagnia] INT,
+    [Agenzia] INT,
+    [CfComponente] VARCHAR(16),
+    [NomeComponente] VARCHAR(60),
+    [Utenza] VARCHAR(8),
+    [StatoUtenza] VARCHAR(15),
+    [Profilo] CHAR(1),
+    [Ruolo] CHAR(5),
+    [NomeSoggetto] VARCHAR(60)
+    )
+
+</sql>
+      <!-- Creazione tabella [AttivitaQT] -->
+      <sql tabella="[attivitaqt]" operazione="drop">
+IF OBJECT_ID('dbo.[AttivitaQT]', 'U') IS NOT NULL DROP TABLE dbo.[AttivitaQT]
+</sql>
+      <sql tabella="[attivitaqt]" operazione="create">
+CREATE TABLE dbo.[AttivitaQT]
+    (
+    [Aggiornato] DATE,
+    [Attivita] SMALLINT,
+    [Chiusura] DATE,
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [Sub] SMALLINT,
+    [Convenzione] INT,
+    [Fraz] SMALLINT,
+    [CodiceFiscale] CHAR(255),
+    [Contraente] VARCHAR(255),
+    [DataEffettoTitolo] DATE,
+    [DataScadenzaTitolo] DATE,
+    [ScadenzaVincolo] DATE,
+    [DataSospensione] DATE,
+    [DataImma] VARCHAR(255),
+    [Clausole] VARCHAR(255),
+    [Veicolo] SMALLINT,
+    [TipoVeicolo] VARCHAR(255),
+    [Targa] VARCHAR(255),
+    [Marca] VARCHAR(255),
+    [Modello] VARCHAR(255),
+    [Infocar] VARCHAR(255),
+    [Descrizione] VARCHAR(255),
+    [Messaggio] VARCHAR(255),
+    [Premio] FLOAT,
+    [Quota] SMALLINT,
+    [Delagataria] INT,
+    [Coass1] INT,
+    [Quota1] INT,
+    [PremioCoass1] FLOAT,
+    [Coass2] INT,
+    [Quota2] INT,
+    [PremioCoass2] FLOAT,
+    [Coass3] INT,
+    [Quota3] INT,
+    [PremioCoass3] FLOAT,
+    [Prodotto] VARCHAR(255),
+    [EsercizioSinistro] INT,
+    [AgenziaSinistro] INT,
+    [NumeroSinistro] INT,
+    [Franchigia] FLOAT
+    )
+
+</sql>
+      <!-- Creazione tabella [BudgetFlex] -->
+      <sql tabella="[budgetflex]" operazione="drop">
+IF OBJECT_ID('dbo.[BudgetFlex]', 'U') IS NOT NULL DROP TABLE dbo.[BudgetFlex]
+</sql>
+      <sql tabella="[budgetflex]" operazione="create">
+CREATE TABLE dbo.[BudgetFlex]
+    (
+    [Anno] INT,
+    [Codice] INT,
+    [ScontoMedio] REAL,
+    [ScontoMassimo] REAL
+    )
+
+</sql>
+<sql tabella="[BUDGETFLEX]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_BUDGETFLEX ON BUDGETFLEX (Codice)
+</sql>
+      <!-- Creazione tabella [CodiciAttivita] -->
+      <sql tabella="[codiciattivita]" operazione="drop">
+IF OBJECT_ID('dbo.[CodiciAttivita]', 'U') IS NOT NULL DROP TABLE dbo.[CodiciAttivita]
+</sql>
+      <sql tabella="[codiciattivita]" operazione="create">
+CREATE TABLE dbo.[CodiciAttivita]
+    (
+    [CodiceAttivita] SMALLINT,
+    [Desk] VARCHAR(20)
+    )
+
+</sql>
+<sql tabella="[]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_CODICIATTIVITA ON CODICIATTIVITA (CodiceAttivita)
+</sql>
+      <!-- Creazione tabella [ElencoFlex] -->
+      <sql tabella="[elencoflex]" operazione="drop">
+IF OBJECT_ID('dbo.[ElencoFlex]', 'U') IS NOT NULL DROP TABLE dbo.[ElencoFlex]
+</sql>
+      <sql tabella="[elencoflex]" operazione="create">
+CREATE TABLE dbo.[ElencoFlex]
+    (
+    [Aggiornato] DATE,
+    [Agenzia] INT,
+    [Ramo] INT,
+    [Polizza] INT,
+    [Contraente] VARCHAR(255),
+    [Sub] INT,
+    [Prodotto] VARCHAR(255),
+    [PremioAnnuo] FLOAT,
+    [PremioCed] FLOAT,
+    [Delta] FLOAT,
+    [DataEmissione] DATE,
+    [Quota] INT,
+    [Movimento] VARCHAR(255),
+    [Riforma] BIT NOT NULL
+    )
+
+</sql>
+      <!-- Creazione tabella [FlexRE] -->
+      <sql tabella="[flexre]" operazione="drop">
+IF OBJECT_ID('dbo.[FlexRE]', 'U') IS NOT NULL DROP TABLE dbo.[FlexRE]
+</sql>
+      <sql tabella="[flexre]" operazione="create">
+CREATE TABLE dbo.[FlexRE]
+    (
+    [Codice] INT,
+    [TipoFlex] CHAR(2),
+    [Desk] VARCHAR(100)
+    )
+
+</sql>
+<sql tabella="[FLEXRE]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_FLEXRE ON FLEXRE (Codice)
+</sql>
+      <!-- Creazione tabella [Prodotto2Flex] -->
+      <sql tabella="[prodotto2flex]" operazione="drop">
+IF OBJECT_ID('dbo.[Prodotto2Flex]', 'U') IS NOT NULL DROP TABLE dbo.[Prodotto2Flex]
+</sql>
+      <sql tabella="[prodotto2flex]" operazione="create">
+CREATE TABLE dbo.[Prodotto2Flex]
+    (
+    [Prodotto] FLOAT,
+    [TipoFlex] CHAR(2),
+    [CodiceSettoreFlex] INT
+    )
+
+</sql>
+      <!-- Creazione tabella [SinistriMemo] -->
+      <sql tabella="[sinistrimemo]" operazione="drop">
+IF OBJECT_ID('dbo.[SinistriMemo]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriMemo]
+</sql>
+      <sql tabella="[sinistrimemo]" operazione="create">
+CREATE TABLE dbo.[SinistriMemo]
+    (
+    [Utente] VARCHAR(14),
+    [DataModifica] SMALLDATETIME,
+    [Memo] NVARCHAR(max),
+    [Allarme] DATE,
+    [Tipo] CHAR(1),
+    [Id] INT NOT NULL,
+    [IdNota] VARCHAR(20),
+    [CodiceFiscale] CHAR(16),
+    [DataCommit] DATETIME,
+	CONSTRAINT PK_SINISTRIMEMO PRIMARY KEY CLUSTERED (Id)
+    )
+
+</sql>
+      <!-- Creazione tabella [BDA] -->
+      <sql tabella="[bda]" operazione="drop">
+IF OBJECT_ID('dbo.[BDA]', 'U') IS NOT NULL DROP TABLE dbo.[BDA]
+</sql>
+      <sql tabella="[bda]" operazione="create">
+CREATE TABLE dbo.[BDA]
+    (
+    [BloccoTarga] BIT NOT NULL,
+    [Aggiornato] DATE,
+    [ProvenienzaTarga] CHAR(2),
+    [CodiceFiscaleStorno] CHAR(16),
+    [Targa] VARCHAR(20) NOT NULL,
+    [ClasseRca] CHAR(3),
+    [CartaCircolazione] DATE,
+    [MotivoEmissioneCarta] VARCHAR(40),
+    [Immatricolazione] DATE,
+    [Modello] VARCHAR(40),
+    [Cilindrata] REAL,
+    [HP] REAL,
+    [KW] REAL,
+    [Alimentazione] CHAR(5),
+    [CodiceCompagnia] INT,
+    [CodiceFiscale] CHAR(16),
+    [Effetto] DATE,
+    [ScadenzaCopertura] DATE,
+    [ScadenzaContratto] DATE,
+    [Tariffa] VARCHAR(15),
+    [ClasseTariffa] VARCHAR(10),
+    [DataSinistro] DATE,
+    [Prodotto] CHAR(5),
+    [Ramo] INT,
+    [Polizza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [Frazionamento] INT,
+    [Convenzione] CHAR(5),
+    [IdStorno] CHAR(2),
+    [DataStorno] DATE,
+    [UltimoPremio] REAL,
+    [IncendioFurto] REAL,
+	CONSTRAINT PK_BDA PRIMARY KEY CLUSTERED (Targa)
+    )
+
+</sql>
+<sql tabella="[BDA]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX1_BDA ON BDA (CodiceCompagnia)
+</sql>
+<sql tabella="[BDA]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX2_BDA ON BDA (CodiceFiscale)
+</sql>
+<sql tabella="[BDA]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX4_BDA ON BDA (IdStorno)
+</sql>
+      <!-- Creazione tabella [MovPolizze] -->
+      <sql tabella="[movpolizze]" operazione="drop">
+IF OBJECT_ID('dbo.[MovPolizze]', 'U') IS NOT NULL DROP TABLE dbo.[MovPolizze]
+</sql>
+      <sql tabella="[movpolizze]" operazione="create">
+CREATE TABLE dbo.[MovPolizze]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [DataPrimaQuietanza] DATE,
+    [Frazionamento] INT,
+    [Canale] VARCHAR(10),
+    [CodiceSubAgente] INT,
+    [CodiceSubAgenteSIMA] INT,
+    [CodiceProduttore] INT,
+    [CodiceProduttoreSIMA] INT,
+    [CodiceProdotto] CHAR(5),
+    [TotalePremioAnnuo] FLOAT,
+    [Targa] VARCHAR(20),
+    [CavalliFiscali] INT,
+    [Convenzione] INT,
+    [IDStorno] CHAR(2),
+    [DataStorno] DATE,
+    [TipoCarico] SMALLINT,
+    [Clausole] VARCHAR(41),
+    [TipoTariffa] CHAR(1),
+    [ClasseBonusMalus] SMALLINT,
+    [CombinazioneMassimali] SMALLINT,
+    [SettoreTariffario] CHAR(1),
+    [ValoreIncendioFurto] FLOAT,
+    [CodiceGaranzieAccessorie] SMALLINT,
+    [CodiceGaranziaInfortuni] SMALLINT,
+    [DiariaRitiroPatente] FLOAT,
+    [CodiceUtilizzoVeicolo] CHAR(1),
+    [AlimentazioneVeicolo] CHAR(1),
+    [ProfessioneRCA] SMALLINT,
+    [CodicePagamento] SMALLINT,
+    [Delegataria] SMALLINT,
+    [Quota] REAL,
+    [ClasseRca] CHAR(3),
+    [UsoRca] CHAR(2),
+    [CodiceProdottoOld] CHAR(5),
+    [RamoGestione] SMALLINT,
+    [TipoPolProd] SMALLINT,
+    [ImmatricVeicolo] VARCHAR(7),
+    [CompagniaSost] SMALLINT,
+    [AgenziaSost] INT,
+    [RamoSost] SMALLINT,
+    [PolizzaSost] INT,
+    [AnnoMeseCompetenza] VARCHAR(6),
+    [DataElaborazione] DATE,
+    [FlagSospesa] CHAR(2),
+    [DataEffettoSospesa] DATE,
+    [FlagFlessibilita] CHAR(1),
+    [PercentualeFlessibilita] FLOAT,
+    [FlagRegolazionePremio] CHAR(1),
+    [EsercizioCompetenza] INT,
+    [MarcaVeicolo] VARCHAR(14)
+    )
+
+</sql>
+      <!-- Creazione tabella [Polizze] -->
+      <sql tabella="[polizze]" operazione="drop">
+IF OBJECT_ID('dbo.[Polizze]', 'U') IS NOT NULL DROP TABLE dbo.[Polizze]
+</sql>
+      <sql tabella="[polizze]" operazione="create">
+CREATE TABLE dbo.[Polizze]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [Agenzia] INT NOT NULL,
+    [Ramo] SMALLINT NOT NULL,
+    [Polizza] INT NOT NULL,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [DataPrimaQuietanza] DATE,
+    [Frazionamento] INT,
+    [Canale] VARCHAR(10),
+    [CodiceSubAgente] INT,
+    [CodiceSubAgenteSIMA] INT,
+    [CodiceProduttore] INT,
+    [CodiceProduttoreSIMA] INT,
+    [CodiceProdotto] CHAR(5),
+    [TotalePremioAnnuo] FLOAT,
+    [Targa] VARCHAR(20),
+    [CavalliFiscali] INT,
+    [Convenzione] INT,
+    [IDStorno] CHAR(2),
+    [DataStorno] DATE,
+    [TipoCarico] SMALLINT,
+    [Clausole] VARCHAR(101),
+    [TipoTariffa] CHAR(1),
+    [ClasseBonusMalus] SMALLINT,
+    [CombinazioneMassimali] SMALLINT,
+    [SettoreTariffario] CHAR(1),
+    [ValoreIncendioFurto] FLOAT,
+    [CodiceGaranzieAccessorie] SMALLINT,
+    [CodiceGaranziaInfortuni] SMALLINT,
+    [DiariaRitiroPatente] FLOAT,
+    [CodiceUtilizzoVeicolo] CHAR(1),
+    [AlimentazioneVeicolo] CHAR(1),
+    [ProfessioneRCA] SMALLINT,
+    [CodicePagamento] SMALLINT,
+    [CodiceProdottoOld] CHAR(5),
+    [ClasseRca] CHAR(3),
+    [UsoRca] CHAR(2),
+    [RamoGestione] SMALLINT,
+    [TipoPolProd] SMALLINT,
+    [ImmatricVeicolo] VARCHAR(6),
+    [FlagSospesa] CHAR(2),
+    [DataEffettoSospesa] DATE,
+    [FlagFlessibilita] CHAR(1),
+    [PercentualeFlessibilita] FLOAT,
+    [FlagRegolazionePremio] CHAR(1),
+    [EsercizioCompetenza] INT,
+    [MarcaVeicolo] VARCHAR(14),
+	CONSTRAINT PK_POLIZZE PRIMARY KEY CLUSTERED (Agenzia, Ramo, Polizza)
+    )
+
+</sql>
+      <!-- Creazione tabella [PolizzeSostituite] -->
+      <sql tabella="[polizzesostituite]" operazione="drop">
+IF OBJECT_ID('dbo.[PolizzeSostituite]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeSostituite]
+</sql>
+      <sql tabella="[polizzesostituite]" operazione="create">
+CREATE TABLE dbo.[PolizzeSostituite]
+    (
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [TipoVar] CHAR(2),
+    [DataVar] DATE,
+    [ScadenzaPolizza] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [ReplicaNote] -->
+      <sql tabella="[replicanote]" operazione="drop">
+IF OBJECT_ID('dbo.[ReplicaNote]', 'U') IS NOT NULL DROP TABLE dbo.[ReplicaNote]
+</sql>
+      <sql tabella="[replicanote]" operazione="create">
+CREATE TABLE dbo.[ReplicaNote]
+    (
+    [Utente] VARCHAR(14),
+    [DataModifica] SMALLDATETIME,
+    [Memo] TEXT,
+    [Allarme] DATE,
+    [Tipo] CHAR(1),
+    [Id] INT,
+    [IdNota] VARCHAR(20),
+    [CodiceFiscale] CHAR(16),
+    [DataCommit] DATETIME
+    )
+
+</sql>
+<sql tabella="[REPLICANOTE]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_REPLICANOTE ON REPLICANOTE (Id)
+</sql>
+      <!-- Creazione tabella [AndamentoSinistri] -->
+      <sql tabella="[andamentosinistri]" operazione="drop">
+IF OBJECT_ID('dbo.[AndamentoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[AndamentoSinistri]
+</sql>
+      <sql tabella="[andamentosinistri]" operazione="create">
+CREATE TABLE dbo.[AndamentoSinistri]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [PagatoAl] FLOAT,
+    [Riserva] FLOAT,
+    [RiservaBilancio] FLOAT,
+    [TipoChiusura] CHAR(2)
+    )
+
+</sql>
+      <!-- Creazione tabella [Documenti] -->
+      <sql tabella="[documenti]" operazione="drop">
+IF OBJECT_ID('dbo.[Documenti]', 'U') IS NOT NULL DROP TABLE dbo.[Documenti]
+</sql>
+      <sql tabella="[documenti]" operazione="create">
+CREATE TABLE dbo.[Documenti]
+    (
+    [CartellaRoot] VARCHAR(20),
+    [Documento] VARCHAR(100),
+    [Note] TEXT
+    )
+
+</sql>
+      <!-- Creazione tabella [SIncarichi] -->
+      <sql tabella="[sincarichi]" operazione="drop">
+IF OBJECT_ID('dbo.[SIncarichi]', 'U') IS NOT NULL DROP TABLE dbo.[SIncarichi]
+</sql>
+      <sql tabella="[sincarichi]" operazione="create">
+CREATE TABLE dbo.[SIncarichi]
+    (
+    [DataCompetenza] DATE,
+    [AgenziaSinistro] SMALLINT,
+    [EsercizioSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Posizione] SMALLINT,
+    [CFDanneggiato] VARCHAR(16),
+    [Cognome] VARCHAR(40),
+    [Nome] VARCHAR(40),
+    [CodicePerito] INT,
+    [ProfessionePerito] SMALLINT,
+    [DataIncarico] DATE,
+    [TipoIncarico] CHAR(2),
+    [DataRestituzione] DATE,
+    [TipoRestituzione] CHAR(2),
+    [CodicePeritoSAP] VARCHAR(10),
+    [TipoIncaricoCC] VARCHAR(30),
+    [TipoSpecializzazione] VARCHAR(50),
+    [TipoFiduciario] VARCHAR(50),
+    [StatoIncarico] VARCHAR(50),
+    [StatoIncaricoCarrozzeria] VARCHAR(50),
+    [EsitoPerizia] VARCHAR(30)
+    )
+
+</sql>
+<sql tabella="[SINCARICHI]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX1_SINCARICHI ON SINCARICHI (CodicePerito)
+</sql>
+<sql tabella="[SINCARICHI]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX2_SINCARICHI ON SINCARICHI (CodicePeritoSAP)
+</sql>
+<sql tabella="[SINCARICHI]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX3_SINCARICHI ON SINCARICHI (NumeroSinistro)
+</sql>
+      <!-- Creazione tabella [SinistriAC] -->
+      <sql tabella="[sinistriac]" operazione="drop">
+IF OBJECT_ID('dbo.[SinistriAC]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriAC]
+</sql>
+      <sql tabella="[sinistriac]" operazione="create">
+CREATE TABLE dbo.[SinistriAC]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] INT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] VARCHAR(8),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    )
+
+</sql>
+<sql tabella="[SINISTRIAC]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_SINISTRIAC ON SINISTRIAC (CognomeAssicurato)
+</sql>
+      <!-- Creazione tabella [SinistriAia] -->
+      <sql tabella="[sinistriaia]" operazione="drop">
+IF OBJECT_ID('dbo.[SinistriAia]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriAia]
+</sql>
+      <sql tabella="[sinistriaia]" operazione="create">
+CREATE TABLE dbo.[SinistriAia]
+    (
+    [AnnoCompetenza] SMALLINT,
+    [Agenzia_1] INT,
+    [sub_2] INT,
+    [age_sin_3] INT,
+    [esercizio_sx_4] SMALLINT,
+    [num_sin_5] INT,
+    [age_pol_6] INT,
+    [ramo_pol_7] SMALLINT,
+    [num_pol_8] INT,
+    [intest_pol_9] VARCHAR(20),
+    [tipo_chius_10] CHAR(2),
+    [eser_den_11] CHAR(2),
+    [soglia_anno_preced_12] FLOAT,
+    [soglia_anno_corrente_13] FLOAT,
+    [risarcimenti_ec_14] FLOAT,
+    [spese_liq_ec_15] FLOAT,
+    [recup_eff_ec_16] FLOAT,
+    [riserve_fin_ec_17] FLOAT,
+    [forf_deb_pag_ris_EC_18] FLOAT,
+    [forf_gest_pag_ris_EC_19] FLOAT,
+    [costo_sx_ec_lordo_punte_20] FLOAT,
+    [costo_sx_ec_plafonato_21] FLOAT,
+    [costo_sx_iniz_ep_22] FLOAT,
+    [costo_sx_iniz_ep_plafonato_23] FLOAT,
+    [risarcimenti_ep_24] FLOAT,
+    [spese_liq_ep_25] FLOAT,
+    [recup_eff_ep_26] FLOAT,
+    [riserve_fin_ep_27] FLOAT,
+    [forf_deb_pag_ris_EP_28] FLOAT,
+    [forf_gest_pag_ris_EP_29] FLOAT,
+    [costo_fin_sx_ep_lordo_punte_30] FLOAT,
+    [costo_fin_sx_ep_plafonato_31] FLOAT,
+    [sopravv_32] FLOAT,
+    [flag_coass_33] CHAR(1)
+    )
+
+</sql>
+      <!-- Creazione tabella [SinistriControparte] -->
+      <sql tabella="[sinistricontroparte]" operazione="drop">
+IF OBJECT_ID('dbo.[SinistriControparte]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriControparte]
+</sql>
+      <sql tabella="[sinistricontroparte]" operazione="create">
+		  CREATE TABLE dbo.[SinistriControparte]
+		  (
+		  [EsercizioSinistro] SMALLINT NOT NULL,
+		  [AgenziaSinistro] SMALLINT NOT NULL,
+		  [NumeroSinistro] INT NOT NULL,
+		  [Compagnia] INT,
+		  [DataArrivo] DATE,
+		  [Nascondi] CHAR(1),
+		  CONSTRAINT PK_SINISTRICONTROPARTE PRIMARY KEY CLUSTERED (AgenziaSinistro, EsercizioSinistro, NumeroSinistro)
+		  )
+
+	  </sql>
+      <!-- Creazione tabella [SinistriDA] -->
+      <sql tabella="[sinistrida]" operazione="drop">
+IF OBJECT_ID('dbo.[SinistriDA]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriDA]
+</sql>
+      <sql tabella="[sinistrida]" operazione="create">
+CREATE TABLE dbo.[SinistriDA]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] INT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] VARCHAR(8),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    )
+
+</sql>
+<sql tabella="[]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_SINISTRIDA ON SINISTRIDA (CognomeAssicurato)
+</sql>
+
+      <!-- Creazione tabella [SinistriDP] -->
+      <sql tabella="[sinistridp]" operazione="drop">
+IF OBJECT_ID('dbo.[SinistriDP]', 'U') IS NOT NULL DROP TABLE dbo.[SinistriDP]
+</sql>
+      <sql tabella="[sinistridp]" operazione="create">
+CREATE TABLE dbo.[SinistriDP]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT NOT NULL,
+    [AgenziaSinistro] SMALLINT NOT NULL,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT NOT NULL,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT NOT NULL,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] INT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] VARCHAR(9),
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] VARCHAR(8),
+    [Modifica] CHAR(1),
+    [Comparto] INT,
+	CONSTRAINT PK_SINISTRIDP PRIMARY KEY CLUSTERED (AgenziaSinistro, EsercizioSinistro, NumeroSinistro)
+    )
+
+</sql>
+<sql tabella="[SinistriDP]" operazione="createindex">
+ CREATE NONCLUSTERED INDEX IX1_SINISTRIDP ON SINISTRIDP (CognomeAssicurato)
+</sql>
+      <!-- Creazione tabella [Spagamenti] -->
+      <sql tabella="[spagamenti]" operazione="drop">
+IF OBJECT_ID('dbo.[Spagamenti]', 'U') IS NOT NULL DROP TABLE dbo.[Spagamenti]
+</sql>
+      <sql tabella="[spagamenti]" operazione="create">
+CREATE TABLE dbo.[Spagamenti]
+    (
+    [DataCompetenza] DATE,
+    [AgenziaSinistro] SMALLINT,
+    [EsercizioSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Posizione] SMALLINT,
+    [CFDanneggiato] VARCHAR(16),
+    [Cognome] VARCHAR(40),
+    [Nome] VARCHAR(40),
+    [Tipo] SMALLINT,
+    [Forma] SMALLINT,
+    [Data] DATE,
+    [Assegno] VARCHAR(15),
+    [Importo] FLOAT
+    )
+
+</sql>
+      <!-- Creazione tabella [StoricoSinistri] -->
+      <sql tabella="[storicosinistri]" operazione="drop">
+IF OBJECT_ID('dbo.[StoricoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoSinistri]
+</sql>
+      <sql tabella="[storicosinistri]" operazione="create">
+CREATE TABLE dbo.[StoricoSinistri]
+    (
+    [AnnoMeseCompetenza] DATE,
+    [EsercizioSinistro] SMALLINT,
+    [AgenziaSinistro] SMALLINT,
+    [RamoSinistro] SMALLINT,
+    [NumeroSinistro] INT,
+    [Ispettorato] INT,
+    [AgenziaPolizza] INT,
+    [RamoPolizza] SMALLINT,
+    [Polizza] INT,
+    [CodiceSubAgenteSima] INT,
+    [CodiceProduttoreSima] INT,
+    [DataSinistro] DATE,
+    [DataDenuncia] DATE,
+    [DataProtocollo] DATE,
+    [TipoCid] CHAR(1),
+    [TipoChiusura] CHAR(2),
+    [CodiceChiusura] CHAR(2),
+    [TipoSinistro] CHAR(2),
+    [FlagCosePersone] CHAR(1),
+    [NostraQuota] FLOAT,
+    [PrimoPreventivo] FLOAT,
+    [PagatoDel] FLOAT,
+    [PagatoAl] FLOAT,
+    [RecuperoDel] FLOAT,
+    [RecuperoAl] FLOAT,
+    [FranchigiaPtf] CHAR(1),
+    [Convenzione] CHAR(5),
+    [CodiceProdotto] CHAR(5),
+    [CognomeAssicurato] VARCHAR(20),
+    [NomeAssicurato] VARCHAR(10),
+    [TargaAssicurato] VARCHAR(9),
+    [CognomeDanneggiato] VARCHAR(20),
+    [TargaDanneggiato] VARCHAR(10),
+    [Compagnia] INT,
+    [AgenziaPolizzaArrivo] INT,
+    [CodiceLiquidatore] INT,
+    [TipoDelega] CHAR(1),
+    [CODICEFISCCONTRPOL] VARCHAR(16),
+    [DataUltPagam] DATE,
+    [DataDenCliente] DATE,
+    [CompControparte] INT,
+    [TipoApplicativo] CHAR(1),
+    [NrPosizioni] SMALLINT,
+    [TipoApertura] CHAR(1),
+    [Presentatore] CHAR(1),
+    [Denunciante] CHAR(1),
+    [IdCartella] INT,
+    [CodProf] INT,
+    [CarrozzProv] CHAR(2),
+    [CarrozzCAnia] INT,
+    [LegaleData] DATE,
+    [CarrozzPrior] CHAR(2),
+    [DataMemo] DATE,
+    [Unibox] CHAR(1),
+    [Contatore] SMALLINT,
+    [CardGest] SMALLINT,
+    [CardDebito] SMALLINT,
+    [CardNo] SMALLINT,
+    [PagatoNoCardAl] FLOAT,
+    [PagatoNoCardDel] FLOAT,
+    [PagatoCardAl] FLOAT,
+    [PagatoCardDel] FLOAT,
+    [AgenziaMadre] CHAR(5),
+    [DataApertura] DATE,
+    [FlagLegale] CHAR(1),
+    [TipoDenuncia] CHAR(1),
+    [Canalizzato] CHAR(1),
+    [CodCarrPagato] VARCHAR(7),
+    [CodCarrCanalizzato] VARCHAR(9),
+    [PrevStat] FLOAT,
+    [SetTariffa] CHAR(1),
+    [TipoRamo] CHAR(5),
+    [Lesioni] CHAR(3),
+    [Morti] CHAR(3),
+    [Bar1A] CHAR(2),
+    [Bar1B] CHAR(2),
+    [Bar2A] CHAR(2),
+    [Bar2B] CHAR(2),
+    [Franchigie] FLOAT,
+    [Rivalse] FLOAT,
+    [AltroRecupero] FLOAT,
+    [FranchigieAl] FLOAT,
+    [FranchigieDel] FLOAT,
+    [RivalseAl] FLOAT,
+    [RivalseDel] FLOAT,
+    [AltroAl] FLOAT,
+    [AltroDel] FLOAT,
+    [SpeseAl] FLOAT,
+    [SpeseDel] FLOAT,
+    [Riserva] FLOAT,
+    [FLagRegContratto] CHAR(1),
+    [FlagRegAmministrativa] CHAR(1),
+    [ForCardDAl] FLOAT,
+    [ForCardDDel] FLOAT,
+    [ForCardGAl] FLOAT,
+    [ForCardGDel] FLOAT,
+    [ForCardDRiserva] FLOAT,
+    [ForCardGRiserva] FLOAT,
+    [RamoGestione] SMALLINT,
+    [StatoTecnico] CHAR(2),
+    [DataStatoTecnico] DATE,
+    [EsercizioStatoTecnico] SMALLINT,
+    [StatoBilancistico] CHAR(2),
+    [DataStatoBilancistico] DATE,
+    [EsercizioStatoBilancistico] SMALLINT,
+    [StatoAmministrativo] CHAR(2),
+    [DataStatoAmministrativo] DATE,
+    [EsercizioStatoAmministrativo] SMALLINT,
+    [StatoRecupero] CHAR(2),
+    [DataStatoRecupero] DATE,
+    [EsercizioStatoRecupero] SMALLINT,
+    [StatoForfait] CHAR(2),
+    [DataStatoForfait] DATE,
+    [EsercizioStatoForfait] SMALLINT,
+    [CodicePerito] VARCHAR(10),
+    [Lira] CHAR(1),
+    [RiservaBilancio] FLOAT,
+    [IdStatoCliente] CHAR(2),
+    [IdGestione] CHAR(3),
+    [FlagUtente] CHAR(2),
+    [Modifica] CHAR(1),
+    [Comparto] INT
+    )
+
+</sql>
+      <!-- Creazione tabella [Titoli] -->
+      <sql tabella="[titoli]" operazione="drop">
+IF OBJECT_ID('dbo.[Titoli]', 'U') IS NOT NULL DROP TABLE dbo.[Titoli]
+</sql>
+      <sql tabella="[titoli]" operazione="create">
+		  CREATE TABLE dbo.[Titoli]
+		  (
+		  [ProgressivoFile] INT,
+		  [DataElaborazione] DATE,
+		  [CodicePuntoVendita] CHAR(5),
+		  [Progressivo] CHAR(2),
+		  [TipoElaborazione] CHAR(2),
+		  [Ramo] CHAR(3),
+		  [Polizza] VARCHAR(9),
+		  [EffettoAppendice] DATE,
+		  [NumeroAppendice] CHAR(3),
+		  [DataEffetto] DATE,
+		  [TipoCarico] CHAR(1),
+		  [DataScadenza] DATE,
+		  [DataEmissione] DATE,
+		  [DataFoglioCassa] DATE,
+		  [DataStorno] DATE,
+		  [CodiceEsito] CHAR(2),
+		  [TerminaleCassa] CHAR(4),
+		  [CodiceTerminale] CHAR(4),
+		  [PremioNetto] MONEY,
+		  [Interessi] MONEY,
+		  [Accessori] MONEY,
+		  [TotaleLordo] MONEY,
+		  [Abbuono] MONEY,
+		  [ProvvigioneAcquisto] MONEY,
+		  [ProvvigioneAcquistoRic] MONEY,
+		  [ProvvigioneIncasso] MONEY,
+		  [ImpostaSSN] MONEY,
+		  [Valuta] CHAR(3),
+		  [TipoMatricola] CHAR(1),
+		  [CodiceUltimaTransazione] CHAR(4),
+		  [TipoQuietanza] CHAR(1),
+		  [DataSistema] DATE,
+		  [CodiceCaricoProvvigionale] CHAR(1),
+		  [CodiceTipoPagamento] CHAR(1),
+		  [DataEffetivoPagamento] DATE,
+		  [FlagEmessoPregresso] CHAR(1),
+		  [DataEffettoMovimento] DATE,
+		  [CodiceSubagente] CHAR(5),
+		  [CodiceProduttore] CHAR(5),
+		  [CodiceConvenzioneProvvigionata] CHAR(5),
+		  [CodiceConvenzione] CHAR(5),
+		  [DataTrasferimentoTitolo] DATE,
+		  [FlagTipoRamo] CHAR(1),
+		  [FlagTitoloEsente] CHAR(1),
+		  [CodiceCombinazioneAurFF] CHAR(1),
+		  [ImportoAurobox] MONEY,
+		  [CodiceFiscale] CHAR(16),
+		  [Contraente] VARCHAR(25),
+		  [Frazionamento] CHAR(1),
+		  [CodiceProdotto] CHAR(5),
+		  [TipoMatricolaVita] CHAR(4),
+		  [DataEffettoPolizza] DATE,
+		  [CompagniaDelegataria] CHAR(3),
+		  [QuotaCoass] MONEY,
+		  [NumeroTesta] VARCHAR(9),
+		  [FlagRID] CHAR(1),
+		  [FlagIncassoDirezione] CHAR(1),
+		  [AliquotaProvvigionaleIncasso] MONEY,
+		  [AliquotaProvvigionaleAcquisto] MONEY,
+		  [PremioTutela] MONEY,
+		  [PremioAssistenza] MONEY,
+		  [ImportoCAV] MONEY,
+		  [Abi] CHAR(5),
+		  [Cab] CHAR(5),
+		  [Cin] CHAR(1),
+		  [Conto] CHAR(12),
+		  [DataRegolazionePremio] DATE,
+		  [FlagIncassoFEA] CHAR(1),
+		  [FlagProvvigioniNuovoMandato] CHAR(1),
+		  [IncrementoProduzione] MONEY,
+		  [IndicatoreRataIntermedia] CHAR(1),
+		  [OraCopertura] CHAR(8),
+		  [OraEsito] CHAR(8),
+		  [PremioAssistenza1] MONEY,
+		  [PremioIncendioFurto] MONEY,
+		  [PremioInfortuni] MONEY,
+		  [PremioKasko] MONEY,
+		  [PremioRc] MONEY,
+		  [ProdottoVita] CHAR(12),
+		  [ProvvigioniAssistenza1] MONEY,
+		  [ProvvigioniIncendioFurto] MONEY,
+		  [ProvvigioniInfortuni] MONEY,
+		  [ProvvigioniKasko] MONEY,
+		  [ProvvigioniRc] MONEY,
+		  [PuntoVendita] CHAR(5),
+		  [RamoGestione] INT
+		  [Rendita] MONEY,
+		  [ScadenzaPolizza] DATE,
+		  [ScadenzaVincolo] DATE,
+		  [TargaVeicolo] CHAR(20),
+		  [TipoUnibox] CHAR(1)
+		  )
+
+	  </sql>
+      <!-- Creazione tabella [Unicoop] -->
+      <sql tabella="[unicoop]" operazione="drop">
+IF OBJECT_ID('dbo.[Unicoop]', 'U') IS NOT NULL DROP TABLE dbo.[Unicoop]
+</sql>
+      <sql tabella="[unicoop]" operazione="create">
+CREATE TABLE dbo.[Unicoop]
+    (
+    [Gruppo] CHAR(3),
+    [Azienda] CHAR(5),
+    [Matricola] VARCHAR(10),
+    [Contraente] VARCHAR(50),
+    [Ramo] CHAR(3),
+    [Polizza] VARCHAR(8),
+    [ImportoRata] FLOAT,
+    [DebitoResiduo] FLOAT,
+    [DebitoTotale] FLOAT,
+    [TotaleRate] SMALLINT,
+    [NumeroRateResidue] SMALLINT,
+    [EffettoVariazione] DATE,
+    [DataUltimoAddebito] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [UnicoopCodici] -->
+      <sql tabella="[unicoopcodici]" operazione="drop">
+IF OBJECT_ID('dbo.[UnicoopCodici]', 'U') IS NOT NULL DROP TABLE dbo.[UnicoopCodici]
+</sql>
+      <sql tabella="[unicoopcodici]" operazione="create">
+CREATE TABLE dbo.[UnicoopCodici]
+    (
+    [Tipo] CHAR(1),
+    [Gruppo] CHAR(3),
+    [Azienda] CHAR(5),
+    [Predefinito] BIT NOT NULL
+    )
+
+</sql>
+      <!-- Creazione tabella [ArriviPolizze] -->
+      <sql tabella="[arrivipolizze]" operazione="drop">
+IF OBJECT_ID('dbo.[ArriviPolizze]', 'U') IS NOT NULL DROP TABLE dbo.[ArriviPolizze]
+</sql>
+      <sql tabella="[arrivipolizze]" operazione="create">
+CREATE TABLE dbo.[ArriviPolizze]
+    (
+    [CodiceFiscale] CHAR(16),
+    [CodiceFiscaleCF] VARCHAR(16),
+    [CodiceFiscaleEA] VARCHAR(16),
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [DataEffetto] DATE,
+    [DataScadenza] DATE,
+    [DataPrimaQuietanza] DATE,
+    [Frazionamento] TINYINT,
+    [Canale] VARCHAR(10),
+    [CodiceSubAgente] INT,
+    [CodiceSubAgenteSIMA] INT,
+    [CodiceProduttore] INT,
+    [CodiceProduttoreSIMA] INT,
+    [CodiceProdotto] CHAR(5),
+    [TotalePremioAnnuo] FLOAT,
+    [Targa] VARCHAR(9),
+    [CavalliFiscali] SMALLINT,
+    [Convenzione] INT,
+    [IDStorno] CHAR(2),
+    [DataStorno] DATE,
+    [TipoCarico] SMALLINT,
+    [Clausole] VARCHAR(41),
+    [TipoTariffa] CHAR(1),
+    [ClasseBonusMalus] SMALLINT,
+    [CombinazioneMassimali] SMALLINT,
+    [SettoreTariffario] CHAR(1),
+    [ValoreIncendioFurto] FLOAT,
+    [CodiceGaranzieAccessorie] SMALLINT,
+    [CodiceGaranziaInfortuni] SMALLINT,
+    [DiariaRitiroPatente] FLOAT,
+    [CodiceUtilizzoVeicolo] CHAR(1),
+    [AlimentazioneVeicolo] CHAR(1),
+    [ProfessioneRCA] SMALLINT,
+    [CodicePagamento] SMALLINT,
+    [CodiceProdottoOld] CHAR(5),
+    [ClasseRca] CHAR(2),
+    [UsoRca] CHAR(2),
+    [RamoGestione] SMALLINT,
+    [TipoPolProd] SMALLINT,
+    [ImmatricVeicolo] VARCHAR(6)
+    )
+
+</sql>
+      <!-- Creazione tabella [InfoDatabase] -->
+      <sql tabella="[infodatabase]" operazione="drop">
+IF OBJECT_ID('dbo.[InfoDatabase]', 'U') IS NOT NULL DROP TABLE dbo.[InfoDatabase]
+</sql>
+      <sql tabella="[infodatabase]" operazione="create">
+CREATE TABLE dbo.[InfoDatabase]
+    (
+    [Proprieta] VARCHAR(100),
+    [Valore] VARCHAR(100)
+    )
+
+</sql>
+      <!-- Creazione tabella [StoricoIncassi] -->
+      <sql tabella="[storicoincassi]" operazione="drop">
+IF OBJECT_ID('dbo.[StoricoIncassi]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoIncassi]
+</sql>
+      <sql tabella="[storicoincassi]" operazione="create">
+CREATE TABLE dbo.[StoricoIncassi]
+    (
+    [AnnoMeseCompetenza] VARCHAR(6),
+    [Agenzia] INT,
+    [Ramo] SMALLINT,
+    [Polizza] INT,
+    [NumeroAppendice] SMALLINT,
+    [DataEffettoAppendice] DATE,
+    [DataEffettoTitolo] DATE,
+    [DataScadenzaTitolo] DATE,
+    [DataFoglioCassa] DATE,
+    [TipoCarico] CHAR(1),
+    [Contraente] VARCHAR(25),
+    [TotaleTitolo] FLOAT,
+    [TotaleProvvigioni] FLOAT,
+    [CodiceProdotto] CHAR(5),
+    [Convenzione] CHAR(5),
+    [Delegataria] CHAR(3),
+    [NostraQuota] INT,
+    [CodiceSubAgente] INT,
+    [CodiceProduttore] INT,
+    [Frazionamento] TINYINT,
+    [PREMIONETTO] FLOAT,
+    [INTERESSIFRAZ] FLOAT,
+    [ACCESSORI] FLOAT,
+    [PROVVACQC] FLOAT,
+    [PROVVACQS] FLOAT,
+    [PROVVINC] FLOAT,
+    [PROVVACQCSUB] FLOAT,
+    [PROVVINCSUB] FLOAT,
+    [PROVVACQCPROD] FLOAT,
+    [PROVVINCPROD] FLOAT,
+    [CONVENZPROVVACQ] FLOAT,
+    [CONVENZPROVVINC] FLOAT,
+    [CAPOMAGLIA1ACQ] FLOAT,
+    [CAPOMAGLIA1INC] FLOAT,
+    [CAPOMAGLIA2ACQ] FLOAT,
+    [CAPOMAGLIA2INC] FLOAT,
+    [PREMIOTASS] FLOAT,
+    [PREMIOTASSO] FLOAT,
+    [CodiceFiscInc] VARCHAR(16),
+    [Targa] VARCHAR(9),
+    [RamoGestione] INT
+    )
+
+</sql>
+      <!-- Creazione tabella [StoricoPolizze] -->
+      <sql tabella="[storicopolizze]" operazione="drop">
+IF OBJECT_ID('dbo.[StoricoPolizze]', 'U') IS NOT NULL DROP TABLE dbo.[StoricoPolizze]
+</sql>
+      <sql tabella="[storicopolizze]" operazione="create">
+CREATE TABLE dbo.[StoricoPolizze]
+    (
+    [Mese] INT,
+    [Anno] INT,
+    [Ramo] SMALLINT,
+    [CodiceSubAgente] INT,
+    [Polizze] INT,
+    [Premi] FLOAT
+    )
+</sql>
+
+            <!-- Creazione tabella [DocEsportati] -->
+      <sql tabella="[docesportati]" operazione="drop">
+        IF OBJECT_ID('dbo.[DocEsportati]', 'U') IS NOT NULL DROP TABLE dbo.[DocEsportati]
+      </sql>
+      <sql tabella="[docesportati]" operazione="create">
+        CREATE TABLE dbo.[DocEsportati]
+            (
+            [DataInvio] CHAR(14),
+            [NomeFile] VARCHAR(255)
+            )
+      </sql>
+      <sql tabella="[DOCESPORTATI]" operazione="createindex">
+        CREATE NONCLUSTERED INDEX IX1_DOC ON DOCESPORTATI (NomeFile)
+      </sql>
+
+      <!-- Creazione tabella [DocEsportati] -->
+      <sql tabella="[xdocesportati]" operazione="drop">
+        IF OBJECT_ID('dbo.[DocEsportati]', 'U') IS NOT NULL DROP TABLE dbo.[DocEsportati]
+      </sql>
+      <sql tabella="[xdocesportati]" operazione="create">
+        CREATE TABLE dbo.[DocEsportati]
+            (
+            [TipoEntita] CHAR(1),
+            [NomeFile] VARCHAR(255),
+            [Descrizione] VARCHAR(255),
+            [CategoriaDocumento] VARCHAR(10),
+            [TipoDocumento] VARCHAR(10),
+            [RagioneSociale] VARCHAR(255),
+            [Codice Fiscale] VARCHAR(16),
+            [NumeroPolizza] CHAR(10),
+            [Esercizio] INT,
+            [NumeroSinistro] CHAR(19),
+            [Data] DATE,
+            [Direzione] CHAR(5),
+            [Compagnia] CHAR(1),
+            [Ramo] CHAR(3),
+            [PaccoFascicolo] VARCHAR(10),
+            [Autore] VARCHAR(10),
+            [Operatore] VARCHAR(10),
+            [IDAnagrafica] INT,
+            [TipoDocumentoCod] CHAR(5),
+            [TipoDocumentoDesc] VARCHAR(20),
+            [ArgomentoCod] CHAR(5),
+            [ArgomentoDesc] VARCHAR(20),
+            [OperatoreCod] VARCHAR(5),
+            [OperatoreDescr] VARCHAR(20),
+            [Mezzo] CHAR(5),
+            [LivPW] CHAR(5)
+            )
+      </sql>
+      <sql tabella="[DOCESPORTATI]" operazione="createindex">
+        CREATE NONCLUSTERED INDEX IX1_DOC ON DOCESPORTATI (NomeFile)
+      </sql>
+    </tabelle>
+  </database>
+<!-- FINE SCRIPT DATABASE TIPO AGENZIA -->
+
+<!-- SCRIPT CREAZIONE DATABASE COMUNE (SUPPORTO) -->
+<database tipo="comune">
+    <sql operazione="drop">IF EXISTS (SELECT name FROM sys.databases WHERE name = N'DB00000') DROP DATABASE DB00000</sql>
+    <sql operazione="set">ALTER DATABASE [DB00000] SET AUTO_CLOSE OFF</sql>
+    <sql operazione="create">
+      CREATE DATABASE DB00000  
+      ON   
+      (   NAME = DB00000,  
+          FILENAME = '{path}\DB00000.mdf',  
+          SIZE = 10,  
+          MAXSIZE = 50,  
+          FILEGROWTH = 5 )  
+      LOG ON  
+      (   NAME = LG00000,  
+          FILENAME = '{path}\LG00000.log',  
+          SIZE = 5MB,  
+          MAXSIZE = 25MB,  
+          FILEGROWTH = 5MB )
+   </sql>
+    <tabelle>
+      <!-- creazione del database ... -->
+      <!-- Creazione tabella [Storico] -->
+      <sql tabella="[storico]" operazione="drop">
+IF OBJECT_ID('dbo.[Storico]', 'U') IS NOT NULL DROP TABLE dbo.[Storico]
+</sql>
+      <sql tabella="[storico]" operazione="create">
+CREATE TABLE dbo.[Storico]
+    (
+    [Id] INT NOT NULL,
+    [DataInvio] DATE,
+    [OraInvio] VARCHAR(8),
+    [Numero] VARCHAR(15),
+    [Stato] CHAR(1),
+    [DataConsegna] DATE,
+    [OraConsegna] VARCHAR(8),
+    [Testo] TEXT,
+    [Mittente] VARCHAR(16),
+    [Secondi] INT,
+    [IDT] VARCHAR(20),
+    [Nome] VARCHAR(25)
+    )
+
+</sql>
+      <!-- Creazione tabella [Utente] -->
+      <sql tabella="[utente]" operazione="drop">
+IF OBJECT_ID('dbo.[Utente]', 'U') IS NOT NULL DROP TABLE dbo.[Utente]
+</sql>
+      <sql tabella="[utente]" operazione="create">
+CREATE TABLE dbo.[Utente]
+    (
+    [IDUtente] VARCHAR(50)
+    )
+
+</sql>
+      <!-- Creazione tabella [ApplicativoSinistri] -->
+      <sql tabella="[applicativosinistri]" operazione="drop">
+IF OBJECT_ID('dbo.[ApplicativoSinistri]', 'U') IS NOT NULL DROP TABLE dbo.[ApplicativoSinistri]
+</sql>
+      <sql tabella="[applicativosinistri]" operazione="create">
+CREATE TABLE dbo.[ApplicativoSinistri]
+    (
+    [Codice] CHAR(1),
+    [Descrizione] VARCHAR(10)
+    )
+
+</sql>
+      <!-- Creazione tabella [Carrozzeria] -->
+      <sql tabella="[carrozzeria]" operazione="drop">
+IF OBJECT_ID('dbo.[Carrozzeria]', 'U') IS NOT NULL DROP TABLE dbo.[Carrozzeria]
+</sql>
+      <sql tabella="[carrozzeria]" operazione="create">
+CREATE TABLE dbo.[Carrozzeria]
+    (
+    [Provincia] CHAR(2),
+    [IdCarrozzeria] INT,
+    [Desc_Carrozzeria] VARCHAR(50)
+    )
+
+</sql>
+      <!-- Creazione tabella [CompagniaANIA] -->
+      <sql tabella="[compagniaania]" operazione="drop">
+IF OBJECT_ID('dbo.[CompagniaANIA]', 'U') IS NOT NULL DROP TABLE dbo.[CompagniaANIA]
+</sql>
+      <sql tabella="[compagniaania]" operazione="create">
+CREATE TABLE dbo.[CompagniaANIA]
+    (
+    [Compagnia] INT NOT NULL,
+    [Desc_Compagnia] VARCHAR(50),
+	CONSTRAINT PK_COMPAGNIAANIA PRIMARY KEY CLUSTERED (Compagnia)
+    )
+
+</sql>
+      <!-- Creazione tabella [Comparto] -->
+      <sql tabella="[comparto]" operazione="drop">
+IF OBJECT_ID('dbo.[Comparto]', 'U') IS NOT NULL DROP TABLE dbo.[Comparto]
+</sql>
+      <sql tabella="[comparto]" operazione="create">
+CREATE TABLE dbo.[Comparto]
+    (
+    [Codice] INT,
+    [Descrizione] VARCHAR(20)
+    )
+
+</sql>
+      <!-- Creazione tabella [Comuni] -->
+      <sql tabella="[comuni]" operazione="drop">
+IF OBJECT_ID('dbo.[Comuni]', 'U') IS NOT NULL DROP TABLE dbo.[Comuni]
+</sql>
+      <sql tabella="[comuni]" operazione="create">
+CREATE TABLE dbo.[Comuni]
+    (
+    [IDComune] CHAR(4) NOT NULL,
+    [Comune] VARCHAR(25),
+    [Provincia] CHAR(2),
+    [CodiceCAB] CHAR(5),
+	CONSTRAINT PK_COMUNI PRIMARY KEY CLUSTERED (IDComune)
+    )
+
+</sql>
+      <!-- Creazione tabella [ConfigSede] -->
+      <sql tabella="[configsede]" operazione="drop">
+IF OBJECT_ID('dbo.[ConfigSede]', 'U') IS NOT NULL DROP TABLE dbo.[ConfigSede]
+</sql>
+      <sql tabella="[configsede]" operazione="create">
+CREATE TABLE dbo.[ConfigSede]
+    (
+    [Agenzia] INT,
+    [Operazione] CHAR(3),
+    [TipoDoc] CHAR(3),
+    [SedeDestinatario] CHAR(2),
+    [CodiciCip] VARCHAR(255),
+    [UltimoAvvio] DATE	
+    )
+
+</sql>
+<sql tabella="[CONFIGSEDE]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_CONFIGSEDE ON CONFIGSEDE (CodiciCip)
+</sql>
+      <!-- Creazione tabella [Convenzioni] -->
+      <sql tabella="[convenzioni]" operazione="drop">
+IF OBJECT_ID('dbo.[Convenzioni]', 'U') IS NOT NULL DROP TABLE dbo.[Convenzioni]
+</sql>
+      <sql tabella="[convenzioni]" operazione="create">
+CREATE TABLE dbo.[Convenzioni]
+    (
+    [compagnia] SMALLINT NOT NULL,
+    [codice] INT NOT NULL,
+    [Desk] VARCHAR(25),
+    [DataChiusura] DATE,
+	CONSTRAINT PK_CONVENZIONI PRIMARY KEY CLUSTERED (compagnia, codice)
+    )
+
+</sql>
+      <!-- Creazione tabella [DocUpload] -->
+      <sql tabella="[docupload]" operazione="drop">
+IF OBJECT_ID('dbo.[DocUpload]', 'U') IS NOT NULL DROP TABLE dbo.[DocUpload]
+</sql>
+      <sql tabella="[docupload]" operazione="create">
+CREATE TABLE dbo.[DocUpload]
+    (
+    [Codice] SMALLINT NOT NULL,
+    [Desk] VARCHAR(50),
+    [Lira] CHAR(1),
+    [Abbinamento] CHAR(1),
+    [ordine] INT,
+	CONSTRAINT PK_DOCUPLOAD PRIMARY KEY CLUSTERED (Codice)
+    )
+
+</sql>
+      <!-- Creazione tabella [Ispettorato] -->
+      <sql tabella="[ispettorato]" operazione="drop">
+IF OBJECT_ID('dbo.[Ispettorato]', 'U') IS NOT NULL DROP TABLE dbo.[Ispettorato]
+</sql>
+      <sql tabella="[ispettorato]" operazione="create">
+CREATE TABLE dbo.[Ispettorato]
+    (
+    [Ispettorato] INT NOT NULL,
+    [DescIspettorato] VARCHAR(40),
+	CONSTRAINT PK_ISPETTORATO PRIMARY KEY CLUSTERED (Ispettorato)
+    )
+
+</sql>
+      <!-- Creazione tabella [Liquidatori] -->
+      <sql tabella="[liquidatori]" operazione="drop">
+IF OBJECT_ID('dbo.[Liquidatori]', 'U') IS NOT NULL DROP TABLE dbo.[Liquidatori]
+</sql>
+      <sql tabella="[liquidatori]" operazione="create">
+CREATE TABLE dbo.[Liquidatori]
+    (
+    [Codice] INT NOT NULL,
+    [Nome] VARCHAR(50),
+    [Telefono] VARCHAR(20),
+    [Email] VARCHAR(50),
+    [Clg] INT,
+    [Localita] VARCHAR(50),
+    [Provincia] CHAR(3),
+    [TelefonoClg] VARCHAR(20),
+	CONSTRAINT PK_LIQUIDATORI PRIMARY KEY CLUSTERED (Codice)
+    )
+
+</sql>
+      <!-- Creazione tabella [MercatoPreferenziale] -->
+      <sql tabella="[mercatopreferenziale]" operazione="drop">
+IF OBJECT_ID('dbo.[MercatoPreferenziale]', 'U') IS NOT NULL DROP TABLE dbo.[MercatoPreferenziale]
+</sql>
+      <sql tabella="[mercatopreferenziale]" operazione="create">
+CREATE TABLE dbo.[MercatoPreferenziale]
+    (
+    [Codice] SMALLINT,
+    [SegmentoMercato] VARCHAR(30)
+    )
+
+</sql>
+      <!-- Creazione tabella [ModStampa] -->
+      <sql tabella="[modstampa]" operazione="drop">
+IF OBJECT_ID('dbo.[ModStampa]', 'U') IS NOT NULL DROP TABLE dbo.[ModStampa]
+</sql>
+      <sql tabella="[modstampa]" operazione="create">
+CREATE TABLE dbo.[ModStampa]
+    (
+    [Modello] SMALLINT,
+    [Descrizione] VARCHAR(50)
+    )
+
+</sql>
+      <!-- Creazione tabella [PeritoIncaricato] -->
+      <sql tabella="[peritoincaricato]" operazione="drop">
+IF OBJECT_ID('dbo.[PeritoIncaricato]', 'U') IS NOT NULL DROP TABLE dbo.[PeritoIncaricato]
+</sql>
+      <sql tabella="[peritoincaricato]" operazione="create">
+CREATE TABLE dbo.[PeritoIncaricato]
+    (
+    [IdPerito] INT,
+    [Tipo] CHAR(1),
+    [Cognome] VARCHAR(45),
+    [Nome] VARCHAR(15),
+    [CodiceFiscale] CHAR(16),
+    [Telefono] VARCHAR(15),
+    [Cellulare] VARCHAR(15),
+    [Email] VARCHAR(50),
+    [IdPeritoSAP] VARCHAR(10) NOT NULL,
+	CONSTRAINT PK_PERITOINCARICATO PRIMARY KEY CLUSTERED (IdPeritoSAP)
+    )
+
+</sql>
+<sql tabella="[PERITOINCARICATO]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_PERITOINCARICATO ON PERITOINCARICATO (CodiceFiscale)
+</sql>
+<sql tabella="[PERITOINCARICATO]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX2_PERITOINCARICATO ON PERITOINCARICATO (IdPeritoSAP)
+</sql>
+      <!-- Creazione tabella [Prodotti] -->
+      <sql tabella="[prodotti]" operazione="drop">
+IF OBJECT_ID('dbo.[Prodotti]', 'U') IS NOT NULL DROP TABLE dbo.[Prodotti]
+</sql>
+      <sql tabella="[prodotti]" operazione="create">
+CREATE TABLE dbo.[Prodotti]
+    (
+    [CodiceProdotto] CHAR(5) NOT NULL,
+    [Prodotto] VARCHAR(40),
+	CONSTRAINT PK_PRODOTTI PRIMARY KEY CLUSTERED (CodiceProdotto)
+    )
+
+</sql>
+      <!-- Creazione tabella [Professioni] -->
+      <sql tabella="[professioni]" operazione="drop">
+IF OBJECT_ID('dbo.[Professioni]', 'U') IS NOT NULL DROP TABLE dbo.[Professioni]
+</sql>
+      <sql tabella="[professioni]" operazione="create">
+CREATE TABLE dbo.[Professioni]
+    (
+    [IDProfessione] SMALLINT,
+    [Professione] VARCHAR(50)
+    )
+
+</sql>
+      <!-- Creazione tabella [ProfiloAgenzia] -->
+      <sql tabella="[profiloagenzia]" operazione="drop">
+IF OBJECT_ID('dbo.[ProfiloAgenzia]', 'U') IS NOT NULL DROP TABLE dbo.[ProfiloAgenzia]
+</sql>
+      <sql tabella="[profiloagenzia]" operazione="create">
+CREATE TABLE dbo.[ProfiloAgenzia]
+    (
+    [Punto Vendita] CHAR(5),
+    [Intestatario] VARCHAR(70),
+    [Localita] VARCHAR(30),
+    [Cap] CHAR(5),
+    [Telefono] VARCHAR(15),
+    [Telefax] VARCHAR(15),
+    [Email] VARCHAR(50),
+    [Flag_AB_Mod_Testo_Avvisi] CHAR(1),
+    [Flag_AB_Mod_Note_Avvisi] CHAR(1),
+    [Flag_AB_SIMA] CHAR(1),
+    [Ultimo_Aggiornamento] DATE,
+    [PassWord] VARCHAR(10),
+    [UserId] VARCHAR(10),
+    [Denominazione] VARCHAR(100),
+    [Indirizzo] VARCHAR(70)
+    )
+
+</sql>
+      <!-- Creazione tabella [ProfiloUtente] -->
+      <sql tabella="[profiloutente]" operazione="drop">
+IF OBJECT_ID('dbo.[ProfiloUtente]', 'U') IS NOT NULL DROP TABLE dbo.[ProfiloUtente]
+</sql>
+      <sql tabella="[profiloutente]" operazione="create">
+CREATE TABLE dbo.[ProfiloUtente]
+    (
+    [Compagnia] TINYINT,
+    [Agenzia] CHAR(5),
+    [Regione] SMALLINT,
+    [Provincia] CHAR(2),
+    [CodiceSede] CHAR(5),
+    [Capoluogo] CHAR(1),
+    [Localita] VARCHAR(60),
+    [Indirizzo] VARCHAR(255),
+    [Cap] CHAR(5),
+    [NumeroSerie] VARCHAR(12),
+    [CodiceUtente] VARCHAR(10),
+    [UltimaModifica] DATE
+    )
+
+</sql>
+      <!-- Creazione tabella [Province] -->
+      <sql tabella="[province]" operazione="drop">
+IF OBJECT_ID('dbo.[Province]', 'U') IS NOT NULL DROP TABLE dbo.[Province]
+</sql>
+      <sql tabella="[province]" operazione="create">
+CREATE TABLE dbo.[Province]
+    (
+    [Provincia] VARCHAR(20),
+    [Sigla] CHAR(2) NOT NULL,
+    [Regione] SMALLINT,
+    [AliquotaRca] FLOAT,
+    [EffettoAliquotaRca] DATE,
+	CONSTRAINT PK_PROVINCE PRIMARY KEY CLUSTERED (Sigla)
+    )
+
+</sql>
+      <!-- Creazione tabella [RamoGest] -->
+      <sql tabella="[ramogest]" operazione="drop">
+IF OBJECT_ID('dbo.[RamoGest]', 'U') IS NOT NULL DROP TABLE dbo.[RamoGest]
+</sql>
+      <sql tabella="[ramogest]" operazione="create">
+CREATE TABLE dbo.[RamoGest]
+    (
+    [RamoGestione] SMALLINT,
+    [DescBreve] CHAR(4),
+    [DescRamoGest] VARCHAR(40)
+    )
+
+</sql>
+      <!-- Creazione tabella [RPolToRGest] -->
+      <sql tabella="[rpoltorgest]" operazione="drop">
+IF OBJECT_ID('dbo.[RPolToRGest]', 'U') IS NOT NULL DROP TABLE dbo.[RPolToRGest]
+</sql>
+      <sql tabella="[rpoltorgest]" operazione="create">
+CREATE TABLE dbo.[RPolToRGest]
+    (
+    [RamoPolizza] FLOAT,
+    [RamoGestione] FLOAT
+    )
+
+</sql>
+      <!-- Creazione tabella [Tariffati] -->
+      <sql tabella="[tariffati]" operazione="drop">
+IF OBJECT_ID('dbo.[Tariffati]', 'U') IS NOT NULL DROP TABLE dbo.[Tariffati]
+</sql>
+      <sql tabella="[tariffati]" operazione="create">
+CREATE TABLE dbo.[Tariffati]
+    (
+    [RG] SMALLINT,
+    [DescrizioneRg] CHAR(4),
+    [Tipo] VARCHAR(10),
+    [Prodotto] CHAR(5),
+    [Desk] VARCHAR(10),
+    [DescrizioneProdotto] VARCHAR(60)
+    )
+
+</sql>
+      <!-- Creazione tabella [TipoCarico] -->
+      <sql tabella="[tipocarico]" operazione="drop">
+IF OBJECT_ID('dbo.[TipoCarico]', 'U') IS NOT NULL DROP TABLE dbo.[TipoCarico]
+</sql>
+      <sql tabella="[tipocarico]" operazione="create">
+CREATE TABLE dbo.[TipoCarico]
+    (
+    [Codice] CHAR(1),
+    [Descrizione] VARCHAR(25)
+    )
+
+</sql>
+<sql tabella="[TIPOCARICO]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_TIPOCARICO ON TIPOCARICO (Codice)
+</sql>
+      <!-- Creazione tabella [TipoCid] -->
+      <sql tabella="[tipocid]" operazione="drop">
+IF OBJECT_ID('dbo.[TipoCid]', 'U') IS NOT NULL DROP TABLE dbo.[TipoCid]
+</sql>
+      <sql tabella="[tipocid]" operazione="create">
+CREATE TABLE dbo.[TipoCid]
+    (
+    [TipoCid] CHAR(1),
+    [Desk] VARCHAR(50)
+    )
+
+</sql>
+<sql tabella="[TIPOCID]" operazione="createindex">
+CREATE NONCLUSTERED INDEX IX1_TIPOCID ON TIPOCID (TipoCid)
+</sql>
+
+      <!-- Creazione tabella [TipoRami] -->
+      <sql tabella="[tiporami]" operazione="drop">
+IF OBJECT_ID('dbo.[TipoRami]', 'U') IS NOT NULL DROP TABLE dbo.[TipoRami]
+</sql>
+      <sql tabella="[tiporami]" operazione="create">
+CREATE TABLE dbo.[TipoRami]
+    (
+    [CodiceRamo] SMALLINT NOT NULL,
+    [Ramo] VARCHAR(40),
+	CONSTRAINT PK_TIPORAMI PRIMARY KEY CLUSTERED (CodiceRamo)
+    )
+
+</sql>
+      <!-- Creazione tabella [TipoRamiSinistro] -->
+      <sql tabella="[tiporamisinistro]" operazione="drop">
+IF OBJECT_ID('dbo.[TipoRamiSinistro]', 'U') IS NOT NULL DROP TABLE dbo.[TipoRamiSinistro]
+</sql>
+      <sql tabella="[tiporamisinistro]" operazione="create">
+CREATE TABLE dbo.[TipoRamiSinistro]
+    (
+    [RamoSinistro] SMALLINT NOT NULL,
+    [DesRamoSinistro] VARCHAR(255),
+	CONSTRAINT PK_TIPORAMISINISTRO PRIMARY KEY CLUSTERED (RamoSinistro)
+    )
+
+</sql>
+      <!-- Creazione tabella [TipoSinistro] -->
+      <sql tabella="[tiposinistro]" operazione="drop">
+IF OBJECT_ID('dbo.[TipoSinistro]', 'U') IS NOT NULL DROP TABLE dbo.[TipoSinistro]
+</sql>
+      <sql tabella="[tiposinistro]" operazione="create">
+CREATE TABLE dbo.[TipoSinistro]
+    (
+    [RamoSinistro] SMALLINT NOT NULL,
+    [TipoSinistro] CHAR(2) NOT NULL,
+    [DescTipoSin] VARCHAR(40),
+	CONSTRAINT PK_TIPOSINISTRO PRIMARY KEY CLUSTERED (RamoSinistro, TipoSinistro)
+    )
+
+</sql>
+      <!-- Creazione tabella [TipoStatiCliente] -->
+      <sql tabella="[tipostaticliente]" operazione="drop">
+        IF OBJECT_ID('dbo.[TipoStatiCliente]', 'U') IS NOT NULL DROP TABLE dbo.[TipoStatiCliente]
+      </sql>
+      <sql tabella="[tipostaticliente]" operazione="create">
+        CREATE TABLE dbo.[TipoStatiCliente]
+            (
+            [IDStatoCliente] CHAR(2),
+            [StatoCliente] VARCHAR(30)
+            )
+      </sql>
+      
+      <!-- Creazione tabella [TipoStorni] -->
+      <sql tabella="[tipostorni]" operazione="drop">
+        IF OBJECT_ID('dbo.[TipoStorni]', 'U') IS NOT NULL DROP TABLE dbo.[TipoStorni]
+      </sql>
+      <sql tabella="[tipostorni]" operazione="create">
+        CREATE TABLE dbo.[TipoStorni]
+            (
+            [Settore] VARCHAR(255),
+            [IdStorno] VARCHAR(255),
+            [Storno] VARCHAR(255),
+            [Flag] VARCHAR(255)
+            )
+      </sql>
+      <sql tabella="[TIPOSTORNI]" operazione="createindex">
+        CREATE NONCLUSTERED INDEX IX1_TIPOSTORNI ON TIPOSTORNI (IdStorno)
+      </sql>
+
+      <!-- Creazione tabella [Utenti] -->
+      <sql tabella="[utenti]" operazione="drop">
+        IF OBJECT_ID('dbo.[Utenti]', 'U') IS NOT NULL DROP TABLE dbo.[Utenti]
+      </sql>
+      <sql tabella="[utenti]" operazione="create">
+        CREATE TABLE dbo.[Utenti]
+            (
+            [ID] VARCHAR(21)
+            )
+      </sql>
+      
+      <!-- Creazione tabella [UtentiCentralino] -->
+      <sql tabella="[utenticentralino]" operazione="drop">
+        IF OBJECT_ID('dbo.[UtentiCentralino]', 'U') IS NOT NULL DROP TABLE dbo.[UtentiCentralino]
+      </sql>
+      <sql tabella="[utenticentralino]" operazione="create">
+        CREATE TABLE dbo.[UtentiCentralino]
+            (
+            [Utente] CHAR(10),
+            [Nome] VARCHAR(40),
+            [Interno] INT,
+            [PasswordTelefono] VARCHAR(10),
+            [MacAddressTelefono] CHAR(12),
+            [IPTelefono] CHAR(15)
+            )
+      </sql>
+    </tabelle>
+  </database>
+<!-- CREAZIONE DATABASE SUPPORTO TERMINATO CORRETTAMENTE -->
+</script>

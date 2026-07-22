@@ -1,0 +1,22 @@
+<layout>
+  <grid name="COMPLETO">
+    <font name="Tahoma" size="9" />
+    <property edit="True" />
+    <column name="CodiceFiscContrPol" text="CF" hide="False" visible="True" width="130" argbforecolor="0" argbbackcolor="0" displayindex="0" alignment="16" format="" />
+    <column name="Cliente" text="Nome" hide="False" visible="True" width="200" argbforecolor="0" argbbackcolor="0" displayindex="1" alignment="16" format="" />
+    <column name="SubAgenzia" text="Sub" hide="False" visible="True" width="50" argbforecolor="-3801088" argbbackcolor="0" displayindex="2" alignment="32" format="" />
+    <column name="StatoCliente" text="Stato cliente" hide="False" visible="True" width="50" argbforecolor="0" argbbackcolor="0" displayindex="3" alignment="32" format="" />
+    <column name="PremiStoriciTotali" text="Premi storici totali" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="4" alignment="64" format="###,###,##0.00" />
+    <column name="SinistriStoriciTotali" text="Sinistri storici totali" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="5" alignment="64" format="###,###,##0.00" />
+    <column name="NumeroSinistriTotale" text="Numero sinistri totale" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="-4144960" displayindex="6" alignment="32" format="" />
+    <column name="PercTotale" text="Indicatore TOTALE" hide="False" visible="True" width="65" argbforecolor="0" argbbackcolor="-5308498" displayindex="7" alignment="64" format="##0.00" />
+    <column name="PremiStoriciAuto" text="Premi storici auto" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="8" alignment="64" format="###,###,##0.00" />
+    <column name="SinistriStoriciAuto" text="Sinistri storici auto" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="9" alignment="64" format="###,###,##0.00" />
+    <column name="NumeroSinistriAuto" text="Numero sinistri auto" hide="False" visible="True" width="60" argbforecolor="0" argbbackcolor="-32768" displayindex="10" alignment="32" format="" />
+    <column name="PercAuto" text="Indicatore AUTO" hide="False" visible="True" width="65" argbforecolor="0" argbbackcolor="-128" displayindex="11" alignment="64" format="##0.00" />
+    <column name="PremiStoriciRe" text="Premi storici RE" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="12" alignment="64" format="###,###,##0.00" />
+    <column name="SinistriStoriciRe" text="Sinistri storici RE" hide="False" visible="True" width="90" argbforecolor="0" argbbackcolor="0" displayindex="13" alignment="64" format="###,###,##0.00" />
+    <column name="NumeroSinistriRe" text="Numero sinistri RE" hide="False" visible="True" width="60" argbforecolor="-16777216" argbbackcolor="-16711681" displayindex="14" alignment="32" format="" />
+    <column name="PercRe" text="Indicatore RE" hide="False" visible="True" width="65" argbforecolor="0" argbbackcolor="-128" displayindex="15" alignment="64" format="##0.00" />
+  </grid>
+</layout>

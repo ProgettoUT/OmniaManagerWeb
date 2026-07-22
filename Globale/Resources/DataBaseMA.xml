@@ -1,0 +1,1837 @@
+<script name="creazione database">
+  <database tipo="agenzia">
+    <sql operazione="drop">IF EXISTS (SELECT name FROM sys.databases WHERE name = N'MA{agenzia}') DROP DATABASE DB{agenzia}</sql>
+    <sql operazione="use">USE MASTER</sql>
+    <sql operazione="use">USE MA{agenzia}</sql>
+    <sql operazione="set">ALTER DATABASE [MA{agenzia}] SET AUTO_CLOSE OFF</sql>
+    <sql operazione="create">
+      CREATE DATABASE MA{agenzia}  
+      ON   
+      (   NAME = MA{agenzia},  
+          FILENAME = '{path}\MA{agenzia}.mdf',  
+          SIZE = 100MB,  
+          MAXSIZE = 4GB,  
+          FILEGROWTH = 10MB )  
+      LOG ON  
+      (   NAME = LGMA{agenzia},  
+          FILENAME = '{path}\LGMA{agenzia}.log',  
+          SIZE = 50MB,  
+          MAXSIZE = 1GB,  
+          FILEGROWTH = 25MB )
+    </sql>
+    <tabelle>
+      <!-- AVVIO PROGRAMMA DI IMPORTAZIONE ... -->
+      <!-- creazione del database ... -->
+      <!-- Creazione tabella [arp001_tipofile] -->
+      <sql tabella="[arp001_tipofile]" operazione="drop">
+		  IF OBJECT_ID('dbo.[arp001_tipofile]', 'U') IS NOT NULL DROP TABLE dbo.[arp001_tipofile]
+	  </sql>
+      <sql tabella="[ana_abitazione]" operazione="create">
+		  CREATE TABLE [arp001_tipofile]
+		  (   
+		  [codtipofile] CHAR(3),
+		  [destipofile] VARCHAR(50),
+		  [matchexp] VARCHAR(30),
+		  [codperiodicita] SMALLINT
+		  )
+	  </sql>
+		<sql tabella="[arp001_tipofile]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_ARP001 ON arp001_tipofile (codtipofile)
+		</sql>
+
+		<!-- Creazione tabella [arp002_file] -->
+      <sql tabella="[arp002_file]" operazione="drop">
+		  IF OBJECT_ID('dbo.[arp002_file]', 'U') IS NOT NULL DROP TABLE dbo.[arp002_file]
+	  </sql>
+      <sql tabella="[arp002_file]" operazione="create">
+		  CREATE TABLE [arp002_file]
+		  (   
+		  [nome] VARCHAR(50),
+		  [codtiporecord] CHAR(2),
+		  [dataestrazione] DATE,
+		  [datacreazione] DATE,
+		  [dataimportazione] DATE,
+		  [codtipofile] CHAR(3),
+		  [numerorecords] INTEGER,
+		  [RecordsImportati] INTEGER,
+		  [RecordsScartati] INTEGER
+		  )
+	  </sql>
+		<sql tabella="[arp002_file]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_ARP002 ON arp002_file (nome,codtiporecord)
+		</sql>
+
+		<!-- Creazione tabella [arp003_tiporecord] -->
+      <sql tabella="[arp003_tiporecord]" operazione="drop">
+		  IF OBJECT_ID('dbo.[arp003_tiporecord]', 'U') IS NOT NULL DROP TABLE dbo.[arp003_tiporecord]
+	  </sql>
+      <sql tabella="[arp003_tiporecord]" operazione="create">
+		  CREATE TABLE [arp003_tiporecord]
+		  (   
+		  [codtiporecord] CHAR(2),
+		  [destiporecord] VARCHAR(255)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [CategoriaRischio] -->
+      <sql tabella="[CategoriaRischio]" operazione="drop">
+		  IF OBJECT_ID('dbo.[CategoriaRischio]', 'U') IS NOT NULL DROP TABLE dbo.[CategoriaRischio]
+	  </sql>
+      <sql tabella="[CategoriaRischio]" operazione="create">
+		  CREATE TABLE [CategoriaRischio]
+		  (
+		  [CodiceCategoriaRischio] CHAR(5),
+		  [DescrizioneCategoriaRischio] VARCHAR(41)
+		  )
+	  </sql>
+      
+		<!-- Creazione tabella [ClasseUsoVeicolo] -->
+      <sql tabella="[ClasseUsoVeicolo]" operazione="drop">
+		  IF OBJECT_ID('dbo.[ClasseUsoVeicolo]', 'U') IS NOT NULL DROP TABLE dbo.[ClasseUsoVeicolo]
+	  </sql>
+      <sql tabella="[ClasseUsoVeicolo]" operazione="create">
+		  CREATE TABLE [ClasseUsoVeicolo]
+		  (   
+		  [CodiceClasseVeicolo] CHAR(2),
+		  [CodiceUsoVeicolo] CHAR(2),
+		  [DescrizioneClasseUsoVeicolo] VARCHAR(62)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [ClasseVeicolo] -->
+      <sql tabella="[ClasseVeicolo]" operazione="drop">
+		  IF OBJECT_ID('dbo.[ClasseVeicolo]', 'U') IS NOT NULL DROP TABLE dbo.[ClasseVeicolo]
+	  </sql>
+      <sql tabella="[ClasseVeicolo]" operazione="create">
+		  CREATE TABLE [ClasseVeicolo]
+		  (
+		  [Compagnia] CHAR(1),
+		  [CodiceClasseVeicolo] CHAR(3),
+		  [DescrizioneClasseVeicolo] VARCHAR(15)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [ClausolaRCA] -->
+      <sql tabella="[ClausolaRCA]" operazione="drop">
+		  IF OBJECT_ID('dbo.[ClausolaRCA]', 'U') IS NOT NULL DROP TABLE dbo.[ClausolaRCA]
+	  </sql>
+      <sql tabella="[ClausolaRCA]" operazione="create">
+		  CREATE TABLE [ClausolaRCA]
+		  (   
+		  [CodiceClausola] CHAR(5),
+		  [DescrizioneClausola] VARCHAR(37)
+		  )
+	  </sql>
+      
+		<!-- Creazione tabella [Clienti1] -->
+      <sql tabella="[Clienti1]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Clienti1]', 'U') IS NOT NULL DROP TABLE dbo.[Clienti1]
+	  </sql>
+      <sql tabella="[Clienti1]" operazione="create">
+		  CREATE TABLE [Clienti1]
+		  (   
+		  [ProgressivoFile] INTEGER,
+		  [DataElaborazione] DATE,
+		  [CodicePuntoVendita] CHAR(5),
+		  [Progressivo] CHAR(2),
+		  [TipoElaborazione] CHAR(2),
+		  [AgenziaMadre] CHAR(5),
+		  [CodiceSubagenziaAnag] CHAR(5),
+		  [CodiceProduttoreAnag] CHAR(5),
+		  [NaturaGiuridica] CHAR(1),
+		  [CodiceFiscale] CHAR(16),
+		  [Cognome] VARCHAR(40),
+		  [Nome] VARCHAR(25),
+		  [EntePubblico] CHAR(1),
+		  [ToponimoResidenza] VARCHAR(50),
+		  [IndirizzoResidenza] VARCHAR(50),
+		  [NumCivicoResidenza] VARCHAR(15),
+		  [LocalitaResidenza] VARCHAR(50),
+		  [ComuneResidenza] VARCHAR(50),
+		  [CapResidenza] CHAR(5),
+		  [ProvinciaResidenza] CHAR(5),
+		  [CodiceStatoResidenza] CHAR(3),
+		  [IndirizzoResidenzaBreve] VARCHAR(35),
+		  [LocalitaResidenzaBreve] VARCHAR(35),
+		  [ComuneResidenzaBreve] VARCHAR(30),
+		  [ToponimoDomicilio] VARCHAR(50),
+		  [IndirizzoDomicilio] VARCHAR(50),
+		  [NumCivicoDomicilio] VARCHAR(15),
+		  [LocalitaDomicilio] VARCHAR(50),
+		  [ComuneDomicilio] VARCHAR(50),
+		  [CapDomicilio] CHAR(5),
+		  [ProvinciaDomicilio] CHAR(5),
+		  [CodiceStatoDomicilio] CHAR(3),
+		  [IndirizzoDomicilioBreve] VARCHAR(35),
+		  [LocalitaDomicilioBreve] VARCHAR(35),
+		  [ComuneDomicilioBreve] VARCHAR(30),
+		  [TelefonoPrincipale] VARCHAR(14),
+		  [Cellulare] VARCHAR(14),
+		  [IndirizzoEMail] VARCHAR(100),
+		  [IndirizzoPec] VARCHAR(100),
+		  [FaxPrincipale] VARCHAR(14),
+		  [TelefonoSecondario] VARCHAR(14),
+		  [TelefonoUfficio] VARCHAR(14),
+		  [TelefonoReferente] VARCHAR(14),
+		  [NominativoReferente] VARCHAR(40),
+		  [TipoCliente] CHAR(5),
+		  [FlagClienteTop] CHAR(1),
+		  [ClienteTopDal] DATE,
+		  [Sesso] CHAR(1),
+		  [DataNascita] DATE,
+		  [LuogoNascita] VARCHAR(30),
+		  [TipoConsenso] CHAR(2),
+		  [DataConsenso] DATE,
+		  [DataRevocaConsenso] DATE,
+		  [AutorizzazioneFea] CHAR(1),
+		  [DataAutorizzazioneFea] DATE,
+		  [TipoCodiceAtecoAnag] CHAR(1),
+		  [CodiceAtecoAnag] VARCHAR(6),
+		  [DescrizioneAtecoAnag] VARCHAR(255),
+		  [NumDipendentiAteco] VARCHAR(10),
+		  [FatturatoAteco] VARCHAR(15),
+		  [PercentualeFatturatoEstero] CHAR(3),
+		  [FasciaReddito] CHAR(1),
+		  [StatoCivile] CHAR(1),
+		  [Figli] CHAR(1),
+		  [AnnoNascitaFiglio1] SMALLINT,
+		  [AnnoNascitaFiglio2] SMALLINT,
+		  [AnnoNascitaFiglio3] SMALLINT,
+		  [AnnoNascitaFiglio4] SMALLINT,
+		  [TitoloStudio] CHAR(1),
+		  [InteressiFaidate] CHAR(1),
+		  [InteressiMusica] CHAR(1),
+		  [InteressiLettura] CHAR(1),
+		  [InteressiTecnologia] CHAR(1),
+		  [InteressiSport] CHAR(1),
+		  [InteressiViaggi] CHAR(1),
+		  [InteressiSalute] CHAR(1),
+		  [InteressiNatura] CHAR(1),
+		  [InteressiVolontariato] CHAR(1),
+		  [InteressiFoto] CHAR(1),
+		  [InteressiMotori] CHAR(1),
+		  [InteressiEnogastronomia] CHAR(1),
+		  [InternetAcquisti] CHAR(1),
+		  [InternetApplicazioni] CHAR(1),
+		  [InternetLavoro] CHAR(1),
+		  [InternetSocial] CHAR(1),
+		  [CasaProprieta] CHAR(1),
+		  [CasaAffitto] CHAR(1),
+		  [CasaSeconda] CHAR(1),
+		  [CasaMutuo] CHAR(1),
+		  [CasaProprietaMutuoSeconda] CHAR(1),
+		  [TipoRisparmiatore] CHAR(1),
+		  [InfoRisparmiarePolizzaAuto] CHAR(1),
+		  [InfoIntegrarePensione] CHAR(1),
+		  [InfoRisparmiareNoRischi] CHAR(1),
+		  [InfoGarantireStudiFigli] CHAR(1),
+		  [InfoFarRendereCapitale] CHAR(1),
+		  [InfoLasciareEredita] CHAR(1),
+		  [InfoAssistenzaSanitaria] CHAR(1),
+		  [InfoTerremoto] CHAR(1),
+		  [InfoDifesaDanni] CHAR(1),
+		  [InfoIndennizzoMalattia] CHAR(1),
+		  [InfoPerditaImpiego] CHAR(1),
+		  [PrevisioneCambioAuto] CHAR(1),
+		  [PrevisioneCambioCasa] CHAR(1),
+		  [PrevisioneMutuo] CHAR(1),
+		  [PrevisioneNuovaAttivita] CHAR(1),
+		  [PrevisionePromozione] CHAR(1),
+		  [PrevisioneVacanza] CHAR(1),
+		  [PrevisioneFineStudioFigli] CHAR(1),
+		  [PrevisionePensione] CHAR(1),
+		  [DataAggDatiSocioeconomici] DATE,
+		  [TipoDocumento1] CHAR(3),
+		  [NumeroDocumento1] VARCHAR(15),
+		  [AutoritaRilascioDocumento1] VARCHAR(30),
+		  [ProvinciaRilascioDocumento1] CHAR(5),
+		  [LocalitaRilascioDocumento1] VARCHAR(30),
+		  [DataRilascioDocumento1] DATE,
+		  [DataScadenzaDocumento1] DATE,
+		  [TipoDocumento2] CHAR(3),
+		  [NumeroDocumento2] VARCHAR(15),
+		  [AutoritaRilascioDocumento2] VARCHAR(30),
+		  [ProvinciaRilascioDocumento2] CHAR(5),
+		  [LocalitaRilascioDocumento2] VARCHAR(30),
+		  [DataRilascioDocumento2] DATE,
+		  [DataScadenzaDocumento2] DATE,
+		  [TipoDocumento3] CHAR(3),
+		  [NumeroDocumento3] VARCHAR(15),
+		  [AutoritaRilascioDocumento3] VARCHAR(30),
+		  [ProvinciaRilascioDocumento3] CHAR(5),
+		  [LocalitaRilascioDocumento3] VARCHAR(30),
+		  [DataRilascioDocumento3] DATE,
+		  [DataScadenzaDocumento3] DATE,
+		  [PresenzaCapoFamiglia] CHAR(1),
+		  [CodiceFiscaleCapoFamiglia] CHAR(16),
+		  [NumeroComponentiNucleo] CHAR(3),
+		  [CodiceFiscaleEnteAppartenenza] CHAR(16),
+		  [DataInserimentoCliente] DATE,
+		  [DataCessazioneCliente] DATE,
+		  [FES] VARCHAR(10)
+		  )
+	  </sql>
+		<sql tabella="[Clienti1]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_CLIENTI1 ON CLIENTI1 (CodiceFiscale)
+		</sql>
+
+		<!-- Creazione tabella [CompagniaControparte] -->
+      <sql tabella="[CompagniaControparte]" operazione="drop">
+		  IF OBJECT_ID('dbo.[CompagniaControparte]', 'U') IS NOT NULL DROP TABLE dbo.[CompagniaControparte]
+	  </sql>
+      <sql tabella="[CompagniaControparte]" operazione="create">
+		  CREATE TABLE [CompagniaControparte]
+		  (   
+		  [CodiceCompagniaUnipol] CHAR(5),
+		  [CodiceCompagniaAnia] CHAR(5),
+		  [DescrizioneCompagnia] VARCHAR(35)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Convenzione] -->
+      <sql tabella="[ana_fasivendita]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Convenzione]', 'U') IS NOT NULL DROP TABLE dbo.[Convenzione]
+	  </sql>
+      <sql tabella="[Convenzione]" operazione="create">
+		  CREATE TABLE [Convenzione]
+		  (   
+		  [CodiceConvenzione] CHAR(5),
+		  [DescrizioneConvenzione] VARCHAR(25)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Franchigia] -->
+      <sql tabella="[Franchigia]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Franchigia]', 'U') IS NOT NULL DROP TABLE dbo.[Franchigia]
+	  </sql>
+      <sql tabella="[Franchigia]" operazione="create">
+		  CREATE TABLE [Franchigia]
+		  (   
+		  [Data] VARCHAR(10),
+		  [Settore] CHAR(2),
+		  [Franchigia] VARCHAR(10),
+		  [DescrizioneSettore] VARCHAR(40),
+		  [DescrizioneFranchigia] VARCHAR(32),
+		  [Compagnia] CHAR(1)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Frazionamento] -->
+      <sql tabella="[Frazionamento]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Frazionamento]', 'U') IS NOT NULL DROP TABLE dbo.[Frazionamento]
+	  </sql>
+      <sql tabella="[Frazionamento]" operazione="create">
+		  CREATE TABLE [Frazionamento]
+		  (   
+		  [CodiceFrazionamento] CHAR(1),
+		  [DescrizioneFrazionamento] VARCHAR(30)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [GaranziaAccessoria] -->
+      <sql tabella="[GaranziaAccessoria]" operazione="drop">
+		  IF OBJECT_ID('dbo.[GaranziaAccessoria]', 'U') IS NOT NULL DROP TABLE dbo.[GaranziaAccessoria]
+	  </sql>
+      <sql tabella="[GaranziaAccessoria]" operazione="create">
+		  CREATE TABLE [GaranziaAccessoria]
+		  (   
+		  [Compagnia] CHAR(1),
+		  [CodiceGaranziaAccessoria] CHAR(3),
+		  [DescrizioneGaranziaAccessoria] VARCHAR(20)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Incarichi] -->
+      <sql tabella="[Incarichi]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Incarichi]', 'U') IS NOT NULL DROP TABLE dbo.[Incarichi]
+	  </sql>
+      <sql tabella="[Incarichi]" operazione="create">
+		  CREATE TABLE [Incarichi]
+		  (   
+		  [ProgressivoFile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [tiporecord] CHAR(1),
+		  [datacompetenzaelaborazione] DATE,
+		  [agenziapolizzaarrivo] CHAR(5),
+		  [agenziapolizza] CHAR(5),
+		  [eserciziosinistro] CHAR(4),
+		  [agenziasinistro] CHAR(4),
+		  [numerosinistro] VARCHAR(7),
+		  [numeroposizione] CHAR(3),
+		  [codicefiscaledanneggiato] CHAR(16),
+		  [cognomedanneggiato] VARCHAR(40),
+		  [nomedanneggiato] VARCHAR(40),
+		  [codiceperitoincaricato] VARCHAR(7),
+		  [codiceprofessione] CHAR(3),
+		  [dataincarico] DATE,
+		  [tipoincarico] CHAR(2),
+		  [datarestituzioneincarico] DATE,
+		  [tipoincaricorestituito] CHAR(2),
+		  [codiceagenziamadre] CHAR(5),
+		  [compagnianew] CHAR(1),
+		  [codiceperitosap] VARCHAR(10),
+		  [tipoincaricocc] VARCHAR(30),
+		  [tipospecializzazionefiduciario] VARCHAR(50),
+		  [tipofiduciario] VARCHAR(50),
+		  [statoincarico] VARCHAR(50),
+		  [statoincaricocarrozzeria] VARCHAR(50),
+		  [esitoperizia] VARCHAR(30)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [IspettoratoSinistro] -->
+      <sql tabella="[IspettoratoSinistro]" operazione="drop">
+		  IF OBJECT_ID('dbo.[IspettoratoSinistro]', 'U') IS NOT NULL DROP TABLE dbo.[IspettoratoSinistro]
+	  </sql>
+      <sql tabella="[IspettoratoSinistro]" operazione="create">
+		  CREATE TABLE [IspettoratoSinistro]
+		  (   
+		  [CodiceIspettoratoSinistro] CHAR(4),
+		  [DescrizioneIspettoratoSinistro] VARCHAR(25)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Liquidatori] -->
+      <sql tabella="[Liquidatori]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Liquidatori]', 'U') IS NOT NULL DROP TABLE dbo.[Liquidatori]
+	  </sql>
+      <sql tabella="[Liquidatori]" operazione="create">
+		  CREATE TABLE [Liquidatori]
+		  (
+		  [ProgressivoFile] INTEGER,
+		  [DataElaborazione] DATE,
+		  [CodicePuntoVendita] CHAR(5),
+		  [Progressivo] CHAR(2),
+		  [TipoElaborazione] CHAR(2),
+		  [Codice] INTEGER,
+		  [Cognome] VARCHAR(20),
+		  [Nome] VARCHAR(20),
+		  [CslLavoro] INTEGER,
+		  [Localita] VARCHAR(50),
+		  [Provincia] CHAR(3),
+		  [Telefono] VARCHAR(20),
+		  [TelefonoCsl] VARCHAR(20),
+		  [Email] VARCHAR(50)
+		  )
+	  </sql>
+		<sql tabella="[Liquidatori]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_LIQUIDATORI ON Liquidatori (Codice)
+		</sql>
+
+		<!-- Creazione tabella [MassimaliNatanti] -->
+      <sql tabella="[MassimaliNatanti]" operazione="drop">
+		  IF OBJECT_ID('dbo.[MassimaliNatanti]', 'U') IS NOT NULL DROP TABLE dbo.[MassimaliNatanti]
+	  </sql>
+      <sql tabella="[MassimaliNatanti]" operazione="create">
+		  CREATE TABLE [MassimaliNatanti]
+		  (   
+		  [CodiceMassimale] CHAR(3),
+		  [DescrizioneMassimale] VARCHAR(50),
+		  [Compagnia] CHAR(1)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [MassimaliNoNatanti] -->
+      <sql tabella="[MassimaliNoNatanti]" operazione="drop">
+		  IF OBJECT_ID('dbo.[MassimaliNoNatanti]', 'U') IS NOT NULL DROP TABLE dbo.[MassimaliNoNatanti]
+	  </sql>
+      <sql tabella="[MassimaliNoNatanti]" operazione="create">
+		  CREATE TABLE [MassimaliNoNatanti]
+		  (   
+		  [CodiceMassimale] CHAR(3),
+		  [DescrizioneMassimale] VARCHAR(50),
+		  [Compagnia] CHAR(1)
+		  )
+	  </sql>
+
+      <!-- Creazione tabella [MercatoPreferenziale] -->
+      <sql tabella="[MercatoPreferenziale]" operazione="drop">
+		  IF OBJECT_ID('dbo.[MercatoPreferenziale]', 'U') IS NOT NULL DROP TABLE dbo.[MercatoPreferenziale]
+	  </sql>
+      <sql tabella="[MercatoPreferenziale]" operazione="create">
+		  CREATE TABLE [MercatoPreferenziale]
+		  (   
+		  [Compagnia] CHAR(1),
+		  [CodiceMercatoPreferenziale] CHAR(2),
+		  [DescrizioneMercatoPreferenziale] VARCHAR(62)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [MovimentiPrimaNota] -->
+      <sql tabella="[MovimentiPrimaNota]" operazione="drop">
+		  IF OBJECT_ID('dbo.[MovimentiPrimaNota]', 'U') IS NOT NULL DROP TABLE dbo.[MovimentiPrimaNota]
+	  </sql>
+      <sql tabella="[MovimentiPrimaNota]" operazione="create">
+		  CREATE TABLE [MovimentiPrimaNota]
+		  (   
+		  [ProgressivoFile] INTEGER,
+		  [DataElaborazione] DATE,
+		  [CodicePuntoVendita] CHAR(5),
+		  [Progressivo] CHAR(2),
+		  [TipoElaborazione] CHAR(2),
+		  [CodiceMovimento] CHAR(3),
+		  [CodiceTipoMovimento] CHAR(3),
+		  [Descrizione] VARCHAR(40),
+		  [Categoria] INTEGER,
+		  [Ramo] SMALLINT,
+		  [Polizza] INTEGER,
+		  [DataEffettoTitolo] DATE,
+		  [Contraente] VARCHAR(25),
+		  [CodiceSegno] CHAR(1),
+		  [ImportoCassa] MEMO,
+		  [ImportoBanca] MEMO,
+		  [CodiceBanca] CHAR(5),
+		  [ProgressivoBonifico] INTEGER,
+		  [ImportoAltro] MEMO,
+		  [CodicePagamento] CHAR(1),
+		  [CodiceSubagente] CHAR(5),
+		  [CodiceConvenzione] CHAR(5),
+		  [DataRegistrazione] DATE,
+		  [TimestampInserimento] VARCHAR(26),
+		  [MovimentoConfermato] CHAR(1),
+		  [DataQuadratura] DATE,
+		  [PuntoVendita] CHAR(5),
+		  [CodiceEsito] CHAR(2),
+		  [CodiceRUI] VARCHAR(10)
+		  )
+	  </sql>
+		<sql tabella="[MovimentiPrimaNota]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_MOVPN ON MovimentiPrimaNota (TimestampInserimento)
+		</sql>
+
+		<!-- Creazione tabella [Pagamenti] -->
+      <sql tabella="[Pagamenti]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Pagamenti]', 'U') IS NOT NULL DROP TABLE dbo.[Pagamenti]
+	  </sql>
+      <sql tabella="[Pagamenti]" operazione="create">
+		  CREATE TABLE [Pagamenti]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [tiporecord] CHAR(1),
+		  [datacompetenzaelaborazione] DATE,
+		  [agenziapolizzaarrivo] CHAR(5),
+		  [agenziapolizza] CHAR(5),
+		  [eserciziosinistro] CHAR(4),
+		  [agenziasinistro] CHAR(4),
+		  [numerosinistro] VARCHAR(7),
+		  [numeroposizione] CHAR(3),
+		  [codicefiscaledanneggiato] CHAR(16),
+		  [cognomedanneggiato] VARCHAR(40),
+		  [nomedanneggiato] VARCHAR(40),
+		  [tipopagamento] CHAR(2),
+		  [formapagamento] CHAR(2),
+		  [datapagamento] DATE,
+		  [numeroassegno] VARCHAR(15),
+		  [quotaimportopagato] MEMO,
+		  [codiceagenziamadre] CHAR(5)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Periti] -->
+      <sql tabella="[Periti]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Periti]', 'U') IS NOT NULL DROP TABLE dbo.[Periti]
+	  </sql>
+      <sql tabella="[Periti]" operazione="create">
+		  CREATE TABLE [Periti]
+		  (   
+		  [datacompetenzaelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [codiceperito] CHAR(5),
+		  [tipoperito] CHAR(1),
+		  [cognome] VARCHAR(45),
+		  [nome] VARCHAR(15),
+		  [codicefiscale] CHAR(16),
+		  [telefono] VARCHAR(15),
+		  [cellulare] VARCHAR(15),
+		  [email] VARCHAR(50),
+		  [codiceperitosap] VARCHAR(10)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Polizze1] -->
+      <sql tabella="[Polizze1]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Polizze1]', 'U') IS NOT NULL DROP TABLE dbo.[Polizze1]
+	  </sql>
+      <sql tabella="[Polizze1]" operazione="create">
+		  CREATE TABLE [Polizze1]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [codicesubagenzia] SMALLINT,
+		  [codiceproduttore] SMALLINT,
+		  [codiceprodotto] CHAR(5),
+		  [tipopolizza] CHAR(5),
+		  [frazionamento] CHAR(1),
+		  [codicepagamento] SMALLINT,
+		  [codicecampagna] VARCHAR(10),
+		  [codiceconvenzione] INTEGER,
+		  [codicederogacondstamp] CHAR(1),
+		  [dataeffettopolizza] DATE,
+		  [datascadenzapolizza] DATE,
+		  [dataprossimaquietanza] DATE,
+		  [dataemissione] DATE,
+		  [dataregolazionepremio] DATE,
+		  [datascadenzavincolo] DATE,
+		  [datascadenzaoriginaria] DATE,
+		  [codicetipostorno] CHAR(2),
+		  [dataeffettostorno] DATE,
+		  [dataemissionestorno] DATE,
+		  [flagsospesa] CHAR(2),
+		  [dataeffettosospesa] DATE,
+		  [nuovocodiceramo] CHAR(3),
+		  [nuovonumeropolizza] VARCHAR(9),
+		  [codicefiscale] CHAR(16),
+		  [nominativo] VARCHAR(67),
+		  [cap] CHAR(5),
+		  [codicevaluta] CHAR(3),
+		  [flagtiporamo] CHAR(1),
+		  [premionetto] MEMO,
+		  [interessi] MEMO,
+		  [accessori] MEMO,
+		  [premiotassabile] MEMO,
+		  [nostraquotapremiotassabile] MEMO,
+		  [premiolordo] MEMO,
+		  [aliquotainteressi] MEMO,
+		  [aliquotaaccessori] MEMO,
+		  [flagdelega] CHAR(1),
+		  [percentualequotanostra] MEMO,
+		  [compagniadelegata] CHAR(3),
+		  [agenziadelegata] CHAR(5),
+		  [polizzadelegata] VARCHAR(18),
+		  [codicetipotarga] CHAR(1),
+		  [targaveicolo] VARCHAR(20),
+		  [classeveicolo] CHAR(3),
+		  [usoveicolo] CHAR(2),
+		  [settoretariffa] CHAR(1),
+		  [dataedizionerca] DATE,
+		  [potenzaeffettiva] CHAR(3),
+		  [rapportopesopotenza] VARCHAR(6),
+		  [utilizzoauto] CHAR(1),
+		  [tipoalimentazione] CHAR(1),
+		  [hpveicolo] SMALLINT,
+		  [postiveicolo] CHAR(3),
+		  [quintaliveicolo] CHAR(3),
+		  [postirimorchio] CHAR(3),
+		  [quintalirimorchio] CHAR(3),
+		  [kilowatt] CHAR(5),
+		  [pesokg] CHAR(5),
+		  [rimorchio] CHAR(1),
+		  [garage] CHAR(1),
+		  [antifurto] CHAR(1),
+		  [abs] CHAR(1),
+		  [airbagpasseggero] CHAR(1),
+		  [codicemarcaveicolo] CHAR(3),
+		  [codiceallestimento] VARCHAR(7),
+		  [annomesepresentazione] VARCHAR(6),
+		  [annomeseimmatricolazione] VARCHAR(6),
+		  [proprietariocontraente] CHAR(1),
+		  [proprietariocodicefiscale] CHAR(16),
+		  [proprietariocodicecatastale] CHAR(4),
+		  [proprietarioprofessione] SMALLINT,
+		  [proprietarioannomese] VARCHAR(6),
+		  [proprietariosesso] CHAR(1),
+		  [conducentecontraente] CHAR(1),
+		  [conducenteannomese] VARCHAR(6),
+		  [conducentesesso] CHAR(1),
+		  [conducenteannomesepatente] VARCHAR(6),
+		  [tipotariffa] CHAR(1),
+		  [classemerito] SMALLINT,
+		  [annomesetariffa] VARCHAR(6),
+		  [formatariffa] CHAR(1),
+		  [rcapejus] CHAR(1),
+		  [franchigia] MEMO,
+		  [scontobonus] MEMO,
+		  [bonusfamiglia] CHAR(1),
+		  [combinazionimassimali] SMALLINT,
+		  [provinciatariffa] CHAR(2),
+		  [classetariffacip] CHAR(3),
+		  [flagflessibilita] CHAR(1),
+		  [percentualeflessibilita] MEMO,
+		  [premiorcanetto] VARCHAR(15),
+		  [garcompremiorcapar] VARCHAR(13),
+		  [garcompremiorco] VARCHAR(13),
+		  [tariffaard] CHAR(5),
+		  [incendiocodicegaranzia] CHAR(3),
+		  [incendiocapitale] MEMO,
+		  [incendiofranchigia] MEMO,
+		  [incendiopercentualefranchigia] MEMO,
+		  [incendiopercentualescoperto] MEMO,
+		  [incendiopremio] MEMO,
+		  [furtocodicegaranzia] CHAR(3),
+		  [furtocapitale] MEMO,
+		  [furtofranchigia] MEMO,
+		  [furtopercentualefranchigia] MEMO,
+		  [furtopercentualescoperto] MEMO,
+		  [furtopremio] MEMO,
+		  [eventiatmosfericicodicegaranzia] CHAR(3),
+		  [eventiatmosfericicapitale] MEMO,
+		  [eventiatmosfericifranchigia] MEMO,
+		  [eventiatmosfericipercentualefranchigia] MEMO,
+		  [eventiatmosfericipercentualescoperto] MEMO,
+		  [eventiatmosfericipremio] MEMO,
+		  [eventisociopoliticicodicegaranzia] CHAR(3),
+		  [eventisociopoliticicapitale] MEMO,
+		  [eventisociopoliticifranchigia] MEMO,
+		  [eventisociopoliticipercentualefranchigia] MEMO,
+		  [eventisociopoliticipercentualescoperto] MEMO,
+		  [eventisociopoliticipremio] MEMO,
+		  [fonoaudiovisivipresenza] CHAR(1),
+		  [fonoaudiovisivicapitale] MEMO
+		  )
+	  </sql>
+		<sql tabella="[Polizze1]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLIZZE1 ON POLIZZE1 (codicepuntovendita,ramo,polizza)
+		</sql>
+
+		<!-- Creazione tabella [Polizze2] -->
+      <sql tabella="[Polizze2]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Polizze2]', 'U') IS NOT NULL DROP TABLE dbo.[Polizze2]
+	  </sql>
+      <sql tabella="[Polizze2]" operazione="create">
+		  CREATE TABLE [Polizze2]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [fonoaudiovisivifranchigia] MEMO,
+		  [fonoaudiovisivipremio] MEMO,
+		  [fonoaudiovisiviannoacquisto] CHAR(4),
+		  [infortunicombinazione] SMALLINT,
+		  [infortunipercentualefranchigiaip] MEMO,
+		  [infortunipremio] MEMO,
+		  [ritiropatentecodicegaranzia] CHAR(3),
+		  [ritiropatentegiorni] CHAR(3),
+		  [ritiropatentefranchigiagiorni] CHAR(3),
+		  [ritiropatentediaria] MEMO,
+		  [ritiropatentepremio] MEMO,
+		  [garanzieaccessoriecombinazione] SMALLINT,
+		  [garanzieaccessoriepremiotutela] MEMO,
+		  [garanzieaccessoriepremioassistenza] MEMO,
+		  [garanzieaccessoriepremio] MEMO,
+		  [kaskocodicegaranzia] CHAR(3),
+		  [kaskocapitale] MEMO,
+		  [kaskofranchigia] MEMO,
+		  [kaskopercentualefranchigia] MEMO,
+		  [kaskopercentualescoperto] MEMO,
+		  [kaskopremio] MEMO,
+		  [kaskocodicetariffa] CHAR(5),
+		  [kaskocodiceaccessori] CHAR(1),
+		  [fermotecnicocodicegaranzia] CHAR(3),
+		  [fermotecnicodiaria] MEMO,
+		  [fermotecnicogiorni] CHAR(3),
+		  [fermotecnicofranchigiagiorni] CHAR(3),
+		  [fermotecnicopremio] MEMO,
+		  [caricoscaricomassimali] CHAR(3),
+		  [caricoscaricofranchigia] MEMO,
+		  [caricoscaricopremio] MEMO,
+		  [grupposinistrosita] CHAR(1),
+		  [marcaveicolo] VARCHAR(14),
+		  [prodottoriferimento] CHAR(5),
+		  [numemovariazione] CHAR(3),
+		  [datavariazione] DATE,
+		  [flagregolazionepremio] CHAR(1),
+		  [eserciziocompetenza] CHAR(4),
+		  [tipoindice] CHAR(1),
+		  [numeroindice] VARCHAR(7),
+		  [tacitorinnovo] CHAR(1),
+		  [rescindibilita] CHAR(1),
+		  [provinciarischio] CHAR(3),
+		  [flagnote] CHAR(1),
+		  [flagcumulativa] CHAR(1),
+		  [formaprovvigionale] CHAR(1),
+		  [codicetariffavita] CHAR(4),
+		  [totaleversamentiannui] MEMO,
+		  [controlloelettronicovelocita] CHAR(1),
+		  [controlloelettronicostabilita] CHAR(1),
+		  [ccnatanti] CHAR(5),
+		  [scalabonusmaius] CHAR(1),
+		  [tipoblocco] CHAR(1),
+		  [danniindiretticodicegaranzia] CHAR(2),
+		  [danniindirettivaloreassicurato] VARCHAR(9),
+		  [danniindirettisommaassicurato] VARCHAR(7),
+		  [danniindirettipremio] VARCHAR(7),
+		  [assistenzapsicologicacombinazione] CHAR(2),
+		  [assistenzapsicologicapremio] VARCHAR(7),
+		  [assistenzadoveseipremio] VARCHAR(7),
+		  [tariffavita] VARCHAR(12),
+		  [vcvtprodotto] VARCHAR(12),
+		  [protezione] CHAR(1),
+		  [payxuse] CHAR(1),
+		  [riclassifica] CHAR(5),
+		  [octocontratto] CHAR(1),
+		  [octoformula] CHAR(1),
+		  [trasportispeciali] CHAR(1),
+		  [trasportimoto] CHAR(1),
+		  [sospensione] CHAR(1),
+		  [kmpartenza] VARCHAR(7),
+		  [flagtipovincolo] CHAR(1),
+		  [vcvtdataversione] VARCHAR(8),
+		  [vcvtpacchetto] VARCHAR(10),
+		  [vcvtdatapacchetto] VARCHAR(8),
+		  [vcvtadeguamentoautomatico] CHAR(1),
+		  [vcvtsettoreard] VARCHAR(12),
+		  [vcvtvaloreassicurato] VARCHAR(11),
+		  [vcvtvaloreassicuratoaccessori] VARCHAR(11),
+		  [vincendioformavendita] VARCHAR(12),
+		  [vincendiominimoindennizzabile] VARCHAR(11),
+		  [vincendiomassimale] VARCHAR(11),
+		  [vincendioforzaturalimiti] CHAR(1),
+		  [vfurtoformavendita] VARCHAR(12),
+		  [vfurtominimoindennizzabile] VARCHAR(11),
+		  [vfurtomassimale] VARCHAR(11),
+		  [vfurtoforzaturalimiti] CHAR(1),
+		  [vkaskoformavendita] VARCHAR(12),
+		  [vkaskominimoindennizzabile] VARCHAR(11),
+		  [vkaskomassimale] VARCHAR(11),
+		  [vkaskoforzaturalimiti] CHAR(1),
+		  [vsociopoliticiformavendita] VARCHAR(12),
+		  [vsociopoliticiminimoindennizzabile] VARCHAR(11),
+		  [vsociopoliticimassimale] VARCHAR(11),
+		  [vsociopoliticiforzaturalimiti] CHAR(1),
+		  [vatmosfericiformavendita] VARCHAR(12),
+		  [vatmosfericiminimoindennizzabile] VARCHAR(11),
+		  [vatmosfericimassimale] VARCHAR(11),
+		  [vatmosfericiforzaturalimiti] CHAR(1),
+		  [vcristalliformavendita] VARCHAR(12),
+		  [vcristalliscoperto] VARCHAR(7),
+		  [vcristalliminimoindennizzabile] VARCHAR(11),
+		  [vcristallifranchigia] VARCHAR(11),
+		  [vcristallimassimale] VARCHAR(11),
+		  [vcristalliforzaturalimiti] CHAR(1),
+		  [vcristallipremio] VARCHAR(11),
+		  [vassistenzapsicologicaformavendita] VARCHAR(12),
+		  [vassistenzapsicologicapremio] VARCHAR(11),
+		  [vassistenzaformavendita] VARCHAR(12),
+		  [vassistenzamassimale] VARCHAR(11),
+		  [vassistenzaforzaturalimiti] CHAR(1),
+		  [vtutelaformavendita] VARCHAR(12),
+		  [vtutelamassimale] VARCHAR(11),
+		  [vtutelaforzaturalimiti] CHAR(1),
+		  [vgaranzieaccessorieformavendita] VARCHAR(12),
+		  [vgaranzieaccessoriemassimale] VARCHAR(11),
+		  [vgaranzieaccessorieforzaturalimiti] CHAR(1),
+		  [vritiropatenteformavendita] VARCHAR(12),
+		  [vritiropatenteforzaturalimiti] CHAR(1)
+		  )
+	  </sql>
+		<sql tabella="[Polizze2]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLIZZE2 ON POLIZZE2 (codicepuntovendita,ramo,polizza)
+		</sql>
+
+		<!-- Creazione tabella [Polizze3] -->
+      <sql tabella="[Polizze3]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Polizze3]', 'U') IS NOT NULL DROP TABLE dbo.[Polizze3]
+	  </sql>
+      <sql tabella="[Polizze3]" operazione="create">
+		  CREATE TABLE [Polizze3]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [vinfortuniformavendita] VARCHAR(12),
+		  [vinfortunimassimalemorte] VARCHAR(11),
+		  [vinfortunimassimaleip] VARCHAR(11),
+		  [vinfortunimassimalespesesanitarie] VARCHAR(11),
+		  [vinfortunimassimaletortoragione] VARCHAR(11),
+		  [vrcatiporivalsa1] CHAR(1),
+		  [vrcatiporivalsa2] CHAR(1),
+		  [vrcatiporivalsa3] CHAR(1),
+		  [vrcatiporivalsa4] CHAR(1),
+		  [vrcatiporivalsa5] CHAR(1),
+		  [vrcaautoprestobene] CHAR(1),
+		  [vrcakmdichiarati] VARCHAR(7),
+		  [veicoliusospeciale] CHAR(3),
+		  [veicolidannicoseterzitrasportati] CHAR(1),
+		  [veicolivelocita] CHAR(3),
+		  [residenzaregione] CHAR(3),
+		  [residenzacap] CHAR(5),
+		  [vatmosfericiautoprestobene] CHAR(1),
+		  [vsociopoliticiautoprestobene] CHAR(1),
+		  [vfurtoautoprestobene] CHAR(1),
+		  [vincendioautoprestobene] CHAR(1),
+		  [vincendioclausolavip] CHAR(1),
+		  [vassistenzaclausolavip] CHAR(1),
+		  [vinfmassricovero] VARCHAR(11),
+		  [vkasapb] CHAR(1),
+		  [vkasvip] CHAR(1),
+		  [voctautointelligen] CHAR(1),
+		  [vvipformagar] CHAR(3),
+		  [vvipformavendita] VARCHAR(12),
+		  [vvipmassimale] VARCHAR(11),
+		  [vvipapb] CHAR(1),
+		  [vvippremio] VARCHAR(11),
+		  [vcssformagar] CHAR(3),
+		  [vcssformavendita] VARCHAR(12),
+		  [vcssmassimale] VARCHAR(11),
+		  [vcsspremio] VARCHAR(11),
+		  [voroformagar] CHAR(3),
+		  [voroformavendita] VARCHAR(12),
+		  [voromassimale] VARCHAR(11),
+		  [voropremio] VARCHAR(11),
+		  [vresformagar] CHAR(3),
+		  [vresformavendita] VARCHAR(12),
+		  [vresmassimale] VARCHAR(11),
+		  [vrespremio] VARCHAR(11),
+		  [vpepformagar] CHAR(3),
+		  [vpepformavendita] VARCHAR(12),
+		  [vpepmassimale] VARCHAR(11),
+		  [vpeppremio] VARCHAR(11),
+		  [vrcpformagar] CHAR(3),
+		  [vrcpformavendita] VARCHAR(12),
+		  [vrcpmassimale] VARCHAR(11),
+		  [vrcppremio] VARCHAR(11),
+		  [vinpformagar] CHAR(3),
+		  [vinpformavendita] VARCHAR(12),
+		  [vinpmassimale] VARCHAR(11),
+		  [vinppremio] VARCHAR(11),
+		  [vcarformagar] CHAR(3),
+		  [vcarformavendita] VARCHAR(12),
+		  [vcarmassimale] VARCHAR(11),
+		  [vcarpremio] VARCHAR(11),
+		  [vrtiformagar] CHAR(3),
+		  [vrtiformavendita] VARCHAR(12),
+		  [vrtimassimale] VARCHAR(11),
+		  [vrtipremio] VARCHAR(11),
+		  [vdapformagar] CHAR(3),
+		  [vdapformavendita] VARCHAR(12),
+		  [vdapflaccssi] CHAR(1),
+		  [vdappremio] VARCHAR(11),
+		  [vcvmformagar] CHAR(3),
+		  [vcvmformavendita] VARCHAR(12),
+		  [vcvmflaccssi] CHAR(1),
+		  [vcvmvalaccnsi] VARCHAR(11),
+		  [vcvmvalapprte] VARCHAR(11),
+		  [vcvmvalbagogg] VARCHAR(11),
+		  [vcvmpremio] VARCHAR(11),
+		  [numeroveicolo] VARCHAR(7),
+		  [flexagenzia] VARCHAR(7),
+		  [scontocampagna] VARCHAR(7),
+		  [scontoconvenzione] VARCHAR(7),
+		  [descvincolataria] VARCHAR(25),
+		  [codfisamministratore] CHAR(16),
+		  [compprovenienza] CHAR(3),
+		  [sptvguaformagar] CHAR(3),
+		  [sptvguaformavendita] VARCHAR(12),
+		  [sptvguamassimale] VARCHAR(11),
+		  [sptvguapremio] VARCHAR(11),
+		  [sptvmerformagar] CHAR(3),
+		  [sptvmerformavendita] VARCHAR(12),
+		  [sptvmermassimale] VARCHAR(11),
+		  [sptvmerpremio] VARCHAR(11),
+		  [sptvgrcformagar] CHAR(3),
+		  [sptvgrcformavendita] VARCHAR(12),
+		  [sptvgrcmassimale] VARCHAR(11),
+		  [sptvgrcpremio] VARCHAR(11),
+		  [sptvdomformagar] CHAR(3),
+		  [sptvdomformavendita] VARCHAR(12),
+		  [sptvdommassimale] VARCHAR(11),
+		  [sptvdompremio] VARCHAR(11),
+		  [sptvkaspremiobloc] VARCHAR(9),
+		  [sptvkastipogar] CHAR(1),
+		  [sptvinfmassgesso] VARCHAR(11),
+		  [sptvesppremiobloc] VARCHAR(9),
+		  [sptvatmpremiobloc] VARCHAR(9),
+		  [sptvincendiopremiobloc] VARCHAR(9),
+		  [sptvfurpremiobloc] VARCHAR(9),
+		  [sptvfurflappindeb] CHAR(1),
+		  [sptvcvtvalbloc] VARCHAR(9),
+		  [sptvcvtfasciavalbloc] CHAR(3),
+		  [sptveicruotemotr] CHAR(1),
+		  [sptveictipomoto] CHAR(4),
+		  [sptveicnumassi] CHAR(3),
+		  [sptvrcafar] CHAR(2),
+		  [sptvrcacoeffwelcomeupto] VARCHAR(7),
+		  [sptvrcacoeffwelcuptogeco] VARCHAR(7),
+		  [sptvrcaannoprotezione] CHAR(4),
+		  [sptvclmfar] CHAR(2),
+		  [sptvclmannicu1] CHAR(3),
+		  [sptvclmannoprotezione] CHAR(4),
+		  [sptvaltsegmento] VARCHAR(12),
+		  [sptvaltanniptf] CHAR(3)
+		  )
+	  </sql>
+		<sql tabella="[Polizze3]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLIZZE3 ON POLIZZE3 (codicepuntovendita,ramo,polizza)
+		</sql>
+
+		<!-- Creazione tabella [Polizze4] -->
+      <sql tabella="[Polizze4]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Polizze4]', 'U') IS NOT NULL DROP TABLE dbo.[Polizze4]
+	  </sql>
+      <sql tabella="[Polizze4]" operazione="create">
+		  CREATE TABLE [Polizze4]
+		  (   
+		  [ProgressivoFile] INTEGER,
+		  [DataElaborazione] DATE,
+		  [CodicePuntoVendita] INTEGER,
+		  [Progressivo] CHAR(2),
+		  [TipoElaborazione] CHAR(2),
+		  [Ramo] SMALLINT,
+		  [Polizza] INTEGER,
+		  [ValtNazione] CHAR(3),
+		  [VassEstensioneRim] CHAR(1),
+		  [VassFascia] VARCHAR(10),
+		  [VatrFlPolGratuita] CHAR(1),
+		  [VatrDichContr] CHAR(1),
+		  [VatrFlAqua] CHAR(1),
+		  [VoctDataEdizInfopriv] VARCHAR(8),
+		  [VoctCodInfopriv] VARCHAR(10),
+		  [VoctTitoloModulo] CHAR(1),
+		  [VoctProprDispos] CHAR(1),
+		  [VoctContattContr] CHAR(1),
+		  [VoctConsCommm] CHAR(1),
+		  [VoctConsProfil] CHAR(1),
+		  [FeaOmniacrm] VARCHAR(15),
+		  [Fea] CHAR(1),
+		  [FeaMail] CHAR(1),
+		  [VeicStorico] CHAR(1),
+		  [ExRete1] CHAR(1),
+		  [NumArchivio] VARCHAR(11)
+		  )
+	  </sql>
+		<sql tabella="[Polizze4]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLIZZE4 ON POLIZZE4 (codicepuntovendita,ramo,polizza)
+		</sql>
+
+		<!-- Creazione tabella [PolizzeCancellate] -->
+      <sql tabella="[PolizzeCancellate]" operazione="drop">
+		  IF OBJECT_ID('dbo.[PolizzeCancellate]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeCancellate]
+	  </sql>
+      <sql tabella="[PolizzeCancellate]" operazione="create">
+		  CREATE TABLE [PolizzeCancellate]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER
+		  )
+	  </sql>
+		<sql tabella="[PolizzeCancellate]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLCANC ON PolizzeCancellate (codicepuntovendita,ramo,polizza)
+		</sql>
+
+		<!-- Creazione tabella [PolizzeClausole] -->
+      <sql tabella="[PolizzeClausole]" operazione="drop">
+		  IF OBJECT_ID('dbo.[PolizzeClausole]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeClausole]
+	  </sql>
+      <sql tabella="[PolizzeClausole]" operazione="create">
+		  CREATE TABLE [PolizzeClausole]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [clausola] INTEGER
+		  )
+	  </sql>
+		<sql tabella="[PolizzeClausole]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLCLA ON PolizzeClausole (codicepuntovendita,ramo,polizza,clausola)
+		</sql>
+
+		<!-- Creazione tabella [PolizzeRipartizioneCag] -->
+      <sql tabella="[PolizzeRipartizioneCag]" operazione="drop">
+		  IF OBJECT_ID('dbo.[PolizzeRipartizioneCag]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeRipartizioneCag]
+	  </sql>
+      <sql tabella="[PolizzeRipartizioneCag]" operazione="create">
+		  CREATE TABLE [PolizzeRipartizioneCag]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [sptvcagcodice] CHAR(5),
+		  [sptvcagsconto] VARCHAR(7),
+		  [sptvcagimporto] VARCHAR(11),
+		  [sptvcagcodptf] CHAR(3)
+		  )
+	  </sql>
+		<sql tabella="[PolizzeRipartizioneCag]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLCAG ON PolizzeRipartizioneCag (codicepuntovendita,ramo,polizza,sptvcagcodice)
+		</sql>
+
+		<!-- Creazione tabella [PolizzeRipartizioneCoass] -->
+      <sql tabella="[PolizzeRipartizioneCoass]" operazione="drop">
+		  IF OBJECT_ID('dbo.[PolizzeRipartizioneCoass]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeRipartizioneCoass]
+	  </sql>
+      <sql tabella="[PolizzeRipartizioneCoass]" operazione="create">
+		  CREATE TABLE [PolizzeRipartizioneCoass]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [compagniadelegante] SMALLINT,
+		  [agenziadelegante] CHAR(5),
+		  [percentualequota] MEMO
+		  )
+	  </sql>
+		<sql tabella="[PolizzeRipartizioneCoass]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLCOASS ON PolizzeRipartizioneCoass (codicepuntovendita,ramo,polizza,compagniadelegante)
+		</sql>
+
+		<!-- Creazione tabella [PolizzeRipartizionePremio] -->
+      <sql tabella="[PolizzeRipartizionePremio]" operazione="drop">
+		  IF OBJECT_ID('dbo.[PolizzeRipartizionePremio]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeRipartizionePremio]
+	  </sql>
+      <sql tabella="[PolizzeRipartizionePremio]" operazione="create">
+		  CREATE TABLE [PolizzeRipartizionePremio]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [codicecategoriarischio] INTEGER,
+		  [codiceramoministeriale] CHAR(3),
+		  [premionettocategoriarischio] MEMO
+		  )
+	  </sql>
+		<sql tabella="[PolizzeRipartizionePremio]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLPREMIO ON PolizzeRipartizionePremio (codicepuntovendita,ramo,polizza,codicecategoriarischio)
+		</sql>
+
+		<!-- Creazione tabella [PolizzeSostituite] -->
+      <sql tabella="[PolizzeSostituite]" operazione="drop">
+		  IF OBJECT_ID('dbo.[PolizzeSostituite]', 'U') IS NOT NULL DROP TABLE dbo.[PolizzeSostituite]
+	  </sql>
+      <sql tabella="[PolizzeSostituite]" operazione="create">
+		  CREATE TABLE [PolizzeSostituite]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] INTEGER,
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] SMALLINT,
+		  [polizza] INTEGER,
+		  [vecchiocodiceramo] SMALLINT,
+		  [vecchionumeropolizza] INTEGER
+		  )
+	  </sql>
+		<sql tabella="[PolizzeSostituite]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_POLSOST ON PolizzeSostituite (codicepuntovendita,ramo,polizza)
+		</sql>
+
+		<!-- Creazione tabella [Prodotto] -->
+      <sql tabella="[Prodotto]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Prodotto]', 'U') IS NOT NULL DROP TABLE dbo.[Prodotto]
+	  </sql>
+      <sql tabella="[Prodotto]" operazione="create">
+		  CREATE TABLE [Prodotto]
+		  (   
+		  [CodiceProdotto] CHAR(5),
+		  [DescrizioneProdotto] VARCHAR(40),
+		  [Compagnia] CHAR(1)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Professione] -->
+      <sql tabella="[Professione]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Professione]', 'U') IS NOT NULL DROP TABLE dbo.[Professione]
+	  </sql>
+      <sql tabella="[Professione]" operazione="create">
+		  CREATE TABLE [Professione]
+		  (   
+		  [Compagnia] CHAR(1),
+		  [CodiceProfessione] CHAR(3),
+		  [DescrizioneProfessione] VARCHAR(18)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [ProfessioneRCA] -->
+      <sql tabella="[ProfessioneRCA]" operazione="drop">
+		  IF OBJECT_ID('dbo.[ProfessioneRCA]', 'U') IS NOT NULL DROP TABLE dbo.[ProfessioneRCA]
+	  </sql>
+      <sql tabella="[ProfessioneRCA]" operazione="create">
+		  CREATE TABLE [ProfessioneRCA]
+		  (   
+		  [CodiceProfessioneRCA] CHAR(2),
+		  [DescrizioneProfessioneRCA] VARCHAR(40)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [ProvinciaRischio] -->
+      <sql tabella="[ProvinciaRischio]" operazione="drop">
+		  IF OBJECT_ID('dbo.[ProvinciaRischio]', 'U') IS NOT NULL DROP TABLE dbo.[ProvinciaRischio]
+	  </sql>
+      <sql tabella="[ProvinciaRischio]" operazione="create">
+		  CREATE TABLE [ProvinciaRischio]
+		  (   
+		  [CodiceProvincia] CHAR(2),
+		  [DescrizioneProvincia] VARCHAR(25),
+		  [CodiceRegione] CHAR(2),
+		  [DescrizioneRegione] VARCHAR(25)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [RamoComparto] -->
+      <sql tabella="[RamoComparto]" operazione="drop">
+		  IF OBJECT_ID('dbo.[RamoComparto]', 'U') IS NOT NULL DROP TABLE dbo.[RamoComparto]
+	  </sql>
+      <sql tabella="[RamoComparto]" operazione="create">
+		  CREATE TABLE [RamoComparto]
+		  (   
+		  [CodiceEnteGestore] CHAR(3),
+		  [DescrizioneEnteGestore] VARCHAR(32),
+		  [CodiceRamoGestione] CHAR(3),
+		  [SimboloRamoGestione] CHAR(4),
+		  [DescrizioneRamoGestione] VARCHAR(36),
+		  [CodiceRamoPolizza] CHAR(3),
+		  [DescrizioneRamoPolizza] CHAR(5),
+		  [CommentoUno] VARCHAR(48),
+		  [CommentoDue] VARCHAR(61)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [RamoMinisteriale] -->
+      <sql tabella="[RamoMinisteriale]" operazione="drop">
+		  IF OBJECT_ID('dbo.[RamoMinisteriale]', 'U') IS NOT NULL DROP TABLE dbo.[RamoMinisteriale]
+	  </sql>
+      <sql tabella="[RamoMinisteriale]" operazione="create">
+		  CREATE TABLE [RamoMinisteriale]
+		  (   
+		  [CodiceRamoMinisteriale] CHAR(2),
+		  [DescrizioneRamoMinisteriale] VARCHAR(43)
+		  )
+	  </sql>
+
+      <!-- Creazione tabella [RamoPolizza] -->
+      <sql tabella="[RamoPolizza]" operazione="drop">
+		  IF OBJECT_ID('dbo.[RamoPolizza]', 'U') IS NOT NULL DROP TABLE dbo.[RamoPolizza]
+	  </sql>
+      <sql tabella="[RamoPolizza]" operazione="create">
+		  CREATE TABLE [RamoPolizza]
+		  (
+		  [CodiceRamoPolizza] CHAR(3),
+		  [DescrizioneRamoPolizza] VARCHAR(40)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [RamoPolizzaVita] -->
+      <sql tabella="[RamoPolizzaVita]" operazione="drop">
+		  IF OBJECT_ID('dbo.[RamoPolizzaVita]', 'U') IS NOT NULL DROP TABLE dbo.[RamoPolizzaVita]
+	  </sql>
+      <sql tabella="[RamoPolizzaVita]" operazione="create">
+		  CREATE TABLE [RamoPolizzaVita]
+		  (   
+		  [CodiceRamoPolizzaVita] CHAR(3),
+		  [DescrizioneRamoPolizzaVita] VARCHAR(40)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [RamoProdottoAliquota] -->
+      <sql tabella="[RamoProdottoAliquota]" operazione="drop">
+		  IF OBJECT_ID('dbo.[RamoProdottoAliquota]', 'U') IS NOT NULL DROP TABLE dbo.[RamoProdottoAliquota]
+	  </sql>
+      <sql tabella="[RamoProdottoAliquota]" operazione="create">
+		  CREATE TABLE [RamoProdottoAliquota]
+		  (   
+		  [RamoPolizza] CHAR(3),
+		  [CategoriaRischio] CHAR(5),
+		  [Prodotto] CHAR(5),
+		  [AliquoteTasse] CHAR(5),
+		  [Compagnia] CHAR(1)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [RamoSinistro] -->
+      <sql tabella="[RamoSinistro]" operazione="drop">
+		  IF OBJECT_ID('dbo.[RamoSinistro]', 'U') IS NOT NULL DROP TABLE dbo.[RamoSinistro]
+	  </sql>
+      <sql tabella="[RamoSinistro]" operazione="create">
+		  CREATE TABLE [RamoSinistro]
+		  (   
+		  [CodiceRamoSinistro] CHAR(3),
+		  [DescrizioneRamoSinistro] VARCHAR(40)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [SettoreTariffale] -->
+      <sql tabella="[SettoreTariffale]" operazione="drop">
+		  IF OBJECT_ID('dbo.[SettoreTariffale]', 'U') IS NOT NULL DROP TABLE dbo.[SettoreTariffale]
+	  </sql>
+      <sql tabella="[SettoreTariffale]" operazione="create">
+		  CREATE TABLE [SettoreTariffale]
+		  (  
+		  [CodiceSettoreTariffale] CHAR(2),
+		  [DescrizioneSettoreTariffale] VARCHAR(30)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Sinistri] -->
+      <sql tabella="[Sinistri]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Sinistri]', 'U') IS NOT NULL DROP TABLE dbo.[Sinistri]
+	  </sql>
+      <sql tabella="[Sinistri]" operazione="create">
+		  CREATE TABLE [Sinistri]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [eserciziosinistro] SMALLINT,
+		  [agenziasinistro] SMALLINT,
+		  [ramosinistro] CHAR(4),
+		  [numerosinistro] INTEGER,
+		  [ispettorato] CHAR(5),
+		  [agenziapolizza] INTEGER,
+		  [ramopolizza] CHAR(3),
+		  [numeropolizza] INTEGER,
+		  [numeroveicolo] INTEGER,
+		  [codicesubagenzia] CHAR(3),
+		  [codiceproduttore] VARCHAR(7),
+		  [dataavvenimentosinistro] DATE,
+		  [datadenuncia] DATE,
+		  [dataprotocollocarico] DATE,
+		  [statoavvenimentosinistro] CHAR(3),
+		  [provinciaavvenimentosinistro] CHAR(3),
+		  [casisticacid] CHAR(3),
+		  [tipocid] CHAR(3),
+		  [tipochiusura] CHAR(3),
+		  [tiposinistro] CHAR(2),
+		  [flagcosepersone] CHAR(1),
+		  [codicetiporamo] CHAR(1),
+		  [nostraquota] VARCHAR(8),
+		  [datapreventivo] DATE,
+		  [primopreventivo] MEMO,
+		  [importoquotapagatodel] MEMO,
+		  [importoquotapagatoal] MEMO,
+		  [importoquotarecuperatodel] MEMO,
+		  [importoquotarecuperatoal] MEMO,
+		  [indicatorefranchigiaportafoglio] CHAR(1),
+		  [codiceconvenzione] CHAR(5),
+		  [codiceprodotto] CHAR(5),
+		  [nominativoassicurato] VARCHAR(30),
+		  [cognomeassicurato] VARCHAR(20),
+		  [nomeassicurato] VARCHAR(10),
+		  [targaassicurato] VARCHAR(10),
+		  [nominativocontroparte] VARCHAR(30),
+		  [cognomecontroparte] VARCHAR(20),
+		  [nomecontroparte] VARCHAR(10),
+		  [codicefiscalecontroparte] CHAR(16),
+		  [compagniacontroparte] CHAR(5),
+		  [targacontroparte] VARCHAR(10),
+		  [compagnia] SMALLINT,
+		  [agenziapolizzaarrivo] CHAR(5),
+		  [codiceliquidatore] CHAR(4),
+		  [tipodelega] CHAR(1),
+		  [codicefiscaleassicurato] CHAR(16),
+		  [dataultimopagamento] DATE,
+		  [dataricevimentodenuncia] DATE,
+		  [codicecompagniacontroparte] CHAR(5),
+		  [flagaperturaaidasertel] CHAR(1),
+		  [numeroposizioniprotocollate] CHAR(3),
+		  [tipologiadenuncia] CHAR(1),
+		  [presentatoredenuncia] CHAR(1),
+		  [autoredenuncia] CHAR(1),
+		  [numerocartellasertel] VARCHAR(9),
+		  [codiceperitoincaricato] CHAR(5),
+		  [provinciacarrozzeriaincaricata] CHAR(2),
+		  [codiceaniacarrozzeriaincaricata] VARCHAR(9),
+		  [datainterventolegale] DATE,
+		  [livelloinformatizzazionecarrozzeria] CHAR(2),
+		  [contatoresinistri] SMALLINT,
+		  [indicatorecardgestionaria] SMALLINT,
+		  [indicatorecarddebitrice] SMALLINT,
+		  [indicatorenocard] SMALLINT,
+		  [quotapagatonocardal] MEMO,
+		  [quotapagatonocarddel] MEMO,
+		  [quotapagatocardattivoal] MEMO,
+		  [quotapagatocardattivodel] MEMO,
+		  [codiceagenziamadre] CHAR(5),
+		  [dataaperturasinistro] DATE,
+		  [flaglegale] CHAR(1),
+		  [tipodenuncia] CHAR(1),
+		  [indicatoresinistrocanalizzato] CHAR(1),
+		  [codiceaniacarrozzeriapagata] VARCHAR(7),
+		  [codiceaniacarrozzeriacanalizzata] VARCHAR(9),
+		  [preventivostatisticoquota] MEMO,
+		  [settoretariffazione] CHAR(1),
+		  [tiporamo] CHAR(5),
+		  [lesioni] CHAR(3),
+		  [morti] CHAR(3),
+		  [baremes1controparteveicoloa] CHAR(2),
+		  [baremes1controparteveicolob] CHAR(2),
+		  [baremes2nostraparteveicoloa] CHAR(2),
+		  [baremes2nostraparteveicolob] CHAR(2),
+		  [quotaimportonettodarecuperarefranchigie] MEMO,
+		  [quotaimportonettodarecuperarerivalse] MEMO,
+		  [quotaimportonettodarecuperareperaltro] MEMO,
+		  [quotaimportonettorecuperatofranchigieal] MEMO,
+		  [quotaimportonettorecuperatofranchigiedel] MEMO,
+		  [quotaimportonettorecuperatorivalseal] MEMO,
+		  [quotaimportonettorecuperatorivalsedel] MEMO,
+		  [quotaimportonettorecuperatoperaltroal] MEMO,
+		  [quotaimportonettorecuperatoperaltrodel] MEMO,
+		  [quotaspeseal] MEMO,
+		  [quotaspesedel] MEMO,
+		  [importoriserva] MEMO,
+		  [forzaturaregolaritacontrattuale] CHAR(1),
+		  [regolaritaamministrativa] CHAR(1),
+		  [forfaitdebitorepagatoal] MEMO,
+		  [forfaitdebitorepagatodel] MEMO,
+		  [forfaitgestionariopagatoal] MEMO,
+		  [forfaitgestionariopagatodel] MEMO,
+		  [forfaitgestionarioriserva] MEMO,
+		  [forfaitdebitoreriserva] MEMO,
+		  [ramogestione] CHAR(3),
+		  [agenziatbaiinca] VARCHAR(255),
+		  [compagnianew] SMALLINT,
+		  [statobilancistico] VARCHAR(20),
+		  [dataaggiornamentostatobilancistico] DATE,
+		  [annocompetenzastatobilancistico] SMALLINT,
+		  [statotecnico] VARCHAR(20),
+		  [dataaggiornamentostatotecnico] DATE,
+		  [annocompetenzastatotecnico] SMALLINT,
+		  [statoamministrativo] VARCHAR(20),
+		  [dataaggiornamentostatoamministrativo] DATE,
+		  [annocompetenzastatoamministrativo] SMALLINT,
+		  [statorecupero] VARCHAR(20),
+		  [dataaggiornamentostatorecupero] DATE,
+		  [annocompetenzastatorecupero] SMALLINT,
+		  [statoforfait] VARCHAR(20),
+		  [dataaggiornamentostatoforfait] DATE,
+		  [annocompetenzastatoforfait] SMALLINT,
+		  [codiceperitoincaricato1] VARCHAR(10),
+		  [dataelaborazionesinistri] DATE,
+		  [progcompagnia] CHAR(3),
+		  [compagniacid] CHAR(3)
+		  )
+	  </sql>
+		<sql tabella="[Sinistri]" operazione="createindex">
+			CREATE NONCLUSTERED INDEX IX1_SINISTRI ON SINISTRI (eserciziosinistro,agenziasinistro,ramosinistro,numerosinistro,tipocid,tipochiusura,primopreventivo,importoquotapagatodel,importoquotapagatoal,importoquotarecuperatodel)
+		</sql>
+
+		<!-- Creazione tabella [StatoSinistro] -->
+      <sql tabella="[StatoSinistro]" operazione="drop">
+		  IF OBJECT_ID('dbo.[StatoSinistro]', 'U') IS NOT NULL DROP TABLE dbo.[StatoSinistro]
+	  </sql>
+      <sql tabella="[StatoSinistro]" operazione="create">
+		  CREATE TABLE [StatoSinistro]
+		  (   
+		  [CodiceStatoSinistro] CHAR(2),
+		  [DescrizioneStatoSinistro] VARCHAR(30)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [SubagenziaProduttore] -->
+      <sql tabella="[SubagenziaProduttore]" operazione="drop">
+		  IF OBJECT_ID('dbo.[SubagenziaProduttore]', 'U') IS NOT NULL DROP TABLE dbo.[SubagenziaProduttore]
+	  </sql>
+      <sql tabella="[SubagenziaProduttore]" operazione="create">
+		  CREATE TABLE [SubagenziaProduttore]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] CHAR(3),
+		  [polizza] VARCHAR(9),
+		  [codicesubagenziaold] CHAR(3),
+		  [codiceproduttoreold] VARCHAR(7),
+		  [codicesubagenzianew] CHAR(3),
+		  [codiceproduttorenew] VARCHAR(7),
+		  [numeroveicolo] VARCHAR(7),
+		  [archivio] VARCHAR(11),
+		  [numerovariazione] CHAR(3),
+		  [datavariazione] DATE
+		  )
+	  </sql>
+
+      <!-- Creazione tabella [TipoAvviso] -->
+      <sql tabella="[TipoAvviso]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoAvviso]', 'U') IS NOT NULL DROP TABLE dbo.[TipoAvviso]
+	  </sql>
+      <sql tabella="[TipoAvviso]" operazione="create">
+		  CREATE TABLE [TipoAvviso]
+		  (   
+		  [CodiceTipoAvviso] CHAR(3),
+		  [DescrizioneTipoAvviso] VARCHAR(25)
+		  )
+	  </sql>
+
+      <!-- Creazione tabella [TipoDocumento] -->
+      <sql tabella="[TipoDocumento]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoDocumento]', 'U') IS NOT NULL DROP TABLE dbo.[TipoDocumento]
+	  </sql>
+      <sql tabella="[TipoDocumento]" operazione="create">
+		  CREATE TABLE [TipoDocumento]
+		  (   
+		  [CodiceTipoDocumento] CHAR(3),
+		  [DescrizioneTipoDocumento] VARCHAR(30)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TipoPagamento] -->
+      <sql tabella="[TipoPagamento]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoPagamento]', 'U') IS NOT NULL DROP TABLE dbo.[TipoPagamento]
+	  </sql>
+      <sql tabella="[TipoPagamento]" operazione="create">
+		  CREATE TABLE [TipoPagamento]
+		  (   
+		  [Compagnia] CHAR(1),
+		  [CodiceEsito] CHAR(2),
+		  [CodiceTipoPagamento] CHAR(1),
+		  [DescrizioneTipoPagamento] VARCHAR(40)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TipoRecord] -->
+      <sql tabella="[TipoRecord]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoRecord]', 'U') IS NOT NULL DROP TABLE dbo.[TipoRecord]
+	  </sql>
+      <sql tabella="[TipoRecord]" operazione="create">
+		  CREATE TABLE [TipoRecord]
+		  (   
+		  [TipoRecord] INTEGER,
+		  [Ambito] VARCHAR(255),
+		  [Descrizione] VARCHAR(255)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TipoStorno] -->
+      <sql tabella="[TipoStorno]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoStorno]', 'U') IS NOT NULL DROP TABLE dbo.[TipoStorno]
+	  </sql>
+      <sql tabella="[TipoStorno]" operazione="create">
+		  CREATE TABLE [TipoStorno]
+		  (   
+		  [CodiceStorno] CHAR(2),
+		  [DescrizioneStorno] VARCHAR(30)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TipoStornoRamoVita] -->
+      <sql tabella="[TipoStornoRamoVita]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoStornoRamoVita]', 'U') IS NOT NULL DROP TABLE dbo.[TipoStornoRamoVita]
+	  </sql>
+      <sql tabella="[TipoStornoRamoVita]" operazione="create">
+		  CREATE TABLE [TipoStornoRamoVita]
+		  (   
+		  [CodiceTipoStorno] CHAR(2),
+		  [DescrizioneTipoStorno] VARCHAR(50)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TipoTarga] -->
+      <sql tabella="[TipoTarga]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TipoTarga]', 'U') IS NOT NULL DROP TABLE dbo.[TipoTarga]
+	  </sql>
+      <sql tabella="[TipoTarga]" operazione="create">
+		  CREATE TABLE [TipoTarga]
+		  (   
+		  [Settore] CHAR(2),
+		  [CodiceTipoTarga] CHAR(1),
+		  [DescrizioneTipoTarga] VARCHAR(18)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [Titoli] -->
+      <sql tabella="[Titoli]" operazione="drop">
+		  IF OBJECT_ID('dbo.[Titoli]', 'U') IS NOT NULL DROP TABLE dbo.[Titoli]
+	  </sql>
+      <sql tabella="[Titoli]" operazione="create">
+		  CREATE TABLE [Titoli]
+		  (   
+		  [progressivofile] INTEGER,
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] CHAR(3),
+		  [polizza] VARCHAR(9),
+		  [effettoappendice] DATE,
+		  [numeroappendice] CHAR(3),
+		  [dataeffetto] DATE,
+		  [tipocarico] CHAR(1),
+		  [datascadenza] DATE,
+		  [dataemissione] DATE,
+		  [datafogliocassa] DATE,
+		  [datastorno] DATE,
+		  [codiceesito] CHAR(2),
+		  [terminalecassa] CHAR(4),
+		  [codiceterminale] CHAR(4),
+		  [premionetto] MEMO,
+		  [interessi] MEMO,
+		  [accessori] MEMO,
+		  [totalelordo] MEMO,
+		  [abbuono] MEMO,
+		  [provvigioneacquisto] MEMO,
+		  [provvigioneacquistoric] MEMO,
+		  [provvigioneincasso] MEMO,
+		  [impostassn] MEMO,
+		  [valuta] CHAR(3),
+		  [tipomatricola] CHAR(1),
+		  [codiceultimatransazione] CHAR(4),
+		  [tipoquietanza] CHAR(1),
+		  [datasistema] DATE,
+		  [codicecaricoprovvigionale] CHAR(1),
+		  [codicetipopagamento] CHAR(1),
+		  [dataeffetivopagamento] DATE,
+		  [flagemessopregresso] CHAR(1),
+		  [dataeffettomovimento] DATE,
+		  [codicesubagente] CHAR(5),
+		  [codiceproduttore] CHAR(5),
+		  [codiceconvenzioneprovvigionata] CHAR(5),
+		  [codiceconvenzione] CHAR(5),
+		  [datatrasferimentotitolo] DATE,
+		  [flagtiporamo] CHAR(1),
+		  [flagtitoloesente] CHAR(1),
+		  [codicecombinazioneaurff] CHAR(1),
+		  [importoaurobox] MEMO,
+		  [codicefiscale] CHAR(16),
+		  [contraente] VARCHAR(25),
+		  [frazionamento] CHAR(1),
+		  [codiceprodotto] CHAR(5),
+		  [tipomatricolavita] CHAR(4),
+		  [dataeffettopolizza] DATE,
+		  [compagniadelegataria] CHAR(3),
+		  [quotacoass] MEMO,
+		  [numerotesta] VARCHAR(9),
+		  [flagrid] CHAR(1),
+		  [flagincassodirezione] CHAR(1),
+		  [aliquotaprovvigionaleincasso] MEMO,
+		  [aliquotaprovvigionaleacquisto] MEMO,
+		  [premiotutela] MEMO,
+		  [premioassistenza] MEMO,
+		  [importocav] MEMO,
+		  [PuntoVendita] CHAR(5),
+		  [IndicatoreRataIntermedia] CHAR(1),
+		  [ScadenzaPolizza] DATE,
+		  [ScadenzaVincolo] DATE,
+		  [TargaVeicolo] VARCHAR(20),
+		  [TipoUnibox] CHAR(1),
+		  [OraEsito] VARCHAR(8),
+		  [OraCopertura] VARCHAR(8),
+		  [PremioRc] MEMO,
+		  [ProvvigioniRc] MEMO,
+		  [PremioIncendioFurto] MEMO,
+		  [ProvvigioniIncendioFurto] MEMO,
+		  [PremioInfortuni] MEMO,
+		  [ProvvigioniInfortuni] MEMO,
+		  [PremioKasko] MEMO,
+		  [ProvvigioniKasko] MEMO,
+		  [PremioAssistenza1] MEMO,
+		  [ProvvigioniAssistenza1] MEMO,
+		  [IncrementoProduzione] MEMO,
+		  [Rendita] MEMO,
+		  [ProdottoVita] VARCHAR(12),
+		  [DataRegolazionePremio] DATE,
+		  [Cin] CHAR(1),
+		  [Abi] CHAR(5),
+		  [Cab] CHAR(5),
+		  [Conto] VARCHAR(12),
+		  [RamoGestione] SMALLINT,
+		  [FlagProvvigioniNuovoMandato] CHAR(1),
+		  [FlagIncassoFEA] CHAR(1)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TitoliCancellati] -->
+      <sql tabella="[TitoliCancellati]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TitoliCancellati]', 'U') IS NOT NULL DROP TABLE dbo.[TitoliCancellati]
+	  </sql>
+      <sql tabella="[TitoliCancellati]" operazione="create">
+		  CREATE TABLE [TitoliCancellati]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] CHAR(3),
+		  [polizza] VARCHAR(9),
+		  [effettoappendice] DATE,
+		  [numeroappendice] CHAR(3),
+		  [dataeffetto] DATE,
+		  [tipocarico] CHAR(1),
+		  [scadenzatitolo] DATE,
+		  [emissionetitolo] DATE,
+		  [datatimemovimento] VARCHAR(26),
+		  [premionetto] MEMO,
+		  [interessifrazionamento] MEMO,
+		  [accessori] MEMO,
+		  [totaletitolo] MEMO,
+		  [provvigioniacquistocontante] MEMO,
+		  [provvigionisuccessive] MEMO,
+		  [provvigioniincasso] MEMO,
+		  [importossn] MEMO,
+		  [valuta] CHAR(3),
+		  [tipomatricola] CHAR(1),
+		  [flagtipoquietanza] CHAR(1),
+		  [datasistema] DATE,
+		  [flagemessopregresso] CHAR(1),
+		  [dataeffettomovimento] DATE,
+		  [codicesubagente] CHAR(5),
+		  [codiceproduttore] CHAR(5),
+		  [codiceconvenzione] CHAR(5),
+		  [flagtiporamo] CHAR(1),
+		  [flagtitoloesente] CHAR(1)
+		  )
+	  </sql>
+
+      <!-- Creazione tabella [TitoliRipartizione] -->
+      <sql tabella="[TitoliRipartizione]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TitoliRipartizione]', 'U') IS NOT NULL DROP TABLE dbo.[TitoliRipartizione]
+	  </sql>
+      <sql tabella="[TitoliRipartizione]" operazione="create">
+		  CREATE TABLE [TitoliRipartizione]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] CHAR(3),
+		  [polizza] VARCHAR(9),
+		  [effettoappendice] DATE,
+		  [numeroappendice] CHAR(3),
+		  [dataeffetto] DATE,
+		  [codicecategoriarischio] CHAR(5),
+		  [codicetassazione] CHAR(4),
+		  [premionetto] MEMO,
+		  [interessi] MEMO,
+		  [accessori] MEMO,
+		  [tasse] MEMO,
+		  [aliquotatasse] MEMO,
+		  [tassabile] MEMO,
+		  [provvigioni] MEMO
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TitoliScopertiCassa] -->
+      <sql tabella="[TitoliScopertiCassa]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TitoliScopertiCassa]', 'U') IS NOT NULL DROP TABLE dbo.[TitoliScopertiCassa]
+	  </sql>
+      <sql tabella="[TitoliScopertiCassa]" operazione="create">
+		  CREATE TABLE [TitoliScopertiCassa]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [ramo] CHAR(3),
+		  [polizza] VARCHAR(9),
+		  [effettoappendice] DATE,
+		  [numeroappendice] CHAR(3),
+		  [dataeffetto] DATE,
+		  [tipocarico] CHAR(1),
+		  [datasistema] DATE,
+		  [timesistema] VARCHAR(6),
+		  [codiceesito] CHAR(2),
+		  [dataesito] DATE,
+		  [abbuono] MEMO,
+		  [terminalecassa] CHAR(4),
+		  [codiceultimatransazione] CHAR(4),
+		  [codiceterminale] CHAR(4),
+		  [provvigioniacquisto] MEMO,
+		  [provvigioniincasso] MEMO,
+		  [tariffatassazione] CHAR(4),
+		  [aliquotatasse] MEMO,
+		  [codiceprodotto] CHAR(5),
+		  [codiceconvenzione] CHAR(5),
+		  [frazionamento] CHAR(1),
+		  [compagniadelegataria] CHAR(3),
+		  [agenziadelegataria] CHAR(5),
+		  [quotacoass] MEMO,
+		  [flagcaricoprovvigionale] CHAR(1),
+		  [codicesubagente] CHAR(5),
+		  [codiceproduttore] CHAR(5),
+		  [codiceconvenzioneprovvigionata] CHAR(5),
+		  [codicevaluta] CHAR(3),
+		  [contraente] VARCHAR(25),
+		  [codicefiscale] CHAR(16),
+		  [codicetipopagamento] CHAR(1),
+		  [premioimponibile] MEMO,
+		  [importossn] MEMO,
+		  [flagtiporamo] CHAR(1),
+		  [flagtitoloesente] CHAR(1),
+		  [premiolordo] MEMO
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TitoliScopertinoncassa] -->
+      <sql tabella="[TitoliScopertinoncassa]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TitoliScopertinoncassa]', 'U') IS NOT NULL DROP TABLE dbo.[TitoliScopertinoncassa]
+	  </sql>
+      <sql tabella="[TitoliScopertinoncassa]" operazione="create">
+		  CREATE TABLE [TitoliScopertinoncassa]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [dataregmovimento] DATE,
+		  [importomovimento] MEMO,
+		  [codicesegno] CHAR(1),
+		  [codicemovimento] CHAR(3),
+		  [codicetipomovimento] CHAR(3),
+		  [flagoperazione] CHAR(1),
+		  [datamodifica] DATE,
+		  [descrizione] VARCHAR(40),
+		  [dataregistrazionedecade] DATE,
+		  [progressivoelaborazione] VARCHAR(9)
+		  )
+	  </sql>
+
+		<!-- Creazione tabella [TitoloPna] -->
+      <sql tabella="[TitoloPna]" operazione="drop">
+		  IF OBJECT_ID('dbo.[TitoloPna]', 'U') IS NOT NULL DROP TABLE dbo.[TitoloPna]
+	  </sql>
+      <sql tabella="[TitoloPna]" operazione="create">
+		  CREATE TABLE [TitoloPna]
+		  (   
+		  [dataelaborazione] DATE,
+		  [codicepuntovendita] CHAR(5),
+		  [progressivo] CHAR(2),
+		  [tipoelaborazione] CHAR(2),
+		  [dataregmovimento] DATE,
+		  [importomovimento] MEMO,
+		  [codicesegno] CHAR(1),
+		  [codicemovimento] CHAR(3),
+		  [codocetipomovimento] CHAR(3),
+		  [flagoperazione] CHAR(1),
+		  [datamodifica] DATE,
+		  [descrizione] VARCHAR(40),
+		  [dataregistrazionedecade] DATE,
+		  [progressivoelaborazione] VARCHAR(9)
+		  )
+	  </sql>
+    </tabelle>
+  </database>
+<!-- CREAZIONE DATABASE SUPPORTO TERMINATO CORRETTAMENTE -->
+</script>

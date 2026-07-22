@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://sso.uniarea.it/ws/" xmlns:s="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sso.uniarea.it/ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema targetNamespace="http://sso.uniarea.it/ws/">
+      <s:complexType name="clsAgenzia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CodiceCompagnia" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CodiceAgenzia" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Descrizione" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RagioneSociale" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IscrizioneRui" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Indirizzo" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cap" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Localita" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Provincia" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Telefono" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fax" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Email" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProfiloAttivazione" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LicenzaDataInizio" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LicenzaDataFine" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Esito">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Errore" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Codice" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Messaggio" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Agenzia" nillable="true" type="tns:clsAgenzia" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="VerificaReteSoapIn" />
+  <wsdl:message name="VerificaReteSoapOut">
+    <wsdl:part name="return" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraQuotazioneSoapIn">
+    <wsdl:part name="codCompagnia" type="s:string" />
+    <wsdl:part name="codAgenzia" type="s:string" />
+    <wsdl:part name="uid" type="s:string" />
+    <wsdl:part name="prodottodda" type="s:string" />
+    <wsdl:part name="data" type="s:string" />
+    <wsdl:part name="azione" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistraQuotazioneSoapOut">
+    <wsdl:part name="return" type="tns:Esito" />
+  </wsdl:message>
+  <wsdl:message name="ControllaSoapIn">
+    <wsdl:part name="codCompagnia" type="s:string" />
+    <wsdl:part name="codAgenzia" type="s:string" />
+    <wsdl:part name="uid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ControllaSoapOut">
+    <wsdl:part name="return" type="tns:Esito" />
+  </wsdl:message>
+  <wsdl:portType name="UniquotaSoap">
+    <wsdl:operation name="VerificaRete">
+      <wsdl:documentation>
+                Controlla se il servizio e' raggiungibile
+            </wsdl:documentation>
+      <wsdl:input message="tns:VerificaReteSoapIn" />
+      <wsdl:output message="tns:VerificaReteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraQuotazione" parameterOrder="codCompagnia codAgenzia uid prodottodda data azione">
+      <wsdl:documentation>
+                Registra Quotazione
+            </wsdl:documentation>
+      <wsdl:input message="tns:RegistraQuotazioneSoapIn" />
+      <wsdl:output message="tns:RegistraQuotazioneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Controlla" parameterOrder="codCompagnia codAgenzia uid">
+      <wsdl:documentation>
+                Controlla l'attivazione del quotatore
+            </wsdl:documentation>
+      <wsdl:input message="tns:ControllaSoapIn" />
+      <wsdl:output message="tns:ControllaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UniquotaSoap" type="tns:UniquotaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="VerificaRete">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/VerificaRete" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraQuotazione">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/RegistraQuotazione" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="codCompagnia codAgenzia uid prodottodda data azione" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Controlla">
+      <soap:operation soapAction="http://sso.uniarea.it/ws/Controlla" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="codCompagnia codAgenzia uid" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://sso.uniarea.it/ws/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Uniquota">
+    <wsdl:port name="UniquotaSoap" binding="tns:UniquotaSoap">
+      <soap:address location="http://sso.uniarea.it/ws/ws_uniquota.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

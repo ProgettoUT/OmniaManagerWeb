@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<oggetto>
+    <manifesto>
+        <pacchetto>Portafoglio\Gestione PTF</pacchetto>
+        <nome>Storico polizze</nome>
+        <versione>1.0</versione>
+        <tipo>query</tipo>
+        <dominio>clienti</dominio>
+        <categoria>generale</categoria>
+        <contenuto>elenco</contenuto>
+        <proprietario>unico sistema</proprietario>
+        <stato>utilizzabile</stato>
+<descrizione><![CDATA[
+Per ogni mese riporta il numero di polizze e i premi corrispondenti
+]]></descrizione>
+        <ultagg>18/11/2015</ultagg>
+        <scadenza>31/12/2099</scadenza>
+    </manifesto>
+    <parametri>
+        <parametro nome="@subagenzia" etichetta="Subagenzia" tipo="integer" valore="-1" multivalore="true" altezza="8" obbligatorio="true" larghezza="42" sinistra="30">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+	    		           UNION SELECT DISTINCT CodiceSubAgente, format(CodiceSubAgente,'000') & ' - ' & FiguraProduttiva 
+	    		           FROM StoricoPolizze AS P LEFT JOIN FigureProduttive AS F ON F.IDFiguraProduttiva = P.CodiceSubAgente  
+	    		           ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@ramo" etichetta="Ramo" tipo="integer" valore="-1" multivalore="true" altezza="8" larghezza="42" sinistra="80">
+	    <elencovalori><![CDATA[SELECT -1, 'TUTTI' FROM (SELECT MAX(1) FROM UTENTI) 
+				   UNION SELECT DISTINCT P.Ramo, format(P.Ramo,'000') & ' - ' & TR.Ramo 
+				   FROM StoricoPolizze P left join [TipoRami] AS TR on (P.ramo=TR.CodiceRamo)
+				   ORDER BY 1
+	    ]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseDa" etichetta="Anno mese da" tipo="integer" valore="" obbligatorio="true" larghezza="10" sinistra="135" >
+	    <elencovalori><![CDATA[SELECT DISTINCT anno * 12 + mese, anno & '-' & format(mese,'00') FROM StoricoPolizze ORDER BY 1 DESC]]></elencovalori>
+        </parametro>
+        <parametro nome="@annoMeseA"  etichetta="a"            tipo="integer" valore="" obbligatorio="true" larghezza="10" sinistra="148">
+	    <elencovalori><![CDATA[SELECT DISTINCT anno * 12 + mese, anno & '-' & format(mese,'00') FROM StoricoPolizze ORDER BY 1 DESC]]></elencovalori>
+        </parametro>
+        <parametro nome="@riga1" etichetta="" tipo="integer" valore="0" obbligatorio="false" larghezza="1" sinistra="50" nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga2" etichetta="" tipo="integer" valore="0" obbligatorio="false" larghezza="1" sinistra="50" nuovariga="true" nascosto="true"/>
+        <parametro nome="@riga3" etichetta="" tipo="integer" valore="0" obbligatorio="false" larghezza="1" sinistra="50" nuovariga="true" nascosto="true"/>
+    </parametri>
+    <autorizzazioni>
+        <profilo nome="tutti"  consenti="rex"/>
+    </autorizzazioni>
+    <estrazione>
+	<sql profili="tutti"><![CDATA[
+		SELECT Anno
+		     , Mese
+		     , Ramo
+		     , CLng(Sum(Polizze)) as [Numero polizze]
+		     , Sum(Premi)   as [Premi]
+		  FROM StoricoPolizze
+		WHERE (anno * 12 + mese) >= @annoMeseDa
+		  AND (anno * 12 + mese) <= @annoMeseA
+		  AND (ramo  IN (@ramo) OR -1 IN (@ramo))
+		  AND (CodiceSubAgente  IN (@subagenzia) OR -1 IN (@subagenzia))
+		GROUP BY Anno, Mese, Ramo
+		ORDER BY Ramo, Anno DESC, Mese DESC
+	]]></sql>
+    </estrazione>
+</oggetto>

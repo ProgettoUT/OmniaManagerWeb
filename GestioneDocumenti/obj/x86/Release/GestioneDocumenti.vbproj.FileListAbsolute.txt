@@ -1,0 +1,24 @@
+C:\ApplicazioniDirezione\UTW\SETUP\GestioneDocumenti.dll.config
+C:\ApplicazioniDirezione\UTW\SETUP\GestioneDocumenti.dll
+C:\ApplicazioniDirezione\UTW\SETUP\GestioneDocumenti.XmlSerializers.dll
+C:\ApplicazioniDirezione\UTW\SETUP\GestioneDocumenti.pdb
+C:\ApplicazioniDirezione\UTW\SETUP\GestioneDocumenti.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.vbproj.AssemblyReference.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormAttesa.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormConteggioDoc.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormDocPratica.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormDocumenti.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormRilevaScanner.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormRinomina.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormScannerRete.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormDownloadLiquido.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.FormUploadLiquido.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.Fotocopia.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\UnitoolsDocumenti.Resources.resources
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.vbproj.GenerateResource.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.vbproj.CoreCompileInputs.cache
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.vbproj.CopyComplete
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.dll
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.xml
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.pdb
+C:\Users\guido\Documents\Visual Studio 2013\UniProjects\OmniaManagerWeb\GestioneDocumenti\obj\x86\Release\GestioneDocumenti.XmlSerializers.dll
